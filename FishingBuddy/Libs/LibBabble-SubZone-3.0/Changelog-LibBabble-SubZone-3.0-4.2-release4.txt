@@ -1,0 +1,37 @@
+------------------------------------------------------------------------
+r95 | arith | 2011-08-11 14:09:58 +0000 (Thu, 11 Aug 2011) | 1 line
+Changed paths:
+   A /tags/4.2-release4 (from /trunk:94)
+
+Tagging as 4.2-release4
+------------------------------------------------------------------------
+r94 | arith | 2011-08-11 14:07:09 +0000 (Thu, 11 Aug 2011) | 1 line
+Changed paths:
+   M /trunk/LibBabble-SubZone-3.0.lua
+
+zhCN translation updated
+------------------------------------------------------------------------
+r93 | arith | 2011-08-11 13:58:44 +0000 (Thu, 11 Aug 2011) | 1 line
+Changed paths:
+   M /trunk/LibBabble-SubZone-3.0.lua
+
+to trigger the database exporting, zhCN translation updated
+------------------------------------------------------------------------
+r91 | arith | 2011-08-08 16:59:56 +0000 (Mon, 08 Aug 2011) | 1 line
+Changed paths:
+   M /trunk/LibBabble-SubZone-3.0.lua
+
+fixing missing translation
+------------------------------------------------------------------------
+r89 | arith | 2011-08-08 13:56:58 +0000 (Mon, 08 Aug 2011) | 1 line
+Changed paths:
+   M /trunk/LibBabble-SubZone-3.0.lua
+
+zhCN translation update to support WoW 4.1.0.14250
+------------------------------------------------------------------------
+r88 | arith | 2011-08-08 13:49:08 +0000 (Mon, 08 Aug 2011) | 1 line
+Changed paths:
+   M /trunk/LibBabble-SubZone-3.0.lua
+
+to trigger the database exporting, zhCN translation update to support WoW 4.1.0.14250
+------------------------------------------------------------------------

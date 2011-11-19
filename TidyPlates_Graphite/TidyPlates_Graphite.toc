@@ -1,0 +1,8 @@
+## Interface: 40200
+## Title: Tidy Plates: Graphite
+## Notes: Minimalist Theme
+## Author: Binny 
+## Dependencies: TidyPlates, TidyPlatesHub
+TidyPlates_Graphite.lua
+
+

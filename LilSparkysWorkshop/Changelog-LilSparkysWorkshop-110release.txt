@@ -1,0 +1,47 @@
+------------------------------------------------------------------------
+r111 | lilsparky | 2011-01-09 10:04:36 +0000 (Sun, 09 Jan 2011) | 1 line
+Changed paths:
+   A /tags/110release (from /trunk:110)
+
+Tagging as 110release
+------------------------------------------------------------------------
+r110 | lilsparky | 2011-01-09 06:55:28 +0000 (Sun, 09 Jan 2011) | 2 lines
+Changed paths:
+   M /trunk/lilsparkysworkshop.lua
+   M /trunk/pricingSupport/auctionator_support.lua
+
+added residual value factor (accessible from the cost options)
+
+------------------------------------------------------------------------
+r108 | lilsparky | 2010-12-19 08:43:05 +0000 (Sun, 19 Dec 2010) | 1 line
+Changed paths:
+   M /trunk/lilsparkysworkshop.lua
+   M /trunk/pricingSupport/commonSkills_support.lua
+   M /trunk/pricingSupport/disenchanting_support.lua
+   M /trunk/pricingSupport/milling_support.lua
+   M /trunk/pricingSupport/prospecting_support.lua
+   M /trunk/scrollIDs.lua
+
+updated data for cataclysm
+------------------------------------------------------------------------
+r107 | lilsparky | 2010-12-09 22:51:35 +0000 (Thu, 09 Dec 2010) | 2 lines
+Changed paths:
+   M /trunk/lilsparkysworkshop.lua
+
+fix nil issue with gw interaction
+
+------------------------------------------------------------------------
+r106 | lilsparky | 2010-12-09 09:10:08 +0000 (Thu, 09 Dec 2010) | 1 line
+Changed paths:
+   M /trunk/LilSparkysWorkshop.toc
+   M /trunk/lilsparkysworkshop.lua
+
+fixed nil error with gw (tho i couldn't reproduce problem to verify)
+------------------------------------------------------------------------
+r105 | lilsparky | 2010-11-17 18:04:09 +0000 (Wed, 17 Nov 2010) | 2 lines
+Changed paths:
+   M /trunk/pricingSupport/milling_support.lua
+
+drycoded new milling results for rare pigments
+
+------------------------------------------------------------------------

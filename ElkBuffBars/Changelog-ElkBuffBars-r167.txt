@@ -1,0 +1,31 @@
+------------------------------------------------------------------------
+r167 | elkano | 2011-07-18 06:57:06 +0000 (Mon, 18 Jul 2011) | 1 line
+Changed paths:
+   M /trunk/EBB_BarGroup.lua
+   M /trunk/ElkBuffBars.lua
+
+forgot to rename one ToggleAnchor to ToggleConfigMode
+------------------------------------------------------------------------
+r166 | elkano | 2011-07-09 14:52:23 +0000 (Sat, 09 Jul 2011) | 3 lines
+Changed paths:
+   M /trunk/EBB_Bar.lua
+   M /trunk/EBB_BarGroup.lua
+   M /trunk/ElkBuffBars.lua
+   M /trunk/ElkBuffBars.toc
+   M /trunk/locales/ElkBuffBars.deDE.lua
+   M /trunk/locales/ElkBuffBars.enUS.lua
+   M /trunk/locales/ElkBuffBars.koKR.lua
+   M /trunk/locales/ElkBuffBars.ruRU.lua
+   M /trunk/locales/ElkBuffBars.zhCN.lua
+   M /trunk/locales/ElkBuffBars.zhTW.lua
+
+- TOC pushed to 40200
+- you can now have the anchor shown without putting the group into configuration mode (so without "Blessing of Demonstration" showing)
+- two new localization strings: OPTIONS_GROUP_CONFIG_NAME, OPTIONS_GROUP_CONFIG_DESC
+------------------------------------------------------------------------
+r165 | elkano | 2010-11-29 11:49:02 +0000 (Mon, 29 Nov 2010) | 1 line
+Changed paths:
+   M /trunk/EBB_Bar.lua
+
+bars should now longer react to mouse if they shouldn't
+------------------------------------------------------------------------

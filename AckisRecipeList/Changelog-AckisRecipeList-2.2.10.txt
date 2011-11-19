@@ -1,0 +1,76 @@
+tag 2.2.10
+0d52c9bf234f41a5d3721657e99be5103f07ede5
+mike <mike@broinitup.com>
+2011-10-20 01:58:40 -0400
+
+Tagging as 2.2.10
+
+
+--------------------
+
+mike:
+	- Datamined all the Blacksmithing Supplies vendors and added their missing IDs to the any recipes they sell
+James D. Callahan III:
+	- Updated the ChangeLog.
+mike:
+	- Add some missing NPC IDs to Engineering recipes
+	- Added some missing Engineering Supplies vendosr to the Vendor db
+James D. Callahan III:
+	- MOAR cleanup! (left-hand side of 0, 0 etc)
+	- Cleaned up formatting for AddVendor() calls.
+mike:
+	- Removed mobs that don't need to be there anymore
+	- Removed some unneeded quests
+	- Datamined all the Enchanting Supplies Vendors that sell mostly the high level Enchanting recipes and added their missing IDs to any of those recipes
+James D. Callahan III:
+	- Added addon:ShowEmptySources() - This loads every profession into memory, then iterates through all of the unit lists (vendor/trainer/mob/quest/custom/discovery/world event) to display any which have no recipes assigned to them. Debug-only.
+	- Perform the LibBabble-Zone lookups from within the AddMob function itself, instead of having it as part of the zone argument.
+	- Variable name-change for possible future additions.
+	- Perform the LibBabble-Zone lookups from within the AddVendor function itself, instead of having it as part of the zone argument.
+	- Before running a scan, reset the TradeSkillFrame search so the list is complete - otherwise, ARL will only scan the recipes which match the search criteria.
+	- Minor cleanup.
+	- Changed how detection of known professions works, so valid professions are no longer removed from the toon; this was preventing users from viewing alt tradeskill links. Fixes ticket #1334.
+	- Added GUI initialization in a couple more places where it was needed.
+	- Code reformatting.
+	- When attempting to add waypoints, ignore sources with nil coordinates (fixes ticket #1343). Changed some @alpha@ substitutions to @debug@ substitutions.
+	- Changed the location for the DAILY_COOKING_* custom entries from "Shattrath" to "Shattrath City", since that is the actual zone name. (Waypoint fix)
+mike:
+	- herp derp, why the FUCK was the Timbermaw Hold Vendor/Trainer guy, Meilosh, marked as a "Horde" NPC instead of "Neutral", /stab!
+	- Datamined the 6 Cooking Supplies vendors that sell the high level Cooking recipes and added their missing ID to any of those recipes
+	- Datamined all the Tailoring Supplies vendors that sell the high level Tailoring recipes and added their IDs to any recipes they were missing from
+	- Added a new vendor to the Vendor db: Poranna Snowbraid
+	- Update the vendor: Borya's coordinates
+	- Added a new Tailoring supplies vendor: Lizna Goldweaver and added her ID to recipes she sells, and also datamined a vendor: Borya, and added his missing ID to recipes he sells
+James D. Callahan III:
+	- Logic changes for vendor_entry to prevent indexing nil.
+mike:
+	- Fix an error when you scan a profession with the tradeskillui open
+James D. Callahan III:
+	- When setting the UI scale, check to see if the GUI has been initialized - if not, do so before resizing so the frame will exist. Fixes ticket #1335.
+mike:
+	- Update coordinates for the Vendor: Vivianna
+	- Scanned all the Jewelcrafting Supplies Vendors that sell the high level Jewelcrafting recipes and added any missing Vendors to the Vendor db
+	- Scanned the remaining <Leatherworking Supplies> vendors that sell the high level Leatherworking recipes
+James D. Callahan III:
+	- Replaced all StaticPopupDialogs with LibDialog-1.0 versions; addon:ClosePopups() was replaced with private.DismissDialogs()
+	- When datamining, add notification if the vendor's coordinates are different that what is in the DB.
+	- When encountering a vendor which is not in the DB, add its name to the localized list if it isn't there already and add a vendor list entry with all of the relevant data - continuation of bug fix for ticket #1332
+	- Formatting fixes.
+	- Added LibDialog-1.0 to .pkgmeta, ToC, and embeds
+	- When adding a trainer, check to see if its name is in the localized table and add it if not to avoid an AceLocale error. The name will still need to be added manually to the localized strings. Fixes ticket #1332
+mike:
+	- Added a missing vendor to the Vendor db: Jillian Tanner <Leatherworking Supplies>, and added her ID to the recipes she sells
+	- Scanned the Leatherworking Supplies Vendor: Bombus Finespindle and added his missing ID to any recipes that he sells
+	- Scanned the Horde Leatherworking Supplies vendors that sell the high level Leatherworking patterns and added their missing IDs to the respected recipes
+	- Added a new Leatherworking Supplies vendor to the Vendor db that sells the high level leatherworking recipes: Mak
+	- Added two new vendors/trainers: Mrs. Gant and "Chef" Overheat .. Thought I had done it but guess not, correct Undermine Clam Chowder acquire because it was brought out of retirement
+	- Enchant Cloak - Lesser Agility is no longer unobtainable
+	- Added Kaita Deepforge's ID to the 500level+ Blacksmithing recipes that she sells
+	- Datamined the Blacksmithing Supplies vendor: Sumi ... and also added crafteditemid's to those recipes
+	- Marked the Enchanting recipe "Enchant Weapon - Icy Chill" as removed from the game
+	- Removed a mob from the mob db that doesn't give anything profession relevant anymore
+James D. Callahan III:
+	- Removed unnecessary (and damaging to folks not using enUS/enGB translations) uses of LibBabble-Faction-3.0
+John Pasula:
+	- Forgot to update the ToC name/title for ptBR.  This is done now.
+	- Auto change log off.

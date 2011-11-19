@@ -1,0 +1,121 @@
+subversion:
+	- tandanu via svn r6615: tag 4.9.11-r6615 release
+	- tandanu via svn r6614: increment version number for 4.9.11 release
+	- Omega via svn r6613: Some PTR hagara stuff coded in from about a 45 second pull before PTR went all unstable and ruined getting anything else :( Did not get to test for errors either so no promises
+	- Omega via svn r6612: fix gauntlet timers for halls and deadmines so that they are registered out of combat still
+	- nbluewiz via svn r6611: koKR update
+	- nbluewiz via svn r6610: koKR update
+	- Omega via svn r6609: shorten molten inferno timer a little, it's earlier more often then later, so don't use the average, just use the lower end
+	- tandanu via svn r6608: fix combat-only events for bosses that can be pulled more than once in a session
+	- Omega via svn r6607: this looks like it'll fix the 5 man problems with events not getting reregistered, as well as fix dbm unregistering events for mods that it's not supposed to(ie mods that aren't flagged as only register in combat)
+	- Snamor via svn r6606: esES update
+	- DiabloHu via svn r6605: * zhCN update * added font height fix for 6-line texts in dungeon status frame
+	- Omega via svn r6604: conclave is STILL bugging out badly and engaging on boss death, i'm not sure if it's still from a sync somehow, or the fact the anti spam code is only in ENGAGE trigger and maybe it's repulling conclave cause of combat regen or some other pull mechanic, either way, i put the anti spam in the start combat function itself, that way no matter what is triggering the pull, hopefully the darn mod will stop engaging a boss that's dead
+	- Omega via svn r6603: ok now it's all done, add in syncing to handle relaying the information to group members not targeting the boss (ie they won't see UNIT events for it)
+	- Omega via svn r6602: the real spellid for head detection this time, better kill detection that doesn't use locals, other fixes
+	- Omega via svn r6601: err not right spellids, lets try these 2 for headless horseman, otherwise i'll have re-evaluate it
+	- Omega via svn r6600: headless horseman updates now that transcriptor works, i can clearly see the phase change events and use them instead of localized triggers. The combat start timer is removed since he's no longer summoned by a poem.
+	- arta via svn r6599: updated creature IDs & model IDs
+	- Omega via svn r6598: oops, fix mod loading with a couple vars i didn't change
+	- DiabloHu via svn r6597: zhCN update
+	- DiabloHu via svn r6596: zhCN update
+	- Omega via svn r6595: Update zoneid and zonename caching to always be accurate now, even outside instances, instead of just auto correcting forcefully in instances regardless and leaving it alone outside instances, now we simply always check if world map is open, and if it is, save users settings, get info we need, then restore settings, if map isn't open, then just get info we need period. this new code will run in and out of instances, should reduce chance of mod failure in outdoor zones because map wasn't set to right area for some reason (ie world bosses)
+	- Omega via svn r6594: Refix tank filtering for magmatraps with new scanner, tanks don't get magmatraps. grr
+	- DiabloHu via svn r6593: zhCN update
+	- Omega via svn r6592: make meteor special warning a move one
+	- Omega via svn r6591: *Use target scanning for meteors and add in target announce, special warning for spawning on you, or near you, and chat yell. *Add a magma trap near warning. *Fix first Empowered Sulfuras timer for heroic
+	Can't promise there won't be bugged as i redid the target scanner for magmatraps and meteors and it could have errors, will know soon enough :)
+	- Omega via svn r6590: add in countdown option for empowered sulf
+	- Omega via svn r6589: fix some fail
+	- Omega via svn r6588: missed a spot to start countdown
+	- nbluewiz via svn r6587: koKR update
+	- Omega via svn r6586: add superheated special awrning starting at 12 stacks then every 4 stacks
+	- Omega via svn r6585: add living meteor pre warn option, and countdown audio option.
+	- tandanu via svn r6584: set version number to next alpha: 4.10.0-alpha
+	- tandanu via svn r6583: tag 4.9.10 release
+	- tandanu via svn r6582: increment version number for 4.9.10 release
+	- Snamor via svn r6581: esES update
+	- Omega via svn r6580: also remove a variable that didn't need to exist
+	- Omega via svn r6579: oops forgot to remove 		showRangeFrame() frmo phase 3 start, not that it would have done anything cause of last commit. :)
+	- Omega via svn r6578: looks like they "fixed" curse packager by completely emptying the queue instead of just removing the offending project,  which canceled builds of our previous commits, so this is a dummy commit just to get a newer alpha built on curse
+	- nbluewiz via svn r6577: koKR update
+	- DiabloHu via svn r6576: zhCN update
+	- Omega via svn r6575: Add a raid index filter to phase 4 range finder on heroic rag, so it only shows people marked by raid icons. this can be disabled
+	removed range frame from phase 3. it really served no useful purpose.
+	- Omega via svn r6574: fix case senstiive typo
+	- DiabloHu via svn r6573: zhCN update
+	- Omega via svn r6572: Comment out the first unleashed magic on xariona. I have more work to do on this mod to check her energy on engage to determine when/if it'll be cast that pull. I figured out what causes the bug where she doesn't cast it at all. If she's been pulled with enough failure pulls it bugs her energy out and she's no longer able to gain any, resulting in no further specials for anyone who pulls her later (such a shame, this ability is what makes or breaks the fight)
+	- tandanu via svn r6571: some small changes to the info frame stuff
+	- nbluewiz via svn r6570: koKR update + options order fix
+	- tandanu via svn r6569: add new localization vars from 6567 for korean localization
+	- Omega via svn r6568: fix some bugs in wrath timer. NOW it should be 100%
+	- DiabloHu via svn r6567: * added a new localization string for Bosses and Options of the main tab option in DBM main menu. Because I do not have any Korean font installed, so I did not modified the Korean local file. * added a new localization string for Font Height. There is a minor bug which putting the boss name in a wrong place in Chinese client (both zhCN and zhTW) due to the different font height from other client. I have already modified the val in both zhCN and zhTW local files. * updated my contract infomation.
+	- DiabloHu via svn r6566: zhCN update
+	- arta via svn r6565: lua error
+	- Omega via svn r6564: make world in flames locations on by default for melee, they benefit the most from it since their locations can be predicted.
+	- Omega via svn r6563: More hour of twilight updates
+	- Omega via svn r6562: add mark of silence
+	- arta via svn r6561: Party-Cataclysm\Hour of Twilight\Asira Dawnslayer:  onCombatStart timer changes
+	- arta via svn r6560: small updates to Hour of Twilight & End Time (PTR)
+	- DiabloHu via svn r6559: zhCN update
+	- arta via svn r6558: End Time + Hour of Twilight map IDs
+	- arta via svn r6557: #Party-Cataclysm\Hour of Twilight: populated the mods with basic warnings/timers
+	- Omega via svn r6556: forgot one change in alizabal mod
+	- arta via svn r6555: 2 model IDs changed this PTR patch
+	- Omega via svn r6554: tweak to last to only do special sound in boss fight, regular sound for trash
+	- Omega via svn r6553: Alizabal Mod updates. Pull detection fixed, timers fixed now that i know the mechanic behind their variations, all variations should be accounted for now and they should be very accurate now.
+	- Omega via svn r6552: Alizabal Mod done
+	- tandanu via svn r6551: infoframe foo
+	- Omega via svn r6550: Added special warningg to Ragnaros for Standing in Blazing heat Standing in dreadflame Standing in Scorched Ground. Added a yell for blazing heat debuff. Added missing spellids for heroic splitting blow and engulfing flames locations.
+	- DiabloHu via svn r6549: zhCN update
+	- tandanu via svn r6548: change from 6547 for the german localization
+	- Omega via svn r6547: local update to add some clarity to what the dbm "sound" options are. people don't realize THAT is the run away sound option.
+	- tandanu via svn r6546: fix division by zero in arathi ind eye of the storm; gilneas wasn't affected by the problem because it assumed you get 0.01 points per second instead of zero for some reason
+	- tandanu via svn r6545: fix health frame division by zero error and improve the health frame unit id cache by making use of the boss1-4 unit ids
+	- Omega via svn r6544: change some rag timers back to CD, he has a cast sequence of priority and it's sulfuras smash, magmatrap, hand of rag, wrath of rag. in the event of CD overlap he'll go down that list starting at smash. So only one you can reliably give a next timer to is smash, rest are usually precise but ocasional variations when a higher priority spell comes up at same time.
+	- Omega via svn r6543: fix option defaults for last, that wasn't intended to be on for anyone but tanks
+	- Omega via svn r6542: Add run away sound to empowered sulfuras
+	- Omega via svn r6541: melee special warning option for heroic melee flames
+	- Omega via svn r6540: fix a bug in last so it actually works
+	- Omega via svn r6539: Add an option (off by default) to give engulfing flame location warnings on heroic. Some like this (although it's not really any faster then visual, gives people poece of mind i think)
+	- Omega via svn r6538: spam filter and warning for fab flames
+	- Snamor via svn r6537: esES update
+	- nbluewiz via svn r6536: #4.3 mods : prevent lua error from live server.
+	- arta via svn r6535: Dragon Soul localizations "enabled" (encounter ID etc filled in)
+	- arta via svn r6534: timerFlarecoreDetonate localized
+	- nbluewiz via svn r6533: 1. BT/Valiona : UNIT_SPELLCAST_SUCCEED good worked for me(10-man heroic). changed FabFlames timer. 2. koKR update
+	- Swix via svn r6532: ruRU update
+	- arta via svn r6531: Baradin Hold new boss dummy mod
+	- arta via svn r6530: Populated Jaina and Sylvanas mods for PTR
+	- arta via svn r6529: 3 creature IDs and populated the Baine and Tyrande mod a little. PTR stuff :p
+	- arta via svn r6528: 4.3 PTR Model IDs
+	- arta via svn r6527: Murozond dummy file + localizations
+	- arta via svn r6526: 4.3 PTR Model IDs
+	- arta via svn r6525: Encounter IDs + Zone ID from Dungeon Journal (model IDs coming later)
+	- Omega via svn r6524: #CurseBeta tag
+	- Snamor via svn r6523: esES update
+	- DiabloHu via svn r6522: zhCN update
+	- Omega via svn r6521: reverse logic on the surge debuffs so the coloring makes sense. (red names should be a bad thing, the way the function was being used was backwards and names on the frame were a good thing, confusing intent. the info frame 9 times out of 10 shows bad things, so lets make it consistent).
+	- Omega via svn r6520: small garr timer tweak. wish i could have gotten a better log for him this week but could not interest people in 4k gold profit for 5min worth of work :\ So i watched a bunch of bads corpse cannon it down after about 2 hours and remotely logged their fight. But no accurate combat regen timestamp for combat start.
+	- Omega via svn r6519: Update info frame to colorize playername to make it visually distinctive. Red for info frames that are bad to be on, and green for ones good to be on. Also updated playeraggro frame with UnitName("player") work around for 5 mans
+	- Omega via svn r6518: change trap health frame to 100k
+	- Omega via svn r6517: Some bugfixes to aggro frame. it's still iffy and may just get tossed show a list of 15-20 players with aggro, or show a list of 5-10 playrs without, it's still a giant ass frame that takes up too much space :\
+	- Omega via svn r6516: Improve the ragnaros mod to detect dynamtically whether or not there will actually be a 2nd wrath before smash or not. Mod will make determination based on when first wrath is cast whether there is a chance the 2nd one will happen before sulfuras smash or delayed by it and cast afterwards. it will adjust the timer for either condition accordingly.
+	- Omega via svn r6515: Don't delay Julak's MC warning though if it already has 2 targets.
+	- Omega via svn r6514: slow MC warning down on julak, it was splitting the table in half
+	- Omega via svn r6513: Updates and bugfixes to Xariona and Akma'hat
+	- Omega via svn r6512 Log: And another mistake, force the meteor frame to override aggro or health frame by using a different kind spam check
+	- Omega via svn r6511 Log: Oops remove an unused local from last commit, I ended up doing it right with a GUID table instead for most accuracy
+	- Omega via svn r6510 Log: Much smarter more advanced info frame control. It is now dynamic and automatically displays at more appropriate times with an ability priority list. 1. Meteors 2. Elementals 3. Traps
+	What this means, if health frame is up, and elementals spawn for example, the info frame will change from health frame to aggro frame until elementals spawn, once they all die, it will automatically change back to health frame. it uses a set of conditions to determine if a frame should be shown, only time there is no info frame is if traps elementals and meteors are at 0 (or options are turned off). If any of them are >0 then what frame is displayed will be based on this priority list.
+	- Update from svn://deadlybossmods.com/dbm4/trunk Revision: 6509 Author: Snamor Log: esES update
+	- Update from svn://deadlybossmods.com/dbm4/trunk Revision: 6508 Author: DiabloHu Log: zhCN update for recent FL change
+	- Update from svn://deadlybossmods.com/dbm4/trunk Revision: 6507 Author: Omega Log: An an aggro frame to ragnaros phase 2, this should be a very clear way to see who does and doesn't have elementals real quickly. the frame will list players without aggro, so 2-5 names at most.
+	- Update from svn://deadlybossmods.com/dbm4/trunk Revision: 6506 Author: Omega Log: re-add the aggro warning, which never got moved to the new seeds functions
+	- Update from svn://deadlybossmods.com/dbm4/trunk Revision: 6505 Author: tandanu Log: add import for old number-based saved options and stats
+	- Update from svn://deadlybossmods.com/dbm4/trunk Revision: 6504 Author: tandanu Log: that should fix the problem with bosses using their encounter id as name
+	- Update from svn://deadlybossmods.com/dbm4/trunk Revision: 6503 Author: tandanu Log: and all the other functions that use the mod id should also be using strings and not numbers
+	- Update from svn://deadlybossmods.com/dbm4/trunk Revision: 6502 Author: tandanu Log: hello, curse packager! Here is a commit/push, please don't forget to build a zip file this time; thank you!
+	- Update from svn://deadlybossmods.com/dbm4/trunk Revision: 6501 Author: tandanu Log: oops.
+	- Update from svn://deadlybossmods.com/dbm4/trunk Revision: 6500 Author: tandanu Log: * fix crash recovery syncs, they were broken since the new sync system :( * RegisterEventsInCombat will now work properly with combat info that was received from the crash recovery * DBM:NewMod(name, ...) now calls tostring() on the name as new mods use the new encounter IDs for names; however names should always be strings
+	- Update from svn://deadlybossmods.com/dbm4/trunk Revision: 6499 Author: Omega Log: change most party mods to RegisterEventsInCombat exceptions: 1. world bosses (which do not have an engage event) use old register on load method, cause without an engage event we cannot be sure combatstart fires (ie they were already in combat when they pulled the world boss) 2. World Events. These also don't fire an engage event. so same reason as world bosses.

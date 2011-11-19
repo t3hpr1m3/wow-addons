@@ -1,0 +1,18 @@
+tag 2.4.2
+e5f8b38b0a3cb5b17b1befe9117db8d2b4a0434e
+root <root@db06.curselive.local>
+2011-08-10 20:33:20 +0000
+
+Tagging as Version 2.4.2.
+
+
+--------------------
+
+Ethan Centaurai:
+	- Changelog update.
+	- Something keeps touching my art files. >:|
+	- Confirmed as working, remove debug. Thanks Dizzye and Schnoobuns for the help.
+	- Improve last commit.
+	- Another attempt at ticket 115. Drycoded as my guild master is a slacker.
+	- Remove more uncommented code.
+	- Remove Blizzard_Calendar from the optional dependencies. I can't remember why I put it there in the first place. :|a

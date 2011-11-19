@@ -1,0 +1,14 @@
+tag v3.3.6
+15d0a25ceffc591c011a1b4225d403a8d7d903d9
+Zachary Anker <zach.anker@gmail.com>
+2011-06-28 16:10:58 -0700
+
+Tagging as release 3.3.6
+
+
+--------------------
+
+Zachary Anker:
+	- TOC bump SUF Options to 40200
+	- Removed pet happiness
+	- TOC bump 40200

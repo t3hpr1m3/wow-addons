@@ -1,0 +1,18 @@
+## Interface: 40100
+## Author: Thrae
+## Version: 0.3
+## Title: TinyTipPositioning
+## Notes: Not required if you already have TinyTip, as this is a basic TinyTip module. Allows you to reposition the tooltip, smart repositioning, or just stick it to your cursor. It's what Thrae wants in his tooltip.
+##
+## LoadManagers: TinyTip
+## X-TinyTip-Load-Always: 1
+##
+## X-Category: Interface Enhancements
+##
+## X-Curse-Packaged-Version: r31
+## X-Curse-Project-Name: TinyTipPositioning
+## X-Curse-Project-ID: tinytip-positioning
+## X-Curse-Repository-ID: wow/tinytip-positioning/mainline
+
+StandAloneConfig.lua
+TinyTipPositioning.lua

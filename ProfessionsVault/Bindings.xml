@@ -1,0 +1,5 @@
+<Bindings>
+  <Binding name="PROFESSIONSVAULT" header="PROFESSIONSVAULT">
+    ProfessionsVault:ToggleWindow();
+  </Binding>
+</Bindings>

@@ -1,0 +1,13 @@
+------------------------------------------------------------------------
+r331 | nevcairiel | 2011-10-12 20:20:35 +0000 (Wed, 12 Oct 2011) | 1 line
+Changed paths:
+   A /tags/4.2-release16 (from /trunk:330)
+
+Weekly Tag - #16
+------------------------------------------------------------------------
+r330 | nevcairiel | 2011-10-12 20:20:16 +0000 (Wed, 12 Oct 2011) | 1 line
+Changed paths:
+   M /trunk/LibBabble-Zone-3.0.lua
+
+Automated LibBabble re-generation from the localization system
+------------------------------------------------------------------------

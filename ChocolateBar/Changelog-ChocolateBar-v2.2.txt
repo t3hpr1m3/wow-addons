@@ -1,0 +1,20 @@
+------------------------------------------------------------------------
+r139 | yess | 2011-09-13 04:02:24 +0000 (Tue, 13 Sep 2011) | 1 line
+Changed paths:
+   A /tags/v2.2 (from /trunk:138)
+
+Tagging as v2.2
+------------------------------------------------------------------------
+r138 | yess | 2011-09-09 14:19:42 +0000 (Fri, 09 Sep 2011) | 3 lines
+Changed paths:
+   M /trunk/ChocolateBar/Bar.lua
+   M /trunk/ChocolateBar/Chocolate.lua
+   M /trunk/ChocolateBar/ChocolateBar.toc
+   M /trunk/ChocolateBar/Core.lua
+   M /trunk/ChocolateBar/localization/enUS.lua
+   M /trunk/ChocolateBar_Options/Options.lua
+
+Added options to set the gap between the icon and the text.
+Added an option to overwrite the icon size for specific plugins.
+Fixed a problem where drag and drop of a plugin would not work properly after switching profiles.
+------------------------------------------------------------------------

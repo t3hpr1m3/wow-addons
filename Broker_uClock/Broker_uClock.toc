@@ -1,0 +1,35 @@
+## Interface: 40200
+## Title: Broker uClock
+## Notes: Lightweight time/date display with optional hourly chime.
+## Notes-zhCN: 简洁的显示日期与时间的 Broker 插件模块
+## Notes-zhTW: 簡潔的顯示日期與時間的 Broker 插件模組
+## Author: Ethan Centaurai
+## Version: 3.3.4
+## SavedVariables: uClockDB
+## X-Icon: Interface\Icons\Spell_Holy_BorrowedTime
+## OptionalDeps: Blizzard_TimeManager, Ace3, LibDataBroker-1.1, GroupCalendar, GroupCalendar5
+## X-Curse-Packaged-Version: v3.3.4
+## X-Curse-Project-Name: Broker uClock
+## X-Curse-Project-ID: broker-uclock
+## X-Curse-Repository-ID: wow/broker-uclock/mainline
+
+#@no-lib-strip@
+Lib\LibStub\LibStub.lua
+Lib\CallbackHandler-1.0\CallbackHandler-1.0.lua
+Lib\AceDB-3.0\AceDB-3.0.lua
+Lib\AceGUI-3.0\AceGUI-3.0.xml
+Lib\AceConfig-3.0\AceConfig-3.0.xml
+Lib\AceLocale-3.0\AceLocale-3.0.lua
+Lib\AceEvent-3.0\AceEvent-3.0.lua
+Lib\AceTimer-3.0\AceTimer-3.0.lua
+Lib\LibSharedMedia-3.0\LibSharedMedia-3.0.lua
+Lib\AceGUI-3.0-SharedMediaWidgets\widget.xml
+Lib\LibDataBroker-1.1\LibDataBroker-1.1.lua
+#@end-no-lib-strip@
+
+enUS.lua
+koKR.lua
+zhCN.lua
+zhTW.lua
+
+Core.lua

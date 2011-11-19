@@ -1,0 +1,51 @@
+------------------------------------------------------------------------
+r126 | odica | 2011-06-30 22:51:50 +0000 (Thu, 30 Jun 2011) | 1 line
+Changed paths:
+   A /tags/WoW-4.2-release1 (from /trunk:125)
+
+Tagging as WoW-4.2-release1
+------------------------------------------------------------------------
+r125 | Odica | 2011-06-30 22:49:15 +0000 (Thu, 30 Jun 2011) | 8 lines
+Changed paths:
+   M /trunk/LibTourist-3.0.lua
+
+- Moved Razorfen Donws from Southern Barrens to Thousand Needles
+- Added or updated entrance portal coordinates for:
+Firelands
+Vault of Archavon
+Throne of the Tides
+Wailing Caverns
+Razorfen Kraul
+Razorfen Downs
+------------------------------------------------------------------------
+r124 | Odica | 2011-06-28 19:57:10 +0000 (Tue, 28 Jun 2011) | 6 lines
+Changed paths:
+   M /trunk/LibTourist-3.0.lua
+   M /trunk/LibTourist-3.0.toc
+
+- Added Firelands
+- Updated Temple and Ruins of Ahn'Qiraj data
+- Moved Temple and Ruins of Ahn'Qiraj from Silithus to Ahn'Qiraj: The Forgotten Kingdom
+- Added entrance coordinates for Bastion of Twilight and Grim Batol
+- Toc: version set to 40200
+
+------------------------------------------------------------------------
+r123 | Odica | 2011-06-17 17:16:56 +0000 (Fri, 17 Jun 2011) | 1 line
+Changed paths:
+   M /trunk/LibTourist-3.0.lua
+
+Fixed texture names for TheLostIsles and RuinsofGilneasCity
+------------------------------------------------------------------------
+r122 | Odica | 2011-06-06 21:01:46 +0000 (Mon, 06 Jun 2011) | 1 line
+Changed paths:
+   M /trunk/LibTourist-3.0.lua
+
+Corrected fishing skills for Howling Fjord and Zul'Drak: now 475, up from 380.
+------------------------------------------------------------------------
+r121 | Odica | 2011-05-01 13:46:37 +0000 (Sun, 01 May 2011) | 2 lines
+Changed paths:
+   M /trunk/LibTourist-3.0.lua
+
+Added Dalaran - Orgrimmar Portal
+Added Dalaran - Stormwind City Portal
+------------------------------------------------------------------------

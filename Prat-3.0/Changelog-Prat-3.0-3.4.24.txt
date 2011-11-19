@@ -1,0 +1,8 @@
+2011-07-03  sylvanaar  <sylvanaar@mindspring.com>
+
+[d9a130cc16c1] [3.4.24]
+* modules/AltNames.lua:
+
+ran the code formatter (I'm addicted)
+
+
