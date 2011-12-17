@@ -1,7 +1,7 @@
 --[[
 	Auctioneer - Search UI - Filter IgnoreItemQuality
-	Version: 5.12.5198 (QuirkyKiwi)
-	Revision: $Id: FilterItemLevel.lua 5042 2010-12-12 20:00:38Z brykrys $
+	Version: 5.13.5246 (BoldBandicoot)
+	Revision: $Id: FilterItemLevel.lua 5232 2011-11-23 17:47:17Z Nechckn $
 	URL: http://auctioneeraddon.com/
 
 	This is a plugin module for the SearchUI that assists in searching by refined parameters
@@ -60,13 +60,14 @@ function lib:MakeGuiConfig(gui)
 	gui:AddControl(id, "Subhead",     0, "Filter for:")
 	for name, searcher in pairs(AucSearchUI.Searchers) do
 		if searcher and searcher.Search then
-			gui:AddControl(id, "Checkbox", 0, 1, "ignoreitemlevel.filter."..name, name)
+			local setting = "ignoreitemlevel.filter."..name
+			default(setting, false)
+			gui:AddControl(id, "Checkbox", 0, 1, setting, name)
 			gui:AddTip(id, "Filter Item Level when searching with "..name)
-			default("ignoreitemlevel.filter."..name, false)
 		end
 	end
 
--- Assume valid minimum item level is 0 and valid max item level is 300.
+-- Assume valid minimum item level is 0 and valid max item level is 400.
 -- Configure slider controls to reflect this range of values.
 -- See norganna.org JIRA ASER-106 and ASER-132 for additional info about this value range.
 	gui:AddControl(id, "Subhead",     0,  "Minimum itemLevels by Type")
@@ -102,4 +103,4 @@ function lib.Filter(item, searcher)
 	end
 end
 
-AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.12/Auc-Util-SearchUI/FilterItemLevel.lua $", "$Rev: 5042 $")
+AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.13/Auc-Util-SearchUI/FilterItemLevel.lua $", "$Rev: 5232 $")

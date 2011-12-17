@@ -1,0 +1,35 @@
+------------------------------------------------------------------------
+r116 | thaoky | 2011-12-10 14:58:19 +0000 (Sat, 10 Dec 2011) | 1 line
+Changed paths:
+   M /trunk/Altoholic.toc
+   M /trunk/Core.lua
+   A /trunk/Locales/ptBR.lua
+   M /trunk/Modules/Altoholic_Achievements/Achievements.lua
+   M /trunk/Modules/Altoholic_Achievements/Altoholic_Achievements.toc
+   M /trunk/Modules/Altoholic_Agenda/Altoholic_Agenda.toc
+   M /trunk/Modules/Altoholic_Characters/Altoholic_Characters.toc
+   M /trunk/Modules/Altoholic_Guild/Altoholic_Guild.toc
+   M /trunk/Modules/Altoholic_Search/Altoholic_Search.toc
+   M /trunk/changelog.txt
+   M /trunk/locale.xml
+
+4.3.001 commit, see changelog.txt for details.
+------------------------------------------------------------------------
+r115 | thaoky | 2011-10-30 10:41:18 +0000 (Sun, 30 Oct 2011) | 1 line
+Changed paths:
+   M /trunk/Altoholic.lua
+   M /trunk/Altoholic.toc
+   M /trunk/Core.lua
+   M /trunk/Frames/TabOptions.lua
+   M /trunk/Modules/Altoholic_Achievements/Achievements.lua
+   M /trunk/Modules/Altoholic_Achievements/Altoholic_Achievements.toc
+   M /trunk/Modules/Altoholic_Agenda/Altoholic_Agenda.toc
+   M /trunk/Modules/Altoholic_Characters/Altoholic_Characters.toc
+   M /trunk/Modules/Altoholic_Characters/Frames/Reputations.lua
+   M /trunk/Modules/Altoholic_Guild/Altoholic_Guild.toc
+   M /trunk/Modules/Altoholic_Search/Altoholic_Search.toc
+   M /trunk/Modules/Altoholic_Search/Search.lua
+   M /trunk/changelog.txt
+
+4.2.002 commit, see changelog.txt for details.
+------------------------------------------------------------------------

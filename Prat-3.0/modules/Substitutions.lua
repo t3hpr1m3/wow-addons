@@ -560,11 +560,11 @@ Click to paste into the chat.]=] ] = [=[Текущее значение: '%s'
 	-- MapYPos = "",
 	MapZone = "Зона карты",
 	-- MouseoverTargetName = "",
-	["NO MATCHFUNC FOUND"] = true, -- Needs review
+	["NO MATCHFUNC FOUND"] = "Нет соответствующих ", -- Needs review
 	["Options for setting and removing user defined substitutions. (NB: users may define custom values for existing substitutions, but they will revert to the default value if the user definition is deleted.)"] = "Опции для назначения и отмены пользовательских замен. (Внимание: пользователи могут назначать свои значения для существующих замен, однако будет использовано значение по умолчанию если определение пользователя удалено).",
 	PlayerAverageItemLevel = "Игрок средний уровень Пункт ", -- Needs review
 	PlayerCurrentMana = "текушая мана игрока",
-	PlayerHP = true, -- Needs review
+	PlayerHP = "Игрок HP", -- Needs review
 	PlayerHealthDeficit = true, -- Needs review
 	PlayerManaDeficit = "нехватка маны",
 	PlayerMaxHP = true, -- Needs review
@@ -580,17 +580,17 @@ Click to paste into the chat.]=] ] = [=[Текущее значение: '%s'
 	TargetGender = "Пол цели", -- Needs review
 	TargetGuild = "показать гильдию",
 	TargetHealth = "показать жизнь",
-	TargetHealthDeficit = "Деф. здоровья цели", -- Needs review
+	TargetHealthDeficit = "Деф. здоровья цели",
 	TargetIcon = "показать иконку",
 	TargetLevel = "показать уровень",
-	TargetManaDeficit = "Деф. маны цели", -- Needs review
+	TargetManaDeficit = "Деф. маны цели",
 	TargetName = "показать имя",
 	TargetPercentHP = "% здоровья цели",
 	TargetPossesive = "Притяжательное цели", -- Needs review
 	TargetPronoun = "Местоимение цели", -- Needs review
-	TargetRace = "Раса цели", -- Needs review
-	TargetTargetName = "Имя цели цели", -- Needs review
-	["User defined substitutions"] = "Пользовательские подмены", -- Needs review
+	TargetRace = "Раса цели",
+	TargetTargetName = "Имя цели цели",
+	["User defined substitutions"] = "Пользовательские подмены",
 	["can't find substitution index for a substitution named '%s'"] = "Не можете найти замена индекса для подстановки имени", -- Needs review
 	["defined %s: expands to => %s"] = "определено %s: раскрывается в => %s",
 	female = "женский",

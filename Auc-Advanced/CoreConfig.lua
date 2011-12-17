@@ -1,7 +1,7 @@
 --[[
 	Auctioneer
-	Version: 5.12.5198 (QuirkyKiwi)
-	Revision: $Id: CoreConfig.lua 4873 2010-09-08 16:48:27Z brykrys $
+	Version: 5.13.5246 (BoldBandicoot)
+	Revision: $Id: CoreConfig.lua 5224 2011-10-06 00:35:53Z Nechckn $
 	URL: http://auctioneeraddon.com/
 
 	This is an addon for World of Warcraft that adds statistical history to the auction data that is collected
@@ -120,12 +120,9 @@ function private.CommandHandler(editbox, command, subcommand, ...)
 	elseif command == "getall" then
 		AucAdvanced.Scan.StartScan(nil, nil, nil, nil, nil, nil, nil, nil, true)
 	else
-		if command and subcommand then
-			local engineLib = AucAdvanced.GetAllModules("CommandHandler", command, subcommand)
-			if engineLib then
-				engineLib.CommandHandler(...)
-				return
-			end
+		if command ~= "" and subcommand then
+			local engineLib = AucAdvanced.GetModule(command, subcommand:lower(), "CommandHandler")
+			if engineLib then engineLib.CommandHandler(...) return end
 		end
 
 		-- No match found
@@ -190,4 +187,4 @@ SLASH_AUCADVANCED2 = "/aadv"
 SLASH_AUCADVANCED3 = "/auctioneer"
 SlashCmdList["AUCADVANCED"] = function(msg, editbox) private.CommandHandler(editbox, strsplit(" ", msg)) end
 
-AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.12/Auc-Advanced/CoreConfig.lua $", "$Rev: 4873 $")
+AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.13/Auc-Advanced/CoreConfig.lua $", "$Rev: 5224 $")

@@ -1,7 +1,7 @@
 --[[
 	Auctioneer - Outlier Filter
-	Version: 5.12.5198 (QuirkyKiwi)
-	Revision: $Id: OutlierFilter.lua 5194 2011-07-04 17:46:21Z Nechckn $
+	Version: 5.13.5246 (BoldBandicoot)
+	Revision: $Id: OutlierFilter.lua 5187 2011-06-29 15:51:33Z brykrys $
 	URL: http://auctioneeraddon.com/
 
 	This is an addon for World of Warcraft that adds statistical history to the auction data that is collected
@@ -223,4 +223,4 @@ function private.SetupConfigGui(gui)
 
 end
 
-AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.12/Auc-Filter-Outlier/OutlierFilter.lua $", "$Rev: 5194 $")
+AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.13/Auc-Filter-Outlier/OutlierFilter.lua $", "$Rev: 5187 $")

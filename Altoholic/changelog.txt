@@ -8,6 +8,14 @@ IMPORTANT NOTE: If you're upgrading from 3.x :
 - Make sure you delete the addon's databases in SavedVariables. ie: Altoholic.lua and all DataStore*.lua.
 - Make sure to delete the old addon directories (Altoholic & all DataStore modules) as many files have changed/moved. A patch like this one is always a good opportunity for a fresh install.
 
+4.3.001 (10/12/2011)
+
+- Achievements, Pets & Mounts have been updated.
+- Added support for ptBR localization. Please use Curse to complete it missing translations: http://wow.curseforge.com/addons/altoholic/localization/
+- Datastore will now automatically clean orphan data in its modules (caused by failed account sharing, etc..)
+
+Note: Void storage will soon be added (coding has already started), but as I will be in a business trip next week, and I did not want to delay the release of 4.3.001, I had to go to the essential.
+
 4.2.002 (30/10/2011)
 
 - Added several missing achievements.

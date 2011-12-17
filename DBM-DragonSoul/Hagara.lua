@@ -1,43 +1,81 @@
-if tonumber((select(2, GetBuildInfo()))) <= 14545 then return end
-
 local mod	= DBM:NewMod(317, "DBM-DragonSoul", nil, 187)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 6613 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 6824 $"):sub(12, -3))
 mod:SetCreatureID(55689)
 mod:SetModelID(39318)
 mod:SetZone()
-mod:SetUsedIcons(4, 5, 6, 7, 8)
+mod:SetUsedIcons(3, 4, 5, 6, 7, 8)
 
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED",
 	"SPELL_AURA_REMOVED",
-	"SPELL_CAST_START"
+	"SPELL_CAST_START",
+	"SPELL_CAST_SUCCESS",
+	"SPELL_SUMMON"
 )
 
 local warnTempest			= mod:NewCastAnnounce(109552, 4)
+local warnLightningStorm	= mod:NewSpellAnnounce(105465, 4)
 local warnAssault			= mod:NewSpellAnnounce(107851, 4, nil, mod:IsHealer() or mod:IsTank())
 local warnShatteringIce		= mod:NewTargetAnnounce(105289, 3, nil, mod:IsHealer())--3 second cast, give a healer a heads up of who's about to be kicked in the face.
+local warnFrostTombCast		= mod:NewAnnounce("warnFrostTombCast", 4, 104448)--Can't use a generic, cause it's an 8 second cast even though it says 1second in tooltip.
 local warnFrostTomb			= mod:NewTargetAnnounce(104451, 4)
+local warnIceLance			= mod:NewTargetAnnounce(105269, 3)
+local warnFrostflake		= mod:NewTargetAnnounce(109325, 3)	-- verify with logs
+local warnStormPillars		= mod:NewSpellAnnounce(109557, 3)	-- verify with logs
 
+local specWarnFrostTombCast	= mod:NewSpecialWarningSpell(104448, nil, nil, nil, true)
 local specWarnTempest		= mod:NewSpecialWarningSpell(109552, nil, nil, nil, true)
+local specWarnLightingStorm	= mod:NewSpecialWarningSpell(105465, nil, nil, nil, true)
 local specWarnAssault		= mod:NewSpecialWarningSpell(107851, mod:IsTank())
 local specWarnFrostTomb		= mod:NewSpecialWarningYou(104451)
+local specWarnWatery		= mod:NewSpecialWarningMove(110317)
+local specWarnStormPillars	= mod:NewSpecialWarningClose(109557)	-- if target != nil
 
+local timerFrostTomb		= mod:NewCastTimer(8, 104448)
+local timerFrostTombCD		= mod:NewNextTimer(20, 104451)
+local timerIceLance			= mod:NewBuffActiveTimer(15, 105269)
+local timerIceLanceCD		= mod:NewNextTimer(30, 105269)
+local timerSpecialCD		= mod:NewTimer(62, "TimerSpecial", "Interface\\Icons\\Spell_Nature_WispSplode")
+local timerTempestCD		= mod:NewNextTimer(62, 105256)
+local timerLightningStormCD	= mod:NewNextTimer(62, 105465)
+local timerIceWave			= mod:NewNextTimer(15, 105314)
+local timerFeedback			= mod:NewBuffActiveTimer(15, 108934)
 local timerAssault			= mod:NewBuffActiveTimer(5, 107851, nil, mod:IsTank() or mod:IsTank())
 local timerAssaultCD		= mod:NewCDTimer(15.5, 107851, nil, mod:IsTank() or mod:IsTank())
 
 --local soundFrostTomb		= mod:NewSound(104451)--Needed?
 
+mod:AddBoolOption("RangeFrame")--Ice lance spreading. May make it more dynamic later but for now i need to see the fight in realtime before i can do any more guessing off mailed in combat logs.
+mod:AddBoolOption("SetIconOnFrostflake", true)
 mod:AddBoolOption("SetIconOnFrostTomb", true)
 mod:AddBoolOption("AnnounceFrostTombIcons", false)
---mod:AddBoolOption("RangeFrame")--Needed?
 
+local lanceTargets = {}
 local tombTargets = {}
 local tombIconTargets = {}
 --local playerTombed = false
+
+function mod:stormPillarsTarget(target)
+	local targetname = target or self:GetBossTarget(55689)
+	if not targetname then return end
+	local uId = DBM:GetRaidUnitId(targetname)
+	if uId then
+		local x, y = GetPlayerMapPosition(uId)
+		if x == 0 and y == 0 then
+			SetMapToCurrentZone()
+			x,y = GetPlayerMapPosition(uId)
+		end
+		local inRange = DBM.RangeCheck:GetDistance("player", x, y)
+		if inRange and inRange < 5 then
+			specWarnStormPillars:Show()
+		end
+	end
+end
+
 
 function mod:ShatteredIceTarget()
 	local targetname = self:GetBossTarget(55689)
@@ -46,8 +84,30 @@ function mod:ShatteredIceTarget()
 end
 
 function mod:OnCombatStart(delay)
-	timerAssaultCD(4-delay)--Consistent?
+	table.wipe(lanceTargets)
+	table.wipe(tombIconTargets)
+	table.wipe(tombTargets)
+	timerAssaultCD:Start(4-delay)
+	timerIceLanceCD:Start(12-delay)
+--	timerFrostTombCD:Start(16-delay)--No longer cast on engage? most recent log she only casts it after specials now and not after pull
+	timerSpecialCD:Start(30-delay)
 --	berserkTimer:Start(-delay)
+	if self.Options.RangeFrame then
+		DBM.RangeCheck:Show(3)
+	end
+end
+
+function mod:OnCombatEnd()
+	if self.Options.RangeFrame then
+		DBM.RangeCheck:Hide()
+	end
+end
+
+local function warnLanceTargets()
+	warnIceLance:Show(table.concat(lanceTargets, "<, >"))
+	timerIceLance:Start()
+	timerIceLanceCD:Start()
+	table.wipe(lanceTargets)
 end
 
 local function ClearTombTargets()
@@ -110,31 +170,92 @@ function mod:SPELL_AURA_APPLIED(args)
 				end
 			end
 		end
-		self:Unschedule(warnBeaconTargets)
+		self:Unschedule(warnTombTargets)
 		if (self:IsDifficulty("normal25") and #tombTargets >= 5) or (self:IsDifficulty("heroic25") and #tombTargets >= 6) or (self:IsDifficulty("normal10", "heroic10") and #tombTargets >= 2) then
 			warnTombTargets()
 		else
 			self:Schedule(0.3, warnTombTargets)
 		end
-	elseif args:IsSpellID(107851) then--107851 25 man normal confirmed.
+	elseif args:IsSpellID(107851, 110898, 110899, 110900) then--107851 10/25 man normal confirmed. 110900 is lfr25 difficulty.
 		warnAssault:Show()
 		timerAssault:Start()
 		timerAssaultCD:Start()
+	elseif args:IsSpellID(110317) and args:IsPlayer() then
+		specWarnWatery:Show()
+	elseif args:IsSpellID(109325) then
+		warnFrostFlake:Show()
+		if self.Options.SetIconOnFrostflake then
+			mod:SetIcon(args.destName, 3)
+		end
 	end
 end
 
 function mod:SPELL_AURA_REMOVED(args)
-	if args:IsSpellID(104451) and self.Options.SetIconOnFrostTomb then--104451 25 man normal confirmed.
+	if args:IsSpellID(104451) and self.Options.SetIconOnFrostTomb then--104451 10/25 man normal confirmed.
 		self:SetIcon(args.destName, 0)
+	elseif args:IsSpellID(105256, 109552, 109553, 109554) then--Tempest
+		timerIceLanceCD:Start(12)
+		timerFeedback:Start()
+		if not self:IsDifficulty("lfr25") then
+			timerFrostTombCD:Start()
+		end
+		timerAssaultCD:Start(20)
+		timerLightningStormCD:Start()
+		if self.Options.RangeFrame then
+			DBM.RangeCheck:Show(3)
+		end
+	elseif args:IsSpellID(105409, 109560, 109561, 109562) then--Water Shield
+		timerIceLanceCD:Start(12)
+		timerFeedback:Start()
+		if not self:IsDifficulty("lfr25") then
+			timerFrostTombCD:Start()
+		end
+		timerAssaultCD:Start(20)
+		timerTempestCD:Start()
+		if self.Options.RangeFrame then
+			DBM.RangeCheck:Show(3)
+		end
 	end
 end
 
 function mod:SPELL_CAST_START(args)
-	if args:IsSpellID(105256, 109552, 109553, 109554) then--109552 25man normal confirmed, rest wowhead drycodes
+	if args:IsSpellID(104448) then
+		warnFrostTombCast:Show(args.spellName)
+		specWarnFrostTombCast:Show()
+		timerFrostTomb:Start()
+	elseif args:IsSpellID(105256, 109552, 109553, 109554) then--109552 25man normal confirmed, rest wowhead drycodes
 		timerAssaultCD:Cancel()
+		timerIceLanceCD:Cancel()
 		warnTempest:Show()
 		specWarnTempest:Show()
-	elseif args:IsSpellID(105289, 108567) then--105289 25 man normal confirmed.
+		timerIceWave:Start()
+		if self.Options.RangeFrame then
+			DBM.RangeCheck:Hide()
+		end
+	elseif args:IsSpellID(105409, 109560, 109561, 109562) then--Water Shield
+		timerAssaultCD:Cancel()
+		timerIceLanceCD:Cancel()
+		warnLightningStorm:Show()
+		specWarnLightingStorm:Show()
+		if self.Options.RangeFrame then
+			DBM.RangeCheck:Hide()
+		end
+	elseif args:IsSpellID(105289, 108567) then--105289 10/25 man normal confirmed.
 		self:ScheduleMethod(0.2, "ShatteredIceTarget")
+	end
+end
+
+function mod:SPELL_CAST_SUCCESS(args)
+	if args:IsSpellID(109557) then
+		warnStormPillars:Show()
+		stormPillarsTarget(args.destName)
+	end
+end
+
+function mod:SPELL_SUMMON(args)
+	if args:IsSpellID(105297) then -- comfirmed 25 man normal(lfg),
+		lanceTargets[#lanceTargets + 1] = args.sourceName
+		self:Unschedule(warnLanceTargets)
+		self:Schedule(0.5, warnLanceTargets)--Maybe adjust timing to allow for more combining of people failing at spreading?
 	end
 end

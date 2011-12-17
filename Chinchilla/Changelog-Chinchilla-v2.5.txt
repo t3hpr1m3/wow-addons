@@ -1,0 +1,40 @@
+tag v2.5
+83ca72d7380e4505b69d9e44617d0f0e9ce7746c
+Ethan Centaurai <stevenblanchard86@gmail.com>
+2011-11-30 18:19:40 +0000
+
+Tagging as v2.5
+
+
+--------------------
+
+Ethan Centaurai:
+	- Trim out a few unused(?) textures.
+	- Fix Solid Sphere blips.
+	- Fix Nandini New blips.
+	- Update the texture coordinates for the tracking dot preview.
+	- Re-align the blip textures to match the new layout in WoW 4.3.
+	- Bump interface number to 40300.
+	- Changelog update.
+	- Remove pre-4.3 compatibility layer.
+	- Fix GatherMate2 support.
+	- Something touched these files. No actual code change.
+	- Fix _NPCScan.Overlay support.
+	- Changelog update.
+	- Slightly increase the size of some displays.
+	- Add a missing library.
+	- Added background and border control to the Location module.
+	- Added background and border control to the Ping module.
+	- Raise the frame level of the Who Pinged display.
+	- Disable Minimap pings when you change the config while in a group.
+	- Make the Coordinates section of the config more awesome.
+	- Bugfix.
+	- Add background and border control to the Coordinates module.
+	- Whoops, forgot to register LibSharedMedia-3.0 callbacks.
+	- Fix the repo path of LibSharedMedia-3.0.
+	- Add font selection options to the Coordinates module.
+	- Add font selection options to the Ping module.
+	- Add font selection options to the Location module.
+	- Add LibSharedMedia-3.0 to package meta and table of contents.
+	- Remove some unused code.
+	- Fix an error caused by Blizzard changing stuff in Patch 4.3. Should also work for Patch 4.2.

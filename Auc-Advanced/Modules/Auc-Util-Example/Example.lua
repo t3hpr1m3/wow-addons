@@ -18,8 +18,8 @@ end
 
 --[[
 	Auctioneer - Price Level Utility module
-	Version: 5.12.5198 (QuirkyKiwi)
-	Revision: $Id: Example.lua 4828 2010-07-21 22:20:18Z Prowell $
+	Version: 5.13.5246 (BoldBandicoot)
+	Revision: $Id: Example.lua 5210 2011-07-19 19:07:52Z Nechckn $
 	URL: http://auctioneeraddon.com/
 
 	This is an Auctioneer module that does something nifty.
@@ -50,28 +50,38 @@ if not AucAdvanced then return end
 
 local libName = "Example"
 local libType = "Util"
-
 local lib,parent,private = AucAdvanced.NewModule(libType, libName)
 if not lib then return end
 local print,decode,_,_,replicate,empty,get,set,default,debugPrint,fill = AucAdvanced.GetModuleLocals()
 
 --[[
 The following functions are part of the module's exposed methods:
-	GetName()         (required) Should return this module's full name
+	GetName()         (created by NewModule) Returns libName. Should never be overridden
+	GetLocalName()    (optional) Returns a localized name (NewModule creates a default version, which may be overridden)
 	CommandHandler()  (optional) Slash command handler for this module
-	Processor()       (optional) Processes messages sent by Auctioneer
-	ScanProcessor()   (optional) Processes items from the scan manager
-*	GetPrice()        (required) Returns estimated price for item link
-*	GetPriceColumns() (optional) Returns the column names for GetPrice
-	OnLoad()          (optional) Receives load message for all modules
+	Processors ={}    (optional) Table containing functions to process messages sent by Auctioneer
+	ScanProcessors={} (optional) Table containing functions to process items during a scan
+	GetPrice()        (optional) Returns estimated price for item link
+	GetPriceColumns() (optional) Returns the column names for GetPrice
+	OnLoad()          (optional) Receives load message for self, and for any modules specified by LoadTriggers table
+	OnUnload()        (optional) Called during logout, just before data gets saved
+	
+	GetPriceArray()   (*) Returns pricing and other statistical info in an array
+	GetItemPDF()      (**) Returns Probability Density Function for item link (see below)
+	AuctionFilter()   (##) Perform filtering on an auction entry
+	GetMatchArray()   ($$) Perform price matching on an item link
 
-	(*) Only implemented in stats modules; util modules do not provide
+	* Required for Stat modules, optional for other module types
+	** Required for Stat modules, not used by other module types
+	## Required for Filter modules, not used by other module types
+	$$ Required for Match modules, not used by other module types
+
 ]]
 
-function lib.GetName()
-	return libName
-end
-
+--[[
+lib.Processor function is deprecated; it is replaced by the lib.Processors table of functions
+It will be supported for a period, but should not be used when making new modules
+]]
 function lib.Processor(callbackType, ...)
 	if (callbackType == "tooltip") then
 		--Called when the tooltip is being drawn.
@@ -85,12 +95,16 @@ function lib.Processor(callbackType, ...)
 		--Called when your config options (if Configator) have been changed.
 	end
 end
-lib.Processors = {}
-lib.Processors.tooltip = lib.Processor
-lib.Processors.config = lib.Processor
-lib.Processors.listupdate = lib.Processor
-lib.Processors.configchanged = lib.Processor
-
+--[[
+Demonstrates a quick (temporary) method of converting the old Processor function to the new Processors table
+Note that the function calls are the same (including the 'callbackType' parameter)
+]]
+lib.Processors = {
+	tooltip = lib.Processor,
+	config = lib.Processor,
+	listupdate = lib.Processor,
+	configchanged = lib.Processor,
+}
 
 
 function lib.ProcessTooltip(frame, name, hyperlink, quality, quantity, cost, additional)
@@ -173,4 +187,4 @@ end
 function private.Baz()
 end
 
-AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.12/Auc-Advanced/Modules/Auc-Util-Example/Example.lua $", "$Rev: 4828 $")
+AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.13/Auc-Advanced/Modules/Auc-Util-Example/Example.lua $", "$Rev: 5210 $")

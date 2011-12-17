@@ -556,8 +556,8 @@ Prat:AddModuleToLoad(function()
 	hoverhilight_name = "悬停高亮",
 	linkifycommon_desc = "自助链接公共信息",
 	linkifycommon_name = "自助链接公共信息",
-	-- realidcolor_desc = "",
-	-- realidcolor_name = "",
+	realidcolor_desc = "实名名字颜色", -- Needs review
+	realidcolor_name = "实名颜色", -- Needs review
 	tabcomplete_name = "可能的名称",
 }
 

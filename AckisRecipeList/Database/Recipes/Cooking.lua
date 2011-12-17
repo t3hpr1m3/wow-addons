@@ -2,10 +2,10 @@
 ************************************************************************
 Cooking.lua
 ************************************************************************
-File date: 2011-10-15T16:13:16Z
-File hash: 089b19d
-Project hash: d552bcd
-Project version: 2.2.10
+File date: 2011-12-01T03:25:09Z
+File hash: 198c543
+Project hash: 6177bc5
+Project version: 2.2.11
 ************************************************************************
 Please see http://www.wowace.com/addons/arl/ for more information.
 ************************************************************************
@@ -279,7 +279,7 @@ function addon:InitCooking()
 	recipe:SetRecipeItemID(5486)
 	recipe:SetCraftedItemID(5477)
 	recipe:SetSkillLevels(50, 50, 90, 110, 130)
-	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOE, F.HEALER, F.CASTER)
+	recipe:AddFilters(F.HORDE, F.VENDOR, F.IBOE, F.RBOE, F.HEALER, F.CASTER)
 	recipe:AddVendor(3482)
 
 	-- Dig Rat Stew -- 6417
@@ -1384,8 +1384,9 @@ function addon:InitCooking()
 	recipe = AddRecipe(65454, V.WOTLK, Q.COMMON)
 	recipe:SetCraftedItemID(46691)
 	recipe:SetSkillLevels(45, 45, 55, 60, 65)
-	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.SEASONAL, F.IBOE, F.RBOP, F.HEALER, F.CASTER)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.SEASONAL, F.IBOE, F.RBOP, F.HEALER, F.CASTER)
 	recipe:AddSeason("DAY_OF_THE_DEAD")
+	recipe:AddVendor(34382)
 
 	-- Candied Sweet Potato -- 66034
 	recipe = AddRecipe(66034, V.WOTLK, Q.COMMON)

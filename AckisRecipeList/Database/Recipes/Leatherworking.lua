@@ -3,10 +3,10 @@
 Leatherworking.lua
 Leatherworking data for all of Ackis Recipe List
 ************************************************************************
-File date: 2011-10-05T15:58:08Z
-File hash: b9e1646
-Project hash: d552bcd
-Project version: 2.2.10
+File date: 2011-12-06T23:08:48Z
+File hash: 31b50dd
+Project hash: 6177bc5
+Project version: 2.2.11
 ************************************************************************
 Please see http://www.wowace.com/addons/arl/ for more information.
 ************************************************************************
@@ -4247,112 +4247,112 @@ function addon:InitLeatherworking()
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.TRAINER, F.IBOE, F.RBOP)
 	recipe:AddTrainer(3007, 3365, 3967, 4212, 4588, 5127, 5564, 21087, 26998, 28700, 29507, 33581, 33612, 33635)
 
-	-- Bloodthirsty Wyrmhide Bracers -- 78444
+	-- Vicious Wyrmhide Bracers -- 78444
 	recipe = AddRecipe(78444, V.CATA, Q.COMMON)
 	recipe:SetRecipeItemID(67042)
 	recipe:SetSkillLevels(510, 510, 515, 520, 525)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
 	recipe:AddVendor(3008, 3366, 4225, 4589, 5128, 5565, 16689, 16748, 50172, 50381)
 
-	-- Bloodthirsty Wyrmhide Belt -- 78445
+	-- Vicious Wyrmhide Belt -- 78445
 	recipe = AddRecipe(78445, V.CATA, Q.COMMON)
 	recipe:SetRecipeItemID(67044)
 	recipe:SetSkillLevels(510, 510, 515, 520, 525)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
 	recipe:AddVendor(3008, 3366, 4225, 4589, 5128, 5565, 16689, 16748, 50172, 50381)
 
-	-- Bloodthirsty Leather Bracers -- 78446
+	-- Vicious Leather Bracers -- 78446
 	recipe = AddRecipe(78446, V.CATA, Q.COMMON)
 	recipe:SetRecipeItemID(67046)
 	recipe:SetSkillLevels(510, 510, 515, 520, 525)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
 	recipe:AddVendor(3008, 3366, 4225, 4589, 5128, 5565, 16689, 16748, 50172, 50381)
 
-	-- Bloodthirsty Leather Gloves -- 78447
+	-- Vicious Leather Gloves -- 78447
 	recipe = AddRecipe(78447, V.CATA, Q.COMMON)
 	recipe:SetRecipeItemID(67048)
 	recipe:SetSkillLevels(510, 510, 515, 520, 525)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
 	recipe:AddVendor(3008, 3366, 4225, 4589, 5128, 5565, 16689, 16748, 50172, 50381)
 
-	-- Bloodthirsty Charscale Bracers -- 78448
+	-- Vicious Charscale Bracers -- 78448
 	recipe = AddRecipe(78448, V.CATA, Q.COMMON)
 	recipe:SetRecipeItemID(67049)
 	recipe:SetSkillLevels(510, 510, 515, 520, 525)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
 	recipe:AddVendor(3008, 3366, 4225, 4589, 5128, 5565, 16689, 16748, 50172, 50381)
 
-	-- Bloodthirsty Charscale Gloves -- 78449
+	-- Vicious Charscale Gloves -- 78449
 	recipe = AddRecipe(78449, V.CATA, Q.COMMON)
 	recipe:SetRecipeItemID(67053)
 	recipe:SetSkillLevels(510, 510, 515, 520, 525)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
 	recipe:AddVendor(3008, 3366, 4225, 4589, 5128, 5565, 16689, 16748, 50172, 50381)
 
-	-- Bloodthirsty Dragonscale Bracers -- 78450
+	-- Vicious Dragonscale Bracers -- 78450
 	recipe = AddRecipe(78450, V.CATA, Q.COMMON)
 	recipe:SetRecipeItemID(67054)
 	recipe:SetSkillLevels(510, 510, 515, 520, 525)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
 	recipe:AddVendor(3008, 3366, 4225, 4589, 5128, 5565, 16689, 16748, 50172, 50381)
 
-	-- Bloodthirsty Dragonscale Shoulders -- 78451
+	-- Vicious Dragonscale Shoulders -- 78451
 	recipe = AddRecipe(78451, V.CATA, Q.COMMON)
 	recipe:SetRecipeItemID(67055)
 	recipe:SetSkillLevels(510, 510, 515, 520, 525)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
 	recipe:AddVendor(3008, 3366, 4225, 4589, 5128, 5565, 16689, 16748, 50172, 50381)
 
-	-- Bloodthirsty Wyrmhide Gloves -- 78452
+	-- Vicious Wyrmhide Gloves -- 78452
 	recipe = AddRecipe(78452, V.CATA, Q.COMMON)
 	recipe:SetRecipeItemID(67056)
 	recipe:SetSkillLevels(515, 515, 520, 525, 530)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
 	recipe:AddVendor(3008, 3366, 4225, 4589, 5128, 5565, 16689, 16748, 50172, 50381)
 
-	-- Bloodthirsty Wyrmhide Boots -- 78453
+	-- Vicious Wyrmhide Boots -- 78453
 	recipe = AddRecipe(78453, V.CATA, Q.COMMON)
 	recipe:SetRecipeItemID(67058)
 	recipe:SetSkillLevels(515, 515, 520, 525, 530)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
 	recipe:AddVendor(3008, 3366, 4225, 4589, 5128, 5565, 16689, 16748, 50172, 50381)
 
-	-- Bloodthirsty Leather Boots -- 78454
+	-- Vicious Leather Boots -- 78454
 	recipe = AddRecipe(78454, V.CATA, Q.COMMON)
 	recipe:SetRecipeItemID(67060)
 	recipe:SetSkillLevels(515, 515, 520, 525, 530)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
 	recipe:AddVendor(3008, 3366, 4225, 4589, 5128, 5565, 16689, 16748, 50172, 50381)
 
-	-- Bloodthirsty Leather Shoulders -- 78455
+	-- Vicious Leather Shoulders -- 78455
 	recipe = AddRecipe(78455, V.CATA, Q.COMMON)
 	recipe:SetRecipeItemID(67062)
 	recipe:SetSkillLevels(515, 515, 520, 525, 530)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
 	recipe:AddVendor(3008, 3366, 4225, 4589, 5128, 5565, 16689, 16748, 50172, 50381)
 
-	-- Bloodthirsty Charscale Boots -- 78456
+	-- Vicious Charscale Boots -- 78456
 	recipe = AddRecipe(78456, V.CATA, Q.COMMON)
 	recipe:SetRecipeItemID(67063)
 	recipe:SetSkillLevels(515, 515, 520, 525, 530)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
 	recipe:AddVendor(3008, 3366, 4225, 4589, 5128, 5565, 16689, 16748, 50172, 50381)
 
-	-- Bloodthirsty Charscale Belt -- 78457
+	-- Vicious Charscale Belt -- 78457
 	recipe = AddRecipe(78457, V.CATA, Q.COMMON)
 	recipe:SetRecipeItemID(67064)
 	recipe:SetSkillLevels(515, 515, 520, 525, 530)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
 	recipe:AddVendor(3008, 3366, 4225, 4589, 5128, 5565, 16689, 16748, 50172, 50381)
 
-	-- Bloodthirsty Dragonscale Boots -- 78458
+	-- Vicious Dragonscale Boots -- 78458
 	recipe = AddRecipe(78458, V.CATA, Q.COMMON)
 	recipe:SetRecipeItemID(67065)
 	recipe:SetSkillLevels(515, 515, 520, 525, 530)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
 	recipe:AddVendor(3008, 3366, 4225, 4589, 5128, 5565, 16689, 16748, 50172, 50381)
 
-	-- Bloodthirsty Dragonscale Gloves -- 78459
+	-- Vicious Dragonscale Gloves -- 78459
 	recipe = AddRecipe(78459, V.CATA, Q.COMMON)
 	recipe:SetRecipeItemID(67066)
 	recipe:SetSkillLevels(515, 515, 520, 525, 530)
@@ -4387,56 +4387,56 @@ function addon:InitLeatherworking()
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
 	recipe:AddVendor(3008, 3366, 4225, 4589, 5128, 5565, 16689, 16748, 50172, 50381)
 
-	-- Bloodthirsty Wyrmhide Shoulders -- 78464
+	-- Vicious Wyrmhide Shoulders -- 78464
 	recipe = AddRecipe(78464, V.CATA, Q.COMMON)
 	recipe:SetRecipeItemID(67074)
 	recipe:SetSkillLevels(520, 520, 525, 530, 535)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
 	recipe:AddVendor(3008, 3366, 4225, 4589, 5128, 5565, 16689, 16748, 50172, 50381)
 
-	-- Bloodthirsty Wyrmhide Chest -- 78467
+	-- Vicious Wyrmhide Chest -- 78467
 	recipe = AddRecipe(78467, V.CATA, Q.COMMON)
 	recipe:SetRecipeItemID(67075)
 	recipe:SetSkillLevels(520, 520, 525, 530, 535)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
 	recipe:AddVendor(3008, 3366, 4225, 4589, 5128, 5565, 16689, 16748, 50172, 50381)
 
-	-- Bloodthirsty Leather Belt -- 78468
+	-- Vicious Leather Belt -- 78468
 	recipe = AddRecipe(78468, V.CATA, Q.COMMON)
 	recipe:SetRecipeItemID(67076)
 	recipe:SetSkillLevels(520, 520, 525, 530, 535)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
 	recipe:AddVendor(3008, 3366, 4225, 4589, 5128, 5565, 16689, 16748, 50172, 50381)
 
-	-- Bloodthirsty Leather Helm -- 78469
+	-- Vicious Leather Helm -- 78469
 	recipe = AddRecipe(78469, V.CATA, Q.COMMON)
 	recipe:SetRecipeItemID(67077)
 	recipe:SetSkillLevels(520, 520, 525, 530, 535)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
 	recipe:AddVendor(3008, 3366, 4225, 4589, 5128, 5565, 16689, 16748, 50172, 50381)
 
-	-- Bloodthirsty Charscale Shoulders -- 78470
+	-- Vicious Charscale Shoulders -- 78470
 	recipe = AddRecipe(78470, V.CATA, Q.COMMON)
 	recipe:SetRecipeItemID(67078)
 	recipe:SetSkillLevels(520, 520, 525, 530, 535)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
 	recipe:AddVendor(3008, 3366, 4225, 4589, 5128, 5565, 16689, 16748, 50172, 50381)
 
-	-- Bloodthirsty Charscale Legs -- 78471
+	-- Vicious Charscale Legs -- 78471
 	recipe = AddRecipe(78471, V.CATA, Q.COMMON)
 	recipe:SetRecipeItemID(67079)
 	recipe:SetSkillLevels(520, 520, 525, 530, 535)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
 	recipe:AddVendor(3008, 3366, 4225, 4589, 5128, 5565, 16689, 16748, 50172, 50381)
 
-	-- Bloodthirsty Dragonscale Belt -- 78473
+	-- Vicious Dragonscale Belt -- 78473
 	recipe = AddRecipe(78473, V.CATA, Q.COMMON)
 	recipe:SetRecipeItemID(67080)
 	recipe:SetSkillLevels(520, 520, 525, 530, 535)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
 	recipe:AddVendor(3008, 3366, 4225, 4589, 5128, 5565, 16689, 16748, 50172, 50381)
 
-	-- Bloodthirsty Dragonscale Helm -- 78474
+	-- Vicious Dragonscale Helm -- 78474
 	recipe = AddRecipe(78474, V.CATA, Q.COMMON)
 	recipe:SetRecipeItemID(67081)
 	recipe:SetSkillLevels(520, 520, 525, 530, 535)
@@ -4471,56 +4471,56 @@ function addon:InitLeatherworking()
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
 	recipe:AddVendor(3008, 3366, 4225, 4589, 5128, 5565, 16689, 16748, 50172, 50381)
 
-	-- Bloodthirsty Wyrmhide Legs -- 78479
+	-- Vicious Wyrmhide Legs -- 78479
 	recipe = AddRecipe(78479, V.CATA, Q.COMMON)
 	recipe:SetRecipeItemID(67085)
 	recipe:SetSkillLevels(525, 525, 530, 535, 540)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
 	recipe:AddVendor(3008, 3366, 4225, 4589, 5128, 5565, 16689, 16748, 50172, 50381)
 
-	-- Bloodthirsty Wyrmhide Helm -- 78480
+	-- Vicious Wyrmhide Helm -- 78480
 	recipe = AddRecipe(78480, V.CATA, Q.COMMON)
 	recipe:SetRecipeItemID(67086)
 	recipe:SetSkillLevels(525, 525, 530, 535, 540)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
 	recipe:AddVendor(3008, 3366, 4225, 4589, 5128, 5565, 16689, 16748, 50172, 50381)
 
-	-- Bloodthirsty Leather Chest -- 78481
+	-- Vicious Leather Chest -- 78481
 	recipe = AddRecipe(78481, V.CATA, Q.COMMON)
 	recipe:SetRecipeItemID(67087)
 	recipe:SetSkillLevels(525, 525, 530, 535, 540)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
 	recipe:AddVendor(3008, 3366, 4225, 4589, 5128, 5565, 16689, 16748, 50172, 50381)
 
-	-- Bloodthirsty Leather Legs -- 78482
+	-- Vicious Leather Legs -- 78482
 	recipe = AddRecipe(78482, V.CATA, Q.COMMON)
 	recipe:SetRecipeItemID(67089)
 	recipe:SetSkillLevels(525, 525, 530, 535, 540)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
 	recipe:AddVendor(3008, 3366, 4225, 4589, 5128, 5565, 16689, 16748, 50172, 50381)
 
-	-- Bloodthirsty Charscale Chest -- 78483
+	-- Vicious Charscale Chest -- 78483
 	recipe = AddRecipe(78483, V.CATA, Q.COMMON)
 	recipe:SetRecipeItemID(67090)
 	recipe:SetSkillLevels(525, 525, 530, 535, 540)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
 	recipe:AddVendor(3008, 3366, 4225, 4589, 5128, 5565, 16689, 16748, 50172, 50381)
 
-	-- Bloodthirsty Charscale Helm -- 78484
+	-- Vicious Charscale Helm -- 78484
 	recipe = AddRecipe(78484, V.CATA, Q.COMMON)
 	recipe:SetRecipeItemID(67091)
 	recipe:SetSkillLevels(525, 525, 530, 535, 540)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
 	recipe:AddVendor(3008, 3366, 4225, 4589, 5128, 5565, 16689, 16748, 50172, 50381)
 
-	-- Bloodthirsty Dragonscale Legs -- 78485
+	-- Vicious Dragonscale Legs -- 78485
 	recipe = AddRecipe(78485, V.CATA, Q.COMMON)
 	recipe:SetRecipeItemID(67092)
 	recipe:SetSkillLevels(525, 525, 530, 535, 540)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
 	recipe:AddVendor(3008, 3366, 4225, 4589, 5128, 5565, 16689, 16748, 50172, 50381)
 
-	-- Bloodthirsty Dragonscale Chest -- 78486
+	-- Vicious Dragonscale Chest -- 78486
 	recipe = AddRecipe(78486, V.CATA, Q.COMMON)
 	recipe:SetRecipeItemID(67093)
 	recipe:SetSkillLevels(525, 525, 530, 535, 540)
@@ -4662,14 +4662,14 @@ function addon:InitLeatherworking()
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.RAID, F.IBOE, F.RBOE)
 	recipe:AddCustom("FIRELANDS_RANDOM")
 
-	-- Bloodthirsty Hide Cloak -- 99535
+	-- Vicious Hide Cloak -- 99535
 	recipe = AddRecipe(99535, V.CATA, Q.COMMON)
 	recipe:SetCraftedItemID(70069)
 	recipe:SetSkillLevels(500, 500, 510, 512, 515)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.TRAINER, F.IBOE, F.RBOP)
 	recipe:AddTrainer(3365)
 
-	-- Bloodthirsty Fur Cloak -- 99536
+	-- Vicious Fur Cloak -- 99536
 	recipe = AddRecipe(99536, V.CATA, Q.COMMON)
 	recipe:SetCraftedItemID(70068)
 	recipe:SetSkillLevels(500, 500, 510, 512, 515)
@@ -4705,6 +4705,70 @@ function addon:InitLeatherworking()
 	recipe:SetSkillLevels(465, 465, 465, 465, 470)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.TRAINER, F.IBOE, F.RBOP, F.DPS)
 	recipe:AddTrainer(3365, 4212, 5564, 21087, 26911, 26961, 26996, 26998, 28700, 33581, 33612, 33635)
+
+	-- Leggings of Nature's Champion -- 101933
+	recipe = AddRecipe(101933, V.CATA, Q.EPIC)
+	recipe:SetRecipeItemID(71999)
+	recipe:SetCraftedItemID(71986)
+	recipe:SetSkillLevels(525, 525, 525, 527, 530)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.RAID, F.IBOE, F.RBOE)
+	recipe:AddCustom("DRAGONSOUL_RANDOM")
+
+	-- Deathscale Leggings -- 101934
+	recipe = AddRecipe(101934, V.CATA, Q.EPIC)
+	recipe:SetRecipeItemID(72005)
+	recipe:SetCraftedItemID(71988)
+	recipe:SetSkillLevels(525, 525, 525, 527, 530)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.RAID, F.IBOE, F.RBOE)
+	recipe:AddCustom("DRAGONSOUL_RANDOM")
+
+	-- Bladeshadow Leggings -- 101935
+	recipe = AddRecipe(101935, V.CATA, Q.EPIC)
+	recipe:SetRecipeItemID(72006)
+	recipe:SetCraftedItemID(71985)
+	recipe:SetSkillLevels(525, 525, 525, 527, 530)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.RAID, F.IBOE, F.RBOE)
+	recipe:AddCustom("DRAGONSOUL_RANDOM")
+
+	-- Rended Earth Leggings -- 101936
+	recipe = AddRecipe(101936, V.CATA, Q.EPIC)
+	recipe:SetRecipeItemID(72007)
+	recipe:SetCraftedItemID(71987)
+	recipe:SetSkillLevels(525, 525, 525, 527, 530)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.RAID, F.IBOE, F.RBOE)
+	recipe:AddCustom("DRAGONSOUL_RANDOM")
+
+	-- Bracers of Flowing Serenity -- 101937
+	recipe = AddRecipe(101937, V.CATA, Q.EPIC)
+	recipe:SetRecipeItemID(72008)
+	recipe:SetCraftedItemID(71995)
+	recipe:SetSkillLevels(525, 525, 525, 527, 530)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.RAID, F.IBOE, F.RBOE)
+	recipe:AddCustom("DRAGONSOUL_RANDOM")
+
+	-- Thundering Deathscale Wristguards -- 101939
+	recipe = AddRecipe(101939, V.CATA, Q.EPIC)
+	recipe:SetRecipeItemID(72009)
+	recipe:SetCraftedItemID(71997)
+	recipe:SetSkillLevels(525, 525, 525, 527, 530)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.RAID, F.IBOE, F.RBOE)
+	recipe:AddCustom("DRAGONSOUL_RANDOM")
+
+	-- Bladeshadow Wristguards -- 101940
+	recipe = AddRecipe(101940, V.CATA, Q.EPIC)
+	recipe:SetRecipeItemID(72010)
+	recipe:SetCraftedItemID(71994)
+	recipe:SetSkillLevels(525, 525, 525, 527, 530)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.RAID, F.IBOE, F.RBOE)
+	recipe:AddCustom("DRAGONSOUL_RANDOM")
+
+	-- Bracers of the Hunter-Killer -- 101941
+	recipe = AddRecipe(101941, V.CATA, Q.EPIC)
+	recipe:SetRecipeItemID(72011)
+	recipe:SetCraftedItemID(71996)
+	recipe:SetSkillLevels(525, 525, 525, 527, 530)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.RAID, F.IBOE, F.RBOE)
+	recipe:AddCustom("DRAGONSOUL_RANDOM")
 
 	self.InitLeatherworking = nil
 end

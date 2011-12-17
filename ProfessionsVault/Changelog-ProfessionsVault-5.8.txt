@@ -1,0 +1,47 @@
+------------------------------------------------------------------------
+r279 | oscarucb | 2011-12-02 02:54:02 +0000 (Fri, 02 Dec 2011) | 3 lines
+Changed paths:
+   A /tags/5.8 (from /trunk:278)
+
+Tagging as 5.8
+
+4.3 Database Updates
+------------------------------------------------------------------------
+r278 | oscarucb | 2011-11-30 21:50:20 +0000 (Wed, 30 Nov 2011) | 2 lines
+Changed paths:
+   M /trunk/PV_Data.lua
+
+4.3 dead item updates
+
+------------------------------------------------------------------------
+r276 | oscarucb | 2011-11-29 17:12:28 +0000 (Tue, 29 Nov 2011) | 2 lines
+Changed paths:
+   M /trunk/PV_Data.lua
+   M /trunk/ProfessionsVault.lua
+   M /trunk/ProfessionsVault.toc
+
+4.3.0 database update and toc bump
+
+------------------------------------------------------------------------
+r274 | oscarucb | 2011-11-27 00:12:36 +0000 (Sun, 27 Nov 2011) | 3 lines
+Changed paths:
+   M /trunk/ProfessionsVault.lua
+
+fix ticket 68: add MrTrader support
+add some locale info in error messages
+
+------------------------------------------------------------------------
+r273 | oscarucb | 2011-11-26 23:42:37 +0000 (Sat, 26 Nov 2011) | 2 lines
+Changed paths:
+   M /trunk/ProfessionsVault.lua
+
+4.3 cleanDatabase
+
+------------------------------------------------------------------------
+r272 | oscarucb | 2011-10-20 04:07:30 +0000 (Thu, 20 Oct 2011) | 2 lines
+Changed paths:
+   M /trunk/ProfessionsVault.lua
+
+fix testRecipes false positives on ruRU 
+
+------------------------------------------------------------------------

@@ -1,0 +1,14 @@
+------------------------------------------------------------------------
+r368 | stanzilla | 2011-11-29 17:06:47 +0000 (Tue, 29 Nov 2011) | 1 line
+Changed paths:
+   A /tags/2.3.40300.1 (from /trunk:367)
+
+Tagging as 2.3.40300.1
+------------------------------------------------------------------------
+r367 | stanzilla | 2011-11-29 16:21:24 +0000 (Tue, 29 Nov 2011) | 1 line
+Changed paths:
+   M /trunk/Bars/Shaman.lua
+   M /trunk/ClassTimer.toc
+
+toc update and something else, probably shaman related!
+------------------------------------------------------------------------

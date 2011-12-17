@@ -1,0 +1,17 @@
+------------------------------------------------------------------------
+r35 | thaoky | 2011-12-10 21:20:02 +0000 (Sat, 10 Dec 2011) | 1 line
+Changed paths:
+   M /trunk/DataStore.lua
+
+Reverted auto cleanup of orphan keys.
+------------------------------------------------------------------------
+r34 | thaoky | 2011-12-10 14:50:26 +0000 (Sat, 10 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/DataStore.lua
+   M /trunk/DataStore.toc
+   A /trunk/Locales/ptBR.lua
+   M /trunk/locale.xml
+
+TOC Update
+ptBR support
+------------------------------------------------------------------------

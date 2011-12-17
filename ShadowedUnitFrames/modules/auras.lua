@@ -1,8 +1,8 @@
 local Auras = {}
 local stealableColor = {r = 1, g = 1, b = 1}
 local playerUnits = {player = true, vehicle = true, pet = true}
-local mainHand, offHand = {time = 0}, {time = 0}
-local tempEnchantScan
+local mainHand, offHand, ranged, tempEnchantScan = {time = 0}, {time = 0}, {time = 0}
+local canCure = ShadowUF.Units.canCure
 ShadowUF:RegisterModule(Auras, "auras", ShadowUF.L["Auras"])
 
 function Auras:OnEnable(frame)
@@ -78,7 +78,7 @@ local function positionButton(id,  group, config)
 	button.isAuraAnchor = nil
 	
 	-- Alright, in order to find out where an aura group is going to be anchored to certain buttons need
-	-- to be flagged as suitable anchors visually, this speeds it up bcause this data is cached and doesn't
+	-- to be flagged as suitable anchors visually, this speeds it up because this data is cached and doesn't
 	-- have to be recalculated unless auras are specifically changed
 	if( id > 1 ) then
 		if( position.isSideGrowth and id <= config.perRow ) then
@@ -124,7 +124,7 @@ local function positionAllButtons(group, config)
 			columnsHaveScale[columnID] = columnsHaveScale[columnID] and math.max(size, columnsHaveScale[columnID]) or size
 		end
 	end
-
+	
 	local columnID = 1
 	for id, button in pairs(group.buttons) do
 		if( id > 1 ) then
@@ -154,7 +154,6 @@ local function positionAllButtons(group, config)
 					offset = offset + 1
 				end
 
-				--print(columnID, math.ceil(offset))
 				position.column(button, anchorButton, math.ceil(offset))
 			else
 				position.aura(button, group.buttons[id - 1])
@@ -168,7 +167,6 @@ local function positionAllButtons(group, config)
 				offset = offset + 2
 			end
 			
-			--print(1, offset)
 			position.initialAnchor(button, offset)
 		end
 	end
@@ -198,6 +196,14 @@ end
 local function hideTooltip(self)
 	self:SetScript("OnUpdate", nil)
 	GameTooltip:Hide()
+end
+
+local function cancelAura(self, mouse)
+	if( mouse ~= "RightButton" or not UnitIsPlayer(self.parent.unit) or InCombatLockdown() or self.filter == "TEMP" ) then
+		return
+	end
+
+	CancelUnitBuff("player", self.auraID, self.filter)
 end
 
 local function updateButton(id, group, config)
@@ -252,6 +258,8 @@ local function updateButton(id, group, config)
 	button:SetWidth(config.size)
 	button.border:SetHeight(config.size + 1)
 	button.border:SetWidth(config.size + 1)
+	button:SetScript("OnClick", cancelAura)
+	button.parent = group.parent
 	button:ClearAllPoints()
 	button:Hide()
 	
@@ -286,6 +294,7 @@ local function updateGroup(self, type, config, reverseConfig)
 	if( self.unit == "player" ) then
 		mainHand.time = 0
 		offHand.time = 0
+		ranged.time = 0
 
 		group:SetScript("OnUpdate", config.temporary and tempEnchantScan or nil)
 	else
@@ -297,8 +306,8 @@ local function updateGroup(self, type, config, reverseConfig)
 
 	-- This is a bit of an odd filter, when used with a HELPFUL filter, it will only return buffs you can cast on group members
 	-- When used with HARMFUL it will only return debuffs you can cure
-	if( config.raid ) then
-		group.filter = group.filter .. "|RAID"
+	if( config.raid and group.type == "buffs" ) then
+        group.filter = group.filter .. "|RAID"
 	end
 	
 	for id, button in pairs(group.buttons) do
@@ -423,7 +432,7 @@ tempEnchantScan = function(self, elapsed)
 	if( timeElapsed < 0.50 ) then return end
 	timeElapsed = timeElapsed - 0.50
 
-	local hasMain, mainTimeLeft, mainCharges, hasOff, offTimeLeft, offCharges = GetWeaponEnchantInfo()
+	local hasMain, mainTimeLeft, mainCharges, hasOff, offTimeLeft, offCharges, hasRanged, rangedTimeLeft, rangedCharges = GetWeaponEnchantInfo()
 	self.temporaryEnchants = 0
 	
 	if( hasMain ) then
@@ -441,6 +450,13 @@ tempEnchantScan = function(self, elapsed)
 	end
 	
 	offHand.has = hasOff
+	
+	if( hasRanged and self.temporaryEnchants < self.maxAuras ) then
+		self.temporaryEnchants = self.temporaryEnchants + 1
+		updateTemporaryEnchant(self, 18, ranged, hasRanged, rangedTimeLeft or 0, rangedCharges)
+	end
+	
+	ranged.has = hasRanged
 	
 	-- Update if totals changed
 	if( self.lastTemporary ~= self.temporaryEnchants ) then
@@ -465,17 +481,22 @@ function Auras:UpdateFilter(frame)
 end
 
 -- Scan for auras
-local function scan(parent, frame, type, config, filter)
+local function scan(parent, frame, type, config, displayConfig, filter)
 	if( frame.totalAuras >= frame.maxAuras or not config.enabled ) then return end
-
+	
 	local isFriendly = UnitIsFriend(frame.parent.unit, "player")
+	local curable = (isFriendly and type == "debuffs" and config.raid)
 	local index = 0
+	local cureType
 	while( true ) do
 		index = index + 1
-		local name, rank, texture, count, auraType, duration, endTime, caster, isStealable = UnitAura(frame.parent.unit, index, filter)
+		local name, rank, texture, count, auraType, duration, endTime, caster, isRemovable, shouldConsolidate, spellID = UnitAura(frame.parent.unit, index, filter)
 		if( not name ) then break end
 		
-		if( ( not config.player or playerUnits[caster] ) and ( not parent.whitelist[type] and not parent.blacklist[type] or parent.whitelist[type] and parent.whitelist[name] or parent.blacklist[type] and not parent.blacklist[name] ) ) then
+		-- Blizzard bug, Enrage is an empty string.
+		cureType = auraType == "" and "Enrage" or auraType
+
+		if( ( not config.player or playerUnits[caster] ) and ( not parent.whitelist[type] and not parent.blacklist[type] or parent.whitelist[type] and ( parent.whitelist[name] or parent.whitelist[spellID] ) or parent.blacklist[type] and ( not parent.blacklist[name] and not parent.blacklist[spellID] ) ) and ( not curable or canCure[auraType] ) ) then
 			-- Create any buttons we need
 			frame.totalAuras = frame.totalAuras + 1
 			if( #(frame.buttons) < frame.totalAuras ) then
@@ -484,8 +505,8 @@ local function scan(parent, frame, type, config, filter)
 				
 			-- Show debuff border, or a special colored border if it's stealable
 			local button = frame.buttons[frame.totalAuras]
-			if( isStealable and not isFriendly and not ShadowUF.db.profile.auras.disableColor ) then
-				button.border:SetVertexColor(stealableColor.r, stealableColor.g, stealableColor.b)
+			if( isRemovable and not isFriendly and not ShadowUF.db.profile.auras.disableColor ) then
+				button.border:SetVertexColor(ShadowUF.db.profile.auraColors.removable.r, ShadowUF.db.profile.auraColors.removable.g, ShadowUF.db.profile.auraColors.removable.b)
 			elseif( ( not isFriendly or type == "debuffs" ) and not ShadowUF.db.profile.auras.disableColor ) then
 				local color = auraType and DebuffTypeColor[auraType] or DebuffTypeColor.none
 				button.border:SetVertexColor(color.r, color.g, color.b)
@@ -502,7 +523,7 @@ local function scan(parent, frame, type, config, filter)
 			end
 			
 			-- Enlarge our own auras
-			if( config.enlargeSelf and playerUnits[caster] ) then
+			if( config.enlargeSelf and playerUnits[caster] or ( isRemovable and not isFriendly and config.enlargeStealable ) ) then
 				button.isSelfScaled = true
 				button:SetScale(config.selfScale)
 			else
@@ -531,12 +552,12 @@ local function scan(parent, frame, type, config, filter)
 			if( frame.totalAuras >= frame.maxAuras ) then break end
 		end
 	end
-
+	
 	for i=frame.totalAuras + 1, #(frame.buttons) do frame.buttons[i]:Hide() end
 
 	-- The default 1.30 scale doesn't need special handling, after that it does
 	if( config.enlargeSelf ) then
-		positionAllButtons(frame, config)
+		positionAllButtons(frame, displayConfig)
 	end
 end
 
@@ -579,17 +600,17 @@ function Auras:Update(frame)
 	if( frame.auras.anchor ) then
 		frame.auras.anchor.totalAuras = frame.auras.anchor.temporaryEnchants
 		
-		scan(frame.auras, frame.auras.anchor, frame.auras.primary, config[frame.auras.primary], frame.auras[frame.auras.primary].filter)
-		scan(frame.auras, frame.auras.anchor, frame.auras.secondary, config[frame.auras.secondary], frame.auras[frame.auras.secondary].filter)
+		scan(frame.auras, frame.auras.anchor, frame.auras.primary, config[frame.auras.primary], config[frame.auras.primary], frame.auras[frame.auras.primary].filter)
+		scan(frame.auras, frame.auras.anchor, frame.auras.secondary, config[frame.auras.secondary], config[frame.auras.primary], frame.auras[frame.auras.secondary].filter)
 	else
 		if( config.buffs.enabled ) then
 			frame.auras.buffs.totalAuras = frame.auras.buffs.temporaryEnchants
-			scan(frame.auras, frame.auras.buffs, "buffs", config.buffs, frame.auras.buffs.filter)
+			scan(frame.auras, frame.auras.buffs, "buffs", config.buffs, config.buffs, frame.auras.buffs.filter)
 		end
 
 		if( config.debuffs.enabled ) then
 			frame.auras.debuffs.totalAuras = 0
-			scan(frame.auras, frame.auras.debuffs, "debuffs", config.debuffs, frame.auras.debuffs.filter)
+			scan(frame.auras, frame.auras.debuffs, "debuffs", config.debuffs, config.debuffs, frame.auras.debuffs.filter)
 		end
 		
 		if( frame.auras.anchorAurasOn ) then

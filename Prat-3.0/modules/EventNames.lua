@@ -25,183 +25,228 @@
 -------------------------------------------------------------------------------
 
 
-Prat:AddModuleToLoad(function() 
+Prat:AddModuleToLoad(function()
 
-local PRAT_MODULE = Prat:RequestModuleName("EventNames")
+  local PRAT_MODULE = Prat:RequestModuleName("EventNames")
 
-if PRAT_MODULE == nil then 
-    return 
-end
+  if PRAT_MODULE == nil then
+    return
+  end
 
-local L = Prat:GetLocalizer({})
+  local L = Prat:GetLocalizer({})
 
---[===[@debug@
-L:AddLocale("enUS", {
+  --[===[@debug@
+  L:AddLocale("enUS", {
     ["EventNames"] = true,
     ["Chat window event name options."] = true,
-	["Show"] = true,
-	["Show events on chatframes"] = true, 
+    ["Show"] = true,
+    ["Show events on chatframes"] = true,
     ["show_name"] = "Show Event Names",
     ["show_desc"] = "Toggle showing event names in each window.",
-})
---@end-debug@]===]
+    ["allevents_name"] = "Process all events",
+    ["allevents_desc"] = "Enable Prat processing for all chat events.",
+  })
+  --@end-debug@]===]
 
--- These Localizations are auto-generated. To help with localization
--- please go to http://www.wowace.com/projects/prat-3-0/localization/
+  -- These Localizations are auto-generated. To help with localization
+  -- please go to http://www.wowace.com/projects/prat-3-0/localization/
 
 
---@non-debug@
-L:AddLocale("enUS", 
-{
+  --@non-debug@
+  L:AddLocale("enUS",
+  {
 	["Chat window event name options."] = true,
 	EventNames = true,
 	Show = true,
 	["Show events on chatframes"] = true,
+	allevents_desc = "Enable Prat processing for all chat events.",
+	allevents_name = "Process all events",
 	show_desc = "Toggle showing event names in each window.",
 	show_name = "Show Event Names",
 }
 
-)
-L:AddLocale("frFR",  
-{
+  )
+  L:AddLocale("frFR",
+  {
 	["Chat window event name options."] = "Options des évènements de la fenêtre de chat",
 	EventNames = "Nom des évènements",
 	Show = "Montrer",
 	["Show events on chatframes"] = "Montrer les évènements dans le cadre du chat",
+	-- allevents_desc = "",
+	-- allevents_name = "",
 	show_desc = "Activer l'affichage des noms d'évènements dans chaque fenêtre",
 	show_name = "Montrer les noms d'évènements",
 }
 
-)
-L:AddLocale("deDE", 
-{
+  )
+  L:AddLocale("deDE",
+  {
 	["Chat window event name options."] = "Optionen zu Ereignisnamen in Chatfenstern.",
 	EventNames = "Ereignisnamen",
 	Show = "Anzeigen",
 	["Show events on chatframes"] = "Ereignisse bei Chatrahmen anzeigen",
+	-- allevents_desc = "",
+	-- allevents_name = "",
 	show_desc = "Anzeige der Ereignisnamen in jedem Fenster ein- und ausschalten",
 	show_name = "Ereignisnamen anzeigen",
 }
 
-)
-L:AddLocale("koKR",  
-{
+  )
+  L:AddLocale("koKR",
+  {
 	["Chat window event name options."] = "대화창에 이벤트 이름을 표시합니다..",
 	EventNames = "이벤트이름",
 	Show = "보기",
 	["Show events on chatframes"] = "대화창에 이벤트를 보입니다.",
+	-- allevents_desc = "",
+	-- allevents_name = "",
 	show_desc = "각 대화창에 이벤트 이름 보이기를 끄고켭니다.",
 	show_name = "이벤트 이름 보이기",
 }
 
-)
-L:AddLocale("esMX",  
-{
+  )
+  L:AddLocale("esMX",
+  {
 	-- ["Chat window event name options."] = "",
 	-- EventNames = "",
 	-- Show = "",
 	-- ["Show events on chatframes"] = "",
+	-- allevents_desc = "",
+	-- allevents_name = "",
 	-- show_desc = "",
 	-- show_name = "",
 }
 
-)
-L:AddLocale("ruRU",  
-{
+  )
+  L:AddLocale("ruRU",
+  {
 	["Chat window event name options."] = "Настройки названий событий в окне чата.",
 	EventNames = true,
 	Show = "Отображать",
 	["Show events on chatframes"] = "Отображать события в окне чата",
+	-- allevents_desc = "",
+	-- allevents_name = "",
 	show_desc = "Вкл/Выкл отображение названий событий во всех окнах.",
 	show_name = "Названия событий",
 }
 
-)
-L:AddLocale("zhCN",  
-{
+  )
+  L:AddLocale("zhCN",
+  {
 	["Chat window event name options."] = "聊天窗口项目名称选项",
 	EventNames = "事件名称",
 	Show = "显示",
 	["Show events on chatframes"] = "在聊天框显示事件",
+	-- allevents_desc = "",
+	-- allevents_name = "",
 	show_desc = "显示事件名称在每个聊天窗口",
 	show_name = "显示事件名称",
 }
 
-)
-L:AddLocale("esES",  
-{
+  )
+  L:AddLocale("esES",
+  {
 	["Chat window event name options."] = "Opciones de nombre de evento de la ventana del chat.",
 	EventNames = "NombresEventos",
 	Show = "Mostrar",
 	["Show events on chatframes"] = "Mostrar eventos en los marcos de chat",
+	-- allevents_desc = "",
+	-- allevents_name = "",
 	show_desc = "Alterna el mostrar nombres de eventos en cada ventana.",
 	show_name = "Mostrar Nombres de Eventos",
 }
 
-)
-L:AddLocale("zhTW",  
-{
+  )
+  L:AddLocale("zhTW",
+  {
 	["Chat window event name options."] = "聊天視窗事件名稱選項。",
 	EventNames = "事件名稱",
 	Show = "顯示",
 	["Show events on chatframes"] = "於聊天視窗顯示事件",
+	-- allevents_desc = "",
+	-- allevents_name = "",
 	show_desc = "切換顯示在每個視窗事件名稱。",
 	show_name = "顯示事件名稱",
 }
 
-)
---@end-non-debug@
+  )
+  --@end-non-debug@
 
-local mod = Prat:NewModule(PRAT_MODULE)
+  local mod = Prat:NewModule(PRAT_MODULE)
 
-Prat:SetModuleDefaults(mod.name, {
-	profile = {
-	    on = true,
-	    show = {},
-	}
-} )
-
-Prat:SetModuleOptions(mod.name, {
-        name = L["EventNames"],
-        desc = L["Chat window event name options."],
-        type = "group",
-        args = {
-			show = {
-		        name = L["show_name"],
-		        desc = L["show_desc"],
-		        type = "multiselect",
-				values = Prat.HookedFrameList,
-				get = "GetSubValue",
-				set = "SetSubValue"
-			}
-        }
+  Prat:SetModuleDefaults(mod.name, {
+    profile = {
+      on = true,
+      show = {},
+      allevents = false,
     }
-)
+  })
 
-function mod:OnModuleEnable()
-	Prat.RegisterChatEvent(self,"Prat_PreAddMessage","Prat_PreAddMessage")
-end
+  Prat:SetModuleOptions(mod.name, {
+    name = L["EventNames"],
+    desc = L["Chat window event name options."],
+    type = "group",
+    args = {
+      show = {
+        name = L["show_name"],
+        desc = L["show_desc"],
+        type = "multiselect",
+        values = Prat.HookedFrameList,
+        get = "GetSubValue",
+        set = "SetSubValue"
+      },
+      allevents = {
+        name = function(info) return L[info[#info].."_name"] end,
+        desc = function(info) return L[info[#info].."_desc"] end,
+        type = "toggle"
+      }
+    }
+  })
 
-function mod:OnModuleDisable()
-	Prat.UnregisterAllChatEvents(self)
-end
+  function mod:OnModuleEnable()
+    Prat.RegisterChatEvent(self, "Prat_PreAddMessage", "Prat_PreAddMessage")
+    self:SetAllEvents(self.db.profile.allevents)
+  end
 
---[[------------------------------------------------
-	Core Functions
-------------------------------------------------]]--
-do
-	local CLR = Prat.CLR
-	local function EventBrackets(text) return CLR:Colorize("ffffff", text) end
-	local function EventName(text, c)  return CLR:Colorize(c, text) end
-	local desat = 192*0.7+63
-	local c
-	function mod:Prat_PreAddMessage(arg, message, frame, event, t, r, g, b)		
-		if self.db.profile.show[frame:GetName()] then
-			c = ("%02x%02x%02x"):format((r or 1.0)*desat, (g or 1.0)*desat, (b or 1.0)*desat)
-			message.POST =  "  "..EventBrackets("(")..EventName(tostring(event), c)..EventBrackets(")")
-		end
-	end
-end
+  function mod:OnModuleDisable()
+    self:SetAllEvents(false)
+    Prat.UnregisterAllChatEvents(self)
+  end
+
+  --[[------------------------------------------------
+    Core Functions
+  ------------------------------------------------]] --
+  function mod:OnValueChanged(...)
+    self:SetAllEvents(self.db.profile.allevents)
+  end
+
+  local function allEventsEnabled() return true end
+
+  function mod:SetAllEvents(allevents)
+    if not allevents then
+      Prat.EventIsProcessed = self.origEventIsProcessed or Prat.EventIsProcessed
+      self.origEventIsProcessed = nil
+    elseif not self.origEventIsProcessed and allevents then
+      self.origEventIsProcessed = Prat.EventIsProcessed
+      Prat.EventIsProcessed = allEventsEnabled
+    end
+  end
+
+  do
+    local CLR = Prat.CLR
+    local function EventBrackets(text) return CLR:Colorize("ffffff", text) end
+
+    local function EventName(text, c) return CLR:Colorize(c, text) end
+
+    local desat = 192 * 0.7 + 63
+    local c
+    function mod:Prat_PreAddMessage(arg, message, frame, event, t, r, g, b)
+      if self.db.profile.show[frame:GetName()] then
+        c = ("%02x%02x%02x"):format((r or 1.0) * desat, (g or 1.0) * desat, (b or 1.0) * desat)
+        message.POST = "  " .. EventBrackets("(") .. EventName(tostring(event), c) .. EventBrackets(")")
+      end
+    end
+  end
 
   return
-end ) -- Prat:AddModuleToLoad
+end) -- Prat:AddModuleToLoad

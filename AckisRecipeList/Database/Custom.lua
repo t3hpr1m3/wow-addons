@@ -2,10 +2,10 @@
 ************************************************************************
 Custom.lua
 ************************************************************************
-File date: 2011-10-16T12:15:12Z
-File hash: 4c97c7c
-Project hash: d552bcd
-Project version: 2.2.10
+File date: 2011-12-05T19:08:42Z
+File hash: 05a6b0b
+Project hash: 6177bc5
+Project version: 2.2.11
 ************************************************************************
 Please see http://www.wowace.com/addons/arl/ for more information.
 ************************************************************************
@@ -68,6 +68,7 @@ function addon:InitCustom()
 	AddCustom("REMOVED_FROM_GAME")
 	AddCustom("FIRELANDS_RANDOM", BZ["Firelands"])
 	AddCustom("DIG_STEW")
+	AddCustom("DRAGONSOUL_RANDOM", BZ["Dragon Soul"])
 
 	self.InitCustom = nil
 end

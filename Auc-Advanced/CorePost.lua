@@ -1,7 +1,7 @@
 --[[
 	Auctioneer
-	Version: 5.12.5198 (QuirkyKiwi)
-	Revision: $Id: CorePost.lua 5159 2011-05-14 19:18:45Z Nechckn $
+	Version: 5.13.5246 (BoldBandicoot)
+	Revision: $Id: CorePost.lua 5148 2011-05-11 16:01:47Z brykrys $
 	URL: http://auctioneeraddon.com/
 
 	This is an addon for World of Warcraft that adds statistical history to the auction data that is collected
@@ -1356,4 +1356,4 @@ private.Prompt.DragBottom:SetScript("OnMouseDown", DragStart)
 private.Prompt.DragBottom:SetScript("OnMouseUp", DragStop)
 
 
-AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.12/Auc-Advanced/CorePost.lua $", "$Rev: 5159 $")
+AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.13/Auc-Advanced/CorePost.lua $", "$Rev: 5148 $")

@@ -65,7 +65,7 @@ do
 		LSW.vendorValue = VendorValue
 		LSW.vendorCost = VendorCost
 
-		local major, minor = string.match(Informant.version, "([%d+])%.([%d+])%.")
+		local major, minor = string.match(Informant.version, "(%d+)%.(%d+)%.")
 
 		major = tonumber(major) or 0
 		minor = tonumber(minor) or 0

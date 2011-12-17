@@ -1,5 +1,5 @@
 ﻿-- Simplified Chinese by Diablohu(diablohudream@gmail.com)
--- Last update: 10/17/2011
+-- Last update: 11/8/2011
 
 if GetLocale() ~= "zhCN" then return end
 
@@ -172,8 +172,7 @@ L:SetWarningLocalization({
 	warnSplittingBlow		= "%s在%s",--Spellname in Location
 	warnEngulfingFlame		= "%s在%s",--Spellname in Location
 	WarnRemainingAdds		= "剩余%d个烈焰之子",
-	warnAggro				= "获得仇恨：熔岩元素",
-	warnNoAggro				= "未获仇恨：熔岩元素"
+	warnEmpoweredSulf		= "%s - 5秒后施放"--The spell has a 5 second channel, but tooltip doesn't reflect it so cannot auto localize
 })
 
 L:SetTimerLocalization({
@@ -181,19 +180,21 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	warnSplittingBlow	= "警报：$spell:100877",
-	warnEngulfingFlame	= "警报：$spell:99171",
+	warnRageRagnarosSoon		= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.prewarn:format(101109, GetSpellInfo(101109)),
+	warnSplittingBlow			= "警报：$spell:100877的位置",
+	warnEngulfingFlame			= "警报：$spell:99171",
 	WarnEngulfingFlameHeroic	= "警报：英雄模式下$spell:99171的位置",
-	WarnRemainingAdds	= "警报：烈焰之子剩余数量",
-	warnSeedsLand		= "警报与计时条：$spell:98520落地位置，而非施法警报",
-	ElementalAggroWarn	= "警报：是否获得熔岩元素的仇恨",
-	TimerPhaseSons		= "计时条：烈焰之子阶段持续时间",
-	RangeFrame			= "距离监视器",
-	P4IconRangeFilter	= "距离监视器在第4阶段只显示团队标记的成员（需要开启监视器）",
-	InfoHealthFrame		= "信息框：生命值少于10万的团员的列表",
-	MeteorFrame			= "信息框：$spell:99849的目标",
-	AggroFrame			= "信息框：没有获得熔岩元素仇恨的团员的列表",
-	BlazingHeatIcons	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(100983)
+	WarnRemainingAdds			= "警报：烈焰之子剩余数量",
+	warnSeedsLand				= "警报与计时条：$spell:98520落地位置，而非施法警报",
+	warnEmpoweredSulf			= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.cast:format(100997, GetSpellInfo(100997)),
+	timerRageRagnaros			= DBM_CORE_AUTO_TIMER_OPTIONS.cast:format(101109, GetSpellInfo(101109)),
+	TimerPhaseSons				= "计时条：烈焰之子阶段持续时间",
+	RangeFrame					= "距离监视器",
+	P4IconRangeFilter			= "距离监视器在第4阶段只显示团队标记的成员（需要开启监视器）",
+	InfoHealthFrame				= "信息框：生命值少于10万的团员的列表",
+	MeteorFrame					= "信息框：$spell:99849的目标",
+	AggroFrame					= "信息框：没有获得熔岩元素仇恨的团员的列表",
+	BlazingHeatIcons			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(100983)
 })
 
 L:SetMiscLocalization({
@@ -240,7 +241,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Volcanus")
 
 L:SetGeneralLocalization({
-	name = "Volcanus"
+	name = "沃卡纳斯"
 })
 
 L:SetWarningLocalization({
@@ -255,7 +256,28 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	StaffEvent			= "The Branch of Nordrassil reacts violently to %S+ touch!",--Reg expression pull match
-	StaffTrees			= "Burning Treants erupt from the ground to aid the Protector!",--Might add a spec warning for this later.
-	StaffTransition		= "The fires consuming the Tormented Protector wink out!"
+	StaffEvent			= "%S+的触摸令诺达希尔的分枝产生了强烈反应！",--Reg expression pull match
+	StaffTrees			= "烈焰树人从地下涌出，来协助保护者了！",--Might add a spec warning for this later.
+	StaffTransition		= "受折磨的保护者身上一直燃烧着的火焰熄灭了！"
+})
+
+-----------------------
+--  Nexus Legendary  --
+-----------------------
+L = DBM:GetModLocalization("NexusLegendary")
+
+L:SetGeneralLocalization({
+	name = "Thyrinar"
+})
+
+L:SetWarningLocalization({
+})
+
+L:SetTimerLocalization({
+})
+
+L:SetOptionLocalization({
+})
+
+L:SetMiscLocalization({
 })

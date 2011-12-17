@@ -1,7 +1,7 @@
 --[[
 	Auctioneer - Appraisals and Auction Posting
-	Version: 5.12.5198 (QuirkyKiwi)
-	Revision: $Id: AprFrame.lua 5194 2011-07-04 17:46:21Z Nechckn $
+	Version: 5.13.5246 (BoldBandicoot)
+	Revision: $Id: AprFrame.lua 5241 2011-11-30 19:05:41Z Nechckn $
 	URL: http://auctioneeraddon.com/
 
 	This is an addon for World of Warcraft that adds an appraisals tab to the AH for
@@ -131,7 +131,7 @@ function private.CreateFrames()
 		if frame.showAuctions then
 			local auctionStart = #ItemList + 1
 			for auc=1, GetNumAuctionItems("owner") do
-				local name, texture, count, quality, canUse, level, minBid, minIncrement, buyoutPrice, bidAmount, highBidder, owner  = GetAuctionItemInfo("owner", auc)
+				local name, texture, count, quality, canUse, level, _, minBid, minIncrement, buyoutPrice, bidAmount, highBidder, owner  = GetAuctionItemInfo("owner", auc)
 				local link = GetAuctionItemLink("owner", auc)
 
 				local sig = SigFromLink(link)
@@ -2550,7 +2550,7 @@ function private.CreateFrames()
 	frame.imageview.sheet = ScrollSheet:Create(frame.imageview, {
 		--{ "Item",   "TEXT", get("util.appraiser.columnwidth.Item")}, -- Default width 105
 		{ _TRANS('APPR_Interface_Seller') , "TEXT", get("util.appraiser.columnwidth.".._TRANS('APPR_Interface_Seller'))},
-		{ _TRANS('APPR_Interface_Left') ,   "INT",  get("util.appraiser.columnwidth.".._TRANS('APPR_Interface_Left'))},
+		{ _TRANS('APPR_Interface_TimeLeft') ,   "INT",  get("util.appraiser.columnwidth.".._TRANS('APPR_Interface_TimeLeft'))},
 		{ _TRANS('APPR_Interface_Stk') ,    "INT",  get("util.appraiser.columnwidth.".._TRANS('APPR_Interface_Stk'))},
 		{ _TRANS('APPR_Interface_Min/ea') , "COIN", get("util.appraiser.columnwidth.".._TRANS('APPR_Interface_Min/ea')), { DESCENDING=true } },
 		{ _TRANS('APPR_Interface_Cur/ea') , "COIN", get("util.appraiser.columnwidth.".._TRANS('APPR_Interface_Cur/ea')), { DESCENDING=true } },
@@ -2619,17 +2619,17 @@ function private.CreateFrames()
 			AuctionFrameBot:SetTexture("Interface\\AuctionFrame\\UI-AuctionFrame-Bid-Bot")
 			AuctionFrameBotRight:SetTexture("Interface\\AuctionFrame\\UI-AuctionFrame-Bid-BotRight")
 			AuctionFrameMoneyFrame:Show()
-			if (AuctionDressUpFrame:IsVisible()) then
-				AuctionDressUpFrame:Hide()
-				AuctionDressUpFrame.reshow = true
+			if (SideDressUpFrame:IsVisible()) then
+				SideDressUpFrame:Hide()
+				SideDressUpFrame.reshow = true
 			end
 			frame:Show()
 			AucAdvanced.Scan.LoadScanData()
 			frame.GenerateList(true)
 		else
-			if (AuctionDressUpFrame.reshow) then
-				AuctionDressUpFrame:Show()
-				AuctionDressUpFrame.reshow = nil
+			if (SideDressUpFrame.reshow) then
+				SideDressUpFrame:Show()
+				SideDressUpFrame.reshow = nil
 			end
 			AuctionFrameMoneyFrame:Show()
 			frame:Hide()
@@ -2744,4 +2744,4 @@ function private.CreateFrames()
 
 end
 
-AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.12/Auc-Util-Appraiser/AprFrame.lua $", "$Rev: 5194 $")
+AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.13/Auc-Util-Appraiser/AprFrame.lua $", "$Rev: 5241 $")

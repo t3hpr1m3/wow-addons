@@ -1,15 +1,16 @@
-local Units = {headerFrames = {}, unitFrames = {}, frameList = {}, unitEvents = {}}
+local Units = {headerFrames = {}, unitFrames = {}, frameList = {}, unitEvents = {}, canCure = {}}
 Units.childUnits = {["partytarget"] = "party", ["partypet"] = "party", ["maintanktarget"] = "maintank", ["mainassisttarget"] = "mainassist", ["bosstarget"] = "boss", ["arenatarget"] = "arena", ["arenapet"] = "arena"}
 Units.zoneUnits = {["arena"] = "arena", ["boss"] = "raid"}
 
 local stateMonitor = CreateFrame("Frame", nil, nil, "SecureHandlerBaseTemplate")
 local playerClass = select(2, UnitClass("player"))
-local unitFrames, headerFrames, frameList, unitEvents, childUnits, queuedCombat = Units.unitFrames, Units.headerFrames, Units.frameList, Units.unitEvents, Units.childUnits, {}
+local unitFrames, headerFrames, frameList, unitEvents, childUnits, queuedCombat, canCure = Units.unitFrames, Units.headerFrames, Units.frameList, Units.unitEvents, Units.childUnits, {}, Units.canCure
+local curableData = {["PRIEST"] = {["Magic"] = true, ["Disease"] = true}, ["DRUID"] = {["Curse"] = true, ["Poison"] = true, ["Magic"] = GetSpellInfo(88423), ["Enrage"] = true}, ["SHAMAN"] = {["Curse"] = true, ["Magic"] = GetSpellInfo(77130)}, ["PALADIN"] = {["Poison"] = true, ["Disease"] = true, ["Magic"] = GetSpellInfo(53551)}, ["MAGE"] = {["Curse"] = true}, ["HUNTER"] = {["Enrage"] = true}, ["ROGUE"] = {["Enrage"] = true}}
 local _G = getfenv(0)
 
 ShadowUF.Units = Units
 ShadowUF:RegisterModule(Units, "units")
-	
+
 -- Frame shown, do a full update
 local function FullUpdate(self)
 	for i=1, #(self.fullUpdates), 2 do
@@ -298,18 +299,6 @@ function Units:CheckVehicleStatus(frame, event, unit)
 		frame.unitGUID = UnitGUID(frame.unit)
 		frame:FullUpdate()
 	end
-
-	-- Keep track of the actual players unit so we can quickly see what unit to scan
-	--[[
-	if( frame.unitOwner == "player" and ShadowUF.playerUnit ~= frame.unit ) then
-		ShadowUF.playerUnit = frame.unit
-		
-		if( not ShadowUF.db.profile.hidden.buffs and ShadowUF.db.profile.units.player.enabled and BuffFrame:IsVisible() ) then
-			PlayerFrame.unit = frame.unit
-			BuffFrame_Update() 
-		end
-	end
-	]]
 end
 
 -- Handles checking for GUID changes for doing a full update, this fixes frames sometimes showing the wrong unit when they change
@@ -458,6 +447,9 @@ OnAttributeChanged = function(self, name, unit)
 		self:RegisterUpdateFunc(Units, "CheckVehicleStatus")
 	end	
 	
+	-- Phase change, do a full update on it
+	self:RegisterUnitEvent("UNIT_PHASE", self, "FullUpdate")
+	
 	-- Pet changed, going from pet -> vehicle for one
 	if( self.unit == "pet" or self.unitType == "partypet" ) then
 		self.unitRealOwner = self.unit == "pet" and "player" or ShadowUF.partyUnits[self.unitID]
@@ -520,6 +512,8 @@ OnAttributeChanged = function(self, name, unit)
 	-- Party members need to watch for changes
 	elseif( self.unitRealType == "party" ) then
 		self:RegisterNormalEvent("PARTY_MEMBERS_CHANGED", Units, "CheckGroupedUnitStatus")
+		self:RegisterNormalEvent("PARTY_MEMBER_ENABLE", Units, "CheckGroupedUnitStatus")
+		self:RegisterNormalEvent("PARTY_MEMBER_DISABLE", Units, "CheckGroupedUnitStatus")
 		self:RegisterUnitEvent("UNIT_NAME_UPDATE", Units, "CheckUnitStatus")
 	
 	-- *target units are not real units, thus they do not receive events and must be polled for data
@@ -831,15 +825,20 @@ function Units:SetHeaderAttributes(frame, type)
 		frame:SetAttribute("unitsPerColumn", config.unitsPerColumn)
 		frame:SetAttribute("columnSpacing", config.columnSpacing)
 		frame:SetAttribute("columnAnchorPoint", config.attribAnchorPoint)
+
+		self:CheckGroupVisibility()
+		if( stateMonitor.party ) then
+			stateMonitor.party:SetAttribute("hideSemiRaid", ShadowUF.db.profile.units.party.hideSemiRaid)
+			stateMonitor.party:SetAttribute("hideAnyRaid", ShadowUF.db.profile.units.party.hideAnyRaid)
+		end
 	end
 	
-	-- Update the raid frames to if they should be showing raid or party
-	if( type == "party" or type == "raid" ) then
+	if( type == "raid" ) then
 		self:CheckGroupVisibility()
-		
-		-- Need to update our flags on the state monitor so it knows what to do
-		stateMonitor:SetAttribute("hideSemiRaid", ShadowUF.db.profile.units.party.hideSemiRaid)
-		stateMonitor:SetAttribute("hideAnyRaid", ShadowUF.db.profile.units.party.hideAnyRaid)
+
+		if( stateMonitor.raid ) then
+			stateMonitor.raid:SetAttribute("hideSemiRaid", ShadowUF.db.profile.units.raid.hideSemiRaid)
+		end
 	end
 	-- calling :Show basically resets the header
 	if frame:IsShown() then
@@ -931,8 +930,12 @@ function Units:LoadGroupHeader(type)
 	if( headerFrames[type] ) then
 		headerFrames[type]:Show()
 
-		if( type == "party" ) then
-			stateMonitor:SetAttribute("partyDisabled", nil)
+		if( type == "party" and stateMonitor.party ) then
+			stateMonitor.party:SetAttribute("partyDisabled", nil)
+		end
+		
+		if( type == "raid" and stateMonitor.raid ) then
+			stateMonitor.raid:SetAttribute("raidDisabled", nil)
 		end
 
 		if( type == "party" or type == "raid" ) then
@@ -975,9 +978,12 @@ function Units:LoadGroupHeader(type)
 	-- technically this isn't the cleanest solution because party frames will still have unit watches active
 	-- but this isn't as big of a deal, because SUF automatically will unregister the OnEvent for party frames while hidden
 	if( type == "party" ) then
-		stateMonitor:SetAttribute("partyDisabled", nil)
-		stateMonitor:SetFrameRef("partyHeader", headerFrame)
-		stateMonitor:WrapScript(stateMonitor, "OnAttributeChanged", [[
+		stateMonitor.party = CreateFrame("Frame", nil, nil, "SecureHandlerBaseTemplate")
+		stateMonitor.party:SetAttribute("partyDisabled", nil)
+		stateMonitor.party:SetFrameRef("partyHeader", headerFrame)
+		stateMonitor.party:SetAttribute("hideSemiRaid", ShadowUF.db.profile.units.party.hideSemiRaid)
+		stateMonitor.party:SetAttribute("hideAnyRaid", ShadowUF.db.profile.units.party.hideAnyRaid)
+		stateMonitor.party:WrapScript(stateMonitor.party, "OnAttributeChanged", [[
 			if( name ~= "state-raidmonitor" and name ~= "partydisabled" and name ~= "hideanyraid" and name ~= "hidesemiraid" ) then return end
 			if( self:GetAttribute("partyDisabled") ) then return end
 			
@@ -989,7 +995,24 @@ function Units:LoadGroupHeader(type)
 				self:GetFrameRef("partyHeader"):Show()
 			end
 		]])
-		RegisterStateDriver(stateMonitor, "raidmonitor", "[target=raid6, exists] raid6; [target=raid1, exists] raid1; none")
+		RegisterStateDriver(stateMonitor.party, "raidmonitor", "[target=raid6, exists] raid6; [target=raid1, exists] raid1; none")
+	elseif( type == "raid" ) then
+		stateMonitor.raid = CreateFrame("Frame", nil, nil, "SecureHandlerBaseTemplate")
+		stateMonitor.raid:SetAttribute("raidDisabled", nil)
+		stateMonitor.raid:SetFrameRef("raidHeader", headerFrame)
+		stateMonitor.raid:SetAttribute("hideSemiRaid", ShadowUF.db.profile.units.raid.hideSemiRaid)
+		stateMonitor.raid:WrapScript(stateMonitor.raid, "OnAttributeChanged", [[
+			if( name ~= "state-raidmonitor" and name ~= "raiddisabled" and name ~= "hidesemiraid" ) then return end
+			if( self:GetAttribute("raidDisabled") ) then return end
+			
+			if( self:GetAttribute("hideSemiRaid") and self:GetAttribute("state-raidmonitor") ~= "raid6" ) then
+				self:GetFrameRef("raidHeader"):Hide()
+			else
+				self:GetFrameRef("raidHeader"):Show()
+			end
+		]])
+		
+		RegisterStateDriver(stateMonitor.raid, "raidmonitor", "[target=raid6, exists] raid6; none")
 	else
 		headerFrame:Show()
 	end
@@ -1119,8 +1142,11 @@ end
 -- Uninitialize units
 function Units:UninitializeFrame(type)
 	-- Disables showing party in raid automatically if raid frames are disabled
-	if( type == "party" ) then
-		stateMonitor:SetAttribute("partyDisabled", true)
+	if( type == "party" and stateMonitor.party ) then
+		stateMonitor.party:SetAttribute("partyDisabled", true)
+	end
+	if( type == "raid" and stateMonitor.raid ) then
+		stateMonitor.raid:SetAttribute("raidDisabled", true)
 	end
 	if( type == "party" or type == "raid" ) then
 		self:CheckGroupVisibility()
@@ -1230,9 +1256,46 @@ function Units:CheckPlayerZone(force)
 	end
 end
 
+-- Monitor talents to figure out what the user can currently cure
+function Units:SetCurable()
+	table.wipe(canCure)
+	
+    local list = curableData[select(2, UnitClass("player"))]
+    if( list ) then
+        for magic, spell in pairs(list) do
+            if( spell == true ) then
+            	canCure[magic] = true
+            -- Need some specific talents for this
+            else
+                for tab=1, GetNumTalentTabs() do
+					for talent=1, GetNumTalents(tab) do
+                        local name, _, _, _, currentRank = GetTalentInfo(tab, talent)
+                        if( name == spell and currentRank > 0 ) then
+                            canCure[magic] = true
+                        end
+                    end
+                end
+            end
+        end
+    end
+    
+    -- Reload frames
+	for frame in pairs(ShadowUF.Units.frameList) do
+		if( frame.unit and frame:IsVisible() and UnitIsFriend(frame.unit, "player") ) then
+	    	local config = ShadowUF.db.profile.units[frame.unitType];
+		    if( ( config.auras and config.auras.debuffs and config.auras.debuffs.raid ) or ( config.highlight and config.highlight.hasDebuff ) ) then
+				frame:FullUpdate()
+			end
+	    end
+    end
+end
+
 local centralFrame = CreateFrame("Frame")
 centralFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
 centralFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+centralFrame:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
+centralFrame:RegisterEvent("PLAYER_TALENT_UPDATE")
+centralFrame:RegisterEvent("PLAYER_LOGIN")
 centralFrame:SetScript("OnEvent", function(self, event, unit)
 	-- Check if the player changed zone types and we need to change module status, while they are dead
 	-- we won't change their zone type as releasing from an instance will change the zone type without them
@@ -1244,11 +1307,15 @@ centralFrame:SetScript("OnEvent", function(self, event, unit)
 			self:UnregisterEvent("PLAYER_UNGHOST")
 			Units:CheckPlayerZone()
 		end				
-		
 	-- They're alive again so they "officially" changed zone types now
 	elseif( event == "PLAYER_UNGHOST" ) then
 		Units:CheckPlayerZone()
-		
+	-- Monitor talent changes
+	elseif( event == "ACTIVE_TALENT_GROUP_CHANGED" or event == "PLAYER_TALENT_UPDATE" ) then
+		Units:SetCurable()
+	elseif( event == "PLAYER_LOGIN" ) then
+		Units:SetCurable()
+		self:RegisterEvent("PLAYER_TALENT_UPDATE")
 	-- This is slightly hackish, but it suits the purpose just fine for somthing thats rarely called.
 	elseif( event == "PLAYER_REGEN_ENABLED" ) then
 		-- Now do all of the creation for child wrapping

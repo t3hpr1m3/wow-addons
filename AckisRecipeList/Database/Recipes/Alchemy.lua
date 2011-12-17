@@ -2,10 +2,10 @@
 ************************************************************************
 Alchemy.lua
 ************************************************************************
-File date: 2011-09-21T20:42:10Z
-File hash: a50fae6
-Project hash: d552bcd
-Project version: 2.2.10
+File date: 2011-12-05T18:38:30Z
+File hash: 19378dc
+Project hash: 6177bc5
+Project version: 2.2.11
 ************************************************************************
 Please see http://www.wowace.com/addons/arl/ for more information.
 ************************************************************************
@@ -328,7 +328,7 @@ function addon:InitAlchemy()
 	recipe:SetRecipeItemID(6055)
 	recipe:SetCraftedItemID(6049)
 	recipe:SetSkillLevels(165, 165, 210, 230, 250)
-	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOE)
+	recipe:AddFilters(F.HORDE, F.VENDOR, F.IBOE, F.RBOE)
 	recipe:AddLimitedVendor(4083, 1)
 
 	-- Frost Protection Potion -- 7258
@@ -491,8 +491,8 @@ function addon:InitAlchemy()
 	recipe:SetRecipeItemID(9296)
 	recipe:SetCraftedItemID(9088)
 	recipe:SetSkillLevels(240, 240, 255, 275, 295)
-	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.MOB_DROP, F.IBOE, F.RBOE)
-	recipe:AddMobDrop(1783, 1791)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.RETIRED, F.MOB_DROP, F.IBOE, F.RBOE)
+	recipe:AddCustom("REMOVED_FROM_GAME")
 
 	-- Elixir of Greater Agility -- 11467
 	recipe = AddRecipe(11467, V.ORIG, Q.COMMON)
@@ -775,7 +775,7 @@ function addon:InitAlchemy()
 	recipe:SetCraftedItemID(13459)
 	recipe:SetSkillLevels(290, 290, 305, 325, 345)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.MOB_DROP, F.IBOE, F.RBOE)
-	recipe:AddMobDrop(8546, 8550)
+	recipe:AddMobDrop(8546)
 
 	-- Major Mana Potion -- 17580
 	recipe = AddRecipe(17580, V.ORIG, Q.UNCOMMON)

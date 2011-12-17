@@ -2,7 +2,7 @@
 local mod	= DBM:NewMod("Argaloth", "DBM-BaradinHold")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 6200 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 6700 $"):sub(12, -3))
 mod:SetCreatureID(47120)
 mod:SetModelID(35426)
 mod:SetZone()
@@ -27,7 +27,7 @@ local specWarnMeteorSlash	= mod:NewSpecialWarningSpell(88942, mod:IsTank())
 local specWarnFirestormCast	= mod:NewSpecialWarningSpell(88972, nil, nil, nil, true)
 local specWarnFirestorm		= mod:NewSpecialWarningMove(89000)
 
-local timerConsuming		= mod:NewBuffActiveTimer(15, 88954)
+local timerConsuming		= mod:NewBuffFadesTimer(15, 88954)
 local timerConsumingCD		= mod:NewCDTimer(24, 88954)
 local timerMeteorSlash		= mod:NewNextTimer(15, 88942)
 local timerFirestorm		= mod:NewBuffActiveTimer(15, 88972)

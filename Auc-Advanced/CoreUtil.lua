@@ -1,7 +1,7 @@
 --[[
 	Auctioneer
-	Version: 5.12.5198 (QuirkyKiwi)
-	Revision: $Id: CoreUtil.lua 5194 2011-07-04 17:46:21Z Nechckn $
+	Version: 5.13.5246 (BoldBandicoot)
+	Revision: $Id: CoreUtil.lua 5224 2011-10-06 00:35:53Z Nechckn $
 	URL: http://auctioneeraddon.com/
 
 	This is an addon for World of Warcraft that adds statistical history to the auction data that is collected
@@ -40,6 +40,12 @@ if not coremodule then return end -- Someone has explicitely broken us
 local tooltip = LibStub("nTipHelper:1")
 local Const = lib.Const
 
+local _G = _G
+local pairs, ipairs, tinsert, wipe = pairs, ipairs, tinsert, wipe
+local type, tonumber, tostring = type, tonumber, tostring
+local pcall = pcall
+local strmatch = strmatch
+local select = select
 
 function coremodule.OnLoad(addon)
 	if addon == "auc-advanced" then
@@ -50,15 +56,20 @@ end
 coremodule.Processors = {}
 function coremodule.Processors.auctionopen()
 	private.isAHOpen = true
+	-- temporary check
+	if private.checkAuthorizedModules then
+		private.checkAuthorizedModules()
+	end
 end
 function coremodule.Processors.auctionclose()
 	private.isAHOpen = false
 end
 function coremodule.Processors.newmodule(event, libType, libName)
-	-- resetting caches here allows us to respond to modules that are not created by lib.NewModule,
-	-- as long as they correctly send a "newmodule" message when created
-	private.modulecache = nil
-	private.resetPriceModels()
+	-- the only newmodule messages should come from AucAdvanced.NewModule
+	-- ### this is a temporary check, until we are sure nothing else is still sending these messages
+	if private.newmoduleCheckName ~= libName then
+		error("Auctioneer has detected unauthorized newmodule message")
+	end
 end
 
 --Localization via babylonian
@@ -100,7 +111,7 @@ function lib.configFramesList()
 	for i=1, 10 do
 		local name, fontSize, r, g, b, a, shown, locked, docked = GetChatWindowInfo(i)
 		if (name ~= "") and (docked or shown) then
-			table.insert(configFrames, {name, name})
+			tinsert(configFrames, {name, name})
 		end
 	end
 	return configFrames
@@ -180,9 +191,9 @@ function lib.changeLocale()
 	local localizations, default = {}, lib.Settings.GetSetting("SelectedLocale") --get the user choosen locale make it first on the list
 	for i in pairs(AuctioneerLocalizations) do
 		if default == i then
-			table.insert(localizations,1, {i, i})
+			tinsert(localizations,1, {i, i})
 		else
-			table.insert(localizations, {i, i})
+			tinsert(localizations, {i, i})
 		end
 	end
 	return localizations
@@ -200,10 +211,10 @@ do
 		if not pricemodels then
 			-- delay creating table until function is first called, to give all modules a chance to load first
 			pricemodels = {}
-			table.insert(pricemodels,{"market", lib.localizations("UCUT_Interface_MarketValue")})--Market value {Reusing Undercut's existing localization string}
+			tinsert(pricemodels,{"market", lib.localizations("UCUT_Interface_MarketValue")})--Market value {Reusing Undercut's existing localization string}
 			local algoList = AucAdvanced.API.GetAlgorithms()
 			for pos, name in ipairs(algoList) do
-				table.insert(pricemodels,{name, lib.localizations("APPR_Interface_Stats").." "..name})--Stats: {Reusing Appraiser's existing localization string}
+				tinsert(pricemodels,{name, lib.localizations("APPR_Interface_Stats").." "..name})--Stats: {Reusing Appraiser's existing localization string}
 			end
 		end
 		return pricemodels
@@ -481,147 +492,265 @@ Recommended method:
 
 --]]
 
---[[
+do -- Module Functions
+	-- local variables for module functions
+	local moduleNameLower = {}
+	local moduleSortedLists = {All = {}, Util = {}, Stat = {}, Match = {}, Filter = {}}
+	local moduleNameLookups = {All = {}, Util = {}, Stat = {}, Match = {}, Filter = {}}
+	local moduleNameLookupAll = moduleNameLookups.All -- local ref to this entry for quick lookup by GetModule
+	local moduleTypeLookup = { -- used to validate module types (libType)
+		filter = "Filter",
+		Filter = "Filter",
+		match = "Match",
+		Match = "Match",
+		stat = "Stat",
+		Stat = "Stat",
+		util = "Util",
+		Util = "Util",
+	}
 
-Usage:
-  local lib,parent,private = AucAdvanced.NewModule(libType, libName)
-  local lib,parent = AucAdvanced.NewModule(libType, libName, nil, true) -- no Private table created
-  local lib,parent,private = AucAdvanced.NewModule(libType, libName, libTable) -- caller may optionally provide its own libTable
-
-  libType must be one of "Filter" "Match" "Stat" "Util"
-
---]]
--- local moduleKit = {} -- currently unused
-function lib.NewModule(libType, libName, libTable, noPrivate)
-	if not lib.Modules[libType] then
-		error("Invalid libType specified for NewModule: "..tostring(libType), 2)
-	end
-	if libTable and type(libTable) ~= "table" then
-		error("Invalid module table provided to NewModule", 2)
-	end
-
-	if not lib.Modules[libType][libName] then
-		local module = libTable or {}
-		local modulePrivate
-		if not noPrivate then
-			modulePrivate = module.Private or {} -- if libTable includes a 'Private' entry, use that
-			module.Private = modulePrivate
-		end
-		module.libName = libName -- this is unused by anything - should we deprecate it?
-		module.libType = libType -- ditto
-		module.GetName = function() return libName end
-		if not module.GetLocalName then -- don't create if it already exists
-			module.GetLocalName = module.GetName
-		end
-		--[[ currently unused
-		for k,v in pairs(moduleKit) do
-			module[k] = v
-		end
-		--]]
-
-		lib.Modules[libType][libName] = module
-		lib.SendProcessorMessage("newmodule", libType, libName)
-		return module, lib, modulePrivate
-	end
-end
-
---[[
-
-Usage:
-  local libCopy = AucAdvanced.GetModule(libType, libName)
-
---]]
-function lib.GetModule(libType, libName)
-	assert(lib.Modules[libType], "Invalid AucAdvanced libType specified: "..tostring(libType))
-
-	if lib.Modules[libType][libName] then
-		return lib.Modules[libType][libName], lib, private
-	end
-end
-
---[[
-
-Usage:
-  local print,decode,_,_,replicate,empty,get,set,default,debugPrint,fill,_TRANS = AucAdvanced.GetModuleLocals()
-
--- ]]
-function lib.GetModuleLocals()
-	return lib.Print, lib.DecodeLink,
-	lib.Recycle, lib.Acquire, lib.Replicate, lib.Empty,
-	lib.Settings.GetSetting, lib.Settings.SetSetting, lib.Settings.SetDefault,
-	lib.Debug.DebugPrint, lib.Fill, lib.localizations
-end
-
-private.checkedModules = {}
-function private.CheckModule(name, module)
-	if private.checkedModules[module] then return end
-
-	local fix
-	if not module.GetName or type(module.GetName) ~= "function" then
-		-- Sometimes we find engines that don't have a "GetName()" function.
-		-- All engines should have this function!
-		if nLog then
-			nLog.AddMessage("Auctioneer", "CheckModule", N_WARNING, "Module without GetName()", "No GetName() function was found for module indexed as \""..name.."\". Please fix this!")
-		end
-		fix = true
-	else
-		local reportedName = module.GetName()
-		if reportedName ~= name then
-			if nLog then
-				nLog.AddMessage("Auctioneer", "CheckModule", N_WARNING, "Module GetName() mismatch", "The GetName() function was found for module indexed as \""..name.."\", but actually returns \""..reportedName.."\". Please fix this!")
-			end
-			fix = true
-		end
-	end
-
-	if fix then
-		module.GetName = function()
-			return name
-		end
-	end
-
-	private.checkedModules[module] = true
-end
-
-function lib.GetAllModules(having, findSystem, findEngine)
-	local modules
-	if findSystem then findSystem = findSystem:lower() end
-	if findEngine then findEngine = findEngine:lower() end
-	if not findEngine then modules = {} end
-
-	if not having and not findSystem and private.modulecache then
-		for k,v in ipairs(private.modulecache) do
-			modules[k] = v
-		end
-		return modules
-	end
-
-	for system, systemMods in pairs(AucAdvanced.Modules) do
-		if not findSystem or system:lower() == findSystem then
-			for engine, engineLib in pairs(systemMods) do
-				private.CheckModule(engine, engineLib)
-				if not having or engineLib[having] then
-					if not findEngine then
-						table.insert(modules, engineLib)
-					elseif engine:lower() == findEngine then
-						return engineLib, system, engine
-					end
+	function private.checkAuthorizedModules()
+		-- check the publicly accessible modules tables, notifying of any modules that have been inserted directly
+		-- called once per session, when auctionhouse first opened
+		-- ### temp function for debugging
+		private.checkAuthorizedModules = nil
+		for typeName, typeTable in pairs(lib.Modules) do
+			for moduleName, moduleTable in pairs(typeTable) do
+				if not moduleNameLookupAll[moduleName] then
+					-- note: using geterrorhandler() instead of error here allows us to report multiple entries
+					-- and avoids halting the processor event
+					geterrorhandler()(format("Auctioneer has detected unauthorized entry %s(%s) in AucAdvanced.Modules.%s",
+						tostring(moduleName), type(moduleTable), typeName))
 				end
 			end
 		end
 	end
 
-	if not having and not findSystem then
-		if not private.modulecache then private.modulecache = {} end
-		for k,v in ipairs(modules) do
-			private.modulecache[k] = v
+	-- function to store references to the module in multiple tables, for fast retrieval by GetModule and GetAllModules
+	local function UpdateModuleTables(moduleLib, moduleName, moduleType, lowerName)
+		-- update the internal lookup tables
+		moduleNameLower[lowerName] = moduleLib
+		moduleNameLookups.All[moduleName] = moduleLib
+		moduleNameLookups[moduleType][moduleName] = moduleLib
+
+		-- sorted lists - used by GetAllModules so as to always return modules in a specific order
+		-- sublists are sorted by lowercase name (ascending)
+		local tpos
+		local typeList = moduleSortedLists[moduleType]
+		for index, module in ipairs(typeList) do
+			if lowerName < module.GetName():lower() then
+				tpos = index
+				break
+			end
+		end
+		tpos = tpos or #typeList + 1
+		tinsert(typeList, tpos, moduleLib)
+		-- the All list is sorted first by module type (descending) then by lower name (ascending, as in the sublists)
+		local apos
+		local allList = moduleSortedLists.All
+		for index, module in ipairs(allList) do
+			local curtype = module.GetLibType()
+			if moduleType > curtype then
+				apos = index
+				break
+			elseif moduleType == curtype then
+				-- we already found the insertion point based on lowerName - tpos
+				apos = index + tpos - 1
+				break
+			end
+		end
+		tinsert(allList, apos or #allList + 1, moduleLib)
+
+		-- install in public table for direct access by other mods (compatibility)
+		lib.Modules[moduleType][moduleName] = moduleLib
+	end
+
+	--[[
+
+	Usage:
+	  local lib,parent,private = AucAdvanced.NewModule(libType, libName)
+	  local lib,parent = AucAdvanced.NewModule(libType, libName, nil, true) -- no Private table created
+	  local lib,parent,private = AucAdvanced.NewModule(libType, libName, libTable) -- caller may optionally provide its own libTable
+
+	  libType must be one of "Filter" "Match" "Stat" "Util"
+	  libName must be unique (and may not be one of "Filter" "Match" "Stat" "Util")
+
+	  Note: ### for debugging purposes NewModule will currently throw errors for invalid parameters
+	  the caller should still check for a nil return from NewModule as shown in the example above
+		(even though a nil return is technically not possible with the current version)
+
+	--]]
+	function lib.NewModule(libType, libName, libTable, noPrivate)
+		local tmp = moduleTypeLookup[libType] -- use a temp variable so we can report libType in the error message
+		if not tmp then
+			error("Invalid libType specified for NewModule: "..tostring(libType), 2)
+		end
+		libType = tmp
+		if type(libName) ~= "string" then
+			error("Module name must be a string for NewModule", 2)
+		end
+		if libTable and type(libTable) ~= "table" then
+			error("Invalid module table provided to NewModule", 2)
+		end
+		local lowerName = libName:lower()
+		if moduleNameLower[lowerName] then
+			error("Module name "..lowerName.." already in use by NewModule", 2)
+		end
+		if moduleTypeLookup[lowerName] then
+			-- block using one of the libTypes as a name (may add more reserved names in future)
+			error("Module name "..lowerName.." is not a valid name", 2)
+		end
+		local typeTable = lib.Modules[libType] -- ### temp
+		assert(typeTable) -- ### temp
+		assert(not typeTable[libName]) -- ### temp
+
+		local module = libTable or {}
+		module.libName = libName
+		module.libType = libType
+		module.GetName = function() return libName end
+		module.GetLibType = function() return libType end
+		if not module.GetLocalName then -- don't create if it already exists
+			module.GetLocalName = module.GetName
+		end
+		if not noPrivate and not module.Private then
+			module.Private = {} -- assign a private table if it is wanted and does not already exist
+		end
+
+		UpdateModuleTables(module, libName, libType, lowerName)
+
+		private.resetPriceModels()
+
+		private.newmoduleCheckName = libName -- ### temp
+		lib.SendProcessorMessage("newmodule", libType, libName)
+		private.newmoduleCheckName = nil -- ### temp
+		return module, lib, module.Private
+	end
+
+	--[[
+
+	Usage:
+	  local print,decode,_,_,replicate,empty,get,set,default,debugPrint,fill,_TRANS = AucAdvanced.GetModuleLocals()
+
+	-- ]]
+	function lib.GetModuleLocals()
+		return lib.Print, lib.DecodeLink,
+		lib.Recycle, lib.Acquire, lib.Replicate, lib.Empty,
+		lib.Settings.GetSetting, lib.Settings.SetSetting, lib.Settings.SetDefault,
+		lib.Debug.DebugPrint, lib.Fill, lib.localizations
+	end
+
+	--[[
+
+	Usage:
+	  local libCopy = AucAdvanced.GetModule(libName) -- short form
+	  local libCopy = AucAdvanced.GetModule(libType, libName, having)
+
+	  libName: (required) module name (either correct case or lowercase)
+	  libType: (optional) one of the valid module types (either correct case or lowercase)
+	  having: (optional) checks that the module has this method (can also find other types of key)
+
+	  No errors are thrown for invalid parameters, just a nil return
+
+	--]]
+	function lib.GetModule(libType, libName, having)
+		if libName then
+			local module = moduleNameLookupAll[libName] or moduleNameLower[libName]
+			if module and (not having or module[having]) then
+				if libType then
+					if module.GetLibType() == moduleTypeLookup[libType] then
+						return module
+					end
+				else
+					return module
+				end
+			end
+		else
+			-- 'libType' is really the module name
+			return moduleNameLookupAll[libType] or moduleNameLower[libType]
 		end
 	end
-	return modules
-end
 
+	--[[
 
---[[ End of CoreModule ]]--
+	Usage:
+	  local moduleList = AucAdvanced.GetAllModules(having, libType, useTable, mode)
+	  local moduleLib = AucAdvanced.GetAllModules(having, libType, libName) -- deprecated form - included for compatibility
+
+	  All parameters are optional
+	  having: name of method that modules should contain (or any other key)
+	  libType: one of the valid modules types (either correct case or lowercase)
+	  useTable: function will use, and return, this table instead of creating an empty table
+		(if useTable is not empty, new entries will be inserted after the existing ones)
+	  mode: if provided, modules will be inserted as key = engineLib pairs (instead of an indexed list)
+		mode = 1 : keys are module names
+
+	  (deprecated) libName: a module name (correct case or lowercase) - only this lib will be returned (not a list)
+		should use AucAdvanced.GetModule(libType, libName, having) instead
+
+	  moduleList is a table containing a list of moduleLibs matching the specified parameters
+		in a specific order: sorted by libType-descending then lowerName-ascending (unless key mode was specified)
+		if no modules matching the parameters are found the table will be empty (or unchanged if useTable was supplied)
+
+	  Returns nil if any parameters were invalid
+
+	--]]
+	function lib.GetAllModules(having, findSystem, useTable, mode)
+		local modules
+
+		if useTable then
+			local t = type(useTable)
+			if t == "table" then
+				modules = useTable
+			elseif t == "string" then
+				lib.API.ShowDeprecationAlert("GetModule")
+				return lib.GetModule(findSystem, useTable, having)
+			else
+				return
+			end
+		else
+			modules = {}
+		end
+
+		if findSystem then
+			findSystem = moduleTypeLookup[findSystem]
+			if not findSystem then return end
+		else
+			findSystem = "All"
+		end
+
+		if mode == 1 then
+			-- key mode: entries are name~lib pairs
+			if having then
+				for name, module in pairs(moduleNameLookups[findSystem]) do
+					if module[having] then
+						modules[name] = module
+					end
+				end
+			else
+				for name, module in pairs(moduleNameLookups[findSystem]) do
+					modules[name] = module
+				end
+			end
+		else -- default, mode == 0
+			-- sorted list mode
+			if having then
+				for _, module in ipairs(moduleSortedLists[findSystem]) do
+					if module[having] then
+						tinsert(modules, module)
+					end
+				end
+			else
+				for _, module in ipairs(moduleSortedLists[findSystem]) do
+					tinsert(modules, module)
+				end
+			end
+		end
+
+		return modules
+	end
+
+end -- end of Module Functions
+
 
 local spmArray = {}
 function lib.SendProcessorMessage(spmMsg, ...)
@@ -641,8 +770,7 @@ function lib.SendProcessorMessage(spmMsg, ...)
 		spmp = {}
 		spmArray[spmMsg] = spmp
 
-		local modules = AucAdvanced.GetAllModules("Processors")
-		local good, msg
+		local modules = lib.GetAllModules("Processors")
 		for pos, engineLib in ipairs(modules) do
 			local f = engineLib.Processors[spmMsg]
 			if f then
@@ -660,25 +788,24 @@ function lib.SendProcessorMessage(spmMsg, ...)
 				else
 					x.Func = f
 				end
-				table.insert(spmp, x)
+				tinsert(spmp, x)
 --if (nLog) then nLog.AddMessage("Auctioneer", "Coreutil", N_INFO, ("SendProcessorMessage Called %s For %s (using Processors)"):format(x.Name, spmMsg), ("SendProcessorMessage Called %s For %s"):format(x.Name, spmMsg)) end
-				good,msg=pcall(f, spmMsg, ...)
+				local good,msg=pcall(f, spmMsg, ...)
 				if not good then
 					lib.Debug.DebugPrint(msg, "SendProcessorMessage", "Processor Error in "..(x.Name or "??"), 0, "Debug")
 				end
 			end
 		end
 
-		modules = AucAdvanced.GetAllModules("Processor")
-		local good, msg
+		modules = lib.GetAllModules("Processor")
 		for pos, engineLib in ipairs(modules) do
 			if (not engineLib.Processors) then
 				local x = {}
 				x.Name = engineLib.GetName()
 				x.Func = engineLib.Processor
 				lib.Debug.DebugPrint("Module Using Deprecated Processor to recieve "..(spmMsg or "Unknown").." processor messages.", "SendProcessorMessage", "Deprecated Function Seen in "..(x.Name or "??"), 0, "Warning")
-				table.insert(spmp, x)
-				good,msg=pcall(engineLib.Processor, spmMsg, ...)
+				tinsert(spmp, x)
+				local good,msg=pcall(engineLib.Processor, spmMsg, ...)
 				if not good then
 					lib.Debug.DebugPrint(msg, "SendProcessorMessage", "Processor Error in "..(x.Name or "??"), 0, "Debug")
 				end
@@ -706,4 +833,4 @@ function lib.CreateMoney(height)
 	return (tooltip:CreateMoney(height))
 end
 
-AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.12/Auc-Advanced/CoreUtil.lua $", "$Rev: 5194 $")
+AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.13/Auc-Advanced/CoreUtil.lua $", "$Rev: 5224 $")

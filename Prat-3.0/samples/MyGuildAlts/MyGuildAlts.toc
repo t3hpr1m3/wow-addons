@@ -1,5 +1,5 @@
-﻿## Interface: 40200
-## X-Curse-Packaged-Version: 3.4.24
+﻿## Interface: 40300
+## X-Curse-Packaged-Version: 3.4.25
 ## X-Curse-Project-Name: Prat 3.0
 ## X-Curse-Project-ID: prat-3-0
 ## X-Curse-Repository-ID: wow/prat-3-0/mainline

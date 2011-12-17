@@ -7,7 +7,7 @@ local AceGUI = LibStub("AceGUI-3.0")
 local LDB = LibStub("LibDataBroker-1.1")
 local minimapIcon = LibStub("LibDBIcon-1.0")
 PV_svnrev = {}
-PV_svnrev["ProfessionsVault.lua"] = tonumber(("$Revision: 266 $"):match("%d+"))
+PV_svnrev["ProfessionsVault.lua"] = tonumber(("$Revision: 276 $"):match("%d+"))
 local DB_VERSION_MAJOR = 1
 local DB_VERSION_MINOR = 3
 
@@ -99,11 +99,13 @@ local _ve = GetExpansionLevel()
 local _vv,_vb,_,_vtoc = GetBuildInfo()
 local _vwarned = false
 _vb = tonumber(_vb)
-local function vs(wotlkv40,catav40,catav406,catav420)
+local function vs(wotlkv40,catav40,catav406,catav420,catav430)
   local warn = false
   if wotlkv40 == 0 or wotlkv40 == 1 then return wotlkv40 end
   local res
-  if (_vtoc >= 40200) then
+  if (_vtoc >= 40300) or _vv == "4.3.0" then -- second clause for PTR
+    res = catav430 
+  elseif (_vtoc >= 40200) then
     res = catav420 
   elseif (_vb < 13205) then 
     res = wotlkv40
@@ -144,28 +146,28 @@ local PID_FA   = 3273
 local PID_FISH = 7620
 
 local primaryProf = {  -- 0 == no tradeskill, 1 == broken
-        [PID_ALCH] = {vs(44,52,52,52), -- Alchemy
+        [PID_ALCH] = {vs(44,52,52,52,53), -- Alchemy
 	            28677, -- Elixer Master 
 		    28675, -- Potion Master
 		    28672, -- Transmutation Master
 		 },
-	[PID_BS] = {vs(87,99,99,101), -- Blacksmithing
+	[PID_BS] = {vs(87,99,99,101,102), -- Blacksmithing
 	            9787, -- Weaponsmith
 		    9788, -- Armorsmith
 	         },
-	[PID_ENCH] =  vs(51,60,61,61), -- Enchanting
-	[PID_ENG] = {vs(51,57,57,58), -- Engineering
+	[PID_ENCH] =  vs(51,60,61,61,61), -- Enchanting
+	[PID_ENG] = {vs(51,57,57,58,57), -- Engineering
 	            20219, -- Gnomish Engineer
 		    20222, -- Goblin Engineer
 	         },
-	[PID_INSC] = vs(73,79,80,80), -- Inscription 
-	[PID_JC] = vs(84,100,101,102), -- Jewelcrafting 
-	[PID_LW] = {vs(89,102,102,105), -- Leatherworking
+	[PID_INSC] = vs(73,79,80,80,80), -- Inscription 
+	[PID_JC] = vs(84,100,101,102,113), -- Jewelcrafting 
+	[PID_LW] = {vs(89,102,102,105,106), -- Leatherworking
                     10656, -- Dragonscale Leatherworking
                     10660, -- Tribal Leatherworking
                     10658, -- Elemental Leatherworking
 	         },
-	[PID_TAIL] = {vs(73,83,83,84), -- Tailoring
+	[PID_TAIL] = {vs(73,83,83,84,85), -- Tailoring
 	            26797, -- Spellfire Tailoring
 		    26798, -- Mooncloth Tailoring
 		    26801, -- Shadoweave Tailoring
@@ -177,8 +179,8 @@ local primaryProf = {  -- 0 == no tradeskill, 1 == broken
 }
 local secondaryProf = { 
 	[PID_ARCH] = vs(0), -- Archaeology
-	[PID_COOK] =  vs(31,36,36,36), -- Cooking
-	[PID_FA] =  vs(6, 7, 7,7), -- First Aid 
+	[PID_COOK] =  vs(31,36,36,36,36), -- Cooking
+	[PID_FA] =  vs(6, 7, 7,7,7), -- First Aid 
 	[PID_FISH] =  vs(0), -- Fishing
 }
 
@@ -1131,7 +1133,7 @@ function addon:OnEnable()
                 if button == "MiddleButton" then
 			addon:Config()
                 elseif button == "RightButton" and settings.ldbprof and not nocastProf[settings.ldbprof] then
-		  	addon:ActivateLink(charName, settings.ldbprof, nil, true)
+		  	addon:ActivateLink(charName, settings.ldbprof, DBc[settings.ldbprof] and DBc[settings.ldbprof].link, true)
                 else
                         addon:ToggleWindow()
                 end
@@ -1527,6 +1529,9 @@ function addon:SaveButtonShow()
       elseif GnomeWorksFrame then
         button:SetParent(GnomeWorksFrame)
 	button:SetPoint("BOTTOMLEFT",25,5)
+      elseif MRTSkillFrame then
+        button:SetParent(MRTSkillFrame)
+	button:SetPoint("BOTTOMLEFT",165,4)
       else
         button:SetParent(TradeSkillFrame)
         button:SetPoint("BOTTOMLEFT",5,5)
@@ -2599,7 +2604,7 @@ function addon:CleanDatabase() -- remove links that are dead due to a patch
 	local oldclientbuild = ocb
         local databits = link and addon:extract_bits(link)
         --print(cname.." "..pname.." "..#databits.." "..patlen)
-        if (databits and #databits < patlen) or -- patlen increase
+        if (databits and #databits ~= patlen) or -- patlen increase
 
 	  -- 4.0.6 bits rearranged without patlen change
 	  (oldclientbuild <= 13329 and clientbuild > 13329 and 
@@ -2614,6 +2619,10 @@ function addon:CleanDatabase() -- remove links that are dead due to a patch
 	  -- 4.2: bits rearranged without patlen change
 	  (oldclientbuild <= 14007 and clientbuild > 14007 and 
               (pname == GetSpellInfo(PID_COOK)) ) or
+
+	  -- 4.3: bits rearranged without patlen change
+	  (oldclientbuild <= 14545 and clientbuild >= 15005 and 
+              (pname == GetSpellInfo(PID_INSC)) ) or
 
 	  (pname == GetSpellInfo(PID_SMELT)) -- smelting db permanently deprecated
 
@@ -2829,17 +2838,17 @@ function addon:build_tables()
 	    if PV_Exceptions_StoI[spellid] then
 	      parridx = PV_Exceptions_StoI[spellid] 
 	      if parr[parridx] then
-	          chatMsg("ERROR: Duplicate exception: "..spellname.."  ("..spellid..") Please report this bug!")
+	          chatMsg("ERROR: Duplicate exception: "..spellname.."  ("..spellid.."-"..GetLocale()..") Please report this bug!")
 	      end
 	    elseif usehashes then
 	      parridx = addon:hash(spellname) 
 	      if parr[parridx] then
-	          chatMsg("ERROR: Duplicate spell or hash coll: "..spellid.." "..spellname.."  ("..parridx..") bit="..parr[parridx].." Please report this bug!")
+	          chatMsg("ERROR: Duplicate spell or hash coll: "..spellid.." "..spellname.."-"..GetLocale().."  ("..parridx..") bit="..parr[parridx].." Please report this bug!")
 	      end
 	    else
 	       parridx = spellname 
 	       if parr[spellname] then
-	          chatMsg("ERROR: Duplicate spellname: "..spellid.." "..spellname.."  bit="..parr[spellname].." Please report this bug!")
+	          chatMsg("ERROR: Duplicate spellname: "..spellid.." "..spellname.."-"..GetLocale().."  bit="..parr[spellname].." Please report this bug!")
 	       end
 	    end
 	    if type(parridx) == "table" then
@@ -2987,7 +2996,7 @@ function addon:normalize_link(link)
      end
    end
    if not allProf[profname] then
-     chatMsg("ERROR: Unrecognized profession "..oldprof.." ("..oldspell..") in trade link "..oldlink..". Please report this bug!")
+     chatMsg("ERROR: Unrecognized profession "..oldprof.." ("..oldspell.."-"..GetLocale()..") in trade link "..oldlink..". Please report this bug!")
      return oldlink
    end
    local newspell = allProf[profname].spellid
@@ -3036,7 +3045,7 @@ function addon:BuildGuildTradeLink()
           local bit = spellname and PV_PatDBL[profid] and PV_PatDBL[profid][arridx]
           if not bit then
             chatMsg(format(L["ERROR: Missing entry in pattern database: %s Please report this bug!"],
-              format("%d %s: %s",spellid,pname,skillname)))
+              format("%d %s: %s",spellid,pname,skillname.."-"..GetLocale())))
           else
             debug(spellid .. " " .. link .. ": ".. bit)
             table.insert(bitlist, bit)
@@ -3173,6 +3182,11 @@ function addon:isCraftedItem(itemid)
      elseif locale == "deDE" then ignorewords = { "Perfekter", "Schmuck" }
      elseif locale == "esES" then ignorewords = { "perfect", "ornamentad" } -- ending intentionally omitted
      elseif locale == "frFR" then ignorewords = { "parfait", "orné" }
+     elseif locale == "ruRU" then ignorewords = { 
+       "\208\161\208\190\208\178\208\181\209\128\209\136\208\181\208\189\208\189\209\139\208\185", -- perfect
+       "\208\161\208\190\208\178\208\181\209\128\209\136\208\181\208\189\208\189\208\176\209\143", -- perfect (alt spelling)
+       "\208\184\208\183\209\139\209\129\208\186\208\176\208\189\208\189\209\139\208\185" -- ornate
+     }
      end
      local jcdb = addon.db.global.JCDB
      name = string.lower(name)
@@ -3813,7 +3827,7 @@ function addon:ShowTooltip(tt)
     end
     if (not bitidx and not (itemid and PV_DeadRecipes[itemid])) then -- some recipe names dont match their spell names, grr
       chatMsg(format(L["ERROR: Missing entry in pattern database: %s Please report this bug!"],
-            format("%d %s: %s",(itemid or spellid),profName,spellname)))
+            format("%d %s: %s",(itemid or spellid),profName,spellname.."-"..GetLocale())))
 	    --print(string.byte(spellname,1,#spellname))
     end
 

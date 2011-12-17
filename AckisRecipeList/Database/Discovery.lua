@@ -4,8 +4,8 @@ Discovery.lua
 ************************************************************************
 File date: 2011-09-21T20:37:05Z
 File hash: 6d9e737
-Project hash: d552bcd
-Project version: 2.2.10
+Project hash: 6177bc5
+Project version: 2.2.11
 ************************************************************************
 Please see http://www.wowace.com/addons/arl/ for more information.
 ************************************************************************

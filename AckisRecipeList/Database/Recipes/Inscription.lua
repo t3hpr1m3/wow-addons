@@ -2,10 +2,10 @@
 ************************************************************************
 Inscription.lua
 ************************************************************************
-File date: 2011-09-17T02:27:14Z
-File hash: 2e497c7
-Project hash: d552bcd
-Project version: 2.2.10
+File date: 2011-12-05T18:42:49Z
+File hash: 494d11b
+Project hash: 6177bc5
+Project version: 2.2.11
 ************************************************************************
 Format:
 
@@ -362,7 +362,7 @@ function addon:InitInscription()
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.TRAINER, F.IBOE, F.RBOP, F.DRUID)
 	recipe:AddTrainer(26916, 26959, 26977, 26995, 28702, 30706, 30709, 30710, 30711, 30713, 30715, 30716, 30717, 30721, 30722, 33603, 33615, 33638, 33679, 46716)
 
-	-- Glyph of Shred -- 56957
+	-- Glyph of Bloodletting -- 56957
 	recipe = AddRecipe(56957, V.WOTLK, Q.COMMON)
 	recipe:SetCraftedItemID(40901)
 	recipe:SetSkillLevels(260, 260, 265, 270, 275)
@@ -1933,7 +1933,7 @@ function addon:InitInscription()
 	-- Glyph of Levitate -- 58319
 	recipe = AddRecipe(58319, V.WOTLK, Q.COMMON)
 	recipe:SetCraftedItemID(43370)
-	recipe:SetSkillLevels(170, 170, 180, 185, 190)
+	recipe:SetSkillLevels(175, 175, 180, 185, 190)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.DISC, F.IBOE, F.RBOP, F.HEALER, F.CASTER, F.PRIEST)
 	recipe:AddDiscovery("DISCOVERY_INSC_MINOR")
 
@@ -3314,21 +3314,21 @@ function addon:InitInscription()
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.DISC, F.IBOE, F.RBOE, F.MAGE)
 	recipe:AddDiscovery("DISCOVERY_INSC_NORTHREND")
 
-	-- Bloodthirsty Charm of Triumph -- 99547
+	-- Vicious Charm of Triumph -- 99547
 	recipe = AddRecipe(99547, V.CATA, Q.COMMON)
 	recipe:SetCraftedItemID(70077)
 	recipe:SetSkillLevels(510, 510, 520, 525, 530)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.TRAINER, F.IBOE, F.RBOP)
 	recipe:AddTrainer(30706, 46716)
 
-	-- Bloodthirsty Eyeball of Dominance -- 99548
+	-- Vicious Eyeball of Dominance -- 99548
 	recipe = AddRecipe(99548, V.CATA, Q.COMMON)
 	recipe:SetCraftedItemID(70078)
 	recipe:SetSkillLevels(510, 510, 520, 525, 530)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.TRAINER, F.IBOE, F.RBOP)
 	recipe:AddTrainer(30706, 46716)
 
-	-- Bloodthirsty Jawbone of Conquest -- 99549
+	-- Vicious Jawbone of Conquest -- 99549
 	recipe = AddRecipe(99549, V.CATA, Q.COMMON)
 	recipe:SetCraftedItemID(70079)
 	recipe:SetSkillLevels(510, 510, 520, 525, 530)
@@ -3341,6 +3341,13 @@ function addon:InitInscription()
 	recipe:SetSkillLevels(430, 430, 430, 435, 440)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.DISC, F.IBOE, F.RBOE, F.SHAMAN)
 	recipe:AddDiscovery("DISCOVERY_INSC_NORTHREND")
+
+	-- Glyph of Shadow -- 107907
+	recipe = AddRecipe(107907, V.CATA, Q.COMMON)
+	recipe:SetCraftedItemID(77101)
+	recipe:SetSkillLevels(105, 105, 105, 110, 115)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.DISC, F.IBOE, F.RBOE, F.PRIEST)
+	recipe:AddDiscovery("DISCOVERY_INSC_MINOR")
 
 	self.InitInscription = nil
 end

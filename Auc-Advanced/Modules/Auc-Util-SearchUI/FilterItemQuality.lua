@@ -1,7 +1,7 @@
 --[[
 	Auctioneer - Search UI - Filter IgnoreItemQuality
-	Version: 5.12.5198 (QuirkyKiwi)
-	Revision: $Id: FilterItemQuality.lua 4432 2009-08-29 14:55:35Z dinesh $
+	Version: 5.13.5246 (BoldBandicoot)
+	Revision: $Id: FilterItemQuality.lua 5232 2011-11-23 17:47:17Z Nechckn $
 	URL: http://auctioneeraddon.com/
 
 	This is a plugin module for the SearchUI that assists in searching by refined paramaters
@@ -70,9 +70,10 @@ function lib:MakeGuiConfig(gui)
 	gui:AddControl(id, "Subhead",     0, "Filter for:")
 	for name, searcher in pairs(AucSearchUI.Searchers) do
 		if searcher and searcher.Search then
-			gui:AddControl(id, "Checkbox", 0, 1, "ignoreitemquality.filter."..name, name)
+			local setting = "ignoreitemquality.filter."..name
+			default(setting, false)
+			gui:AddControl(id, "Checkbox", 0, 1, setting, name)
 			gui:AddTip(id, "Filter Item Quality when searching with "..name)
-			default("ignoreitemquality.filter."..name, false)
 		end
 	end
 
@@ -118,4 +119,4 @@ function lib.Filter(item, searcher)
 	return false
 end
 
-AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.12/Auc-Util-SearchUI/FilterItemQuality.lua $", "$Rev: 4432 $")
+AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.13/Auc-Util-SearchUI/FilterItemQuality.lua $", "$Rev: 5232 $")

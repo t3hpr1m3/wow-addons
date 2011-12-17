@@ -1,6 +1,6 @@
 --[[
 	Auctioneer
-	Version: 5.12.5198 (QuirkyKiwi)
+	Version: 5.13.5246 (BoldBandicoot)
 	Revision: $Id: CoreConst.lua 5117 2011-03-20 17:45:18Z Prowell $
 	URL: http://auctioneeraddon.com/
 
@@ -178,4 +178,4 @@ AucAdvanced.Defaults = {
 	Scanner = "Simple",
 }
 
-AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.12/Auc-Advanced/CoreConst.lua $", "$Rev: 5117 $")
+AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.13/Auc-Advanced/CoreConst.lua $", "$Rev: 5117 $")

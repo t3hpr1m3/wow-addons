@@ -1,6 +1,6 @@
-﻿-- $Id: constants.fr.lua 3543 2011-09-10 16:36:11Z trasher $
+﻿-- $Id: constants.fr.lua 3630 2011-11-09 13:42:52Z trasher $
 --[[
-constants.fr.lua --- Traduction frFR par Trasher. Merci à KKram pour les premières traductions & Pettigrow pour ses quelques traductions.
+constants.fr.lua --- Traduction frFR par Trasher (Tchoupie / Nerz'hul-EU). Merci à KKram pour les premières traductions & Pettigrow pour ses quelques traductions.
 This file defines an AceLocale table for all the various text strings needed
 by AtlasLoot.  In this implementation, if a translation is missing, it will fall
 back to the English translation.
@@ -32,17 +32,17 @@ if AL then
 	AL["%d items"] = "%d objets";
 	AL["All"] = "Tous";
 	--AL["Stats"] = true;
-	--AL["Show \"Base Stats list\""] = true;
-	--AL["Show \"Extra Stats list\""] = true;
-	--AL["Base Stats list"] = true;
-	--AL["Extra Stats list"] = true;	
-	AL["Add Stats list"] = "Ajouter une liste de stats";
-	AL["Are you sure you want to delete Sort list |cff1eff00%s|r?"] = "Êtes-vous sûr de vouloir supprimer la liste  |cff1eff00%s|r ?";
-	AL["Delete Stats list"] = "Supprimer la liste de stats";
-	AL["Stats color"] = "Couleur des stats";
-	--AL["Stats list name:"] = true;
-	--AL["Select Stats list"] = true;
-	--AL["You cant set more then %d item stats."] = true;
+	AL["Show \"Base Stats list\""] = "Afficher les statistiques de bases";
+	AL["Show \"Extra Stats list\""] = "Afficher les statistiques avancées";
+	AL["Base Stats list"] = "Liste des statistiques de bases";
+	AL["Extra Stats list"] = "Liste des statistiques avancées";
+	AL["Add Stats list"] = "Ajouter une liste de statistiques";
+	AL["Are you sure you want to delete Sort list |cff1eff00%s|r?"] = "Êtes-vous sûr de vouloir supprimer la liste |cff1eff00%s|r ?";
+	AL["Delete Stats list"] = "Supprimer la liste de statistiques";
+	AL["Stats color"] = "Couleur des statistiques";
+	AL["Stats list name:"] = "Nom de la liste de statistiques";
+	AL["Select Stats list"] = "Sélectionnez la liste de statistiques";
+	AL["You cant set more then %d item stats."] = "Vous ne pouvez pas définir plus de %d statistiques différentes.";
 	--AL["Slot"] = true;
 
 	-- Stats short
@@ -64,8 +64,8 @@ if AL then
 
 	-- Stats
 	AL["Resilience Rating"] = "Score de résilience";
-	--AL["Base Stats"] = true;
-	--AL["Extra Stats"] = true;
+	AL["Base Stats"] = "Statistiques de bases";
+	AL["Extra Stats"] = "Statistiques avancées";
 
 	-- Loader
 	AL["Load AtlasLoot"] = "Charger AtlasLoot";
@@ -82,8 +82,8 @@ if AL then
 	AL["Show itemIDs"] = "Afficher les IDs des objets";
 	AL["Show Droprates"] = "Afficher les pourcentages de drop";
 	AL["Safe Chat Links"] = "Liens sûrs, sur le canal";
-	AL["Comparison TT"] = "Info-bulles comparatives";
-	AL["Show Comparison Tooltips"] = "Afficher les info-bulles comparatives";
+	AL["Comparison TT"] = "Infobulles comparatives";
+	AL["Show Comparison Tooltips"] = "Afficher les infobulles comparatives";
 	--AL["Opaque"] = true;
 	AL["Make Loot Table Opaque"] = "Fond de liste opaque";
 	AL["Treat Crafted Items:"] = "Traiter les objets fabriqués :";
@@ -133,8 +133,8 @@ if AL then
 	--AL["DKP"] = true;
 	AL["Priority:"] = "Priorité :";
 	AL["Show price and slot if possible"] = "Voir le prix et le slot, si possible";
-	AL["Use GameTooltip"] = "Utilisez l'info-bulle du jeu";
-	AL["Use the standard GameTooltip instead of the custom AtlasLoot tooltip"] = "Utilisez l'info-bulle standard du jeu au lieu de celle personnalisée d'AtlasLoot";
+	AL["Use GameTooltip"] = "Utilisez l'infobulle du jeu";
+	AL["Use the standard GameTooltip instead of the custom AtlasLoot tooltip"] = "Utilisez l'infobulle standard du jeu au lieu de celle personnalisée d'AtlasLoot";
 	AL["%d / %d ( Bank: %d )"] = "%d / %d ( Banque : %d)";
 	-- Unsafe Item
 	AL["Item Unavailable"] = "Objet indisponible";
@@ -178,7 +178,7 @@ if AL then
 	AL["Table Sort"] = "Tri des tables";
 	AL["Table Sort:"] = "Tri des tables :";
 	AL["Item Sort:"] = "Tri des objets :";
-	--AL["Show own wishlists"] = true; -- à traduire
+	AL["Show own wishlists"] = "Afficher mes listes de souhaits";
 	AL["Show all wishlists"] = "Afficher toutes les listes de souhaits";
 
 	-- Filter
@@ -250,6 +250,8 @@ if AL then
 	--AL["ilvl 372"] = true;
 	--AL["ilvl 378"] = true;
 	--AL["ilvl 391"] = true;
+	--AL["ilvl 397"] = true;
+	--AL["ilvl 410"] = true;
 
 	-- #######################################
 	-- UI things END
@@ -288,11 +290,11 @@ if AL then
 
 	-- Text for Options Panel
 	AL["Atlasloot Options"] = "Options d'Atlasloot";
-	AL["Default Tooltips"] = "Info-bulles par défault";
-	AL["Lootlink Tooltips"] = "Info-bulles de Lootlink";
-	AL["|cff9d9d9dLootlink Tooltips|r"] = "|cff9d9d9dInfo-bulles de Lootlink";
-	AL["ItemSync Tooltips"] = "Info-bulles d'ItemSync";
-	AL["|cff9d9d9dItemSync Tooltips|r"] = "|cff9d9d9dInfo-bulles d'ItemSync";
+	AL["Default Tooltips"] = "Infobulles par défault";
+	AL["Lootlink Tooltips"] = "Infobulles de Lootlink";
+	AL["|cff9d9d9dLootlink Tooltips|r"] = "|cff9d9d9dInfobulles de Lootlink";
+	AL["ItemSync Tooltips"] = "Infobulles d'ItemSync";
+	AL["|cff9d9d9dItemSync Tooltips|r"] = "|cff9d9d9dInfobulles d'ItemSync";
 	AL["Use EquipCompare"] = "Utiliser EquipCompare";
 	AL["|cff9d9d9dUse EquipCompare|r"] = "|cff9d9d9dUtiliser EquipCompare";
 	AL["Show itemIDs at all times"] = "Toujours afficher l'ID sur les objets";
@@ -352,6 +354,7 @@ if AL then
 	--AL["Tier 9 Set"] = true;
 	--AL["Tier 10 Set"] = true;
 	--AL["Tier 11/12 Set"] = true;
+	--AL["Tier 13 Set"] = true;
 	AL["TCG Items"] = "Objets des cartes à jouer"; -- Trading Card Game Items
 	AL["Transformation Items"] = "Objets de transformation";
 
@@ -386,6 +389,7 @@ if AL then
 	--AL["Skettis"] = true,
 	AL["Stranglethorn Fishing Extravaganza"] = "Concours de pêche de Strangleronce";
 	AL["Kalu'ak Fishing Derby"] = "Tournoi de pêche kalu'ak";
+	AL["Fishing Contests"] = "Concours de pêche";
 
 	-- Minimap Button
 	AL["|cff1eff00Left-Click|r Browse Loot Tables"] = "|cff1eff00Clic-Gauche|r Parcours des Listes d'Objets";
@@ -528,10 +532,12 @@ if AL then
 	--AL["Wrath of the Lich King"] = true;
 	AL["Cataclysm"] = "Cataclysme";
 	AL["Entrance"] = "Entrée";
-	AL["Dungeon Set 1"] = "Set donjon 1";
-	AL["Dungeon Set 2"] = "Set donjon 2";
-	AL["Dungeon Set 1/2"] = "Set donion 1/2";
-	AL["Dungeon Set 3"]  = "Set donjon 3";
+	AL["Dungeon Set 1"] = "Set de donjon 1";
+	AL["Dungeon Set 2"] = "Set de donjon 2";
+	AL["Dungeon Set 1/2"] = "Set de donion 1/2";
+	AL["Replica"] = "Réplique";
+	AL["Dungeon Set 3"]  = "Set de donjon 3";
+	AL["Dungeon Set 4"] = "Set de donjon 4";
 	--AL["Tier 1"] = true;
 	--AL["Tier 2"] = true;
 	--AL["Tier 3"] = true;
@@ -544,20 +550,14 @@ if AL then
 	--AL["Tier 10"] = true;
 	--AL["Tier 11"] = true;
 	--AL["Tier 12"] = true;
+	--AL["Tier 13"] = true;
 	AL["10 Man"] = "10 Joueurs";
 	AL["10/25 Man"] = "10 / 25 Joueurs";
 	AL["Epic Set"] = "Set épique";
-	AL["Rare Set"] = "Set supérieur";
-	AL["Season 1"] = "Saison 1";
-	AL["Season 2"] = "Saison 2";
-	AL["Season 3"] = "Saison 3";
-	AL["Season 4"] = "Saison 4";
-	AL["Season 5"] = "Saison 5";
-	AL["Season 6"] = "Saison 6";
-	AL["Season 7"] = "Saison 7";
-	AL["Season 8"] = "Saison 8";
+	AL["Rare Set"] = "Set rare";
 	AL["Season 9"] = "Saison 9";
 	AL["Season 10"] = "Saison 10";
+	AL["Season 11"] = "Saison 11";
 	AL["Fire"] = "Feu";
 	AL["Water"] = "Eau";
 	AL["Wind"] = "Vent";
@@ -589,6 +589,7 @@ if AL then
 	AL["Accessories"] = "Accessoires";
 	--AL["Rare"] = true;
 	AL["Specializations"] = "Spécialisations";
+	AL["Raid Finder"] = "Recherche de raid";
 
 	-- Loot Table Names
 	AL["Level 30-39"] = "Niveau 30-39";
@@ -597,6 +598,7 @@ if AL then
 	AL["Summon"] = "Invocation";
 	AL["Random"] = "Aléatoire";
 	AL["Brew of the Month Club"] = "Le club de la Bière du mois";
+	AL["Food and Drinks"] = "Nourriture et boissons";
 
 	-- Profession descriptions
 	--AL["Buff"] = true;
@@ -639,6 +641,8 @@ if AL then
 	AL["Speed"] = "Vitesse";
 	AL["Rod"] = "Bâtonnet"; -- Used in categorizing Enchating Misc, ex: Runed Elementium Rod, Runed Fel Iron Rod. "Rod" is used as a category name
 	AL["Oil"] = "Huile";-- Used in categorizing Enchating Misc, ex: Superior Wizard Oil, Wizard Oil
+	--AL["Culture"] = true;
+	--AL["Description"] = true;
 	AL["Dwarf"] = "Nain";
 	AL["Draenei"] = "Draeneï";
 	AL["Night Elf"] = "Elfe de la nuit";
@@ -655,9 +659,9 @@ if AL then
 	--AL["Proc"] = true;
 
 	-- Extra Text in Boss lists
-	AL["AQ20 Class Sets"] = "Sets de Classe AQ20";
+	AL["AQ20 Class Sets"] = "Sets de classe AQ20";
 	AL["AQ Enchants"] = "Enchantements AQ";
-	AL["AQ40 Class Sets"] = "Sets de Classe AQ40";
+	AL["AQ40 Class Sets"] = "Sets de classe AQ40";
 	AL["AQ Opening Quest Chain"] = "Quêtes d'ouverture d'AQ";
 	AL["Tribute Run"] = "Tribut du Roi";
 	AL["Dire Maul Books"] = "Livres de Hache Tripes";
@@ -668,7 +672,8 @@ if AL then
 	AL["Ulduar Formula/Patterns/Plans"] = "Formules / Patrons / Plans d'Ulduar";
 	AL["Trial of the Crusader Patterns/Plans"] = "Patrons / Plans de L'épreuve du croisé";
 	AL["BRD Blacksmithing Plans"] = "Plans de forge de BRD";
-	AL["Firelands Patterns/Plans"] = "Plans / Patrons des terres de Feu";
+	AL["Firelands Patterns/Plans"] = "Plans / Patrons des Terres de Feu";
+	AL["Dragon Soul Patterns/Plans"] = "Plans / Patrons de La Fin des temps";
 
 	-- General titles
 	AL["Achievement"] = "Haut fait";
@@ -712,7 +717,6 @@ if AL then
 	AL["Alliance Tabards"] = "Tabards de l'Alliance";
 	AL["Card Game Tabards"] = "Tabards du jeu de cartes";
 	AL["Horde Tabards"] = "Tabards de la Horde";
-	AL["Neutral Faction Tabards"] = "Tabards de factions neutres";
 	AL["PvP Tabards"] = "Tabards JcJ";
 	AL["Unobtainable Tabards"] = "Tabards imposssibles à obtenir";
 
@@ -759,13 +763,13 @@ if AL then
 	AL["Personal Weather Machine"] = "Machine météorologique gobeline";
 	AL["Papa Hummel's Old-fashioned Pet Biscuit"] = "Biscuit pour familier à l'ancienne de papa Humme";
 
-	-- Sixth set -- à traduire
+	-- Sixth set
 	AL["Hunt for Illidan"] = "La Traque d'Illidan";
 	--AL["The Footsteps of Illidan"] = true;
 	--AL["Disco Inferno!"] = true;
 	AL["Ethereal Plunderer"] = "Pilleur éthérien";
 
-	-- Seventh set -- à traduire
+	-- Seventh set
 	AL["Drums of War"] = "Tambours de Guerre";
 	--AL["The Red Bearon"] = true;
 	--AL["Owned!"] = true;
@@ -777,19 +781,19 @@ if AL then
 	AL["Center of Attention"] = "Chemise violette épique";
 	AL["Foam Sword Rack"] = "Râtelier d'épées en mousse";
 
-	-- Ninth set -- à traduire
+	-- Ninth set
 	--AL["Fields of Honor"] = true;
 	--AL["Path of Cenarius"] = true;
 	--AL["Pinata"] = true;
 	--AL["El Pollo Grande"] = true;
 
-	-- Tenth set -- à traduire
+	-- Tenth set
 	--AL["Scourgewar"] = true;
 	--AL["Tiny"] = true;
 	--AL["Tuskarr Kite"] = true;
 	--AL["Spectral Kitten"] = true;
 
-	-- Eleventh set -- à traduire
+	-- Eleventh set
 	--AL["Wrathgate"] = true;
 	--AL["Statue Generator"] = true;
 	AL["Landro's Gift"] = "Cadeau de Landro";
@@ -810,8 +814,14 @@ if AL then
 	-- Fourteenth set
 	AL["War of the Elements"] = "Gardien des éléments";
 
-	-- Fifteenth set -- à traduire
+	-- Fifteenth set
 	--AL["Twilight of the Dragons"] = true;
+
+	-- Seventeenth set
+	--AL["Crown of Heaven"] = true;
+
+	-- Eighteenth set
+	--AL["Tomb of the Forgotten"] = true;
 
 	-- Battleground Brackets
 	AL["Old PvP Rewards"] = "Anciennes récompenses JcJ";
@@ -1012,11 +1022,6 @@ if AL then
 	AL["Templars"] = "Templiers";
 	AL["Dukes"] = "Ducs";
 	AL["High Council"] = "Princes";
-	AL["Barleybrew Brewery"] = "Apprenti Brasselorge";
-	AL["Thunderbrew Brewery"] = "Apprenti Tonnebière";
-	AL["Gordok Brewery"] = "Apprenti de la bière gordok";
-	AL["Drohn's Distillery"] = "Apprenti de la distillerie Drohn";
-	AL["T'chali's Voodoo Brewery"] = "Apprenti de la brasserie vaudou de T'chali";
 	AL["Scarshield Quartermaster"] = "Intendant du Bouclier balafré";
 	AL["Father Flame"] = "Père des flammes";
 	--AL["Thomas Yance"] = true,
@@ -1034,19 +1039,19 @@ if AL then
 	AL["Time-Lost Proto Drake"] = "Rênes de proto-drake perdu dans le temps";
 	AL["Razzashi Raptor"] = "Raptor Razzashi";
 	AL["Deviate Ravager/Deviate Guardian"] = "Ravageur déviant/Gardien déviant";
-	--AL["Servant's Quarter Animal Bosses"] = true; -- à traduire
+	AL["Servant's Quarter Animal Bosses"] = "Quartiers des serviteurs (Boss animal)";
 	AL["Jadefang"] = "Jadecroc";
 	--AL["Aeonaxx"] = true;
 	--AL["Prince Sarsarun"] = true;
 	AL["Dormus the Camel-Hoarder"] = "Dormus le Collectionneur de dromadaires";
 	AL["The Behemoth"] = "Le Béhémoth";
 	AL["Master Elemental Shaper Krixix"] = "Maître élémentaire Krixix le Sculpteur";
-	--AL["Zen'Vorka"] = true; -- à traduire
+	--AL["Zen'Vorka"] = true;
 	AL["Ayla Shadowstorm"] = "Ayla Ombretempête";
 	AL["Damek Bloombeard"] = "Damek Barbe-en-Fleur";
 	AL["Varlan Highbough"] = "Varlan Hautebranche";
 	AL["Firestone Vendor"] = "Vendeur des Terres de Feu";
-	--AL["Poseidus"] = true;
+	AL["Poseidus"] = "Poséidus";
 
 	-- Zones
 	AL["Trial of the Grand Crusader"] = "L'épreuve du grand croisé";
@@ -1057,10 +1062,10 @@ if AL then
 	--AL["Avatar"] = true; -- Avatar of the Martyred
 
 	-- Chests, etc
-	--AL["Ring of Law"] = true; -- à traduire
+	AL["Ring of Law"] = "Cercle de la loi";
 	AL["Monument of Franclorn Forgewright"] = "Monument de Franclorn Le Forgebusier";
-	--AL["The Grim Guzzler"] = true; -- à traduire
-	--AL["Summoner's Tomb"] = true; -- à traduire
+	AL["The Grim Guzzler"] = "Le Sinistre écluseur";
+	AL["Summoner's Tomb"] = "La tombe des invocateurs";
 	AL["The Secret Safe"] = "Coffre à relique";
 	AL["The Vault"] = "La Chambre forte";
 	AL["Ogre Tannin Basket"] = "Panier Ogre de tannin";
@@ -1106,12 +1111,14 @@ if AL then
 	AL["Ripe Disgusting Jar"] = "Jarre dégoûtante mûre";
 	AL["Cracked Egg"] = "Oeuf brisé";
 	AL["Small Spice Bag"] = "Petit sac d'épices";
-	AL["Handful of Candy"] = "Poignée de bonbons";
+	AL["Handful of Treats"] = "Poignée de sucreries";
+	AL["Consumable Wands & Masks"] = "Baguettes et masques";
+	AL["Permanent Masks"] = "Masques permanent";
 	AL["Lovely Dress Box"] = "Boîte de robe ravissante";
 	AL["Dinner Suit Box"] = "Boîte d'habit de soirée";
 	AL["Bag of Heart Candies"] = "Sachet de bonbons en forme de cœur";
 	AL["Hidden Stash"] = "Fortune cachée";
-	--AL["The Cache of Madness"] = true; -- à traduire
+	AL["The Cache of Madness"] = "L'antre de la Folie";
 
 	-- Error Messages and warnings
 	AL["AtlasLoot Error!"] = "Erreur AtlasLoot !";
@@ -1147,7 +1154,7 @@ if AL then
 
 	-- First time user
 	AL["Welcome to Atlasloot Enhanced.  Please take a moment to set your preferences."] = "Bienvenue dans AtlasLoot Enhanced. Veuillez prendre un moment pour définir vos préférences.";
-	AL["Welcome to Atlasloot Enhanced.  Please take a moment to set your preferences for tooltips and links in the chat window.\n\n  This options screen can be reached again at any later time by typing '/atlasloot'."] = "Bienvenue dans AtlasLoot Enhaced. S'il vous plaît, prenez un moment pour définir vos préférences pour les info-bulles et les liens dans la fenêtre de chat.\n\nLes options peuvent être activées à tout moment en tapant '/atlasloot'.";
+	AL["Welcome to Atlasloot Enhanced.  Please take a moment to set your preferences for tooltips and links in the chat window.\n\n  This options screen can be reached again at any later time by typing '/atlasloot'."] = "Bienvenue dans AtlasLoot Enhaced. S'il vous plaît, prenez un moment pour définir vos préférences pour les infobulles et les liens dans la fenêtre de chat.\n\nLes options peuvent être activées à tout moment en tapant '/atlasloot'.";
 	AL["Setup"] = "Installation";
 
 	-- Old Atlas Detected

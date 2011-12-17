@@ -1,6 +1,6 @@
 --[[
 Name: LibBabble-Faction-3.0
-Revision: $Rev: 147 $
+Revision: $Rev: 153 $
 Maintainers: ckknight, nevcairiel, Ackis
 Website: http://www.wowace.com/projects/libbabble-faction-3-0/
 Dependencies: None
@@ -8,7 +8,7 @@ License: MIT
 ]]
 
 local MAJOR_VERSION = "LibBabble-Faction-3.0"
-local MINOR_VERSION = 90000 + tonumber(("$Rev: 147 $"):match("%d+"))
+local MINOR_VERSION = 90000 + tonumber(("$Rev: 153 $"):match("%d+"))
 
 if not LibStub then error(MAJOR_VERSION .. " requires LibStub.") end
 local lib = LibStub("LibBabble-3.0"):New(MAJOR_VERSION, MINOR_VERSION)
@@ -47,6 +47,7 @@ lib:SetBaseTranslations {
 	Gnomeregan = "Gnomeregan",
 	["Gnomeregan Exiles"] = "Gnomeregan Exiles",
 	["Guardians of Hyjal"] = "Guardians of Hyjal",
+	Guild = "Guild",
 	["Hellscream's Reach"] = "Hellscream's Reach",
 	["Honor Hold"] = "Honor Hold",
 	Honored = "Honored",
@@ -148,6 +149,7 @@ elseif GAME_LOCALE == "deDE" then
 	Gnomeregan = "Gnomeregan",
 	["Gnomeregan Exiles"] = "Gnomeregangnome",
 	["Guardians of Hyjal"] = "Wächter des Hyjal",
+	Guild = "Gilde",
 	["Hellscream's Reach"] = "Höllschreis Hand",
 	["Honor Hold"] = "Ehrenfeste",
 	Honored = "Wohlwollend",
@@ -245,6 +247,7 @@ elseif GAME_LOCALE == "frFR" then
 	Gnomeregan = "Gnomeregan",
 	["Gnomeregan Exiles"] = "Exilés de Gnomeregan",
 	["Guardians of Hyjal"] = "Gardiens d'Hyjal",
+	Guild = "Guilde", -- Needs review
 	["Hellscream's Reach"] = "Poing de Hurlenfer",
 	["Honor Hold"] = "Bastion de l'Honneur",
 	Honored = "Honoré",
@@ -342,6 +345,7 @@ elseif GAME_LOCALE == "koKR" then
 	Gnomeregan = "놈리건",
 	["Gnomeregan Exiles"] = "놈리건",
 	["Guardians of Hyjal"] = "하이잘의 수호자",
+	-- Guild = "",
 	["Hellscream's Reach"] = "헬스크림 세력단",
 	["Honor Hold"] = "명예의 요새",
 	Honored = "우호적",
@@ -439,6 +443,7 @@ elseif GAME_LOCALE == "esES" then
 	Gnomeregan = "Gnomeran",
 	["Gnomeregan Exiles"] = "Exiliados de Gnomeregan",
 	["Guardians of Hyjal"] = "Guardianes de Hyjal",
+	-- Guild = "",
 	["Hellscream's Reach"] = "Mando Grito Infernal",
 	["Honor Hold"] = "Bastión del Honor",
 	Honored = "Honorable",
@@ -536,6 +541,7 @@ elseif GAME_LOCALE == "esMX" then
 	Gnomeregan = "Gnomeregan", -- Needs review
 	["Gnomeregan Exiles"] = "Exiliados de Gnomeregan",
 	["Guardians of Hyjal"] = "Guardianes de Hyjal",
+	-- Guild = "",
 	["Hellscream's Reach"] = "Mando Grito Infernal",
 	["Honor Hold"] = "Bastión del Honor",
 	Honored = "Honorable",
@@ -601,6 +607,104 @@ elseif GAME_LOCALE == "esMX" then
 	["Wintersaber Trainers"] = "Instructores de sableinvernales",
 	["Zandalar Tribe"] = "Tribu Zandalar",
 }
+elseif GAME_LOCALE == "ptBR" then
+	lib:SetCurrentTranslations {
+	Alliance = "Aliança",
+	["Alliance Vanguard"] = "Vanguarda da Aliança",
+	["Argent Crusade"] = "Cruzada Argêntea",
+	["Argent Dawn"] = "Aurora Argêntea",
+	["Ashtongue Deathsworn"] = "Devotos da Morte Grislíngua",
+	["Avengers of Hyjal"] = "Vingadores de Hyjal",
+	["Baradin's Wardens"] = "Protetores de Baradin",
+	["Bilgewater Cartel"] = "Cartel Bondebico",
+	["Bloodsail Buccaneers"] = "Bucaneiros da Vela Sangrenta",
+	["Booty Bay"] = "Angra do Butim",
+	["Brood of Nozdormu"] = "Prole de Nozdormu",
+	["Cenarion Circle"] = "Círculo Cenariano",
+	["Cenarion Expedition"] = "Expedição Cenariana",
+	["Darkmoon Faire"] = "Feira de Negraluna",
+	["Darkspear Trolls"] = "Trolls Lançanegra",
+	Darnassus = "Darnassus",
+	["Dragonmaw Clan"] = "Clã Presa do Dragão",
+	Everlook = "Visteterna",
+	Exalted = "Exaltado",
+	Exodar = "Exodar",
+	["Explorers' League"] = "Liga dos Exploradores",
+	["Frenzyheart Tribe"] = "Tribo Feralma",
+	Friendly = "Respeitado",
+	["Frostwolf Clan"] = "Clã Lobo do Gelo",
+	Gadgetzan = "Geringontzan",
+	["Gelkis Clan Centaur"] = "Clã dos Centauros Gelkis",
+	Gilneas = "Guilnéas",
+	Gnomeregan = "Gnomeregan",
+	["Gnomeregan Exiles"] = "Gnomeregan",
+	["Guardians of Hyjal"] = "Guardiões de Hyjal",
+	Guild = "Guilda",
+	["Hellscream's Reach"] = "Confins do Grito Infernal",
+	["Honor Hold"] = "Fortaleza da Honra",
+	Honored = "Honrado",
+	Horde = "Horda",
+	["Horde Expedition"] = "Expedição da Horda",
+	["Hydraxian Waterlords"] = "Senhores das Águas Hidraxianos",
+	Ironforge = "Altaforja",
+	["Keepers of Time"] = "Defensores do Tempo",
+	["Kirin Tor"] = "Kirin Tor",
+	["Knights of the Ebon Blade"] = "Cavaleiros da Lâmina de Ébano",
+	Kurenai = "Kurenai",
+	["Lower City"] = "Bairro Inferior",
+	["Magram Clan Centaur"] = "Clã dos Centauros Magram",
+	Netherwing = "Asa Etérea",
+	Neutral = "Tolerado",
+	["Ogri'la"] = "Ogri'la",
+	Orgrimmar = "Orgrimmar",
+	Ramkahen = "Ramkahen",
+	Ratchet = "Vila Catraca",
+	Ravenholdt = "Corvoforte",
+	Revered = "Reverenciado",
+	["Sha'tari Skyguard"] = "Guarda Aérea de Sha'tari",
+	["Shattered Sun Offensive"] = "Ofensiva Sol Partido",
+	["Shen'dralar"] = "Shen'dralar",
+	["Silvermoon City"] = "Luaprata",
+	["Silverwing Sentinels"] = "Sentinelas da Asa de Prata",
+	Sporeggar = "Sporeggar",
+	["Stormpike Guard"] = "Guarda de Lançatroz",
+	Stormwind = "Ventobravo",
+	Syndicate = "Camarilha",
+	["The Aldor"] = "Os Aldor",
+	["The Ashen Verdict"] = "Veredito Cinzento",
+	["The Consortium"] = "O Consórcio",
+	["The Defilers"] = "Os Profanadores",
+	["The Earthen Ring"] = "Harmonia Telúrica",
+	["The Frostborn"] = "Os Gelonatos",
+	["The Hand of Vengeance"] = "A Mão da Vingança",
+	["The Kalu'ak"] = "Os Kalu'ak",
+	["The League of Arathor"] = "A Liga de Arathor",
+	["The Mag'har"] = "Os Mag'har",
+	["The Oracles"] = "Os Oráculos",
+	["The Scale of the Sands"] = "A Escama das Areias",
+	["The Scryers"] = "Os Áugures",
+	["The Sha'tar"] = "Os Sha'tar",
+	["The Silver Covenant"] = "O Pacto de Prata",
+	["The Sons of Hodir"] = "Os Filhos de Hodir",
+	["The Sunreavers"] = "Os Fendessol",
+	["The Taunka"] = "Os Taunka",
+	["The Violet Eye"] = "O Olho Violeta",
+	["The Wyrmrest Accord"] = "A Aliança do Repouso das Serpes",
+	Therazane = "Therazane",
+	["Thorium Brotherhood"] = "Irmandade do Tório",
+	Thrallmar = "Thrallmar",
+	["Thunder Bluff"] = "Penhasco do Trovão",
+	["Timbermaw Hold"] = "Domínio dos Presamatos",
+	Tranquillien = "Tranquillien",
+	Undercity = "Cidade Baixa",
+	["Valiance Expedition"] = "Expedição Valentia",
+	["Warsong Offensive"] = "Ofensiva Brado Guerreiro",
+	["Warsong Outriders"] = "Pioneiros do Brado Guerreiro",
+	["Wildhammer Clan"] = "Clã Martelo Feroz",
+	["Winterfin Retreat"] = "Retiro da Falésia Invernal", -- Needs review
+	["Wintersaber Trainers"] = "Treinadores de Sabres-do-inverno",
+	["Zandalar Tribe"] = "Tribo dos Zandalar",
+}
 elseif GAME_LOCALE == "ruRU" then
 	lib:SetCurrentTranslations {
 	Alliance = "Альянс",
@@ -608,14 +712,14 @@ elseif GAME_LOCALE == "ruRU" then
 	["Argent Crusade"] = "Серебряный Авангард",
 	["Argent Dawn"] = "Серебряный Рассвет",
 	["Ashtongue Deathsworn"] = "Пеплоусты-служители",
-	["Avengers of Hyjal"] = "Хиджальские мстители", -- Needs review
+	["Avengers of Hyjal"] = "Хиджальские мстители",
 	["Baradin's Wardens"] = "Защитники Тол Барада",
 	["Bilgewater Cartel"] = "Картель Трюмных Вод",
 	["Bloodsail Buccaneers"] = "Пираты Кровавого Паруса",
-	["Booty Bay"] = "Пиратская бухта",
+	["Booty Bay"] = "Пиратская Бухта", -- Needs review
 	["Brood of Nozdormu"] = "Род Ноздорму",
 	["Cenarion Circle"] = "Круг Кенария",
-	["Cenarion Expedition"] = "Экспедиция Ценариона",
+	["Cenarion Expedition"] = "Кенарийская экспедиция", -- Needs review
 	["Darkmoon Faire"] = "Ярмарка Новолуния",
 	["Darkspear Trolls"] = "Тролли Черного Копья",
 	Darnassus = "Дарнас",
@@ -624,7 +728,7 @@ elseif GAME_LOCALE == "ruRU" then
 	Exalted = "Превознесение",
 	Exodar = "Экзодар",
 	["Explorers' League"] = "Лига исследователей",
-	["Frenzyheart Tribe"] = "Племя Мятежного Сердца",
+	["Frenzyheart Tribe"] = "Племя Бешеного Сердца", -- Needs review
 	Friendly = "Дружелюбие",
 	["Frostwolf Clan"] = "Клан Северного Волка",
 	Gadgetzan = "Прибамбасск",
@@ -633,6 +737,7 @@ elseif GAME_LOCALE == "ruRU" then
 	Gnomeregan = "Гномреган",
 	["Gnomeregan Exiles"] = "Изгнанники Гномрегана",
 	["Guardians of Hyjal"] = "Стражи Хиджала",
+	-- Guild = "",
 	["Hellscream's Reach"] = "Батальон Адского Крика",
 	["Honor Hold"] = "Оплот Чести",
 	Honored = "Уважение",
@@ -669,7 +774,7 @@ elseif GAME_LOCALE == "ruRU" then
 	["The Defilers"] = "Осквернители",
 	["The Earthen Ring"] = "Служители Земли",
 	["The Frostborn"] = "Зиморожденные",
-	["The Hand of Vengeance"] = "Карающая длань",
+	["The Hand of Vengeance"] = "Карающая Длань", -- Needs review
 	["The Kalu'ak"] = "Калу'ак",
 	["The League of Arathor"] = "Лига Аратора",
 	["The Mag'har"] = "Маг'хары",
@@ -677,9 +782,9 @@ elseif GAME_LOCALE == "ruRU" then
 	["The Scale of the Sands"] = "Песчаная Чешуя",
 	["The Scryers"] = "Провидцы",
 	["The Sha'tar"] = "Ша'тар",
-	["The Silver Covenant"] = "Серебряный Союз",
-	["The Sons of Hodir"] = "Сыновья Ходира",
-	["The Sunreavers"] = "Похитители солнца",
+	["The Silver Covenant"] = "Серебряный союз", -- Needs review
+	["The Sons of Hodir"] = "Сыны Ходира", -- Needs review
+	["The Sunreavers"] = "Похитители Солнца", -- Needs review
 	["The Taunka"] = "Таунка",
 	["The Violet Eye"] = "Аметистовое Око",
 	["The Wyrmrest Accord"] = "Драконий союз",
@@ -693,7 +798,7 @@ elseif GAME_LOCALE == "ruRU" then
 	["Valiance Expedition"] = "Экспедиция Отважных",
 	["Warsong Offensive"] = "Армия Песни Войны",
 	["Warsong Outriders"] = "Всадники Песни Войны",
-	["Wildhammer Clan"] = "Неистовый Молот",
+	["Wildhammer Clan"] = "Клан Громового Молота", -- Needs review
 	["Winterfin Retreat"] = "Холодный Плавник",
 	["Wintersaber Trainers"] = "Укротители ледопардов",
 	["Zandalar Tribe"] = "Племя Зандалар",
@@ -730,6 +835,7 @@ elseif GAME_LOCALE == "zhCN" then
 	Gnomeregan = "诺莫瑞根",
 	["Gnomeregan Exiles"] = "诺莫瑞根流亡者",
 	["Guardians of Hyjal"] = "海加尔守护者",
+	Guild = "公会",
 	["Hellscream's Reach"] = "地狱咆哮近卫军",
 	["Honor Hold"] = "荣耀堡",
 	Honored = "尊敬",
@@ -827,6 +933,7 @@ elseif GAME_LOCALE == "zhTW" then
 	Gnomeregan = "諾姆瑞根",
 	["Gnomeregan Exiles"] = "諾姆瑞根流亡者",
 	["Guardians of Hyjal"] = "海加爾守護者",
+	Guild = "公會",
 	["Hellscream's Reach"] = "地獄吼先鋒",
 	["Honor Hold"] = "榮譽堡",
 	Honored = "尊敬",

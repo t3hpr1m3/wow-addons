@@ -195,8 +195,8 @@ L:AddLocale("ruRU",
 	Top = "С верху вниз",
 	lowdown_desc = "Вкл/Выкл авто прокрутку в низ для во всех окнах чата.",
 	lowdown_name = "Включить спад в низ",
-	-- modified_speed = "",
-	-- modified_speed_desc = "",
+	modified_speed = "Установка скорости колеса мышки+Shift", -- Needs review
+	modified_speed_desc = "Установите количество прокручиваемых строк с помощью колеса мыши+shift.", -- Needs review
 	mousewheel_desc = "Вкл/Выкл поддержку колесика мыши во всех оконах чата.",
 	mousewheel_name = "Включить КолесоМыши",
 }
@@ -218,7 +218,7 @@ L:AddLocale("zhCN",
 	Top = "从上到下",
 	lowdown_desc = "为每个聊天窗口自动跳至底端",
 	lowdown_name = "启用回到底端",
-	-- modified_speed = "",
+	modified_speed = "设置 Shift+鼠标滚轮 速度", -- Needs review
 	-- modified_speed_desc = "",
 	mousewheel_desc = "为每个聊天窗口选取鼠标滚轮支持",
 	mousewheel_name = "启用鼠标滚轮",

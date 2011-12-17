@@ -200,7 +200,7 @@ Prat:AddModuleToLoad(function()
 	["Channel %d"] = "频道 %d",
 	["Copy Selected Chat Frame"] = "复制选定的聊天框体",
 	["Guild Channel"] = "公会频道",
-	-- ["Next Chat Tab"] = "",
+	["Next Chat Tab"] = "下一个聊天标签", -- Needs review
 	["Officer Channel"] = "官员频道",
 	["Party Channel"] = "小队频道",
 	["Prat CopyChat"] = "Prat聊天复制",

@@ -3,7 +3,7 @@
 	please see the included License.txt file.
 
 	* File.....: Skins\Zoomed.lua
-	* Revision.: 368
+	* Revision.: 374
 	* Author...: JJSheets, StormFX
 
 	'Zoomed' skin for Masque.
@@ -13,7 +13,7 @@ local _, Core = ...
 
 Core:AddSkin("Zoomed", {
 	Author = "JJSheets, StormFX",
-	Version = "4.2.370",
+	Version = "4.2.378",
 	Masque_Version = 40200,
 	Shape = "Square",
 	Backdrop = {
@@ -45,14 +45,16 @@ Core:AddSkin("Zoomed", {
 		Hide = true,
 	},
 	Checked = {
-		Width = 36,
-		Height = 36,
+		Width = 38,
+		Height = 38,
 		BlendMode = "ADD",
 		Texture = [[Interface\Buttons\CheckButtonHilight]],
 	},
 	Border = {
-		Width = 64,
-		Height = 64,
+		Width = 66,
+		Height = 66,
+		OffsetX = 0.5,
+		OffsetY = 0.5,
 		BlendMode = "ADD",
 		Texture = [[Interface\Buttons\UI-ActionButton-Border]],
 	},
@@ -86,8 +88,7 @@ Core:AddSkin("Zoomed", {
 	HotKey = {
 		Width = 36,
 		Height = 10,
-		OffsetX = 2,
-		OffsetY = -3,
+		OffsetY = -1,
 	},
 	Duration = {
 		Width = 36,

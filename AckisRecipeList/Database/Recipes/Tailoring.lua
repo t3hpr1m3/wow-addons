@@ -2,10 +2,10 @@
 ************************************************************************
 Tailoring.lua
 ************************************************************************
-File date: 2011-10-15T02:46:20Z
-File hash: 4463e0a
-Project hash: d552bcd
-Project version: 2.2.10
+File date: 2011-12-06T08:17:07Z
+File hash: 74081b1
+Project hash: 6177bc5
+Project version: 2.2.11
 ************************************************************************
 Please see http://www.wowace.com/addons/arl/ for more information.
 ************************************************************************
@@ -3399,14 +3399,14 @@ function addon:InitTailoring()
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.TRAINER, F.IBOE, F.RBOP)
 	recipe:AddTrainer(1346, 2399, 3004, 3363, 4159, 4576, 5153, 9584, 16640, 28699, 33580, 33613, 33636, 44783, 45559)
 
-	-- Bloodthirsty Fireweave Belt -- 75269
+	-- Vicious Fireweave Belt -- 75269
 	recipe = AddRecipe(75269, V.CATA, Q.COMMON)
 	recipe:SetCraftedItemID(54489)
 	recipe:SetSkillLevels(510, 510, 515, 520, 525)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.TRAINER, F.IBOE, F.RBOP)
 	recipe:AddTrainer(1346, 2399, 3004, 3363, 4159, 4576, 5153, 9584, 16640, 28699, 33580, 33613, 33636, 44783, 45559)
 
-	-- Bloodthirsty Embersilk Bracers -- 75270
+	-- Vicious Embersilk Bracers -- 75270
 	recipe = AddRecipe(75270, V.CATA, Q.COMMON)
 	recipe:SetCraftedItemID(54501)
 	recipe:SetSkillLevels(500, 500, 505, 510, 515)
@@ -3421,56 +3421,56 @@ function addon:InitTailoring()
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
 	recipe:AddVendor(1347, 3005, 3364, 4168, 4577, 5154, 16638, 16767, 45558, 50386, 50433)
 
-	-- Bloodthirsty Fireweave Bracers -- 75290
+	-- Vicious Fireweave Bracers -- 75290
 	recipe = AddRecipe(75290, V.CATA, Q.COMMON)
 	recipe:SetCraftedItemID(54488)
 	recipe:SetSkillLevels(500, 500, 505, 510, 515)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.TRAINER, F.IBOE, F.RBOP)
 	recipe:AddTrainer(1346, 2399, 3004, 3363, 4159, 4576, 5153, 9584, 16640, 28699, 33580, 33613, 33636, 44783, 45559)
 
-	-- Bloodthirsty Embersilk Shoulders -- 75291
+	-- Vicious Embersilk Shoulders -- 75291
 	recipe = AddRecipe(75291, V.CATA, Q.COMMON)
 	recipe:SetCraftedItemID(54502)
 	recipe:SetSkillLevels(505, 505, 510, 515, 520)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.TRAINER, F.IBOE, F.RBOP)
 	recipe:AddTrainer(1346, 2399, 3004, 3363, 4159, 4576, 5153, 9584, 16640, 28699, 33580, 33613, 33636, 44783, 45559)
 
-	-- Bloodthirsty Fireweave Shoulders -- 75292
+	-- Vicious Fireweave Shoulders -- 75292
 	recipe = AddRecipe(75292, V.CATA, Q.COMMON)
 	recipe:SetCraftedItemID(54487)
 	recipe:SetSkillLevels(510, 510, 515, 520, 525)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.TRAINER, F.IBOE, F.RBOP)
 	recipe:AddTrainer(1346, 2399, 3004, 3363, 4159, 4576, 5153, 9584, 16640, 28699, 33580, 33613, 33636, 44783, 45559)
 
-	-- Bloodthirsty Embersilk Belt -- 75293
+	-- Vicious Embersilk Belt -- 75293
 	recipe = AddRecipe(75293, V.CATA, Q.COMMON)
 	recipe:SetCraftedItemID(54500)
 	recipe:SetSkillLevels(510, 510, 515, 520, 525)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.TRAINER, F.IBOE, F.RBOP)
 	recipe:AddTrainer(1346, 2399, 3004, 3363, 4159, 4576, 5153, 9584, 16640, 28699, 33580, 33613, 33636, 44783, 45559)
 
-	-- Bloodthirsty Fireweave Boots -- 75294
+	-- Vicious Fireweave Boots -- 75294
 	recipe = AddRecipe(75294, V.CATA, Q.COMMON)
 	recipe:SetCraftedItemID(54490)
 	recipe:SetSkillLevels(515, 515, 520, 525, 530)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.TRAINER, F.IBOE, F.RBOP)
 	recipe:AddTrainer(1346, 2399, 3004, 3363, 4159, 4576, 5153, 9584, 16640, 28699, 33580, 33613, 33636, 44783, 45559)
 
-	-- Bloodthirsty Embersilk Gloves -- 75295
+	-- Vicious Embersilk Gloves -- 75295
 	recipe = AddRecipe(75295, V.CATA, Q.COMMON)
 	recipe:SetCraftedItemID(54497)
 	recipe:SetSkillLevels(515, 515, 520, 525, 530)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.TRAINER, F.IBOE, F.RBOP)
 	recipe:AddTrainer(1346, 2399, 3004, 3363, 4159, 4576, 5153, 9584, 16640, 28699, 33580, 33613, 33636, 44783, 45559)
 
-	-- Bloodthirsty Fireweave Gloves -- 75296
+	-- Vicious Fireweave Gloves -- 75296
 	recipe = AddRecipe(75296, V.CATA, Q.COMMON)
 	recipe:SetCraftedItemID(54492)
 	recipe:SetSkillLevels(520, 520, 525, 530, 535)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.TRAINER, F.IBOE, F.RBOP)
 	recipe:AddTrainer(1346, 2399, 3004, 3363, 4159, 4576, 5153, 9584, 16640, 28699, 33580, 33613, 33636, 44783, 45559)
 
-	-- Bloodthirsty Embersilk Boots -- 75297
+	-- Vicious Embersilk Boots -- 75297
 	recipe = AddRecipe(75297, V.CATA, Q.COMMON)
 	recipe:SetCraftedItemID(54499)
 	recipe:SetSkillLevels(520, 520, 525, 530, 535)
@@ -3509,7 +3509,7 @@ function addon:InitTailoring()
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
 	recipe:AddVendor(1347, 3005, 3364, 4168, 4577, 5154, 16638, 16767, 45558, 50386, 50433)
 
-	-- Bloodthirsty Fireweave Pants -- 75302
+	-- Vicious Fireweave Pants -- 75302
 	recipe = AddRecipe(75302, V.CATA, Q.RARE)
 	recipe:SetRecipeItemID(54597)
 	recipe:SetCraftedItemID(54491)
@@ -3517,7 +3517,7 @@ function addon:InitTailoring()
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
 	recipe:AddVendor(1347, 3005, 3364, 4168, 4577, 5154, 16638, 16767, 45558, 50386, 50433)
 
-	-- Bloodthirsty Fireweave Robe -- 75303
+	-- Vicious Fireweave Robe -- 75303
 	recipe = AddRecipe(75303, V.CATA, Q.RARE)
 	recipe:SetRecipeItemID(54598)
 	recipe:SetCraftedItemID(54494)
@@ -3525,7 +3525,7 @@ function addon:InitTailoring()
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
 	recipe:AddVendor(1347, 3005, 3364, 4168, 4577, 5154, 16638, 16767, 45558, 50386, 50433)
 
-	-- Bloodthirsty Fireweave Cowl -- 75304
+	-- Vicious Fireweave Cowl -- 75304
 	recipe = AddRecipe(75304, V.CATA, Q.RARE)
 	recipe:SetRecipeItemID(54596)
 	recipe:SetCraftedItemID(54493)
@@ -3533,7 +3533,7 @@ function addon:InitTailoring()
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
 	recipe:AddVendor(1347, 3005, 3364, 4168, 4577, 5154, 16638, 16767, 45558, 50386, 50433)
 
-	-- Bloodthirsty Embersilk Robe -- 75305
+	-- Vicious Embersilk Robe -- 75305
 	recipe = AddRecipe(75305, V.CATA, Q.RARE)
 	recipe:SetRecipeItemID(54595)
 	recipe:SetCraftedItemID(54495)
@@ -3541,7 +3541,7 @@ function addon:InitTailoring()
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
 	recipe:AddVendor(1347, 3005, 3364, 4168, 4577, 5154, 16638, 16767, 45558, 50386, 50433)
 
-	-- Bloodthirsty Embersilk Cowl -- 75306
+	-- Vicious Embersilk Cowl -- 75306
 	recipe = AddRecipe(75306, V.CATA, Q.RARE)
 	recipe:SetRecipeItemID(54593)
 	recipe:SetCraftedItemID(54496)
@@ -3549,7 +3549,7 @@ function addon:InitTailoring()
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
 	recipe:AddVendor(1347, 3005, 3364, 4168, 4577, 5154, 16638, 16767, 45558, 50386, 50433)
 
-	-- Bloodthirsty Embersilk Pants -- 75307
+	-- Vicious Embersilk Pants -- 75307
 	recipe = AddRecipe(75307, V.CATA, Q.RARE)
 	recipe:SetRecipeItemID(54594)
 	recipe:SetCraftedItemID(54498)
@@ -3628,7 +3628,7 @@ function addon:InitTailoring()
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.RAID, F.IBOE, F.RBOE, F.CASTER, F.CLOTH)
 	recipe:AddCustom("FIRELANDS_RANDOM")
 
-	-- Bloodthirsty Embersilk Cape -- 99537
+	-- Vicious Embersilk Cape -- 99537
 	recipe = AddRecipe(99537, V.CATA, Q.COMMON)
 	recipe:SetCraftedItemID(70070)
 	recipe:SetSkillLevels(490, 490, 500, 502, 505)
@@ -3642,6 +3642,45 @@ function addon:InitTailoring()
 	recipe:SetSkillLevels(515, 515, 515, 515, 515)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
 	recipe:AddVendor(53881)
+
+	-- World Mender's Pants -- 101920
+	recipe = AddRecipe(101920, V.CATA, Q.EPIC)
+	recipe:SetRecipeItemID(72000)
+	recipe:SetCraftedItemID(71981)
+	recipe:SetSkillLevels(525, 525, 525, 527, 530)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.RAID, F.IBOE, F.RBOE, F.HEALER, F.CLOTH)
+	recipe:AddCustom("DRAGONSOUL_RANDOM")
+
+	-- Lavaquake Legwraps -- 101921
+	recipe = AddRecipe(101921, V.CATA, Q.EPIC)
+	recipe:SetRecipeItemID(72002)
+	recipe:SetCraftedItemID(71980)
+	recipe:SetSkillLevels(525, 525, 525, 527, 530)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.RAID, F.IBOE, F.RBOE, F.CASTER, F.CLOTH)
+	recipe:AddCustom("DRAGONSOUL_RANDOM")
+
+	-- Dreamwraps of the Light -- 101922
+	recipe = AddRecipe(101922, V.CATA, Q.EPIC)
+	recipe:SetRecipeItemID(72003)
+	recipe:SetCraftedItemID(71990)
+	recipe:SetSkillLevels(525, 525, 525, 527, 530)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.RAID, F.IBOE, F.RBOE, F.HEALER, F.CLOTH)
+	recipe:AddCustom("DRAGONSOUL_RANDOM")
+
+	-- Bracers of Unconquered Power -- 101923
+	recipe = AddRecipe(101923, V.CATA, Q.EPIC)
+	recipe:SetRecipeItemID(72004)
+	recipe:SetCraftedItemID(71989)
+	recipe:SetSkillLevels(525, 525, 525, 527, 530)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.RAID, F.IBOE, F.RBOE, F.CASTER, F.CLOTH)
+	recipe:AddCustom("DRAGONSOUL_RANDOM")
+
+	-- Black Silk Vest -- 102171
+	recipe = AddRecipe(102171, V.CATA, Q.UNCOMMON)
+	recipe:SetRecipeItemID(72102)
+	recipe:SetCraftedItemID(72101)
+	recipe:SetSkillLevels(150, 150, 170, 185, 200)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.IBOE, F.RBOE, F.CLOTH)
 
 	self.InitTailoring = nil
 end

@@ -6,7 +6,7 @@ esES localization strings for Ackis Recipe List
 File date: 2011-02-16T21:19:49Z 
 File revision: @file-revision@ 
 Project revision: @project-revision@
-Project version: 2.2.10
+Project version: 2.2.11
 ************************************************************************
 Original translated by: StiviS
 Currently maintained by:
@@ -103,7 +103,6 @@ L["Arathel Sunforge"] = "Arathel Forjasol"
 L["Arcanist Sheynathren"] = "Arcanista Sheynathren"
 L["Arcatraz Sentinel"] = "Centinela de Arcatraz"
 L["Archmage Alvareaux"] = "Archimago Alvareaux"
-L["Are We There, Yeti?"] = "Yeti... ¿ya hemos llegado?"
 L["Aresella"] = true
 L["Argent Quartermaster Hasana"] = "Intendente Argenta Hasana"
 L["Argent Quartermaster Lightspark"] = "Intendente Argenta Destello de Luz"
@@ -404,7 +403,6 @@ L["Ethereum Jailor"] = "Carcelero El Etereum"
 L["Ethereum Nullifier"] = "Nulificador de El Etereum"
 L["Eunice Burch"] = true
 L["Exclusion Issues"] = "Problemas de Exclusión"
-L["FACTION_DESC"] = "Las Recetas de ambas facciones (horda y alianza) serán incluidas en la exploración."
 L["FILTERCOUNT_DESC"] = "Incluye recetas filtradas en el contador total de recetas."
 L["FILTERING_BC_DESC"] = "Configuración de las recetas de recompensa de Reputación de La Cruzada Ardiente que se incluyen en la exploración."
 L["FILTERING_BINDING_DESC"] = "Configuración de los tipos de ligados que se incluyen en la exploración."
@@ -447,6 +445,7 @@ L["Firegut Brute"] = "Tosco Pirontraña"
 L["Fist"] = "Puño"
 L["Fono"] = true
 L["Foreman Marcrid"] = "Supervisor Marcrid"
+L["Fradd Swiftgear"] = "Fradd Cambioveloz"
 L["Franklin Lloyd"] = true
 L["Fremal Doohickey"] = "Fremal Tornichup"
 L["Frostbrood Spawn"] = "Engendradora Razaescaracha"
@@ -803,7 +802,6 @@ L["Nadyia Maneweaver"] = "Nadyia Tejecrín"
 L["Nahogg"] = true
 L["Naka"] = true
 L["Nakodu"] = true
-L["Namdo Bizzfizzle"] = "Namdo Silvabín"
 L["Namha Moonwater"] = "Namha Agualuna"
 L["Nardstrum Copperpinch"] = "Nardstrum Cobrellizco"
 L["Narj Deepslice"] = "Narj Tajofondo"
@@ -999,7 +997,6 @@ L["Sewa Mistrunner"] = "Seua Correbruma"
 L["Shaani"] = true
 L["Shadi Mistrunner"] = "Shadi Correbruma"
 L["Shadow Council Warlock"] = "Brujo del Consejo de la Sombra"
-L["Shadowmage"] = "Mago oscuro"
 L["Shadowsworn Thug"] = "Matón Sombra Jurada"
 L["Shaina Fuller"] = true
 L["Shankys"] = true
@@ -1019,13 +1016,11 @@ L["Silverbrook Trapper"] = "Trampero de Arroyoplata"
 L["Silverbrook Villager"] = "Habitante de Arroyoplata"
 L["Simon Tanner"] = "Simon Peletero"
 L["Simon Unit"] = "Unidad Simon"
-L["Skeletal Flayer"] = "Despellejador esquelético"
 L["Skeletal Runesmith"] = "Forjador de runas esquelético"
 L["Skill (Asc)"] = "Habilidad (Asc)"
 L["Skill (Desc)"] = "Habilidad (Desc)"
 L["Skreah"] = true
 L["Slagg"] = "Eskoria"
-L["Slavering Ghoul"] = "Necrófago esclavizante"
 L["Small Font"] = "Fuente pequeña"
 L["Smiles O'Byron"] = "Sonrisas O'Byron"
 L["Smith Argus"] = "Herrero Argus"

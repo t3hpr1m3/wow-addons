@@ -19,6 +19,7 @@ function AtlasLoot:ClearLootPage()
 	self.ItemFrame.Next:Hide()
 	self.ItemFrame.Prev:Hide()
 	self.ItemFrame.Heroic:Hide()
+	self.ItemFrame.RaidFinder:Hide()
 	self.ItemFrame.Switch:Hide()
 	self.ItemFrame.changePoint = nil
 	self.ItemFrame.Back:Hide()
@@ -154,6 +155,18 @@ function AtlasLoot:HeroicModeToggle()
 		AtlasLoot:SetLootTableType("25ManHeroic", dataID)
 	elseif AtlasLoot.db.profile.LootTableType == "25ManHeroic" then
 		AtlasLoot:SetLootTableType("25Man", dataID)
+	elseif AtlasLoot.db.profile.LootTableType == "RaidFinder" then
+		AtlasLoot:SetLootTableType("Heroic", dataID)
+	end
+end
+
+function AtlasLoot:RaidFinderToggle()
+	local dataID = AtlasLoot.ItemFrame.dataID
+	
+	if AtlasLoot.db.profile.LootTableType ~= "RaidFinder" then
+		AtlasLoot:SetLootTableType("RaidFinder", dataID)
+	else
+		AtlasLoot:SetLootTableType("Normal", dataID)
 	end
 end
 

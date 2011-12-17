@@ -83,7 +83,7 @@ Version = "Prat |cff8080ff3.0|r (|cff8080ff" .. "DEBUG" .. "|r)"
 --@end-debug@]===]
 
 --@non-debug@
-Version = "Prat |cff8080ff3.0|r (|cff8080ff".."3.4.24".."|r)"
+Version = "Prat |cff8080ff3.0|r (|cff8080ff".."3.4.25".."|r)"
 --@end-non-debug@
 
 
@@ -321,9 +321,7 @@ end
 
 function addon:OnEnable()
 
-  if EnableGlobalCompletions then
-    EnableGlobalCompletions(Prat, "Prat-Global-Autocomplete", 50, "/print ")
-  end
+
 
 
   for i,v in ipairs(EnableTasks) do
@@ -494,6 +492,10 @@ function addon:PostEnable()
     self:Print("Memory Use: " .. MemoryUse())
   end
 --@end-debug@]===]
+
+  if EnableGlobalCompletions then
+    EnableGlobalCompletions(Prat, "Prat-Global-Autocomplete")
+  end
 end
 
 function addon:SetItemRef(...)

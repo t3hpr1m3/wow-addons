@@ -7,11 +7,12 @@ DBM_CORE_LOAD_MOD_ERROR				= "Error al cargar modulo %s: %s"
 DBM_CORE_LOAD_MOD_SUCCESS			= "Módulo de '%s' cargado correctamente. Para más opciones escribe /dbm o /dbm help en tu chat."
 DBM_CORE_LOAD_GUI_ERROR				= "No se puede cargar la GUI: %s"
 
-DBM_CORE_COMBAT_STARTED				= "%s llamado. Buena suerte y diviertase! :)";
+DBM_CORE_COMBAT_STARTED				= "%s llamado. Buena suerte y diviertase! :)"
 DBM_CORE_BOSS_DOWN					= "%s murio en %s!"
 DBM_CORE_BOSS_DOWN_LONG				= "%s murio en %s! Su muerte reciente fue %s y la muerte mas rapida fue %s."
 DBM_CORE_BOSS_DOWN_NEW_RECORD		= "%s murio en %s! Es un nuevo record! (el antiguo era %s)"
 DBM_CORE_COMBAT_ENDED				= "El combate contra %s termino en %s."
+DBM_CORE_COMBAT_STATE_RECOVERED		= "%s empezó %s atrás. Recalibrando temporizadores..."
 
 DBM_CORE_TIMER_FORMAT_SECS			= "%d |4segundo:segundos;"
 DBM_CORE_TIMER_FORMAT_MINS			= "%d |4minuto:minutos;"
@@ -90,7 +91,7 @@ DBM_LFG_INVITE						= "Invitación al grupo"
 DBM_CORE_SLASHCMD_HELP				= {
 	"Comandos disponibles:",
 	"/dbm version: comprueba la versión de DBM de toda la banda (alias: ver)",
-	"/dbm version2: comprueba la versión de DBM de toda la banda y susurra a los miembros que estan desactualizados (alias: ver2).",
+--	"/dbm version2: comprueba la versión de DBM de toda la banda y susurra a los miembros que estan desactualizados (alias: ver2).",
 	"/dbm unlock: muestra una barra de estado desplazable (alias: move)",
 	"/dbm timer <x> <text>: Muestra un contador de <x> segundos con el nombre <text>",
 	"/dbm broadcast timer <x> <text>: Muestra un contador de <x> segundos con el nombre <text> a la banda (requiere lider/ayudante)",
@@ -124,12 +125,13 @@ DBM_CORE_ACHIEVEMENT_TIMER_SPEED_KILL = "Matar rapido"
 
 -- Auto-generated Timer Localizations
 DBM_CORE_AUTO_TIMER_TEXTS = {
-	target = "%s: %%s",
-	cast = "%s",
-	active = "%s",
-	cd = "%s CD",
+	target		= "%s: %%s",
+	cast		= "%s",
+	active		= "%s finaliza",
+	fades		= "%s se disipa",
+	cd 			= "%s CD",
 	cdcount		= "%s CD (%%d)",
-	next = "Siguiente %s",
+	next		= "Siguiente %s",
 	nextcount	= "Siguiente %s (%%d)",
 	achievement = "%s",
 }
@@ -138,6 +140,7 @@ DBM_CORE_AUTO_TIMER_OPTIONS = {
 	target = "Mostrar tiempo de debuff |cff71d5ff|Hspell:%d|h%s|h|r ",
 	cast = "Mostrar tiempo de cast de |cff71d5ff|Hspell:%d|h%s|h|r ",
 	active = "Mostrar duración de |cff71d5ff|Hspell:%d|h%s|h|r ",
+	fades		= "Mostrar tiempo para cuando |cff71d5ff|Hspell:%d|h%s|h|r se disipa de los jugadores",
 	cd = "Mostrar CD de |cff71d5ff|Hspell:%d|h%s|h|r ",
 	cdcount = "Mostrar CD de |cff71d5ff|Hspell:%d|h%s|h|r ",
 	next = "Mostrar tiempo para el siguiente |cff71d5ff|Hspell:%d|h%s|h|r ",
@@ -203,6 +206,7 @@ DBM_CORE_AUTO_SPEC_WARN_TEXTS = {
 DBM_CORE_AUTO_ICONS_OPTION_TEXT		= "Poner iconos en objetivos de $spell:%d"
 DBM_CORE_AUTO_SOUND_OPTION_TEXT		= "Reproducir sonido \"huye pequeña\" en $spell:%d"
 DBM_CORE_AUTO_COUNTDOWN_OPTION_TEXT	= "Reproducir sonido de cuenta atrás para $spell:%d"
+DBM_CORE_AUTO_COUNTOUT_OPTION_TEXT	= "Reproducir sonido de la duración de $spell:%d"
 DBM_CORE_AUTO_YELL_OPTION_TEXT		= "Gritar cuando tengas $spell:%d"
 DBM_CORE_AUTO_YELL_ANNOUNCE_TEXT	= "¡%s en mi!"--Verify (%s is spellname)
 

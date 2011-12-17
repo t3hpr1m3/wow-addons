@@ -1,11 +1,11 @@
-## Interface: 40200
+## Interface: 40300
 ## Title: Shadowed Unit Frames
-## Notes: If an apple a day keeps the raptor away, what does an orange prevent?
+## Notes: This update sponsored by The Book of the New Sun.
 ## Author: Shadowed
-## Version: v3.3.6
+## Version: v3.4.4
 ## SavedVariables: ShadowedUFDB
 ## OptionalDeps: Ace3, LibSharedMedia-3.0, AceGUI-3.0-SharedMediaWidgets, Clique
-## X-Curse-Packaged-Version: v3.3.6
+## X-Curse-Packaged-Version: v3.4.4
 ## X-Curse-Project-Name: Shadowed Unit Frames
 ## X-Curse-Project-ID: shadowed-unit-frames
 ## X-Curse-Repository-ID: wow/shadowed-unit-frames/mainline
@@ -54,3 +54,4 @@ modules\eclipse.lua
 modules\soulshards.lua
 modules\holypower.lua
 modules\altpower.lua
+

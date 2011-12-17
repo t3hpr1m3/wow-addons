@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("EchoJaina", "DBM-Party-Cataclysm", 12)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 6530 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 6739 $"):sub(12, -3))
 mod:SetCreatureID(54445)
 mod:SetModelID(38802)
 mod:SetZone()
@@ -17,7 +17,7 @@ local warnFrostBlades		= mod:NewSpellAnnounce(101339, 3)
 
 local timerFlarecore		= mod:NewCDTimer(20, 101927)
 local timerFlarecoreDetonate	= mod:NewTimer(10, "TimerFlarecoreDetonate")
-local timerForstBlades		= mod:NewNextTimer(25, 101339)
+local timerFrostBlades		= mod:NewNextTimer(25, 101339)
 
 function mod:OnCombatStart(delay)
 	timerFlarecore:Start(16)

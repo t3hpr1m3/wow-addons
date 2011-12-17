@@ -1,6 +1,6 @@
 --[[
 	Auctioneer - AutoMagic Utility module
-	Version: 5.12.5198 (QuirkyKiwi)
+	Version: 5.13.5246 (BoldBandicoot)
 	Revision: $Id: Auc-Util-AutoMagic.lua 4894 2010-10-03 21:23:07Z kandoko $
 	URL: http://auctioneeraddon.com/
 
@@ -746,4 +746,4 @@ function lib.ClientItemCacheRefresh(link)
 end
 
 
-AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.12/Auc-Util-AutoMagic/Auc-Util-AutoMagic.lua $", "$Rev: 4894 $")
+AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.13/Auc-Util-AutoMagic/Auc-Util-AutoMagic.lua $", "$Rev: 4894 $")

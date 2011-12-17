@@ -1,4 +1,4 @@
-﻿-- $Id: constants.cn.lua 3537 2011-09-08 14:14:53Z hegarol $
+﻿-- $Id: constants.cn.lua 3646 2011-11-26 03:28:11Z arith $
 --[[
 constants.cn.lua
 This file defines an AceLocale table for all the various text strings needed
@@ -94,6 +94,7 @@ if AL then
 	AL["Profiles"] = "配置文件";
 	AL["Item Buttons"] = "物品按钮";
 	AL["Loot Table"] = "掉落列表";
+	AL["Enable mouse on item descriptions"] = "启用鼠标指向物品属性";
 
 	-- Default Frame
 	AL["Default Frame"] = "默认框体";
@@ -134,7 +135,7 @@ if AL then
 	AL["Show price and slot if possible"] = "显示可用价格与部位";
 	AL["Use GameTooltip"] = "使用游戏内提示";
 	AL["Use the standard GameTooltip instead of the custom AtlasLoot tooltip"] = "使用标准游戏内提示而不使用 AtlasLoot 提示";
-	AL["%d / %d ( Bank: %d )"] = "%d / %d ( 银行: %d )";
+	AL["%d / %d ( Bank: %d )"] = "%d / %d ( 银行：%d )";
 	-- Unsafe Item
 	AL["Item Unavailable"] = "物品不可用";
 	AL["|cff0070ddItemID: %d |r\nThis item is unsafe.  To view this item without the risk of disconnection, you need to have first seen it in the game world.\n\nYou can right-click to attempt to query the server.  You may be disconnected."] = "|cff0070dd物品 ID：%d |r\n此物品不安全。如想不掉线的情况下查看此物品，需要在游戏中见过此物品。\n\n可以尝试右击向服务器查询。可能会断开连接。";
@@ -249,6 +250,8 @@ if AL then
 	AL["ilvl 372"] = "等级372";
 	AL["ilvl 378"] = "等级378";
 	AL["ilvl 391"] = "等级391";
+	AL["ilvl 397"] = "等级397";
+	AL["ilvl 410"] = "等级410";
 
 	-- #######################################
 	-- UI things END
@@ -351,6 +354,7 @@ if AL then
 	AL["Tier 9 Set"] = "等级9套装";
 	AL["Tier 10 Set"] = "等级10套装";
 	AL["Tier 11/12 Set"] = "等级11/12套装";
+	AL["Tier 13 Set"] = "等级13套装";
 	AL["TCG Items"] = "Upper Deck 集换卡游戏物品";
 	AL["Transformation Items"] = "变形物品";
 
@@ -385,6 +389,7 @@ if AL then
 	AL["Skettis"] = "斯克提斯";
 	AL["Stranglethorn Fishing Extravaganza"] = "荆棘谷钓鱼大赛";
 	AL["Kalu'ak Fishing Derby"] = "卡亚鲁克钓鱼大赛";
+	AL["Fishing Contests"] = "钓鱼大赛";
 
 	-- Minimap Button
 	AL["|cff1eff00Left-Click|r Browse Loot Tables"] = "|cff1eff00单击|r浏览掉落表格";
@@ -494,8 +499,8 @@ if AL then
 
 	-- Tailoring
 	AL["Cloth Armor"] = "布甲";
-	AL["Shirts"] = "衬衫";
-	AL["Bags"] = "包";
+	AL["Shirts"] = "衬衣";
+	AL["Bags"] = "容器";
 	AL["Cataclysm Vendor Sold Patterns"] = "大地的裂变商人出售图样";
 
 	-- Labels for loot descriptions
@@ -530,7 +535,9 @@ if AL then
 	AL["Dungeon Set 1"] = "地下城套装1";
 	AL["Dungeon Set 2"] = "地下城套装2";
 	AL["Dungeon Set 1/2"] = "地下城套装1/2";
+	AL["Replica"] = "复制品";
 	AL["Dungeon Set 3"] = "地下城套装3";
+	AL["Dungeon Set 4"] = "地下城套装4";
 	AL["Tier 1"] = "等级1";
 	AL["Tier 2"] = "等级2";
 	AL["Tier 3"] = "等级3";
@@ -543,20 +550,14 @@ if AL then
 	AL["Tier 10"] = "等级10";
 	AL["Tier 11"] = "等级11";
 	AL["Tier 12"] = "等级12";
+	AL["Tier 13"] = "等级13";
 	AL["10 Man"] = "10人";
 	AL["10/25 Man"] = "10/25人";
 	AL["Epic Set"] = "史诗套装";
 	AL["Rare Set"] = "精良套装";
-	AL["Season 1"] = "第1季";
-	AL["Season 2"] = "第2季";
-	AL["Season 3"] = "第3季";
-	AL["Season 4"] = "第4季";
-	AL["Season 5"] = "第5季";
-	AL["Season 6"] = "第6季";
-	AL["Season 7"] = "第7季";
-	AL["Season 8"] = "第8季";
 	AL["Season 9"] = "第9季";
 	AL["Season 10"] = "第10季";
+	AL["Season 11"] = "第11季";
 	AL["Fire"] = "火";
 	AL["Water"] = "水";
 	AL["Wind"] = "风";
@@ -588,6 +589,7 @@ if AL then
 	AL["Accessories"] = "附件";
 	AL["Rare"] = "稀有";
 	AL["Specializations"] = "特殊";
+	AL["Raid Finder"] = "团队搜寻器";
 
 	-- Loot Table Names
 	AL["Level 30-39"] = "等级30-39";
@@ -596,6 +598,7 @@ if AL then
 	AL["Summon"] = "召唤";
 	AL["Random"] = "随机";
 	AL["Brew of the Month Club"] = "每月啤酒俱乐部";
+	AL["Food and Drinks"] = "食物和饮料";
 
 	-- Profession descriptions
 	AL["Buff"] = "增益";
@@ -638,6 +641,8 @@ if AL then
 	AL["Speed"] = "速度";
 	AL["Rod"] = "附魔棒";
 	AL["Oil"] = "附魔油";
+	AL["Culture"] = "文化";
+	AL["Description"] = "描述";
 	AL["Dwarf"] = "矮人";
 	AL["Draenei"] = "德莱尼";
 	AL["Night Elf"] = "暗夜精灵";
@@ -668,6 +673,7 @@ if AL then
 	AL["Trial of the Crusader Patterns/Plans"] = "十字军的试炼图样/设计图";
 	AL["BRD Blacksmithing Plans"] = "黑石深渊锻造设计图";
 	AL["Firelands Patterns/Plans"] = "火焰之地图样/设计图";
+	AL["Dragon Soul Patterns/Plans"] = "巨龙之魂图样/设计图";
 
 	-- General titles
 	AL["Achievement"] = "成就";
@@ -678,6 +684,7 @@ if AL then
 	AL["Achievement & Faction Reward"] = "成就和阵营奖励";
 	AL["Card Game Companions"] = "集换卡奖励小伙伴";
 	AL["Companion Accessories"] = "小伙伴附件";
+	AL["Blizzard Store"] = "暴雪商店";
 	AL["Crafted Companions"] = "制作的小伙伴";
 	AL["Dungeon/Raid"] = "副本/团队";
 	AL["Faction"] = "阵营";
@@ -710,7 +717,6 @@ if AL then
 	AL["Alliance Tabards"] = "联盟战袍";
 	AL["Card Game Tabards"] = "集换卡战袍";
 	AL["Horde Tabards"] = "部落战袍";
-	AL["Neutral Faction Tabards"] = "中立阵营战袍";
 	AL["PvP Tabards"] = "PvP 战袍";
 	AL["Unobtainable Tabards"] = "已绝版战袍";
 
@@ -810,6 +816,12 @@ if AL then
 
 	-- Fifteenth set
 	AL["Twilight of the Dragons"] = "暮光之龙";
+
+	-- Seventeenth set
+	AL["Crown of Heaven"] = "天堂之冠 - PH";
+
+	-- Eighteenth set
+	AL["Tomb of the Forgotten"] = "墓之遗忘 - PH";
 
 	-- Battleground Brackets
 	AL["Old PvP Rewards"] = "旧 PvP 奖励";
@@ -1010,11 +1022,6 @@ if AL then
 	AL["Templars"] = "圣殿骑士";
 	AL["Dukes"] = "公爵";
 	AL["High Council"] = "议会高层";
-	AL["Barleybrew Brewery"] = "麦酒佳酿";
-	AL["Thunderbrew Brewery"] = "雷酒佳酿";
-	AL["Gordok Brewery"] = "戈多克佳酿";
-	AL["Drohn's Distillery"] = "德罗恩的佳酿";
-	AL["T'chali's Voodoo Brewery"] = "塔卡里的佳酿";
 	AL["Scarshield Quartermaster"] = "裂盾军需官";
 	AL["Father Flame"] = "烈焰之父";
 	AL["Thomas Yance"] = "托马斯·杨斯";
@@ -1039,11 +1046,11 @@ if AL then
 	AL["Dormus the Camel-Hoarder"] = "骆驼驭手多尔穆斯";
 	AL["The Behemoth"] = "贝哈默斯";
 	AL["Master Elemental Shaper Krixix"] = "大元素师克里希克";
---	AL["Zen'Vorka"] = true;
---	AL["Ayla Shadowstorm"] = true;
---	AL["Damek Bloombeard"] = true;
---	AL["Varlan Highbough"] = true;
---	AL["Firestone Vendor"] = true;
+	AL["Zen'Vorka"] = "赞沃卡";
+	AL["Ayla Shadowstorm"] = "艾拉·影暴";
+	AL["Damek Bloombeard"] = "达默克·冲炉";
+	AL["Varlan Highbough"] = "瓦尔兰·高枝";
+	AL["Firestone Vendor"] = "火石结晶商人";
 	AL["Poseidus"] = "波塞冬斯";
 
 	-- Zones
@@ -1104,7 +1111,9 @@ if AL then
 	AL["Ripe Disgusting Jar"] = "酿好的恶心罐装酒";
 	AL["Cracked Egg"] = "裂开的卵";
 	AL["Small Spice Bag"] = "小香料袋";
-	AL["Handful of Candy"] = "一把糖果";
+	AL["Handful of Treats"] = "一把糖果";
+	AL["Consumable Wands & Masks"] = "可消耗的魔杖与面具";
+	AL["Permanent Masks"] = "永久的面具";
 	AL["Lovely Dress Box"] = "可爱的裙装盒";
 	AL["Dinner Suit Box"] = "晚宴礼服箱";
 	AL["Bag of Heart Candies"] = "一袋糖果";

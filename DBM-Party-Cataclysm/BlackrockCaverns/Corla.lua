@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Corla", "DBM-Party-Cataclysm", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 6499 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 6700 $"):sub(12, -3))
 mod:SetCreatureID(39679)
 mod:SetModelID(31546)
 mod:SetZone()
@@ -25,7 +25,7 @@ local timerDarkCommandCast	= mod:NewCastTimer(4, 75823)
 local timerDarkCommand		= mod:NewTargetTimer(4, 75823)
 local timerDarkCommandCD	= mod:NewCDTimer(25, 75823)
 local timerShadowStrike		= mod:NewCastTimer(2, 82362)
-local timerEvolution		= mod:NewBuffActiveTimer(20, 75697)
+local timerEvolution		= mod:NewBuffFadesTimer(15, 75697)
 
 local specWarnShadowStrike	= mod:NewSpecialWarningInterrupt(82362)
 local specWarnDarkCommand	= mod:NewSpecialWarningInterrupt(93462)

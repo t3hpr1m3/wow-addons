@@ -149,8 +149,8 @@ L:AddLocale("ruRU",
 {
 	["A module to provide basic chat filtering."] = "Модуль для обеспечения базовый фильтрации чата.",
 	Filtering = "Фильтрование",
-	-- afkdnd_desc = "",
-	-- afkdnd_name = "",
+	afkdnd_desc = "Заглушать сообщения AFK и DND.", -- Needs review
+	afkdnd_name = "Заглушать сообщения AFK и DND.", -- Needs review
 	bgjoin_desc = "Отфильтровывать сообщения входа и выхода на/из Поля Сражения (БГ)",
 	bgjoin_name = "Отфильтровывать вход/выход на ПС",
 	leavejoin_desc = "Отфильтровывать сообщения входа и выхода из/в канал.",
@@ -175,7 +175,7 @@ L:AddLocale("zhCN",
 	notices_desc = "滤掉其他自定义频道通知信息,例如改变频道所有者",
 	notices_name = "频道通知过滤",
 	-- tradespam_desc = "",
-	-- tradespam_name = "",
+	tradespam_name = "屏蔽垃圾", -- Needs review
 }
 
 )

@@ -1,7 +1,7 @@
 --[[
 	Auctioneer Addon for World of Warcraft(tm).
-	Version: 5.12.5198 (QuirkyKiwi)
-	Revision: $Id: BeanCounterSearch.lua 5194 2011-07-04 17:46:21Z Nechckn $
+	Version: 5.13.5246 (BoldBandicoot)
+	Revision: $Id: BeanCounterSearch.lua 5210 2011-07-19 19:07:52Z Nechckn $
 
 	BeanCounterSearch - Search routines for BeanCounter data
 	URL: http://auctioneeraddon.com/
@@ -28,7 +28,7 @@
 		since that is it's designated purpose as per:
 		http://www.fsf.org/licensing/licenses/gpl-faq.html#InterpreterIncompat
 ]]
-LibStub("LibRevision"):Set("$URL: http://svn.norganna.org/auctioneer/branches/5.12/BeanCounter/BeanCounterSearch.lua $","$Rev: 5194 $","5.1.DEV.", 'auctioneer', 'libs')
+LibStub("LibRevision"):Set("$URL: http://svn.norganna.org/auctioneer/branches/5.13/BeanCounter/BeanCounterSearch.lua $","$Rev: 5210 $","5.1.DEV.", 'auctioneer', 'libs')
 
 local lib = BeanCounter
 local private, print, get, set, _BC = lib.getLocals()
@@ -201,7 +201,7 @@ function private.searchServerData(serverName, data, tbl, settings)
 	--Retrives all matching results
 	for i in pairs(server) do
 		--get faction for player i out of the BeanCounterDBSettings table
-		local faction = BeanCounterDBSettings[serverName][i]["faction"]
+		local faction = BeanCounterDBSettings[serverName][i]["faction"] or "unknown"
 		if settings.selectbox[2] == "alliance" and faction:lower() ~= settings.selectbox[2] then
 			--If looking for alliance and player is not alliance fall into this null
 		elseif settings.selectbox[2] == "horde" and faction:lower() ~= settings.selectbox[2] then

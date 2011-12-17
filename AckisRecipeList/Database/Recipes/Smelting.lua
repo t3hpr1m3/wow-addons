@@ -4,8 +4,8 @@ Smelting.lua
 ************************************************************************
 File date: 2011-09-04T19:04:58Z
 File hash: 11e4dbb
-Project hash: d552bcd
-Project version: 2.2.10
+Project hash: 6177bc5
+Project version: 2.2.11
 ************************************************************************
 Please see http://www.wowace.com/addons/arl/ for more information.
 ************************************************************************

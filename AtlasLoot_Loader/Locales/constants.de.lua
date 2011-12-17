@@ -1,4 +1,4 @@
-﻿-- $Id: constants.de.lua 3542 2011-09-09 15:24:27Z dynaletik $
+﻿-- $Id: constants.de.lua 3629 2011-11-09 12:20:29Z dynaletik $
 --[[
 constants.de.lua
 This file defines an AceLocale table for all the various text strings needed
@@ -202,7 +202,7 @@ if AL then
 	AL["Factions"] = "Fraktionen";
 	AL["Load Modules"] = "Module laden";
 	AL["PvP Rewards"] = "PvP Belohnungen";
-	AL["World Events"] = "Weltevents";
+	AL["World Events"] = "Weltereignisse";
 
 	-- QuickLooks
 	AL["QuickLook"] = "Lesezeichen";
@@ -250,6 +250,8 @@ if AL then
 	AL["ilvl 372"] = "Gegenstandsstufe 372";
 	AL["ilvl 378"] = "Gegenstandsstufe 378";
 	AL["ilvl 391"] = "Gegenstandsstufe 391";
+	AL["ilvl 397"] = "Gegenstandsstufe 397";
+	AL["ilvl 410"] = "Gegenstandsstufe 410";
 
 	-- #######################################
 	-- UI things END
@@ -352,6 +354,7 @@ if AL then
 	-- AL["Tier 9 Set"] = true;
 	-- AL["Tier 10 Set"] = true;
 	-- AL["Tier 11/12 Set"] = true;
+	-- AL["Tier 13 Set"] = true;
 	AL["TCG Items"] = "TCG Gegenstände";
 	AL["Transformation Items"] = "Transformations-Gegenstände";
 
@@ -386,6 +389,7 @@ if AL then
 	-- AL["Skettis"] = true;
 	AL["Stranglethorn Fishing Extravaganza"] = "Anglerwettbewerb im Schlingendorntal";
 	AL["Kalu'ak Fishing Derby"] = "Angelwettstreit der Kalu'ak";
+	AL["Fishing Contests"] = "Angelwettbewerbe";
 
 	-- Minimap Button
 	AL["|cff1eff00Left-Click|r Browse Loot Tables"] = "|cff1eff00Linksklick|r Beuteverzeichnis durchsuchen";
@@ -531,7 +535,9 @@ if AL then
 	-- AL["Dungeon Set 1"] = true;
 	-- AL["Dungeon Set 2"] = true;
 	-- AL["Dungeon Set 1/2"] = true;
+	AL["Replica"] = "Nachbildungen";
 	-- AL["Dungeon Set 3"] = true;
+	-- AL["Dungeon Set 4"] = true;
 	-- AL["Tier 1"] = true;
 	-- AL["Tier 2"] = true;
 	-- AL["Tier 3"] = true;
@@ -544,20 +550,14 @@ if AL then
 	-- AL["Tier 10"] = true;
 	-- AL["Tier 11"] = true;
 	-- AL["Tier 12"] = true;
+	-- AL["Tier 13"] = true;
 	AL["10 Man"] = "10 Spieler";
 	AL["10/25 Man"] = "10/25 Spieler";
 	AL["Epic Set"] = "Episches Set";
 	AL["Rare Set"] = "Seltenes Set";
-	AL["Season 1"] = "Saison 1";
-	AL["Season 2"] = "Saison 2";
-	AL["Season 3"] = "Saison 3";
-	AL["Season 4"] = "Saison 4";
-	AL["Season 5"] = "Saison 5";
-	AL["Season 6"] = "Saison 6";
-	AL["Season 7"] = "Saison 7";
-	AL["Season 8"] = "Saison 8";
 	AL["Season 9"] = "Saison 9";
 	AL["Season 10"] = "Saison 10";
+	AL["Season 11"] = "Saison 11";
 	AL["Fire"] = "Feuer";
 	AL["Water"] = "Wasser";
 	AL["Wind"] = "Wind";
@@ -589,6 +589,7 @@ if AL then
 	AL["Accessories"] = "Zubehör";
 	AL["Rare"] = "Selten";
 	AL["Specializations"] = "Spezialisierungen";
+	AL["Raid Finder"] = "Schlachtzugsbrowser";
 
 	-- Loot Table Names
 	AL["Level 30-39"] = "Stufe 30-39";
@@ -597,6 +598,7 @@ if AL then
 	AL["Summon"] = "Beschwörbar";
 	AL["Random"] = "Zufällig";
 	AL["Brew of the Month Club"] = "Bier des Monats e.V.";
+	AL["Food and Drinks"] = "Speisen und Getränke";
 
 	-- Profession descriptions
 	-- AL["Buff"] = true;
@@ -639,6 +641,8 @@ if AL then
 	AL["Speed"] = "Tempo";
 	AL["Rod"] = "Rute";
 	AL["Oil"] = "Öl";
+	AL["Culture"] = "Volk";
+	AL["Description"] = "Beschreibung";
 	AL["Dwarf"] = "Zwerge";
 	-- AL["Draenei"] = true;
 	AL["Night Elf"] = "Nachtelfen";
@@ -669,6 +673,7 @@ if AL then
 	AL["Trial of the Crusader Patterns/Plans"] = "Prüfung des Kreuzfahrers Muster/Pläne";
 	AL["BRD Blacksmithing Plans"] = "Schwarzfelstiefen Schmiedepläne";
 	AL["Firelands Patterns/Plans"] = "Feuerlande Muster/Pläne";
+	AL["Dragon Soul Patterns/Plans"] = "Drachenseele Muster/Pläne";
 
 	-- General titles
 	AL["Achievement"] = "Erfolg";
@@ -712,7 +717,6 @@ if AL then
 	AL["Alliance Tabards"] = "Allianz Wappenröcke";
 	AL["Card Game Tabards"] = "Kartenspiel Wappenröcke";
 	AL["Horde Tabards"] = "Horde Wappenröcke";
-	AL["Neutral Faction Tabards"] = "Fraktionsneutrale Wappenröcke";
 	AL["PvP Tabards"] = "PvP Wappenröcke";
 	AL["Unobtainable Tabards"] = "Nicht mehr erhältlich";
 
@@ -811,7 +815,13 @@ if AL then
 	AL["War of the Elements"] = "Krieg der Elemente";
 
 	-- Fifteenth set
-	AL["Twilight of the Dragons"] = "Zwielicht der Drachen";
+	AL["Twilight of the Dragons"] = "Drachendämmerung";
+
+	-- Seventeenth set
+	AL["Crown of Heaven"] = "Krone des Himmels";
+
+	-- Eighteenth set
+	AL["Tomb of the Forgotten"] = "Gruft der Vergessenen";
 
 	-- Battleground Brackets
 	AL["Old PvP Rewards"] = "Alte PvP Belohnungen";
@@ -1012,11 +1022,6 @@ if AL then
 	AL["Templars"] = "Templer";
 	AL["Dukes"] = "Fürsten";
 	-- AL["High Council"] = true;
-	AL["Barleybrew Brewery"] = "Gerstenbräu";
-	AL["Thunderbrew Brewery"] = "Donnerbräu";
-	AL["Gordok Brewery"] = "Gordokbrauerei";
-	AL["Drohn's Distillery"] = "Brauerei Drohn";
-	AL["T'chali's Voodoo Brewery"] = "T'chalis Voodoobrauerei";
 	AL["Scarshield Quartermaster"] = "Rüstmeister der Schmetterschilde";
 	AL["Father Flame"] = "Vater Flamme";
 	AL["Thomas Yance"] = "Thomas Yance";
@@ -1106,7 +1111,9 @@ if AL then
 	AL["Ripe Disgusting Jar"] = "Reife eklige Flasche";
 	AL["Cracked Egg"] = "Zerbrochene Eierschale";
 	AL["Small Spice Bag"] = "Kleines Gewürzsäckchen";
-	AL["Handful of Candy"] = "Eine Handvoll Süßigkeiten";
+	AL["Handful of Treats"] = "Eine Handvoll Süßigkeiten";
+	AL["Consumable Wands & Masks"] = "Verbrauchbare Stäbe & Masken";
+	AL["Permanent Masks"] = "Dauerhafte Masken";
 	AL["Lovely Dress Box"] = "Karton 'Reizendes Kleid'";
 	AL["Dinner Suit Box"] = "Karton 'Abendanzug'";
 	AL["Bag of Heart Candies"] = "Tüte mit Zuckerherzen";

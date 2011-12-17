@@ -3,10 +3,10 @@
 Engineering.lua
 Engineering data for all of Ackis Recipe List
 ************************************************************************
-File date: 2011-10-17T17:41:36Z
-File hash: 2bbcb5c
-Project hash: d552bcd
-Project version: 2.2.10
+File date: 2011-12-06T09:38:45Z
+File hash: 86f8d0d
+Project hash: 6177bc5
+Project version: 2.2.11
 ************************************************************************
 Please see http://www.wowace.com/addons/arl/ for more information.
 ************************************************************************
@@ -75,13 +75,6 @@ function addon:InitEngineering()
 	recipe = AddRecipe(3923, V.ORIG, Q.COMMON)
 	recipe:SetCraftedItemID(4360)
 	recipe:SetSkillLevels(30, 30, 60, 75, 90)
-	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.TRAINER, F.IBOE, F.RBOP)
-	recipe:AddTrainer(1676, 1702, 3290, 3494, 5174, 5518, 8736, 11017, 11025, 11031, 11037, 16667, 16726, 17222, 17634, 17637, 18752, 18775, 19576, 25277, 26907, 26955, 26991, 28697, 33586, 33611, 33634, 47418)
-
-	-- Copper Tube -- 3924
-	recipe = AddRecipe(3924, V.ORIG, Q.COMMON)
-	recipe:SetCraftedItemID(4361)
-	recipe:SetSkillLevels(50, 50, 80, 95, 110)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.TRAINER, F.IBOE, F.RBOP)
 	recipe:AddTrainer(1676, 1702, 3290, 3494, 5174, 5518, 8736, 11017, 11025, 11031, 11037, 16667, 16726, 17222, 17634, 17637, 18752, 18775, 19576, 25277, 26907, 26955, 26991, 28697, 33586, 33611, 33634, 47418)
 
@@ -236,7 +229,7 @@ function addon:InitEngineering()
 	recipe:SetCraftedItemID(4381)
 	recipe:SetSkillLevels(140, 140, 165, 177, 190)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOE, F.TRINKET)
-	recipe:AddVendor(2683, 3495)
+	recipe:AddLimitedVendor(3495, 1, 41435, 1)
 
 	-- Bronze Framework -- 3953
 	recipe = AddRecipe(3953, V.ORIG, Q.COMMON)

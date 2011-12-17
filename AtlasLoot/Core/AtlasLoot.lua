@@ -14,15 +14,15 @@ local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 
 --Establish version number and compatible version of Atlas
 local VERSION_MAJOR = "6";
-local VERSION_MINOR = "04";
-local VERSION_BOSSES = "04";
+local VERSION_MINOR = "05";
+local VERSION_BOSSES = "00";
 ATLASLOOT_VERSION = "|cffFF8400AtlasLoot Enhanced v"..VERSION_MAJOR.."."..VERSION_MINOR.."."..VERSION_BOSSES.."|r";
 ATLASLOOT_VERSION_NUM = VERSION_MAJOR.."."..VERSION_MINOR.."."..VERSION_BOSSES
 
 --Now allows for multiple compatible Atlas versions.  Always put the newest first
-ATLASLOOT_MIN_ATLAS = "1.20.0"
-ATLASLOOT_CURRENT_ATLAS = {"1.20.1"};
-ATLASLOOT_PREVIEW_ATLAS = {"1.21.0", "1.20.2"};
+ATLASLOOT_MIN_ATLAS = "1.21.0"
+ATLASLOOT_CURRENT_ATLAS = {"1.21.0"};
+ATLASLOOT_PREVIEW_ATLAS = {"1.22.0", "1.21.1"};
 
 --ATLASLOOT_POSITION = AL["Position:"];
 ATLASLOOT_DEBUGMESSAGES = false;
@@ -75,7 +75,7 @@ local AtlasLootDBDefaults = {
     profile = {
         SavedTooltips = {},
 		LootTableType = "Normal",
-        SafeLinks = true,
+        --SafeLinks = true,
         DefaultTT = true,
 		DropRate = true,
         EquipCompare = false,
@@ -163,6 +163,8 @@ StaticPopupDialogs["ATLASLOOT_SAVED_VARIABLES"] = {
 	whileDead = 1,
 	hideOnEscape = 1
 };
+
+AtlasLoot.lootTableTypes = {"Normal", "Heroic", "25Man", "25ManHeroic", "RaidFinder"}
 
 local function CopyTable(t)
 	local new = {}
@@ -261,6 +263,9 @@ do
 
 	function AtlasLoot:OnProfileChanged(event, database, newProfileKey)
 	   self:RefreshAtlasLootPanel()
+	   for k,v in ipairs(refreshProfile) do
+	   		v()
+	   end
 	end
 
 end
@@ -523,6 +528,8 @@ function AtlasLoot:GetLocInstanceType(instanceType)
 			instanceType = AL["25 Man"]
 		elseif instanceType == "25ManHeroic" then
 			instanceType = AL["25 Man Heroic"]
+		elseif instanceType == "RaidFinder" then
+			instanceType = AL["Raid Finder"]
 		else
 			instanceType = nil
 		end
@@ -642,12 +649,13 @@ end
 
 -- Heroic check
 do
-	local lootTableTypes = {"Normal", "Heroic", "25Man", "25ManHeroic"}
+	local lootTableTypes = AtlasLoot.lootTableTypes
 	local lootTableTypesCheck = {
-		["Normal"] = { "Heroic", "25Man", "25ManHeroic" },
-		["Heroic"] = { "Normal", "25ManHeroic", "25Man" },
-		["25Man"] = { "25ManHeroic", "Normal", "Heroic" },
-		["25ManHeroic"] = { "25Man", "Heroic", "Normal" },
+		["Normal"] = { "Heroic", "25Man", "25ManHeroic", "RaidFinder" },
+		["Heroic"] = { "Normal", "25ManHeroic", "25Man", "RaidFinder" },
+		["25Man"] = { "25ManHeroic", "Normal", "Heroic", "RaidFinder" },
+		["25ManHeroic"] = { "25Man", "Heroic", "Normal", "RaidFinder" },
+		["RaidFinder"] = { "Normal", "Heroic", "25Man", "25ManHeroic" },
 	}
 	
 	function AtlasLoot:GetLootTableTypeFromDataID(dataID)
@@ -999,7 +1007,23 @@ function AtlasLoot:ShowLootPage(dataID, pFrame)
 		self.ItemFrame.Back:Show()
 	end
 	
-	if lootTableType == "Heroic" and AtlasLoot_Data[dataID]["Heroic"] then
+	if AtlasLoot_Data[dataID]["RaidFinder"] and lootTableType ~= "RaidFinder" then
+		--print"this"
+		self.ItemFrame.RaidFinder:Show()
+		self.ItemFrame.RaidFinder:SetChecked(false)
+		self.ItemFrame.RaidFinder:Enable()
+	end
+	
+	if lootTableType == "RaidFinder" and AtlasLoot_Data[dataID] and AtlasLoot_Data[dataID]["RaidFinder"] then
+		self.ItemFrame.RaidFinder:Show()
+		self.ItemFrame.RaidFinder:SetChecked(true)
+		self.ItemFrame.RaidFinder:Enable()
+		if AtlasLoot_Data[dataID]["Heroic"] then
+			self.ItemFrame.Heroic:Show()
+			self.ItemFrame.Heroic:SetChecked(false)
+			self.ItemFrame.Heroic:Enable()
+		end
+	elseif lootTableType == "Heroic" and AtlasLoot_Data[dataID]["Heroic"] then
 		self.ItemFrame.Heroic:Show()
 		self.ItemFrame.Heroic:SetChecked(true)
 		if AtlasLoot_Data[dataID]["Normal"] then
@@ -1029,7 +1053,9 @@ function AtlasLoot:ShowLootPage(dataID, pFrame)
 		end
 	end
 	
-	if ( lootTableType == "Normal" or lootTableType == "Heroic" ) and AtlasLoot_Data[dataID] and ( AtlasLoot_Data[dataID]["25Man"] or AtlasLoot_Data[dataID]["25ManHeroic"] ) then
+	if lootTableType == "RaidFinder" then
+		-- do nothing
+	elseif ( lootTableType == "Normal" or lootTableType == "Heroic" ) and AtlasLoot_Data[dataID] and ( AtlasLoot_Data[dataID]["25Man"] or AtlasLoot_Data[dataID]["25ManHeroic"] ) then
 		self.ItemFrame.Switch:SetText(AL["Show 25 Man Loot"])
 		self.ItemFrame.Switch:Show()
 	elseif ( lootTableType == "25Man" or lootTableType == "25ManHeroic" ) and AtlasLoot_Data[dataID] and ( AtlasLoot_Data[dataID]["Normal"] or AtlasLoot_Data[dataID]["Heroic"] ) then
@@ -1348,13 +1374,13 @@ do
 		AtlasLootScanTooltip:SetHyperlink("quest:"..questID);
 		AtlasLootScanTooltip:Show()
 		
-		local lastTime = GetTime()
-		while not questName or questName == "" do
+		--local lastTime = GetTime()
+		--while not questName or questName == "" do
 			questName = _G["AtlasLootScanTooltipTextLeft1"]:GetText()
-			if (GetTime() - lastTime) > 0.05 then
-				break
-			end
-		end
+			--if (GetTime() - lastTime) > 0.05 then
+				--break
+			--end
+		--end
 		
 		AtlasLootScanTooltip:Hide()
 		

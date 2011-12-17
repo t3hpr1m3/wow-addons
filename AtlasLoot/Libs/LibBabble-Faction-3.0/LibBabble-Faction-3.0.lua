@@ -1,6 +1,6 @@
 --[[
 Name: LibBabble-Faction-3.0
-Revision: $Rev: 145 $
+Revision: $Rev: 147 $
 Maintainers: ckknight, nevcairiel, Ackis
 Website: http://www.wowace.com/projects/libbabble-faction-3-0/
 Dependencies: None
@@ -8,7 +8,7 @@ License: MIT
 ]]
 
 local MAJOR_VERSION = "LibBabble-Faction-3.0"
-local MINOR_VERSION = 90000 + tonumber(("$Rev: 145 $"):match("%d+"))
+local MINOR_VERSION = 90000 + tonumber(("$Rev: 147 $"):match("%d+"))
 
 if not LibStub then error(MAJOR_VERSION .. " requires LibStub.") end
 local lib = LibStub("LibBabble-3.0"):New(MAJOR_VERSION, MINOR_VERSION)
@@ -705,7 +705,7 @@ elseif GAME_LOCALE == "zhCN" then
 	["Argent Crusade"] = "银色北伐军",
 	["Argent Dawn"] = "银色黎明",
 	["Ashtongue Deathsworn"] = "灰舌死誓者",
-	["Avengers of Hyjal"] = "Avengers of Hyjal", -- Needs review
+	["Avengers of Hyjal"] = "海加尔复仇者",
 	["Baradin's Wardens"] = "巴拉丁典狱官",
 	["Bilgewater Cartel"] = "锈水财阀",
 	["Bloodsail Buccaneers"] = "血帆海盗",

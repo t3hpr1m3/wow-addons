@@ -78,7 +78,7 @@ do
 			[100] = "[Arcane Dust] 		75% 	2-5x 	[Greater Planar Essence] 	22% 	1-2x 	[Large Prismatic Shard] 	3%",
 			[121] = "[Infinite Dust] 	75% 	1-2x 	[Lesser Cosmic Essence] 	22% 	1-2x 	[Small Dream Shard] 		3%",
 			[152] = "[Infinite Dust] 	75% 	2-5x 	[Greater Cosmic Essence] 	22% 	1-2x 	[Dream Shard] 				3%",
-			[272] = "[Hypnotic Dust] 	25% 	1-3x 	[Lesser Celestial Essence] 	75% 	1-3x	[NIL]						0%",
+			[272] = "[Hypnotic Dust] 	75% 	1-3x 	[Lesser Celestial Essence] 	25% 	1-3x	[NIL]						0%",
 		},
 		["Weapon"] = {
 			[6] =	"[Strange Dust] 	20% 	1-2x 	[Lesser Magic Essence] 		80% 	1-2x	[NIL]						0%",
@@ -148,7 +148,7 @@ do
 	local disenchantTable = { }
 
 
-	local deExclusions = { [11287] = true, [11288] = true, [11289] = true, [11290] = true }		-- wands can't be de'd
+	local deExclusions = { [11287] = true, [11288] = true, [11289] = true, [11290] = true, [58483] = true }		-- wands can't be de'd, nor can lifebound alchemist stones
 
 
 	local deReagents = {}

@@ -2,10 +2,10 @@
 ************************************************************************
 Jewelcrafting.lua
 ************************************************************************
-File date: 2011-10-08T06:11:37Z
-File hash: f92790c
-Project hash: d552bcd
-Project version: 2.2.10
+File date: 2011-12-07T08:42:52Z
+File hash: 2c1d9d0
+Project hash: 6177bc5
+Project version: 2.2.11
 ************************************************************************
 Please see http://www.wowace.com/addons/arl/ for more information.
 ************************************************************************
@@ -165,7 +165,7 @@ function addon:InitJewelcrafting()
 	recipe:SetCraftedItemID(20950)
 	recipe:SetSkillLevels(120, 120, 150, 165, 180)
 	recipe:AddFilters(F.ALLIANCE, F.TRAINER, F.VENDOR, F.IBOE, F.RBOE, F.TANK, F.NECK)
-	recipe:AddTrainer(33637)
+	recipe:AddTrainer(33637, 46675)
 	recipe:AddVendor(1448)
 
 	-- Heavy Iron Knuckles -- 25612
@@ -174,7 +174,7 @@ function addon:InitJewelcrafting()
 	recipe:SetCraftedItemID(20954)
 	recipe:SetSkillLevels(125, 125, 155, 170, 185)
 	recipe:AddFilters(F.HORDE, F.TRAINER, F.VENDOR, F.IBOE, F.RBOE, F.DPS, F.ONE_HAND, F.FIST)
-	recipe:AddTrainer(33637)
+	recipe:AddTrainer(33637, 46675)
 	recipe:AddLimitedVendor(2393, 1)
 
 	-- Golden Dragon Ring -- 25613
@@ -197,7 +197,7 @@ function addon:InitJewelcrafting()
 	recipe:SetCraftedItemID(20958)
 	recipe:SetSkillLevels(150, 150, 180, 195, 210)
 	recipe:AddFilters(F.HORDE, F.TRAINER, F.VENDOR, F.IBOE, F.RBOE, F.HEALER, F.CASTER, F.RING)
-	recipe:AddTrainer(33637)
+	recipe:AddTrainer(33637, 46675)
 	recipe:AddLimitedVendor(9636, 1)
 
 	-- Jade Pendant of Blasting -- 25618
@@ -525,7 +525,7 @@ function addon:InitJewelcrafting()
 	recipe:SetCraftedItemID(23103)
 	recipe:SetSkillLevels(300, 300, 300, 320, 340)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.TRAINER, F.IBOE, F.RBOP, F.CASTER)
-	recipe:AddTrainer(18774, 19063, 19539, 26915, 26960, 26982, 26997, 28701, 33614, 33637, 33680)
+	recipe:AddTrainer(18774, 19063, 19539, 26915, 26960, 26982, 26997, 28701, 33614, 33637, 33680, 46675)
 
 	-- Jagged Deep Peridot -- 28917
 	recipe = AddRecipe(28917, V.TBC, Q.COMMON)
@@ -549,7 +549,7 @@ function addon:InitJewelcrafting()
 	recipe:SetCraftedItemID(23108)
 	recipe:SetSkillLevels(300, 300, 300, 320, 340)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.TRAINER, F.IBOE, F.RBOP, F.HEALER, F.CASTER)
-	recipe:AddTrainer(18774, 19063, 19539, 26915, 26960, 26982, 26997, 28701, 33614, 33637, 33680)
+	recipe:AddTrainer(18774, 19063, 19539, 26915, 26960, 26982, 26997, 28701, 33614, 33637, 33680, 46675)
 
 	-- Purified Shadow Draenite -- 28927
 	recipe = AddRecipe(28927, V.TBC, Q.UNCOMMON)
@@ -605,7 +605,7 @@ function addon:InitJewelcrafting()
 	recipe:SetCraftedItemID(23118)
 	recipe:SetSkillLevels(300, 300, 300, 320, 340)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.TRAINER, F.IBOE, F.RBOP)
-	recipe:AddTrainer(18774, 19063, 19539, 26915, 26960, 26982, 26997, 28701, 33614, 33637, 33680)
+	recipe:AddTrainer(18774, 19063, 19539, 26915, 26960, 26982, 26997, 28701, 33614, 33637, 33680, 46675)
 
 	-- Sparkling Azure Moonstone -- 28953
 	recipe = AddRecipe(28953, V.TBC, Q.COMMON)
@@ -4445,6 +4445,12 @@ function addon:InitJewelcrafting()
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.TRAINER, F.IBOE, F.RBOP)
 	recipe:AddTrainer(18751, 19063, 19539, 19775, 19778, 26982, 26997, 28701, 33590, 33614, 33637, 44582, 46675)
 
+	-- Stardust -- 73622
+	recipe = AddRecipe(73622, V.CATA, Q.COMMON)
+	recipe:SetSkillLevels(435, 435, 450, 457, 465)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.TRAINER, F.IBOP, F.RBOP)
+	recipe:AddTrainer(44582, 46675)
+
 	-- Jeweler's Ruby Monocle -- 73625
 	recipe = AddRecipe(73625, V.CATA, Q.RARE)
 	recipe:SetCraftedItemID(52485)
@@ -4524,47 +4530,510 @@ function addon:InitJewelcrafting()
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
 	recipe:AddVendor(16624, 17512, 44583, 50480, 50482, 52584, 52588, 52644, 52658)
 
-	-- Bloodthirsty Sapphire Ring -- 99539
+	-- Vicious Sapphire Ring -- 99539
 	recipe = AddRecipe(99539, V.CATA, Q.COMMON)
 	recipe:SetCraftedItemID(70071)
 	recipe:SetSkillLevels(510, 510, 515, 520, 525)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.TRAINER, F.IBOE, F.RBOP)
 	recipe:AddTrainer(28701)
 
-	-- Bloodthirsty Amberjewel Band -- 99540
+	-- Vicious Amberjewel Band -- 99540
 	recipe = AddRecipe(99540, V.CATA, Q.COMMON)
 	recipe:SetCraftedItemID(70072)
 	recipe:SetSkillLevels(510, 510, 515, 520, 525)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.TRAINER, F.IBOE, F.RBOP)
 	recipe:AddTrainer(28701)
 
-	-- Bloodthirsty Ruby Signet -- 99541
+	-- Vicious Ruby Signet -- 99541
 	recipe = AddRecipe(99541, V.CATA, Q.COMMON)
 	recipe:SetCraftedItemID(70073)
 	recipe:SetSkillLevels(510, 510, 515, 520, 525)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.TRAINER, F.IBOE, F.RBOP)
 	recipe:AddTrainer(28701)
 
-	-- Bloodthirsty Sapphire Necklace -- 99542
+	-- Vicious Sapphire Necklace -- 99542
 	recipe = AddRecipe(99542, V.CATA, Q.COMMON)
 	recipe:SetCraftedItemID(70074)
 	recipe:SetSkillLevels(520, 520, 525, 530, 535)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.TRAINER, F.IBOE, F.RBOP)
 	recipe:AddTrainer(28701)
 
-	-- Bloodthirsty Amberjewel Pendant -- 99543
+	-- Vicious Amberjewel Pendant -- 99543
 	recipe = AddRecipe(99543, V.CATA, Q.COMMON)
 	recipe:SetCraftedItemID(70075)
 	recipe:SetSkillLevels(520, 520, 525, 530, 535)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.TRAINER, F.IBOE, F.RBOP)
 	recipe:AddTrainer(28701)
 
-	-- Bloodthirsty Ruby Choker -- 99544
+	-- Vicious Ruby Choker -- 99544
 	recipe = AddRecipe(99544, V.CATA, Q.COMMON)
 	recipe:SetCraftedItemID(70076)
 	recipe:SetSkillLevels(520, 520, 525, 530, 535)
 	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.TRAINER, F.IBOE, F.RBOP)
 	recipe:AddTrainer(28701)
+
+	-- Rigid Deepholm Iolite -- 101735
+	recipe = AddRecipe(101735, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71821)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Stormy Deepholm Iolite -- 101740
+	recipe = AddRecipe(101740, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71884)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Sparkling Deepholm Iolite -- 101741
+	recipe = AddRecipe(101741, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71885)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Solid Deepholm Iolite -- 101742
+	recipe = AddRecipe(101742, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71886)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Misty Elven Peridot -- 101743
+	recipe = AddRecipe(101743, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71887)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Piercing Elven Peridot -- 101744
+	recipe = AddRecipe(101744, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71888)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Lightning Elven Peridot -- 101745
+	recipe = AddRecipe(101745, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71889)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Sensei's Elven Peridot -- 101746
+	recipe = AddRecipe(101746, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71890)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Infused Elven Peridot -- 101747
+	recipe = AddRecipe(101747, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71891)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Zen Elven Peridot -- 101748
+	recipe = AddRecipe(101748, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71892)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Balanced Elven Peridot -- 101749
+	recipe = AddRecipe(101749, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71893)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Vivid Elven Peridot -- 101750
+	recipe = AddRecipe(101750, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71894)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Turbid Elven Peridot -- 101751
+	recipe = AddRecipe(101751, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71895)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Radiant Elven Peridot -- 101752
+	recipe = AddRecipe(101752, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71896)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Shattered Elven Peridot -- 101753
+	recipe = AddRecipe(101753, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71897)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Energized Elven Peridot -- 101754
+	recipe = AddRecipe(101754, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71898)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Jagged Elven Peridot -- 101755
+	recipe = AddRecipe(101755, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71899)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Regal Elven Peridot -- 101756
+	recipe = AddRecipe(101756, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71900)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Forceful Elven Peridot -- 101757
+	recipe = AddRecipe(101757, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71901)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Nimble Elven Peridot -- 101758
+	recipe = AddRecipe(101758, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71902)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Puissant Elven Peridot -- 101759
+	recipe = AddRecipe(101759, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71903)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Steady Elven Peridot -- 101760
+	recipe = AddRecipe(101760, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71904)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Deadly Lava Coral -- 101761
+	recipe = AddRecipe(101761, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71905)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Crafty Lava Coral -- 101762
+	recipe = AddRecipe(101762, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71906)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Potent Lava Coral -- 101763
+	recipe = AddRecipe(101763, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71907)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Inscribed Lava Coral -- 101764
+	recipe = AddRecipe(101764, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71908)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Polished Lava Coral -- 101765
+	recipe = AddRecipe(101765, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71909)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Resolute Lava Coral -- 101766
+	recipe = AddRecipe(101766, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71910)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Stalwart Lava Coral -- 101767
+	recipe = AddRecipe(101767, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71911)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Champion's Lava Coral -- 101768
+	recipe = AddRecipe(101768, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71912)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Deft Lava Coral -- 101769
+	recipe = AddRecipe(101769, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71913)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Wicked Lava Coral -- 101770
+	recipe = AddRecipe(101770, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71914)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Reckless Lava Coral -- 101771
+	recipe = AddRecipe(101771, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71915)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Fierce Lava Coral -- 101772
+	recipe = AddRecipe(101772, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71916)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Adept Lava Coral -- 101773
+	recipe = AddRecipe(101773, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71917)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Keen Lava Coral -- 101774
+	recipe = AddRecipe(101774, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71918)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Artful Lava Coral -- 101775
+	recipe = AddRecipe(101775, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71919)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Fine Lava Coral -- 101776
+	recipe = AddRecipe(101776, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71920)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Skillful Lava Coral -- 101777
+	recipe = AddRecipe(101777, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71921)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Lucent Lava Coral -- 101778
+	recipe = AddRecipe(101778, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71922)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Tenuous Lava Coral -- 101779
+	recipe = AddRecipe(101779, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71923)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Willful Lava Coral -- 101780
+	recipe = AddRecipe(101780, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71924)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Splendid Lava Coral -- 101781
+	recipe = AddRecipe(101781, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71925)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Resplendent Lava Coral -- 101782
+	recipe = AddRecipe(101782, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71926)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Glinting Shadow Spinel -- 101783
+	recipe = AddRecipe(101783, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71927)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Accurate Shadow Spinel -- 101784
+	recipe = AddRecipe(101784, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71928)
+	recipe:SetCraftedItemID(71863)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Veiled Shadow Spinel -- 101785
+	recipe = AddRecipe(101785, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71929)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Retaliating Shadow Spinel -- 101786
+	recipe = AddRecipe(101786, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71930)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Etched Shadow Spinel -- 101787
+	recipe = AddRecipe(101787, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71931)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Mysterious Shadow Spinel -- 101788
+	recipe = AddRecipe(101788, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71932)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Purified Shadow Spinel -- 101789
+	recipe = AddRecipe(101789, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71933)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Shifting Shadow Spinel -- 101790
+	recipe = AddRecipe(101790, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71934)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Guardian's Shadow Spinel -- 101791
+	recipe = AddRecipe(101791, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71935)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Timeless Shadow Spinel -- 101792
+	recipe = AddRecipe(101792, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71936)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Defender's Shadow Spinel -- 101793
+	recipe = AddRecipe(101793, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71937)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Sovereign Shadow Spinel -- 101794
+	recipe = AddRecipe(101794, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71938)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Delicate Queen's Garnet -- 101795
+	recipe = AddRecipe(101795, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71939)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Precise Queen's Garnet -- 101796
+	recipe = AddRecipe(101796, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71940)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Brilliant Queen's Garnet -- 101797
+	recipe = AddRecipe(101797, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71941)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Flashing Queen's Garnet -- 101798
+	recipe = AddRecipe(101798, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71942)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Bold Queen's Garnet -- 101799
+	recipe = AddRecipe(101799, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71943)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Smooth Lightstone -- 101800
+	recipe = AddRecipe(101800, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71944)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Subtle Lightstone -- 101801
+	recipe = AddRecipe(101801, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71945)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Quick Lightstone -- 101802
+	recipe = AddRecipe(101802, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71946)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Fractured Lightstone -- 101803
+	recipe = AddRecipe(101803, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71947)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
+
+	-- Mystic Lightstone -- 101804
+	recipe = AddRecipe(101804, V.CATA, Q.RARE)
+	recipe:SetRecipeItemID(71948)
+	recipe:SetSkillLevels(520, 520, 525, 530, 535)
+	recipe:AddFilters(F.ALLIANCE, F.HORDE, F.VENDOR, F.IBOE, F.RBOP)
+	recipe:AddVendor(56925, 57922)
 
 	self.InitJewelcrafting = nil
 end

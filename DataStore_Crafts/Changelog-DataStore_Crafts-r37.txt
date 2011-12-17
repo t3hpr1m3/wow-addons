@@ -1,0 +1,10 @@
+------------------------------------------------------------------------
+r37 | thaoky | 2011-12-10 14:51:49 +0000 (Sat, 10 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/DataStore_Crafts.toc
+   A /trunk/Locales/ptBR.lua
+   M /trunk/locale.xml
+
+TOC Update
+ptBR support
+------------------------------------------------------------------------

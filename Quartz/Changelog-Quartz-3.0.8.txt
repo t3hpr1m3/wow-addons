@@ -1,0 +1,13 @@
+tag 3.0.8
+aac21d08cf7a7b905367b98096582093d1221f23
+Hendrik Leppkes <h.leppkes@gmail.com>
+2011-11-30 17:46:30 +0100
+
+Tag as 3.0.8
+
+
+--------------------
+
+Hendrik Leppkes:
+	- Protect against a division by zero
+	- Bump TOC

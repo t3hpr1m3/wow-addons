@@ -1,7 +1,7 @@
 --[[
 	Auctioneer - Search UI - Filter IgnoreItemauctionhistory
-	Version: 5.12.5198 (QuirkyKiwi)
-	Revision: $Id: FilterItemAuctionHistory.lua 4432 2009-08-29 14:55:35Z dinesh $
+	Version: 5.13.5246 (BoldBandicoot)
+	Revision: $Id: FilterItemAuctionHistory.lua 5232 2011-11-23 17:47:17Z Nechckn $
 	URL: http://auctioneeraddon.com/
 
 	This is a plugin module for the SearchUI that assists in searching by refined paramaters
@@ -48,7 +48,7 @@ function lib:MakeGuiConfig(gui)
 	gui:MakeScrollable(id)
 
 	gui:AddControl(id, "Header",     0,      "ItemAuctionHistory Filter Criteria")
-	
+
 	local last = gui:GetLast(id)
 	gui:AddControl(id, "Checkbox",    0, 1,  "ignoreitemauctionhistory.enable", "Enable item auction history filtering")
 
@@ -57,14 +57,15 @@ function lib:MakeGuiConfig(gui)
 
 	gui:AddControl(id, "Subhead",     0,     "Filter at and below this success/total ratio:")
 	gui:AddControl(id, "WideSlider", 0, 1, "ignoreitemauctionhistory.target_ratio", 0, 1, 0.05, "%s")
-	
+
 	gui:SetLast(id, last)
 	gui:AddControl(id, "Subhead",     .5, "Filter for:")
 	for name, searcher in pairs(AucSearchUI.Searchers) do
 		if searcher and searcher.Search then
-			gui:AddControl(id, "Checkbox", 0.5, 1, "ignoreitemauctionhistory.filter."..name, name)
+			local setting = "ignoreitemauctionhistory.filter."..name
+			default(setting, false)
+			gui:AddControl(id, "Checkbox", 0.5, 1, setting, name)
 			gui:AddTip(id, "Filter Item Auction History when searching with "..name)
-			default("ignoreitemauctionhistory.filter."..name, false)
 		end
 	end
 end
@@ -89,7 +90,7 @@ function lib.Filter(item, searcher)
 	local itemId = item[Const.ITEMID]
 
 	local _, _, itemRarity, itemLevel, _, itemType  = GetItemInfo(itemId)
-	
+
 	if (not itemLevel) then return end
 	if (not itemType) then return end
 
@@ -113,12 +114,12 @@ function lib.Filter(item, searcher)
 
 	local s = success
 	local f = failed
-	
+
 	local target_ratio = get("ignoreitemauctionhistory.target_ratio")
 	local min_scan_filter = get("ignoreitemauctionhistory.min_scan_filter")
 
 	local actual_ratio = 0
-	
+
 	-- if we have fewer than the minimum sightings, we're not filtering
 	if (s+f) < min_scan_filter then
 		return false -- not filtering
@@ -136,4 +137,4 @@ function lib.Filter(item, searcher)
 	return false
 end
 
-AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.12/Auc-Util-SearchUI/FilterItemAuctionHistory.lua $", "$Rev: 4432 $")
+AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.13/Auc-Util-SearchUI/FilterItemAuctionHistory.lua $", "$Rev: 5232 $")

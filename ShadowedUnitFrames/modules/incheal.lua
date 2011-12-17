@@ -1,25 +1,29 @@
 local IncHeal = {}
 local frames = {}
 ShadowUF:RegisterModule(IncHeal, "incHeal", ShadowUF.L["Incoming heals"])
-ShadowUF.Tags.customEvents["HEALCOMM"] = IncHeal
+-- ShadowUF.Tags.customEvents["CRTABS"] = IncHeal
 
 function IncHeal:OnEnable(frame)
-	frames[frame] = true
 	frame.incHeal = frame.incHeal or ShadowUF.Units:CreateBar(frame)
 	
-	frame:RegisterUnitEvent("UNIT_MAXHEALTH", self, "UpdateFrame")
-	frame:RegisterUnitEvent("UNIT_HEALTH", self, "UpdateFrame")
-	frame:RegisterUnitEvent("UNIT_HEAL_PREDICTION", self, "UpdateFrame")
-	frame:RegisterUpdateFunc(self, "UpdateFrame")
+	if( ShadowUF.db.profile.units[frame.unitType].incHeal.heals ) then
+		frame:RegisterUnitEvent("UNIT_MAXHEALTH", self, "UpdateFrame")
+		frame:RegisterUnitEvent("UNIT_HEALTH", self, "UpdateFrame")
+		frame:RegisterUnitEvent("UNIT_HEAL_PREDICTION", self, "UpdateFrame")
+	end
+	
+	-- if( ShadowUF.db.profile.units[frame.unitType].incHeal.absorbs ) then
+	-- 	frame:RegisterUnitEvent("UNIT_AURA", self, "CalculateAbsorb")
+	-- 	frame:RegisterUpdateFunc(self, "CalculateAbsorb")
+	-- -- Since CalculateAbsorb already calls UpdateFrame, we don't need to explicitly do it
+	-- else
+		frame:RegisterUpdateFunc(self, "UpdateFrame")
+	-- end
 end
 
 function IncHeal:OnDisable(frame)
 	frame:UnregisterAll(self)
 	frame.incHeal:Hide()
-	
-	if( not frame.hasHCTag ) then
-		frames[frame] = nil
-	end
 end
 
 function IncHeal:OnLayoutApplied(frame)
@@ -58,40 +62,74 @@ function IncHeal:OnLayoutApplied(frame)
 	end
 end
 
--- Since I don't want a more complicated system where both incheal.lua and tags.lua are watching the same events
--- I'll update the HC tags through here instead
-function IncHeal:EnableTag(frame)
-	frames[frame] = true
-	frame.hasHCTag = true
-end
-
-function IncHeal:DisableTag(frame)
-	frame.hasHCTag = nil
-	
-	if( not frame.visibility.incHeal ) then
-		frames[frame] = nil
-	end
-end
-
--- Update any tags using HC
-function IncHeal:UpdateTags(frame, amount)
-	if( not frame.fontStrings or not frame.hasHCTag ) then return end
-	
-	for _, fontString in pairs(frame.fontStrings) do
-		if( fontString.HEALCOMM ) then
-			fontString.incoming = amount > 0 and amount or nil
-			fontString:UpdateTags()
-		end
-	end
-end
+-- function IncHeal:EnableTag(frame, fontString)
+-- 	if( not frames[frame] ) then frames[frame] = {} end
+-- 	
+-- 	frames[frame][fontString] = true
+-- 	
+-- 	-- Need to register the events since we're not watching them by default
+-- 	if( not frame.tagEnabled and not ShadowUF.db.profile.units[frame.unitType].incHeal.absorbs ) then
+-- 		frame:RegisterUnitEvent("UNIT_AURA", self, "CalculateAbsorb")
+-- 		frame:RegisterUpdateFunc(self, "CalculateAbsorb")
+-- 		
+-- 		-- And unregister the default updater since it's used by default
+-- 		if( ShadowUF.db.profileunits[frame.unitType].incHeal.heals ) then
+-- 			frame:UnregisterUpdateFunc(self, "UpdateFrame")
+-- 		end
+-- 	end
+-- 	
+-- 	frame.tagEnabled = true;
+-- end
+-- 
+-- function IncHeal:DisableTag(frame, fontString)
+-- 	if( not frames[frame] or not frames[frame][fontString] ) then return end
+-- 	
+-- 	frames[frame][fontString] = nil
+-- 	frame.tagEnabled = nil
+-- 	for _, _ in pairs(frames[frame]) do
+-- 		frame.tagEnabled = true
+-- 		break
+-- 	end
+-- 	
+-- 	if( frame.tagEnabled ) then return end
+-- 
+-- 	-- Need to unrregister the events since we're not watching them by default
+-- 	if( not ShadowUF.db.profile.units[frame.unitType].incHeal.absorbs ) then
+-- 		frame:UnregisterUnitEvent("UNIT_AURA", self, "CalculateAbsorb")
+-- 		frame:UnregisterUpdateFunc(self, "CalculateAbsorb")
+-- 		
+-- 		-- Also register the default updater since we used it by default
+-- 		if( ShadowUF.db.profileunits[frame.unitType].incHeal.heals ) then
+-- 			frame:RegisterUpdateFunc(self, "UpdateFrame")
+-- 		end
+-- 	end
+-- end	
+-- 
+-- function IncHeal:CalculateAbsorb(frame)
+-- 	frame.absorb = 0
+-- 	
+-- 	local index = 0
+-- 	while( true ) do
+-- 		index = index + 1
+-- 		local name, _, _, _, _, _, _, _, _, _, _, _, _, absorbAmount = UnitAura(frame.unit, index, "HELPFUL"))
+-- 		if( not name ) then break end
+-- 		
+-- 		
+-- 	end
+-- 	
+-- 	if( frame.tagEnabled ) then
+-- 		for fontString, _ in pairs(frames[frame]) do
+-- 			fontString:UpdateTags()
+-- 		end
+-- 	end
+-- 	
+-- 	self:UpdateFrame(frame)
+-- end
 
 function IncHeal:UpdateFrame(frame)
 	-- This makes sure that when a heal like Tranquility is cast, it won't show the entire cast but cap it at 4 seconds into the future
 	local healed = UnitGetIncomingHeals(frame.unit) or 0
-	
-	-- Update any tags that are using HC data
-	IncHeal:UpdateTags(frame, healed)
-	
+		
 	-- Bar is also supposed to be enabled, lets update that too
 	if( frame.visibility.incHeal and frame.visibility.healthBar ) then
 		if( healed > 0 ) then
@@ -105,8 +143,8 @@ function IncHeal:UpdateFrame(frame)
 				frame.incHeal:SetValue(frame.incHeal.total)
 			else
 				local health, maxHealth = UnitHealth(frame.unit), UnitHealthMax(frame.unit)
-				local healthWidth = frame.incHeal.healthWidth * (health / maxHealth)
-				local incWidth = frame.healthBar:GetWidth() * (healed / health)
+				local healthWidth = frame.incHeal.healthWidth * (maxHealth > 0 and health / maxHealth or 0)
+				local incWidth = frame.healthBar:GetWidth() * (health > 0 and healed / health or 0)
 				if( (healthWidth + incWidth) > frame.incHeal.maxWidth ) then
 					incWidth = frame.incHeal.cappedWidth
 				end

@@ -3,7 +3,7 @@
 	please see the included License.txt file.
 
 	* File.....: Skins\Skins.lua
-	* Revision.: 368
+	* Revision.: 377
 	* Author...: StormFX
 
 	Skin API
@@ -81,4 +81,14 @@ function Core.API:AddSkin(SkinID, SkinData, Replace)
 		end
 	end
 	Core:AddSkin(SkinID, SkinData)
+end
+
+-- API method for returning the skins table.
+function Core.API:GetSkins()
+	return Skins
+end
+
+-- API method returning a specific skin.
+function Core.API:GetSkin(SkinID)
+	return SkinID and Skins[SkinID]
 end

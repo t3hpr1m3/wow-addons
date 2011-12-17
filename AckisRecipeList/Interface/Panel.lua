@@ -2,10 +2,10 @@
 ************************************************************************
 Panel.lua
 ************************************************************************
-File date: 2011-10-04T03:16:24Z
-File hash: 95fe39a
-Project hash: d552bcd
-Project version: 2.2.10
+File date: 2011-11-11T03:44:55Z
+File hash: 69e5d92
+Project hash: 6177bc5
+Project version: 2.2.11
 ************************************************************************
 Please see http://www.wowace.com/addons/arl/ for more information.
 ************************************************************************
@@ -586,47 +586,45 @@ function private.InitializeFrame()
 			end
 			search_pattern = search_pattern:lower()
 
-			for index, recipe in pairs(private.recipe_list) do
+			for index, recipe in pairs(private.profession_recipe_list[ORDERED_PROFESSIONS[MainPanel.profession]]) do
 				recipe:RemoveState("RELEVANT")
 
-				if recipe.profession == ORDERED_PROFESSIONS[MainPanel.profession] then
-					local found = SearchByField(recipe, search_pattern)
+				local found = SearchByField(recipe, search_pattern)
 
-					if not found then
-						found = SearchByQuality(recipe, search_pattern)
-					end
+				if not found then
+					found = SearchByQuality(recipe, search_pattern)
+				end
 
-					if not found then
-						found = SearchByAcquireType(recipe, search_pattern)
-					end
+				if not found then
+					found = SearchByAcquireType(recipe, search_pattern)
+				end
 
-					if not found then
-						found = SearchByLocation(recipe, search_pattern)
-					end
+				if not found then
+					found = SearchByLocation(recipe, search_pattern)
+				end
 
-					if not found then
-						found = SearchByReputation(recipe, search_pattern)
-					end
+				if not found then
+					found = SearchByReputation(recipe, search_pattern)
+				end
 
-					if not found then
-						found = SearchByTrainer(recipe, search_pattern)
-					end
+				if not found then
+					found = SearchByTrainer(recipe, search_pattern)
+				end
 
-					if not found then
-						found = SearchByVendor(recipe, search_pattern)
-					end
+				if not found then
+					found = SearchByVendor(recipe, search_pattern)
+				end
 
-					if not found then
-						found = SearchByMobDrop(recipe, search_pattern)
-					end
+				if not found then
+					found = SearchByMobDrop(recipe, search_pattern)
+				end
 
-					if not found then
-						found = SearchByCustom(recipe, search_pattern)
-					end
+				if not found then
+					found = SearchByCustom(recipe, search_pattern)
+				end
 
-					if not found then
-						found = SearchByDiscovery(recipe, search_pattern)
-					end
+				if not found then
+					found = SearchByDiscovery(recipe, search_pattern)
 				end
 			end
 		end

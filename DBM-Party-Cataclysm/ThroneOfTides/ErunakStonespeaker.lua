@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("ErunakStonespeaker", "DBM-Party-Cataclysm", 9)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 6499 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 6624 $"):sub(12, -3))
 mod:SetCreatureID(40825, 40788)		-- 40788 = Mindbender Ghur'sha
 mod:SetModelID(32259)
 mod:SetZone()
@@ -117,7 +117,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 end
 
 function mod:UNIT_DIED(args)
-	if self:GetCIDFromGUID(args.destGUID) == 40788 and self:IsInCombat() then
+	if self:GetCIDFromGUID(args.destGUID) == 40788 then
 		DBM:EndCombat(self)
 	end
 end

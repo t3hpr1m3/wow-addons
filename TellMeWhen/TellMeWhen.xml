@@ -1,0 +1,239 @@
+﻿<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ .. \FrameXML\UI.xsd">
+
+	<!-- TEMPLATES -->
+	<Frame name="TellMeWhen_GroupTemplate" enableMouse="false" toplevel="true" movable="true" parent="TMW" virtual="true">
+		<Size x="1" y="1"/>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture setAllPoints="true">
+					<Color r="0" g="0" b="0" a="0"/>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Button name="$parent_ResizeButton" parentKey="resizeButton">
+				<Size x="10" y="10"/>
+				<Anchors>
+					<Anchor point="BOTTOMRIGHT"/>
+				</Anchors>
+				<Layers>
+					<Layer level="BACKGROUND">
+						<Texture name="$parentTexture" parentKey="texture" file="Interface\AddOns\TellMeWhen\Textures\Resize">
+							<Size x="10" y="10"/>
+						</Texture>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnLoad>
+						self.texture:SetVertexColor(0.6, 0.6, 0.6)
+					</OnLoad>
+					<OnMouseDown>
+						TMW:Group_StartSizing(self)
+					</OnMouseDown>
+					<OnMouseUp>
+						TMW:Group_StopSizing(self)
+					</OnMouseUp>
+					<OnEnter>
+						self.texture:SetVertexColor(1, 1, 1)
+						if TMW.TT and not self.__title then
+							TMW:TT(self, "RESIZE", "RESIZE_TOOLTIP")
+							self:GetScript("OnEnter")(self)
+						end
+					</OnEnter>
+					<OnLeave>
+						self.texture:SetVertexColor(0.6, 0.6, 0.6)
+					</OnLeave>
+				</Scripts>
+			</Button>
+		</Frames>
+	</Frame>
+	
+	<Button name="TellMeWhen_IconTemplate" virtual="true" enableMouse="true">
+		<Size x="30" y="30"/>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="$parentIcon" parentKey="texture" file="Interface\Icons\INV_Misc_QuestionMark">
+					<Size x="30" y="30"/>
+				</Texture>
+			</Layer>
+			<Layer level="ARTWORK">
+				<FontString name="$parentCount" parentKey="countText" inherits="NumberFontNormalSmall" justifyH="RIGHT">
+					<Anchors>
+						<Anchor point="BOTTOMRIGHT" x="-2" y="2"/>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentHotKey" parentKey="bindText" inherits="NumberFontNormalSmallGray" justifyH="RIGHT">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="-2" y="-2"/>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<StatusBar name="$parentPowerBar" parentKey="pbar" hidden="true">
+				<Anchors>
+					<Anchor point="BOTTOM" relativeTo="$parentIcon" relativePoint="CENTER" y="0.5"/>
+					<Anchor point="TOPLEFT" relativeTo="$parentIcon"/>
+					<Anchor point="TOPRIGHT" relativeTo="$parentIcon"/>
+				</Anchors>
+				<Layers>
+					<Layer level="OVERLAY">
+						<Texture name="$parenttexture" parentKey="texture" file="Interface\TargetingFrame\UI-StatusBar">
+							<Size x="30" y="30"/>
+						</Texture>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnLoad>
+						self.Max = 1
+						self:SetFrameLevel(self:GetParent():GetFrameLevel() + 2)
+						self.icon = self:GetParent()
+						self:SetStatusBarTexture(self.texture)
+						self.offset = 0
+					</OnLoad>
+				</Scripts>
+			</StatusBar>
+			<StatusBar name="$parentCooldownBar" parentKey="cbar" minvalue="0" maxvalue="1" defaultvalue="0" hidden="true">
+				<Anchors>
+					<Anchor point="TOP" relativeTo="$parentIcon" relativePoint="CENTER" y="-0.5"/>
+					<Anchor point="BOTTOMLEFT" relativeTo="$parentIcon"/>
+					<Anchor point="BOTTOMRIGHT" relativeTo="$parentIcon"/>
+				</Anchors>
+				<Layers>
+					<Layer level="OVERLAY">
+						<Texture name="$parenttexture" parentKey="texture" file="Interface\TargetingFrame\UI-StatusBar">
+							<Size x="30" y="30"/>
+						</Texture>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnLoad>
+						self.Max = 1
+						self:SetFrameLevel(self:GetParent():GetFrameLevel() + 2)
+						self.icon = self:GetParent()
+						self:SetStatusBarTexture(self.texture)
+						self.offset = 0
+					</OnLoad>
+				</Scripts>
+			</StatusBar>
+			<Cooldown name="$parentCooldown" parentKey="cooldown" inherits="CooldownFrameTemplate">
+				<Size x="30" y="30"/>
+				<Anchors>
+					<Anchor point="CENTER"/>
+				</Anchors>
+			</Cooldown>
+		</Frames>
+		<Scripts>
+			<OnLoad>
+				self:RegisterForDrag("LeftButton", "RightButton")
+			</OnLoad>
+			<OnEnter>
+				local groupID = self:GetParent():GetID()
+				local line1 = TMW.L["ICON_TOOLTIP1"] .. " " .. format(TMW.L["GROUPICON"], TMW:GetGroupName(groupID, groupID, 1), self:GetID())
+				if self:GetParent().Locked then
+					line1 = line1 .. " (" .. TMW.L["LOCKED"] .. ")"
+				end
+				GameTooltip_SetDefaultAnchor(GameTooltip, self)
+				GameTooltip:AddLine(line1, HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
+				GameTooltip:AddLine(TMW.L["ICON_TOOLTIP2NEW"], NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b)
+				GameTooltip:Show()
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide()
+			</OnLeave>
+			<OnMouseUp>
+				if TMW.ID.isMoving then
+					TMW:Group_StopMoving(TMW.ID.isMoving)
+				end
+				if button == "RightButton" then
+					TMW.IE:Load(nil, self)
+				end
+				if TMW.IE then
+					TMW.IE:ScheduleIconUpdate(self:GetParent():GetID(), self:GetID())
+				end
+			</OnMouseUp>
+			<OnMouseDown>
+				local ID = TMW.ID
+				if not ID then return end
+				ID.DraggingInfo = nil
+				ID.F:Hide()
+				ID.IsDragging = nil
+			</OnMouseDown>
+			<OnDragStart>
+				if button == "RightButton" and TMW.ID then
+					TMW.ID.srcicon = self
+					TMW.ID:Start(self)
+				elseif button == "LeftButton" then
+					local group = self:GetParent()
+					if not group.Locked then
+						group:StartMoving()
+						TMW.ID.isMoving = group
+					end
+				end
+				if TMW.IE then
+					TMW.IE:ScheduleIconUpdate(self:GetParent():GetID(), self:GetID())
+				end
+			</OnDragStart>
+			<OnReceiveDrag>
+				if TMW.ID then
+					TMW.ID:CompleteDrag("OnReceiveDrag", self)
+					TMW.ID:SpellItemToIcon(self)
+				end
+			</OnReceiveDrag>
+			<OnClick>
+				if TMW.ID then
+					TMW.ID:SpellItemToIcon(self)
+				end
+			</OnClick>
+			<OnDragStop>
+				if TMW.ID.isMoving then
+					TMW:Group_StopMoving(TMW.ID.isMoving)
+				end
+				
+				if TMW.ID and TMW.ID.IsDragging then
+					TMW.ID:CompleteDrag("OnDragStop")
+				end
+			</OnDragStop>
+			<OnShow>
+				self.__shown = 1
+			</OnShow>
+			<OnHide>
+				self.__shown = nil
+			</OnHide>
+		</Scripts>
+
+		<NormalTexture file=""/>
+		<HighlightTexture alphaMode="ADD" file="Interface\Buttons\ButtonHilight-Square"/>
+		<PushedTexture file="Interface\Buttons\UI-Quickslot-Depress"/>
+	</Button>
+
+	<!-- END TEMPLATES -->
+	
+	<Cooldown hidden="true">
+		<!-- cooldown bug fixer.
+		Seems to fix the long-standing bug once and for all where cooldown models would
+		not show up until one was initiated somewhere outside a TMW icon -->
+		<Scripts>
+			<OnLoad>
+				self:SetCooldown(GetTime(), 1)
+			</OnLoad>
+		</Scripts>
+	</Cooldown>
+	
+	<Frame name="TellMeWhen_BlizzOptionsStub" hidden="true">
+		<Scripts>
+			<OnLoad>
+				self.name = TMW.L["ICON_TOOLTIP1"]
+				InterfaceOptions_AddCategory(self)
+			</OnLoad>
+			<OnShow>
+				TMW:LoadOptions()
+				InterfaceOptionsFrame_OpenToCategory(TMW.AddedToBlizz)
+			</OnShow>
+		</Scripts>
+	</Frame>
+</Ui>
+
+
+
+

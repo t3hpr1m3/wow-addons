@@ -1,4 +1,4 @@
-﻿## Interface: 40200
+﻿## Interface: 40300
 ## X-Min-Interface: 40200
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Bastion of Twilight|r
 ## Title-esES:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Bastión del Crepúsculo|r
@@ -21,7 +21,7 @@
 ## X-DBM-Mod-Name-zhCN: 暮光堡垒
 ## X-DBM-Mod-Sort: 103
 ## X-DBM-Mod-LoadZoneID: 758
-## X-Curse-Packaged-Version: DBM-4.10.0-117-gea5f9b9
+## X-Curse-Packaged-Version: 4.10.4
 ## X-Curse-Project-Name: Deadly Boss Mods
 ## X-Curse-Project-ID: deadly-boss-mods
 ## X-Curse-Repository-ID: wow/deadly-boss-mods/mainline

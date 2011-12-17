@@ -21,18 +21,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 @author Matt Richard (Tem)
 @author Ken Allan <ken@norganna.org>
+@author brykrys
 @libname LibExtraTip
-@version 1.1
+@version 1.(see below)
 --]]
 
-local MAJOR,MINOR,REVISION = "LibExtraTip", 1, "$Revision: 311 $"
+local LIBNAME = "LibExtraTip"
+local VERSION_MAJOR = 1
+local VERSION_MINOR = 321
+-- Minor Version cannot be a SVN Revison in case this library is used in multiple repositories
+-- Should be updated manually with each (non-trivial) change
 
 -- A string unique to this version to prevent frame name conflicts.
-local LIBSTRING = MAJOR.."_"..MINOR.."_"..REVISION
-local lib = LibStub:NewLibrary(MAJOR.."-"..MINOR, REVISION)
+local LIBSTRING = LIBNAME.."_"..VERSION_MAJOR.."_"..VERSION_MINOR
+local lib = LibStub:NewLibrary(LIBNAME.."-"..VERSION_MAJOR, VERSION_MINOR)
 if not lib then return end
 
-LibStub("LibRevision"):Set("$URL: http://svn.norganna.org/libs/trunk/LibExtraTip/LibExtraTip.lua $","$Rev: 311 $","5.12.DEV.", 'auctioneer', 'libs')
+LibStub("LibRevision"):Set("$URL: http://svn.norganna.org/libs/trunk/LibExtraTip/LibExtraTip.lua $","$Rev: 319 $","5.12.DEV.", 'auctioneer', 'libs')
 
 -- Call function to deactivate any outdated version of the library.
 -- (calls the OLD version of this function, NOT the one defined in this
@@ -105,7 +110,7 @@ end
 local function OnTooltipSetItem(tooltip)
 	local self = lib
 	local reg = self.tooltipRegistry[tooltip]
-	assert(reg, "Unknown tooltip passed to LibExtraTip:OnTooltipSetItem()")
+	if not reg then return end
 
 	if self.sortedCallbacks and #self.sortedCallbacks > 0 then
 		tooltip:Show()
@@ -152,7 +157,7 @@ end
 local function OnTooltipSetSpell(tooltip)
 	local self = lib
 	local reg = self.tooltipRegistry[tooltip]
-	assert(reg, "Unknown tooltip passed to LibExtraTip:OnTooltipSetSpell()")
+	if not reg then return end
 
 	if self.sortedCallbacks and #self.sortedCallbacks > 0 then
 		tooltip:Show()
@@ -177,7 +182,7 @@ end
 local function OnTooltipSetUnit(tooltip)
 	local self = lib
 	local reg = self.tooltipRegistry[tooltip]
-	assert(reg, "Unknown tooltip passed to LibExtraTip:OnTooltipSetUnit()")
+	if not reg then return end
 
 	if self.sortedCallbacks and #self.sortedCallbacks > 0 then
 		tooltip:Show()
@@ -201,7 +206,8 @@ end
 local function OnTooltipCleared(tooltip)
 	local self = lib
 	local reg = self.tooltipRegistry[tooltip]
-	assert(reg, "Unknown tooltip passed to LibExtraTip:OnTooltipCleared()")
+	if not reg then return end
+
 	if reg.ignoreOnCleared then return end
 	tooltip:SetFrameLevel(1)
 
@@ -224,7 +230,7 @@ end
 local function OnSizeChanged(tooltip,w,h)
 	local self = lib
 	local reg = self.tooltipRegistry[tooltip]
-	assert(reg, "Unknown tooltip passed to LibExtraTip:OnSizeChanged()")
+	if not reg then return end
 
 	local extraTip = reg.extraTip
 	if extraTip then
@@ -472,7 +478,7 @@ end
 ]]
 function lib:AddLine(tooltip,text,r,g,b,embed)
 	local reg = self.tooltipRegistry[tooltip]
-	assert(reg, "Unknown tooltip passed to LibExtraTip:AddLine()")
+	if not reg then return end
 
 	if r and not g then embed = r r = nil end
 	embed = embed ~= nil and embed or self.embedMode
@@ -498,7 +504,7 @@ end
 ]]
 function lib:AddDoubleLine(tooltip,textLeft,textRight,lr,lg,lb,rr,rg,rb,embed)
 	local reg = self.tooltipRegistry[tooltip]
-	assert(reg, "Unknown tooltip passed to LibExtraTip:AddDoubleLine()")
+	if not reg then return end
 
 	if lr and not lg and not rr then embed = lr lr = nil end
 	if lr and lg and rr and not rg then embed = rr rr = nil end
@@ -558,7 +564,7 @@ end
 ]]
 function lib:AddMoneyLine(tooltip,text,money,r,g,b,embed,concise)
 	local reg = self.tooltipRegistry[tooltip]
-	assert(reg, "Unknown tooltip passed to LibExtraTip:AddMoneyLine()")
+	if not reg then return end
 
 	if r and not g then embed = r r = nil end
 	embed = embed ~= nil and embed or self.embedMode
@@ -584,7 +590,7 @@ end
 ]]
 function lib:SetHyperlinkAndCount(tooltip, link, quantity, detail)
 	local reg = self.tooltipRegistry[tooltip]
-	assert(reg, "Unknown tooltip passed to LibExtraTip:SetHyperlinkAndCount()")
+	if not reg then return end
 
 	OnTooltipCleared(tooltip)
 	reg.quantity = quantity
@@ -619,8 +625,6 @@ end
 ]]
 function lib:GetTooltipAdditional(tooltip)
 	local reg = self.tooltipRegistry[tooltip]
-	assert(reg, "Unknown tooltip passed to LibExtraTip:GetTooltipAdditional()")
-
 	if reg then
 		return reg.additional
 	end
@@ -692,13 +696,13 @@ function lib:GenerateTooltipMethodTable() -- Sets up hooks to give the quantity 
 			OnTooltipCleared(self)
 			local reg = tooltipRegistry[self]
 			reg.ignoreOnCleared = true
-			local _,_,q,_,cu,_ ,min,inc,bo,ba,hb,own = GetAuctionItemInfo(type,index)
+			local _,_,q,_,cu,_,_,minb,inc,bo,ba,hb,own = GetAuctionItemInfo(type,index)
 			reg.quantity = q
 			reg.additional.event = "SetAuctionItem"
 			reg.additional.eventType = type
 			reg.additional.eventIndex = index
 			reg.additional.canUse = cu
-			reg.additional.minBid = min
+			reg.additional.minBid = minb
 			reg.additional.minIncrement = inc
 			reg.additional.buyoutPrice = bo
 			reg.additional.bidAmount = ba

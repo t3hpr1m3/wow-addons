@@ -529,6 +529,29 @@ local aceoptions = {
 										ChocolateBar:UpdateChoclates("updateSettings")
 									end,
 								},
+								forceColor = {
+									type = 'toggle',
+									width = "double",
+									order = 9,
+									name = L["Force Text Color"],
+									desc = L["Remove custom colors from plugins."],
+									get = function(info, value)
+										return db.forceColor
+									end,
+									set = function(info, value)
+										db.forceColor = value
+										for name, obj in broker:DataObjectIterator() do
+											if db.objSettings[name] then
+												if db.objSettings[name].enabled then
+													local choco = ChocolateBar:GetChocolate(name)
+													if choco then
+														choco:Update(choco, "text", obj.text)
+													end
+												end
+											end
+										end
+									end,
+								},
 							},
 						},
 					},
@@ -740,6 +763,17 @@ local function setAutoHide(info, value)
 	local bar = ChocolateBar:GetBar(name)
 	bar:UpdateAutoHide(db)
 	--ChocolateBar:UpdateBarOptions("UpdateAutoHide")
+end
+
+--hide bar during combat
+local function gethideBarInCombat(info, value)
+	local name = info[#info-2]
+	return db.barSettings[name].hideBarInCombat 
+end
+
+local function sethideBarInCombat(info, value)
+	local name = info[#info-2]
+	db.barSettings[name].hideBarInCombat = value
 end
 
 local function GetBarWidth(info)
@@ -1234,6 +1268,14 @@ function ChocolateBar:AddBarOptions(name)
 						desc = L["Enable free placement for this bar"],
 						get = GetFreeBar,
 						set = SetFreeBar,
+					},
+					hidebar = {
+						type = 'toggle',
+						order = 2,
+						name = L["Hide In Combat"],
+						desc = L["Hide this bar during combat."],
+						get = gethideBarInCombat,
+						set = sethideBarInCombat,
 					},
 				},
 			},

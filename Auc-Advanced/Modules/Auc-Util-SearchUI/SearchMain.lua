@@ -1,7 +1,7 @@
 --[[
 	Auctioneer - Search UI
-	Version: 5.12.5198 (QuirkyKiwi)
-	Revision: $Id: SearchMain.lua 5159 2011-05-14 19:18:45Z Nechckn $
+	Version: 5.13.5246 (BoldBandicoot)
+	Revision: $Id: SearchMain.lua 5246 2011-12-05 21:54:54Z Nechckn $
 	URL: http://auctioneeraddon.com/
 
 	This Addon provides a Search tab on the AH interface, which allows
@@ -85,7 +85,7 @@ local flagRescan
 -- Faction Resources
 -- Commonly used values which change depending whether you are at home or neutral Auctionhouse
 -- Modules should expect these to always contain valid values; nil tests should not be required
-resources.Realm = GetRealmName() -- will not change during session
+resources.Realm = Const.PlayerRealm -- will not change during session
 function private.UpdateFactionResources()
 	local serverKey, _, Faction = AucAdvanced.GetFaction()
 	if serverKey ~= resources.serverKey then
@@ -251,45 +251,6 @@ function lib.OnLoad(addon)
 	private.UpdateFactionResources()
 end
 
-function lib.Processor(callbackType, ...)
-	if callbackType == "load" then
-		private.ResetPriceModelEnx()
-	elseif (callbackType == "auctionclose") then
-		if private.isAttached then
-			lib.DetachFromAH()
-		end
-		flagResourcesUpdateRequired = true
-	elseif callbackType == "auctionopen" then
-		flagResourcesUpdateRequired = true
-	elseif (callbackType == "auctionui") then
-		if lib.Searchers.RealTime then
-			lib.Searchers.RealTime.HookAH()
-		end
-
-		--we need to make sure that the GUI is made by the time the AH opens, as RealTime could be trying to add lines to it.
-		if not gui then
-			lib.MakeGuiConfig()
-		end
-
-		lib.CreateAuctionFrames()
-	elseif (callbackType == "pagefinished") then
-		if lib.Searchers.RealTime then
-			lib.Searchers.RealTime.FinishedPage(...)
-		end
-	elseif (callbackType == "bidcancelled") then --bid was cancelled, we need to ignore auction for current session
-		private.bidcancelled(...)
-	elseif (callbackType == "tooltip") then
-		lib.ProcessTooltip(...)
-	elseif callbackType == "scanstats" then
-		-- pass the message in next OnUpdate
-		flagScanStats = true
-	elseif callbackType == "scanprogress" and private.UpdateScanProgress then
-		private.UpdateScanProgress(...)
-	elseif callbackType == "buyqueue" and private.UpdateBuyQueue then
-		private.UpdateBuyQueue()
-	end
-end
-
 lib.Processors = {}
 function lib.Processors.load(callbackType, ...)
 	private.ResetPriceModelEnx()
@@ -365,7 +326,7 @@ function lib.ProcessTooltip(tooltip, name, hyperlink, quality, quantity, cost, a
 		id = button:GetID() + FauxScrollFrame_GetOffset(BrowseScrollFrame) --without CompactUI
 	end
 
-	local name, _, count, _, canUse, level, minBid, minInc, buyout, curBid, isHigh, owner = GetAuctionItemInfo("list", id)
+	local name, _, count, _, canUse, level, levelColHeader, minBid, minInc, buyout, curBid, isHigh, owner = GetAuctionItemInfo("list", id)
 	local price
 	if curBid > 0 then
 		price = curBid + minInc
@@ -376,6 +337,9 @@ function lib.ProcessTooltip(tooltip, name, hyperlink, quality, quantity, cost, a
 		price = minBid
 	else
 		price = 1
+	end
+	if not level or levelColHeader ~= "REQ_LEVEL_ABBR" then
+		level = 1
 	end
 	owner = owner or ""
 	local timeleft = GetAuctionItemTimeLeft("list", id)
@@ -718,8 +682,8 @@ function private.removeline()
 	local total =  #private.sheetData
 	for i = gui.sheet.selected, total do
 		private.sheetStyle[i] = private.sheetStyle[i+1]
-		if i == total then private.sheetStyle[i+1] = nil end --remove extra style
 	end
+	private.sheetStyle[total+1] = nil --remove extra style
 	--gui.frame.remove:Disable()
 	gui.sheet.selected = nil
 	gui.sheet:SetData(private.sheetData, private.sheetStyle)
@@ -741,7 +705,7 @@ end
 function private.repaintSheet()
 	local wasEmpty = #gui.sheet.data < 1
 	gui.sheet:SetData(private.sheetData, private.sheetStyle)
-	if wasEmpty then --sheet was empty, so select the just added auction
+	if wasEmpty and #gui.sheet.data >= 1 then --sheet was empty, so select the just added auction
 		gui.sheet.selected = 1
 		gui.sheet:Render() --need to redraw, so the selection looks right
 		lib.UpdateControls()
@@ -1504,8 +1468,8 @@ function lib.MakeGuiConfig()
 		if gui.config.selectedCat == "Searchers" then
 			gui.Search:Enable()
 			--Check if rescan method is implemented
-			local searcher = gui.config.selectedTab
-			if lib.Searchers[searcher].Rescan then
+			local searcher = private.FindSearcher() -- find Selected searcher
+			if searcher.Rescan then
 				gui.Rescan:Show()
 				gui.Rescan:SetScript("OnClick", function()
 									if flagRescan then
@@ -1514,7 +1478,7 @@ function lib.MakeGuiConfig()
 										private.gui.Search:Enable()
 										lib.PerformSearch()
 									else
-										lib.Searchers[searcher].Rescan()
+										searcher.Rescan()
 										CooldownFrame_SetTimer(gui.Rescan.frame, GetTime(), 2, 1)
 										private.gui.Search:Disable()
 										flagRescan = GetTime()
@@ -2037,52 +2001,68 @@ function lib.SearchItem(searcherName, item, nodupes, skipresults)
 end
 
 local PerformSearch = function()
-	if gui.tabs.active then
-		gui:ContractFrame(gui.tabs.active)
-	end
-	gui:ClearFocus()
-	--Perform the search.  We're not using API.QueryImage() because we need it to be a coroutine
-	local image = AucAdvanced.Scan.GetImageCopy()
-	local imagesize = #image
-	local speed = lib.GetSetting("processpriority") or 50
-	speed = (speed / 100)^2.5
-	local processingTime = speed * 0.1 + 0.02
-	local GetTime = GetTime
-	local nextPause = GetTime() + processingTime
-
 	local searcher, searcherName = private.FindSearcher()
 	if not searcher then
 		print("No valid Searches selected")
 		return
 	end
+
+	if gui.tabs.active then
+		gui:ContractFrame(gui.tabs.active)
+	end
+	gui:ClearFocus()
+	local image = AucAdvanced.Scan.GetImageCopy() --GetImageCopy provides a table that can be used in coroutines
+	local imagesize = #image
+
+	--[[ old speed setup code disabled: we are temporarily using time() as a substitute for GetTime (which no longer works in this circumstance)
+	local speed = lib.GetSetting("processpriority") or 50
+	speed = (speed / 100)^2.5
+	local processingTime = speed * 0.1 + 0.02
+	local GetTime = GetTime
+	local nextPause = GetTime() + processingTime
+	--]]
+	-- temp code: throttle using time(): this can only measure whole seconds
+	local time = time
+	local lastPause = time()
+
+
 	gui.frame.progressbar.text:SetText("AucAdv SearchUI: Searching |cffffcc19"..gui.config.selectedTab)
 	gui.frame.progressbar:Show()
 
 	--clear the results table
 	private.removeall()
 	local repaintSheet = false
-	local nextRepaint = 0	-- can do it immediately
+	--local nextRepaint = 0	-- can do it immediately
 
 	private.isSearching = true
 	AucAdvanced.SendProcessorMessage("searchbegin", searcherName)
 	lib.NotifyCallbacks("search", "begin", searcherName)
 	for i, data in ipairs(image) do
-		if GetTime() > nextPause then
+		--if GetTime() > nextPause then
+		if time() > lastPause then
 			gui.frame.progressbar:SetValue((i/imagesize)*1000)
-
-			coroutine.yield()
-
-			nextPause = GetTime() + processingTime
-			if private.SearchCancel then
-				private.SearchCancel = nil
-				break
-			end
+			--[[ temporarily disabled as GetTime will not update between b and e
 			if repaintSheet and GetTime()>=nextRepaint then
 				local b=GetTime()
 				private.repaintSheet()
 				repaintSheet = false
 				local e=GetTime()
 				nextRepaint = e + ((e-b)*10)  -- only let repainting consume 10% of our total CPU
+			end
+			--]]
+			-- temp replacement for above
+			if repaintSheet then
+				private.repaintSheet()
+				repaintSheet = false
+			end
+
+			coroutine.yield()
+
+			--nextPause = GetTime() + processingTime
+			lastPause = time()
+			if private.SearchCancel then
+				private.SearchCancel = nil
+				break
 			end
 		end
 		if lib.SearchItem(searcher.name, data, true) then
@@ -2156,4 +2136,4 @@ end
 private.updater = CreateFrame("Frame", nil, UIParent)
 private.updater:SetScript("OnUpdate", private.OnUpdate)
 
-AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.12/Auc-Util-SearchUI/SearchMain.lua $", "$Rev: 5159 $")
+AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.13/Auc-Util-SearchUI/SearchMain.lua $", "$Rev: 5246 $")

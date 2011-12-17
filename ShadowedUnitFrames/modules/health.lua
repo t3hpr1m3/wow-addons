@@ -2,7 +2,8 @@ local Health = {}
 ShadowUF:RegisterModule(Health, "healthBar", ShadowUF.L["Health bar"], true)
 
 local function getGradientColor(unit)
-	local percent = UnitHealth(unit) / UnitHealthMax(unit)
+	local maxHealth = UnitHealthMax(unit)
+	local percent = maxHealth > 0 and UnitHealth(unit) / maxHealth or 0
 	if( percent >= 1 ) then return ShadowUF.db.profile.healthColors.green.r, ShadowUF.db.profile.healthColors.green.g, ShadowUF.db.profile.healthColors.green.b end
 	if( percent == 0 ) then return ShadowUF.db.profile.healthColors.red.r, ShadowUF.db.profile.healthColors.red.g, ShadowUF.db.profile.healthColors.red.b end
 	
@@ -24,31 +25,6 @@ end
 
 Health.getGradientColor = getGradientColor
 
--- Not doing full health update, because other checks can lag behind without much issue
-local function updateTimer(self)
-	local currentHealth = UnitHealth(self.parent.unit)
-	if( currentHealth == self.currentHealth ) then return end
-	self.currentHealth = currentHealth
-	self:SetValue(currentHealth)
-		
-	-- As much as I would rather not have to do this in an OnUpdate, I don't have much choice large health changes in a single update will make them very clearly be lagging behind
-	for _, fontString in pairs(self.parent.fontStrings) do
-		if( fontString.fastHealth ) then
-			fontString:UpdateTags()
-		end
-	end
-
-	-- Update incoming heal number
-	if( self.parent.incHeal and self.parent.incHeal.healed ) then
-		self.parent.incHeal:SetValue(currentHealth + self.parent.incHeal.healed)
-	end
-	
-	-- The target is not offline, and we have a health percentage so update the gradient
-	if( not self.parent.healthBar.wasOffline and self.parent.healthBar.hasPercent ) then
-		self.parent:SetBarColor("healthBar", ShadowUF.db.profile.units[self.parent.unitType].healthBar.invert, getGradientColor(self.parent.unit))
-	end
-end
-
 function Health:OnEnable(frame)
 	if( not frame.healthBar ) then
 		frame.healthBar = ShadowUF.Units:CreateBar(frame)
@@ -59,6 +35,7 @@ function Health:OnEnable(frame)
 	frame:RegisterUnitEvent("UNIT_CONNECTION", self, "Update")
 	frame:RegisterUnitEvent("UNIT_FACTION", self, "UpdateColor")
 	frame:RegisterUnitEvent("UNIT_THREAT_SITUATION_UPDATE", self, "UpdateColor")
+    frame:RegisterUnitEvent("UNIT_HEALTH_FREQUENT", self, "Update")
 	
 	if( frame.unit == "pet" ) then
 		frame:RegisterUnitEvent("UNIT_POWER", self, "UpdateColor")
@@ -66,17 +43,6 @@ function Health:OnEnable(frame)
 	
 	frame:RegisterUpdateFunc(self, "UpdateColor")
 	frame:RegisterUpdateFunc(self, "Update")
-end
-
-function Health:OnLayoutApplied(frame)
-	if( not frame.visibility.healthBar ) then return end
-
-	if( ShadowUF.db.profile.units[frame.unitType].healthBar.predicted ) then
-		frame.healthBar:SetScript("OnUpdate", updateTimer)
-		frame.healthBar.parent = frame
-	else
-		frame.healthBar:SetScript("OnUpdate", nil)
-	end
 end
 
 function Health:OnDisable(frame)

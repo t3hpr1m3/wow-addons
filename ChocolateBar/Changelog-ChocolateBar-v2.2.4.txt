@@ -1,0 +1,31 @@
+------------------------------------------------------------------------
+r148 | yess | 2011-11-30 20:14:42 +0000 (Wed, 30 Nov 2011) | 1 line
+Changed paths:
+   A /tags/v2.2.4 (from /trunk:147)
+
+Tagging as v2.2.4
+------------------------------------------------------------------------
+r147 | yess | 2011-11-30 18:16:25 +0000 (Wed, 30 Nov 2011) | 1 line
+Changed paths:
+   M /trunk/ChocolateBar/Chocolate.lua
+   M /trunk/ChocolateBar/ChocolateBar.toc
+   M /trunk/ChocolateBar_Options/ChocolateBar_Options.toc
+
+TOC update.
+------------------------------------------------------------------------
+r145 | yess | 2011-10-31 22:37:42 +0000 (Mon, 31 Oct 2011) | 1 line
+Changed paths:
+   M /trunk/ChocolateBar_Options/Options.lua
+
+Fixed options.
+------------------------------------------------------------------------
+r144 | yess | 2011-10-29 20:32:05 +0000 (Sat, 29 Oct 2011) | 1 line
+Changed paths:
+   M /trunk/ChocolateBar/Chocolate.lua
+   M /trunk/ChocolateBar/ChocolateBar.toc
+   M /trunk/ChocolateBar/localization/enUS.lua
+   A /trunk/ChocolateBar/localization/ptBR.lua
+   A /trunk/ChocolateBar/localization/ruRU.lua
+
+Added option to remove custom colors from plugins.
+------------------------------------------------------------------------

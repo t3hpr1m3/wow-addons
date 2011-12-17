@@ -4,7 +4,7 @@
 
 ShadowUF = select(2, ...)
 local L = ShadowUF.L
-ShadowUF.dbRevision = 5
+ShadowUF.dbRevision = 12
 ShadowUF.playerUnit = "player"
 ShadowUF.enabledUnits = {}
 ShadowUF.modules = {}
@@ -83,125 +83,57 @@ function ShadowUF:OnInitialize()
 end
 
 function ShadowUF:CheckUpgrade()
-	local revision = self.db.profile.revision or 1
-
-	local loadDefault = false
-
-	-- February 16th
-	if( not self.db.profile.units.raidpet.enabled and self.db.profile.units.raidpet.height == 0 and self.db.profile.units.raidpet.width == 0 and self.db.profile.positions.raidpet.anchorPoint == "" and self.db.profile.positions.raidpet.point == "" ) then
-		loadDefault = true
-	end
-
-	self.db.profile.units.party.unitsPerColumn = self.db.profile.units.party.unitsPerColumn or 5
-	self.db.profile.units.raid.groupsPerRow = self.db.profile.units.raid.groupsPerRow or 8
-
-	local castName = {enabled = true, size = 0, anchorTo = "$parent", rank = true, anchorPoint = "CLI", x = 1, y = 0}
-	local castTime = {enabled = true, size = 0, anchorTo = "$parent", anchorPoint = "CRI", x = -1, y = 0}
-
-	for unit, config in pairs(self.db.profile.units) do
-		config.portrait = config.portrait or {}
-		config.portrait.type = config.portrait.type or "3D"
-		config.portrait.fullBefore = config.portrait.fullBefore or 0
-		config.portrait.fullAfter = config.portrait.fullAfter or 100
-		config.portrait.order = config.portrait.order or 40
-		config.portrait.height = config.portrait.height or 0.50
-
-		config.highlight.size = config.highlight.size or 10
-
-		config.castBar = config.castBar or {}
-		config.castBar.icon = config.castBar.icon or "HIDE"
-		config.castBar.height = config.castBar.height or 0.60
-		config.castBar.order = config.castBar.order or 40
-
-		config.castBar.name = config.castBar.name or {}
-		config.castBar.time = config.castBar.time or {}
-
-		for key, value in pairs(castName) do
-			if( config.castBar.name[key] == nil ) then
-				config.castBar.name[key] = value
-			end
-		end
-
-		for key, value in pairs(castTime) do
-			if( config.castBar.time[key] == nil ) then
-				config.castBar.time[key] = value
-			end
-		end
-	end
-
-	-- April 29th
-	if( self.db.profile.filters.zones ) then
-		for unit, filter in pairs(self.db.profile.filters.zones) do
-			if( self.db.profile.filters.whitelists[filter] ) then
-				self.db.profile.filters.zonewhite[unit] = filter
-			else
-				self.db.profile.filters.zoneblack[unit] = filter
-			end
-		end
-	end
-
-	-- June 19th
-	if( not self.db.profile.font.color ) then
-		self.db.profile.font.color = {r = 1, g = 1, b = 1, a = 1}
+    local revision = self.db.profile.revision or 1
+	if( revision <= 11 ) then
 		for unit, config in pairs(self.db.profile.units) do
-			local indicators = self.db.profile.units[unit].indicators
-			if( indicators and indicators.class ) then
-				indicators.class.anchorTo = "$parent"
-				indicators.class.anchorPoint = "BL"
-				indicators.class.x = 0
-				indicators.class.y = 0
+			if( config.powerBar ) then
+				config.powerBar.colorType = "type"
 			end
 		end
 	end
 
-	-- July 1st
-	if( revision <= 1 ) then
-		self.db.profile.units.player.fader.combatAlpha = self.db.profile.units.player.fader.combatAlpha or 1.0
-		self.db.profile.units.player.fader.inactiveAlpha = self.db.profile.units.player.fader.inactiveAlpha or 0.6
-		self.db.profile.units.target.comboPoints.height = self.db.profile.units.target.comboPoints.height or 0.40
-		self.db.profile.units.player.eclipseBar = {enabled = true, background = true, height = 0.40, order = 70}
-		self.db.profile.units.player.soulShards = {enabled = true, anchorTo = "$parent", order = 60, anchorPoint = "BR", x = -8, y = 2, size = 12, height = 0.40, spacing = -2, growth = "LEFT", isBar = true}
-
-		loadDefault = true
-	end
-
-	-- October 15th
-	if( revision <= 2 ) then
-		self.db.profile.powerColors.ECLIPSE_SUN = {r = 1.0, g = 1.0, b = 0.00}
-		self.db.profile.powerColors.ECLIPSE_MOON = {r = 0.30, g = 0.52, b = 0.90}
-		if self.db.profile.units.player.soulShards then
-			self.db.profile.units.player.soulShards.height = self.db.profile.units.player.soulShards.height or 0.40
-			self.db.profile.units.player.soulShards.enabled = true
-		end
-		self.db.profile.units.player.holyPower = {enabled = true, anchorTo = "$parent", order = 60, anchorPoint = "BR", x = -3, y = 6, size = 14, height = 0.40, spacing = -4, growth = "LEFT", isBar = true}
-
-		loadDefault = true
-	end
-
-	-- November 16th
-	if( revision <= 3 ) then
-		self.db.profile.units.target.comboPoints.order = self.db.profile.units.target.comboPoints.order or 60
-		self.db.profile.units.target.comboPoints.anchorTo = self.db.profile.units.target.comboPoints.anchorTo or "$parent"
-
-		self.db.profile.units.player.soulShards.height = self.db.profile.units.player.soulShards.height or 0.40
-		self.db.profile.units.player.holyPower.height = self.db.profile.units.player.holyPower.height or 0.40
-
-		self.db.profile.units.raid.indicators.lfdRole = {enabled = true, anchorPoint = "BR", size = 14, x = 3, y = 14, anchorTo = "$parent"}
-
-		loadDefault = true
-	end
-
-	if( revision <= 4 ) then
-		self.db.profile.powerColors.ALTERNATE = {r = 0.71, g = 0.0, b = 1.0}
+	if( revision <= 10 ) then
 		for unit, config in pairs(self.db.profile.units) do
-			config.altPowerBar = {enabled = false, background = true, height = 0.40, order = 100}
+			if( config.healthBar ) then
+				config.healthBar.predicted = nil
+			end
 		end
-		self.db.profile.units.boss.altPowerBar.enabled = true
+
+		for unit, config in pairs(self.db.profile.units) do
+			if( unit ~= "party" and config.indicators and config.indicators.phase ) then
+				config.indicators.phase = nil
+			end
+		end
 	end
 
-	if loadDefault then
-		self:LoadDefaultLayout(true)
+	if( revision <= 8 ) then
+		for unit, config in pairs(self.db.profile.units) do
+			if( config.incHeal ) then
+				config.incHeal.heals = config.incHeal.enabled
+			end
+		end
 	end
+
+	if( revision <= 7 ) then
+		self.db.profile.auraColors = {removable = {r = 1, g = 1, b = 1}}
+	end
+
+    if( revision <= 6 ) then
+        for _, unit in pairs({"player", "focus", "target", "raid", "party", "mainassist", "maintank"}) do
+            local db = self.db.profile.units[unit]
+            if( not db.indicators.resurrect ) then
+				if( unit == "target" ) then
+                	db.indicators.resurrect = {enabled = true, anchorPoint = "RC", size = 28, x = -39, y = -1, anchorTo = "$parent"}
+            	else
+                	db.indicators.resurrect = {enabled = true, anchorPoint = "LC", size = 28, x = 37, y = -1, anchorTo = "$parent"}
+				end
+			end
+            
+            if( unit == "party" and not db.indicators.phase ) then
+               db.indicators.phase = {enabled = false, anchorPoint = "BR", size = 23, x = 8, y = 36, anchorTo = "$parent"}
+            end
+        end
+    end
 end
 
 function ShadowUF:LoadUnits()
@@ -399,9 +331,9 @@ end
 
 -- Module APIs
 function ShadowUF:RegisterModule(module, key, name, isBar, class)
-	-- December 16th
-	if( module.OnDefaultsSet ) then
-		DEFAULT_CHAT_FRAME:AddMessage(string.format("[WARNING!] You are running an outdated version of %s, you need to update it to the latest available for it to work with SUF.", name or key or "unknown"))
+	-- November 30th
+	if( key == "ClassColoredPowerBar" ) then
+		DEFAULT_CHAT_FRAME:AddMessage("[WARNING!] ShadowedUF_ClassPower is broken and built in by default now. You do not need it anymore")
 		return
 	end
 
@@ -463,28 +395,12 @@ function ShadowUF:ProfilesChanged()
 	self.modules.movers:Update()
 end
 
-local function hideCompactParty()
-	CompactPartyFrame:UnregisterAllEvents()
-	CompactPartyFrame.Show = ShadowUF.noop
-	CompactPartyFrame:Hide()
-
-	for i=1, MEMBERS_PER_RAID_GROUP do
-		local name = "CompactPartyFrameMember" .. i
-		local frame = _G[name]
-		frame:UnregisterAllEvents()
-	end
-end
-
--- Stolen from haste
 ShadowUF.noop = function() end
 function ShadowUF:HideBlizzardFrames()
-	local _, class = UnitClass("player")
-	if( ShadowUF.db.profile.hidden.runes or class ~= "DEATHKNIGHT" ) then
+	if( ShadowUF.db.profile.hidden.runes ) then
 		RuneFrame.Show = self.noop
 		RuneFrame:Hide()
 		RuneFrame:UnregisterAllEvents()
-	elseif( class == "DEATHKNIGHT" ) then
-		RuneFrame:Show()
 	end
 
 	if( ShadowUF.db.profile.hidden.cast ) then
@@ -505,28 +421,43 @@ function ShadowUF:HideBlizzardFrames()
 			_G[name .. "ManaBar"]:UnregisterAllEvents()
 		end
 		
-		if CompactPartyFrame then
-			hideCompactParty()
-		elseif CompactPartyFrame_Generate then -- 4.1
-			hooksecurefunc("CompactPartyFrame_Generate", hideCompactParty)
-		end
-	end
+		local function hideCompactParty()
+			CompactPartyFrame:UnregisterAllEvents()
+			CompactPartyFrame.Show = ShadowUF.noop
+			CompactPartyFrame:Hide()
 
-	-- this doesn't really belong here, but oh well!
-	if CompactRaidFrameManager then
-		CompactRaidFrameManager:SetFrameStrata("DIALOG")
+			for i=1, MEMBERS_PER_RAID_GROUP do
+      			_G["CompactPartyFrameMember" .. i]:UnregisterAllEvents()
+			end
+		end
+
+		if( CompactPartyFrame ) then
+			hideCompactParty()
+		elseif( CompactPartyFrame_Generate ) then
+		    hooksecurefunc("CompactPartyFrame_Generate", hideCompactParty)
+		end
 	end
 
 	if( ShadowUF.db.profile.hidden.raid ) then
-		if CompactRaidFrameContainer then
-			CompactRaidFrameContainer:Hide()
-			CompactRaidFrameContainer.Show = self.noop
-			CompactRaidFrameContainer:UnregisterAllEvents()
-
-			CompactRaidFrameManager:Hide()
-			CompactRaidFrameManager.Show = self.noop
-			CompactRaidFrameManager:UnregisterAllEvents()
-		end
+        local function hideRaid()
+	        CompactRaidFrameManager:UnregisterAllEvents()
+	        if( not InCombatLockdown() ) then CompactRaidFrameManager:Hide() end
+    
+	        local shown = CompactRaidFrameManager_GetSetting("IsShown")
+	        if( shown and shown ~= "0" ) then
+	            CompactRaidFrameManager_SetSetting("IsShown", "0")
+	        end
+        end
+		
+        hooksecurefunc("CompactRaidFrameManager_UpdateShown", function()
+            if( ShadowUF.db.profile.hidden.raid ) then
+                hideRaid();
+            end
+        end)
+        
+		hideRaid();
+	else
+		CompactRaidFrameManager:SetFrameStrata("DIALOG")
 	end
 
 	if( ShadowUF.db.profile.hidden.buffs ) then
@@ -543,11 +474,12 @@ function ShadowUF:HideBlizzardFrames()
 		PlayerFrame:UnregisterAllEvents()
 		PlayerFrame.Show = self.noop
 		PlayerFrame:Hide()
-
-		PlayerFrame:RegisterEvent('UNIT_ENTERING_VEHICLE')
-		PlayerFrame:RegisterEvent('UNIT_ENTERED_VEHICLE')
-		PlayerFrame:RegisterEvent('UNIT_EXITING_VEHICLE')
-		PlayerFrame:RegisterEvent('UNIT_EXITED_VEHICLE')
+			
+		-- We keep these in case someone is still using the default auras, otherwise it messes up vehicle stuff
+		PlayerFrame:RegisterEvent("UNIT_ENTERING_VEHICLE")
+		PlayerFrame:RegisterEvent("UNIT_ENTERED_VEHICLE")
+		PlayerFrame:RegisterEvent("UNIT_EXITING_VEHICLE")
+		PlayerFrame:RegisterEvent("UNIT_EXITED_VEHICLE")
 
 		PlayerFrameHealthBar:UnregisterAllEvents()
 		PlayerFrameManaBar:UnregisterAllEvents()
@@ -619,7 +551,7 @@ function ShadowUF:HideBlizzardFrames()
 	-- and the fix is simple enough
 	hooksecurefunc(LFDQueueFrameCooldownFrame, "SetFrameLevel", function(frame, value)
 		local parentLevel = LFDParentFrame:GetFrameLevel() + 5
-		if value < parentLevel then
+		if( value < parentLevel ) then
 			frame:SetFrameLevel(parentLevel + 10)
 		end
 	end)

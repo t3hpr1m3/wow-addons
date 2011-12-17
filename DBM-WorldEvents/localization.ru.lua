@@ -36,8 +36,9 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
+	WarnPhase				= "Фаза %d",
 	warnHorsemanSoldiers	= "Призыв Пульсирующих тыкв",
-	warnHorsemanHead		= "Вихрь - переключитесь на голову"
+	warnHorsemanHead		= "Появилась голова всадника!"
 })
 
 L:SetTimerLocalization{
@@ -45,16 +46,15 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization({
+	WarnPhase				= "Предупреждение о смене фаз",
 	TimerCombatStart		= "Отсчет времени до начала боя",
 	warnHorsemanSoldiers	= "Предупреждать о призыве Пульсирующих тыкв",
-	warnHorsemanHead		= "Спец-предупреждение для Вихря (призыв 2ой и следующей головы)"
+	warnHorsemanHead		= "Спец-предупрежение о появлении головы всадника"
 })
 
 L:SetMiscLocalization({
 	HorsemanSummon			= "Всадник встает…",
-	HorsemanHead			= "Не надоело еще убегать?",
-	HorsemanSoldiers		= "Восстаньте слуги, устремитесь в бой! Пусть павший рыцарь обретет покой!",
-	SayCombatEnd			= "Со смертью мы давно уже друзья...Что ждет теперь на пустоши меня?"
+	HorsemanSoldiers		= "Восстаньте слуги, устремитесь в бой! Пусть павший рыцарь обретет покой!"
 })
 
 -----------------------

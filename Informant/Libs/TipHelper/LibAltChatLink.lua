@@ -30,12 +30,12 @@
 
 	SVN Info for this file:
 		File $URL: http://svn.norganna.org/libs/trunk/TipHelper/LibAltChatLink.lua $
-		Revision $Id: LibAltChatLink.lua 310 2011-06-07 19:41:37Z brykrys $
+		Revision $Id: LibAltChatLink.lua 315 2011-07-18 11:53:36Z brykrys $
 --]]
 
 
 local LIBRARY_VERSION_MAJOR = "LibAltChatLink"
-local LIBRARY_VERSION_MINOR = 1.0
+local LIBRARY_VERSION_MINOR = 1
 
 local lib, oldminor = LibStub:NewLibrary(LIBRARY_VERSION_MAJOR, LIBRARY_VERSION_MINOR)
 if not lib then return end

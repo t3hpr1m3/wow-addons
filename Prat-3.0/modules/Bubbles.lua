@@ -174,18 +174,18 @@ Prat:AddModuleToLoad(function()
   )
   L:AddLocale("zhCN",
   {
-	-- color_desc = "",
-	-- color_name = "",
+	color_desc = "把聊天泡泡颜色设为与聊天类型一致", -- Needs review
+	color_name = "泡泡颜色", -- Needs review
 	font_desc = "使用与聊天框相同的字体", -- Needs review
 	font_name = "使用聊天字体", -- Needs review
 	fontsize_desc = "设置聊天泡泡字体大小", -- Needs review
 	fontsize_name = "字体大小", -- Needs review
-	-- format_desc = "",
-	-- format_name = "",
+	format_desc = "聊天泡泡文字应用 Prat's 格式", -- Needs review
+	format_name = "格式化文字", -- Needs review
 	icons_desc = "在聊天泡泡里显示团队图标。", -- Needs review
 	icons_name = "显示团队图标", -- Needs review
-	-- module_desc = "",
-	-- module_name = "",
+	module_desc = "聊天泡泡相关自定义", -- Needs review
+	module_name = "泡泡", -- Needs review
 	-- shorten_desc = "",
 	-- shorten_name = "",
 }

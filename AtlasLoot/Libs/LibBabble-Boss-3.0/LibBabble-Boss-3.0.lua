@@ -1,6 +1,6 @@
 --[[
 Name: LibBabble-Boss-3.0
-Revision: $Rev: 351 $
+Revision: $Rev: 355 $
 Maintainers: ckknight, nevcairiel, Ackis
 Website: http://www.wowace.com/projects/libbabble-boss-3-0/
 Dependencies: None
@@ -8,7 +8,7 @@ License: MIT
 ]]
 
 local MAJOR_VERSION = "LibBabble-Boss-3.0"
-local MINOR_VERSION = 90000 + tonumber(("$Rev: 351 $"):match("%d+"))
+local MINOR_VERSION = 90000 + tonumber(("$Rev: 355 $"):match("%d+"))
 
 if not LibStub then error(MAJOR_VERSION .. " requires LibStub.") end
 local lib = LibStub("LibBabble-3.0"):New(MAJOR_VERSION, MINOR_VERSION)
@@ -1825,8 +1825,8 @@ elseif GAME_LOCALE == "frFR" then
 	Doomwalker = "Marche-funeste",
 	["Dope'rel"] = "Demeu'rel",
 	Dorothee = "Dorothée",
-	["Drahga Shadowburner"] = "Drahga Brûle-Ombre", -- Needs review
-	-- ["Drahga Shodowburner"] = "",
+	["Drahga Shadowburner"] = "Drahga Brûle-Ombre",
+	["Drahga Shodowburner"] = "Drahga Brûle-Ombre",
 	["Drakkari Colossus"] = "Colosse drakkari",
 	["Drakos the Interrogator"] = "Drakos l'Interrogateur",
 	Dreadscale = "Écaille-d'effroi",
@@ -5755,7 +5755,7 @@ elseif GAME_LOCALE == "zhCN" then
 	["Algalon the Observer"] = "观察者奥尔加隆",
 	Altairus = "阿尔泰鲁斯",
 	Altarius = "阿尔泰鲁斯",
-	Alysrazor = "奥利瑟拉佐尔", -- Needs review
+	Alysrazor = "奥利瑟拉佐尔",
 	["Alzzin the Wildshaper"] = "奥兹恩",
 	Amanitar = "埃曼尼塔",
 	["Ambassador Flamelash"] = "弗莱拉斯大使",
@@ -5790,7 +5790,7 @@ elseif GAME_LOCALE == "zhCN" then
 	Asaad = "阿萨德",
 	["Ascendant Council"] = "升腾者议会",
 	["Ascendant Lord Obsidius"] = "升腾者领主奥西迪斯",
-	["Asim al Akir"] = "Asim al Akir", -- Needs review
+	["Asim al Akir"] = "焦化披风",
 	["Assault Bot"] = "突击机器人",
 	["Assembly of Iron"] = "钢铁议会",
 	["Atal'alarion"] = "阿塔拉利恩",
@@ -5805,7 +5805,7 @@ elseif GAME_LOCALE == "zhCN" then
 	Azuregos = "艾索雷葛斯",
 	["Bael'Gar"] = "贝尔加",
 	Baelog = "巴尔洛戈",
-	Baleroc = "Baleroc", -- Needs review
+	Baleroc = "贝尔洛克",
 	Balnazzar = "巴纳扎尔",
 	["Baltharus the Warborn"] = "战争之子巴尔萨鲁斯",
 	["Bannok Grimaxe"] = "班诺克·巨斧",
@@ -5821,7 +5821,7 @@ elseif GAME_LOCALE == "zhCN" then
 	["Bazil Thredd"] = "巴基尔·斯瑞德",
 	Bazzalan = "巴扎兰",
 	Beauty = "如花",
-	["Beth'tilac"] = "Beth'tilac", -- Needs review
+	["Beth'tilac"] = "贝丝缇拉克",
 	["Black Guard Swordsmith"] = "黑衣守卫铸剑师",
 	["Blackheart the Inciter"] = "煽动者布莱卡特",
 	["Blind Hunter"] = "盲眼猎手",
@@ -6190,7 +6190,7 @@ elseif GAME_LOCALE == "zhCN" then
 	["Lord Marrowgar"] = "玛洛加尔领主",
 	["Lord Overheat"] = "灼热勋爵",
 	["Lord Pythas"] = "皮萨斯",
-	["Lord Rhyolith"] = "Lord Rhyolith", -- Needs review
+	["Lord Rhyolith"] = "雷奥利斯领主",
 	["Lord Roccor"] = "洛考尔",
 	["Lord Sanguinar"] = "萨古纳尔男爵",
 	["Lord Serpentis"] = "瑟芬迪斯",
@@ -6396,7 +6396,7 @@ elseif GAME_LOCALE == "zhCN" then
 	["Shadow of Leotheras"] = "莱欧瑟拉斯之影",
 	["Shadowpriest Sezz'ziz"] = "暗影祭司塞瑟斯",
 	Shadron = "沙德隆",
-	Shannox = "Shannox", -- Needs review
+	Shannox = "沙恩诺克斯",
 	Shazzrah = "沙斯拉尔",
 	["Shirrak the Dead Watcher"] = "死亡观察者希尔拉克",
 	["Siamat, Lord of South Wind"] = "南风之主希亚玛特",

@@ -409,12 +409,6 @@ L:SetGeneralLocalization({
 	name = "Lord Godfrey"
 })
 
-L:SetWarningLocalization{
-}
-
-L:SetOptionLocalization{
-}
-
 ---------------------
 --  The Stonecore  --
 ---------------------
@@ -622,12 +616,6 @@ L:SetGeneralLocalization{
 	name = "Akil'zon (Eagle)"
 }
 
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
-}
-
 L:SetOptionLocalization{
 	StormIcon	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(97300),
 	RangeFrame	= "Show range frame (10 yards)",
@@ -645,12 +633,6 @@ L = DBM:GetModLocalization("Janalai5")
 
 L:SetGeneralLocalization{
 	name = "Jan'alai (Dragonhawk)"
-}
-
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
@@ -677,9 +659,6 @@ L:SetWarningLocalization{
 	WarnNormal	= "Normal Phase"
 }
 
-L:SetTimerLocalization{
-}
-
 L:SetOptionLocalization{
 	WarnSpirit	= "Show warning for Spirit phase",
 	WarnNormal	= "Show warning for Normal phase"
@@ -697,9 +676,6 @@ L = DBM:GetModLocalization("Malacrass5")
 
 L:SetGeneralLocalization{
 	name = "Hexlord Malacrass"
-}
-
-L:SetWarningLocalization{
 }
 
 L:SetTimerLocalization{
@@ -721,9 +697,6 @@ L = DBM:GetModLocalization("Daakara")
 
 L:SetGeneralLocalization{
 	name = "Daakara"
-}
-
-L:SetWarningLocalization{
 }
 
 L:SetTimerLocalization{
@@ -752,18 +725,9 @@ L:SetGeneralLocalization{
 	name = "High Priest Venoxis"
 }
 
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
-}
-
 L:SetOptionLocalization{
 	SetIconOnToxicLink	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(96477),
 	LinkArrow			= "Show DBM arrow when you are affected by $spell:96477"
-}
-
-L:SetMiscLocalization{
 }
 
 ------------------------
@@ -778,9 +742,6 @@ L:SetGeneralLocalization{
 L:SetWarningLocalization{
 	WarnRevive		= "%d ghosts remaining",
 	SpecWarnOhgan	= "Ohgan revived! Attack now!" -- check this, i'm not good at English
-}
-
-L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
@@ -806,9 +767,6 @@ L:SetWarningLocalization{
 	SpecWarnToxic	= "Get Toxic Torment"
 }
 
-L:SetTimerLocalization{
-}
-
 L:SetOptionLocalization{
 	SpecWarnToxic	= "Show special warning when you are missing $spell:96328 debuff",
 	InfoFrame		= "Show info frame for players not affected by $spell:96328",
@@ -828,18 +786,6 @@ L:SetGeneralLocalization{
 	name = "High Priestess Kilnara"
 }
 
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
-}
-
-L:SetOptionLocalization{
-}
-
-L:SetMiscLocalization{
-}
-
 ----------------------------
 -- Jindo --
 ----------------------------
@@ -851,9 +797,6 @@ L:SetGeneralLocalization{
 
 L:SetWarningLocalization{
 	WarnBarrierDown	= "Hakkar's Chains Barrier Down - %d/3 left"
-}
-
-L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
@@ -879,16 +822,6 @@ L:SetGeneralLocalization{
 	name = "Gri'lek"
 }
 
-L:SetWarningLocalization({
-})
-
-L:SetTimerLocalization({
-})
-
-L:SetOptionLocalization({
-})
-
---			"<15.7> [MONSTER_EMOTE] CHAT_MSG_MONSTER_EMOTE#%s is chasing Bownd.#Gri'lek###Bownd##0#0##0#4672##0#false#false", -- [94]
 L:SetMiscLocalization({
 	pursuitEmote	= "%s is chasing"
 })
@@ -904,18 +837,6 @@ L:SetGeneralLocalization{
 	name = "Hazza'rah"
 }
 
-L:SetWarningLocalization({
-})
-
-L:SetTimerLocalization({
-})
-
-L:SetOptionLocalization({
-})
-
-L:SetMiscLocalization({
-})
-
 --------------
 -- Renataki --
 --------------
@@ -926,18 +847,6 @@ L = DBM:GetModLocalization("CoMRenataki")
 L:SetGeneralLocalization{
 	name = "Renataki"
 }
-
-L:SetWarningLocalization({
-})
-
-L:SetTimerLocalization({
-})
-
-L:SetOptionLocalization({
-})
-
-L:SetMiscLocalization({
-})
 
 ---------------
 -- Wushoolay --
@@ -950,18 +859,6 @@ L:SetGeneralLocalization{
 	name = "Wushoolay"
 }
 
-L:SetWarningLocalization({
-})
-
-L:SetTimerLocalization({
-})
-
-L:SetOptionLocalization({
-})
-
-L:SetMiscLocalization({
-})
-
 --------------------
 --  World Bosses  --
 -------------------------
@@ -973,18 +870,6 @@ L:SetGeneralLocalization{
 	name = "Akma'hat"
 }
 
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
-}
-
-L:SetOptionLocalization{
-}
-
-L:SetMiscLocalization{
-}
-
 -----------
 -- Garr --
 ----------
@@ -992,18 +877,6 @@ L = DBM:GetModLocalization("Garr")
 
 L:SetGeneralLocalization{
 	name = "Garr (Cata)"
-}
-
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
-}
-
-L:SetOptionLocalization{
-}
-
-L:SetMiscLocalization{
 }
 
 ----------------
@@ -1015,17 +888,8 @@ L:SetGeneralLocalization{
 	name = "Julak-Doom"
 }
 
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
-}
-
 L:SetOptionLocalization{
 	SetIconOnMC	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(93621)
-}
-
-L:SetMiscLocalization{
 }
 
 -----------
@@ -1037,18 +901,6 @@ L:SetGeneralLocalization{
 	name = "Mobus"
 }
 
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
-}
-
-L:SetOptionLocalization{
-}
-
-L:SetMiscLocalization{
-}
-
 -----------
 -- Xariona --
 -----------
@@ -1056,18 +908,6 @@ L = DBM:GetModLocalization("Xariona")
 
 L:SetGeneralLocalization{
 	name = "Xariona"
-}
-
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
-}
-
-L:SetOptionLocalization{
-}
-
-L:SetMiscLocalization{
 }
 
 ----------------
@@ -1081,18 +921,6 @@ L:SetGeneralLocalization{
 	name = "Echo of Sylvanas"
 }
 
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
-}
-
-L:SetOptionLocalization{
-}
-
-L:SetMiscLocalization{
-}
-
 ---------------------
 -- Echo of Tyrande --
 ---------------------
@@ -1102,18 +930,6 @@ L:SetGeneralLocalization{
 	name = "Echo of Tyrande"
 }
 
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
-}
-
-L:SetOptionLocalization{
-}
-
-L:SetMiscLocalization{
-}
-
 -------------------
 -- Echo of Jaina --
 -------------------
@@ -1121,9 +937,6 @@ L = DBM:GetModLocalization("EchoJaina")
 
 L:SetGeneralLocalization{
 	name = "Echo of Jaina"
-}
-
-L:SetWarningLocalization{
 }
 
 L:SetTimerLocalization{
@@ -1146,18 +959,6 @@ L:SetGeneralLocalization{
 	name = "Echo of Baine"
 }
 
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
-}
-
-L:SetOptionLocalization{
-}
-
-L:SetMiscLocalization{
-}
-
 --------------
 -- Murozond --
 --------------
@@ -1167,16 +968,8 @@ L:SetGeneralLocalization{
 	name = "Murozond"
 }
 
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
-}
-
-L:SetOptionLocalization{
-}
-
 L:SetMiscLocalization{
+	Kill		= "You know not what you have done. Aman'Thul... What I... have... seen..."
 }
 
 ------------------------
@@ -1190,17 +983,10 @@ L:SetGeneralLocalization{
 	name = "Peroth'arn"
 }
 
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
-}
-
-L:SetOptionLocalization{
-}
-
 L:SetMiscLocalization{
+	Pull		= "No mortal may stand before me and live!"
 }
+
 
 -------------
 -- Azshara --
@@ -1212,15 +998,20 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
+	WarnAdds	= "New adds soon"
 }
 
 L:SetTimerLocalization{
+	TimerAdds	= "Next adds"
 }
 
 L:SetOptionLocalization{
+	WarnAdds	= "Announce when new adds \"spawn\"",
+	TimerAdds	= "Show timer till next adds \"spawn\""
 }
 
 L:SetMiscLocalization{
+	Kill		= "Enough! As much as I adore playing hostess, I have more pressing matters to attend to."
 }
 
 -----------------------------
@@ -1232,16 +1023,16 @@ L:SetGeneralLocalization{
 	name = "Mannoroth & Varo'then"
 }
 
-L:SetWarningLocalization{
-}
-
 L:SetTimerLocalization{
+	TimerTyrandeHelp	= "Tyrande needs help"
 }
 
 L:SetOptionLocalization{
+	TimerTyrandeHelp	= "Show timer till Tyrande needs help"
 }
 
 L:SetMiscLocalization{
+	Kill		= "No...no! This victory will not be ripped from my grasp! I will not return to him in failure! I will not be torn from this pitiful world! No...NOOOOOOOO!!!"
 }
 
 ------------------------
@@ -1255,16 +1046,8 @@ L:SetGeneralLocalization{
 	name = "Arcurion"
 }
 
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
-}
-
-L:SetOptionLocalization{
-}
-
 L:SetMiscLocalization{
+	Pull		= "You're a mere mortal. It is time you died like one."
 }
 
 ----------------------
@@ -1276,16 +1059,8 @@ L:SetGeneralLocalization{
 	name = "Asira Dawnslayer"
 }
 
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
-}
-
-L:SetOptionLocalization{
-}
-
 L:SetMiscLocalization{
+	Pull		= "Let's get to work, shall we?"
 }
 
 ---------------------------
@@ -1295,16 +1070,4 @@ L = DBM:GetModLocalization("Benedictus")
 
 L:SetGeneralLocalization{
 	name = "Archbishop Benedictus"
-}
-
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
-}
-
-L:SetOptionLocalization{
-}
-
-L:SetMiscLocalization{
 }

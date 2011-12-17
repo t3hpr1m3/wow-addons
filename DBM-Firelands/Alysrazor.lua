@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(194, "DBM-Firelands", nil, 78)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 6490 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 6729 $"):sub(12, -3))
 mod:SetCreatureID(52530)
 mod:SetModelID(38446)
 mod:SetZone()
@@ -17,10 +17,13 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED_DOSE",
 	"SPELL_AURA_REFRESH",
 	"SPELL_AURA_REMOVED",
-	"SPELL_CAST_START",
 	"SPELL_CAST_SUCCESS",
 	"RAID_BOSS_EMOTE",
 	"CHAT_MSG_MONSTER_YELL"
+)
+
+mod:RegisterEvents(
+	"SPELL_CAST_START"
 )
 
 local warnMolting		= mod:NewSpellAnnounce(99464, 3)
@@ -45,7 +48,7 @@ local timerFirestormCD		= mod:NewCDTimer(83, 100744)--Heroic
 local timerPhaseChange		= mod:NewTimer(33.5, "TimerPhaseChange", 99816)
 local timerHatchEggs		= mod:NewTimer(50, "TimerHatchEggs", 42471)
 local timerNextInitiate		= mod:NewTimer(32, "timerNextInitiate", 61131)
-local timerWingsofFlame		= mod:NewBuffActiveTimer(30, 98619)
+local timerWingsofFlame		= mod:NewBuffFadesTimer(30, 98619)
 local timerTantrum			= mod:NewBuffActiveTimer(10, 99362, nil, mod:IsTank())
 local timerSatiated			= mod:NewBuffActiveTimer(15, 100852, nil, mod:IsTank())
 local timerBlazingClaw		= mod:NewTargetTimer(15, 101731, nil, false)
@@ -57,6 +60,7 @@ mod:AddBoolOption("InfoFrame", false)--Why is this useful?
 local initiatesSpawned = 0
 local cataCast = 0
 local clawCast = 0
+local moltCast = 0
 
 local initiateSpawns = {
 	[1] = L.Both,
@@ -87,6 +91,7 @@ function mod:OnCombatStart(delay)
 	initiatesSpawned = 0
 	cataCast = 0
 	clawCast = 0
+	moltCast = 0
 	if self.Options.InfoFrame then
 		DBM.InfoFrame:SetHeader(L.PowerLevel)
 		DBM.InfoFrame:Show(5, "playerpower", 10, ALTERNATE_POWER_INDEX)
@@ -189,7 +194,10 @@ end
 function mod:SPELL_CAST_SUCCESS(args)
 	if args:IsSpellID(99464, 100698, 100836, 100837) and self:IsDifficulty("normal10", "normal25") then	--99464, 100698 confirmed
 		warnMolting:Show()
-		timerMoltingCD:Start()
+		if moltCast < 2 then
+			timerMoltingCD:Start()
+			moltCast = moltCast + 1
+		end
 	end
 end
 

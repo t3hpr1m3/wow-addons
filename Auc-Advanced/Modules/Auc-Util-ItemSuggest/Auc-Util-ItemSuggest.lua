@@ -1,7 +1,7 @@
 --[[
 	Auctioneer - Item Suggest module
-	Version: 5.12.5198 (QuirkyKiwi)
-	Revision: $Id: Auc-Util-ItemSuggest.lua 5144 2011-05-04 10:34:35Z brykrys $
+	Version: 5.13.5246 (BoldBandicoot)
+	Revision: $Id: Auc-Util-ItemSuggest.lua 5224 2011-10-06 00:35:53Z Nechckn $
 	URL: http://auctioneeraddon.com/
 
 	This is an Auctioneer module that allows the added tooltip for suggesting
@@ -34,7 +34,7 @@ local AucAdvanced = AucAdvanced
 if not AucAdvanced then return end
 
 local libType, libName = "Util", "ItemSuggest"
-local lib = AucAdvanced.NewModule(libType, libName)
+local lib = AucAdvanced.NewModule(libType, libName, nil, true) -- noPrivate
 if not lib then return end
 local aucPrint,decode,_,_,replicate,empty,get,set,default,debugPrint,fill,_TRANS = AucAdvanced.GetModuleLocals()
 
@@ -43,7 +43,6 @@ local GetDepositCost = GetDepositCost
 local GetItemInfo = GetItemInfo
 
 local GetModelPrice -- function(model, link, serverKey)
-local GetAprPrice = AucAdvanced.Modules.Util.Appraiser.GetPrice
 local cutRate = 0.05 -- "home" AH cut / broker fee. todo: adjust for Neutral AH
 local cutAdjust = 1 - cutRate
 
@@ -113,7 +112,7 @@ lib.itemsuggest = lib.Suggest -- compatibility
 	biasSetting (optional) is a setting value as used by AucAdvanced.Settings.GetSetting, i.e. usually a string or a function
 		the returned value is a percentile bias; if not provided it defaults to 100
 	optionsTable (optional) is used as an alternative method of setting several suggestor values
-		
+
 --]]
 function lib.NewSuggest(key, valueFunc, biasSetting, options)
 	if type(key) ~= "string" or #key < 3 or type(valueFunc) ~= "function" or (options and type(options) ~= "table") then
@@ -801,8 +800,8 @@ function lib.Processors.configchanged()
 end
 lib.Processors.scanstats = lib.Processors.configchanged
 
-function lib.Processors.load()
-	-- reset whenever a new module loads
+function lib.Processors.newmodule()
+	-- reset whenever a new module gets registered
 	cachePriceModelsEnx = nil
 end
 
@@ -822,7 +821,7 @@ function lib.OnLoad(addon)
 	cachePriceModelsEnx = nil
 end
 
--- Neither Enchantrix nor Informant triggers "newmodule" or "load" processor events; instead, use LoadTriggers to detect either loading
+-- Neither Enchantrix nor Informant triggers "load" processor events; instead, use LoadTriggers to detect either loading
 lib.LoadTriggers = {enchantrix = true, informant = true}
 
-AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.12/Auc-Util-ItemSuggest/Auc-Util-ItemSuggest.lua $", "$Rev: 5144 $")
+AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.13/Auc-Util-ItemSuggest/Auc-Util-ItemSuggest.lua $", "$Rev: 5224 $")

@@ -6,7 +6,7 @@ Chinchilla = LibStub("AceAddon-3.0"):NewAddon("Chinchilla", "AceHook-3.0")
 
 
 --@non-debug@
-Chinchilla.version = "2.4.2"
+Chinchilla.version = "v2.5"
 --@end-non-debug@
 
 --[===[@debug@
@@ -204,13 +204,13 @@ function Chinchilla:OnEnable()
 
 	MinimapCluster:EnableMouse(false)
 
-	LFDSearchStatus:SetClampedToScreen(true)
-
 	MiniMapWorldMapButton:SetNormalTexture("Interface\\AddOns\\Chinchilla\\Art\\UI-MiniMap-WorldMapSquare")
 	MiniMapWorldMapButton:SetPushedTexture("Interface\\AddOns\\Chinchilla\\Art\\UI-MiniMap-WorldMapSquare")
 
 	self:RawHookScript(Minimap, "OnMouseUp", "Minimap_OnMouseUp")
 	self:SecureHook("SetCVar")
+
+	LFGSearchStatus:SetClampedToScreen(true)
 end
 
 function Chinchilla:OnDisable()
@@ -219,10 +219,10 @@ function Chinchilla:OnDisable()
 	MiniMapWorldMapButton:SetNormalTexture("Interface\\Minimap\\UI-MiniMap-WorldMapSquare")
 	MiniMapWorldMapButton:SetPushedTexture("Interface\\Minimap\\UI-MiniMap-WorldMapSquare")
 
-	LFDSearchStatus:SetClampedToScreen(false)
-
 	self:RawHookScript(Minimap, "OnMouseUp", "Minimap_OnMouseUp")
 	self:SecureHook("SetCVar")
+
+	LFGSearchStatus:SetClampedToScreen(false)
 end
 
 function Chinchilla:OnProfileUpdate()
@@ -230,7 +230,7 @@ function Chinchilla:OnProfileUpdate()
 		module:Disable()
 
 		if module.db.profile.enabled then
-			module:Enable() -- reboot the module as I'm too lazy to add checks to everything
+			module:Enable() -- simply reboot the module as I'm too lazy to add checks to everything
 		end
 	end
 end

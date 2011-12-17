@@ -1,7 +1,7 @@
 ﻿--[[
 	Auctioneer
-	Version: 5.12.5198 (QuirkyKiwi)
-	Revision: $Id: CoreMain.lua 5184 2011-06-24 00:16:48Z Nechckn $
+	Version: 5.13.5246 (BoldBandicoot)
+	Revision: $Id: CoreMain.lua 5224 2011-10-06 00:35:53Z Nechckn $
 	URL: http://auctioneeraddon.com/
 
 	This is an addon for World of Warcraft that adds statistical history to the auction data that is collected
@@ -234,11 +234,9 @@ function private.OnLoad(addon)
 
 	-- Notify the actual module if it exists
 	local auc, sys, eng = strsplit("-", addon)
-	if (auc == "auc" and sys and eng) then
-		local engineLib = AucAdvanced.GetAllModules("OnLoad", sys, eng)
-		if engineLib then
-			engineLib.OnLoad(addon)
-		end
+	if auc == "auc" and sys and eng then
+		local engineLib = AucAdvanced.GetModule(sys, eng, "OnLoad")
+		if engineLib then engineLib.OnLoad(addon) end
 	end
 
 	-- Check all modules' load triggers and pass event to processors
@@ -252,7 +250,7 @@ function private.OnLoad(addon)
 	end
 
 	-- Notify all processors that an auctioneer addon has loaded
-	if auc == "auc" and sys and #sys > 0 then -- identifys names in both "auc-name" and "auc-system-name" formats
+	if auc == "auc" and sys and #sys > 0 then -- identify names in both "auc-name" and "auc-system-name" formats
 		AucAdvanced.SendProcessorMessage("load", addon)
 	end
 end
@@ -389,4 +387,4 @@ function AucAdvanced.Debug.Assert(test, message)
 	return DebugLib.Assert(addonName, test, message)
 end
 
-AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.12/Auc-Advanced/CoreMain.lua $", "$Rev: 5184 $")
+AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.13/Auc-Advanced/CoreMain.lua $", "$Rev: 5224 $")

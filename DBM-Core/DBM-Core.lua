@@ -41,15 +41,14 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = ("$Revision: 6615 $"):sub(12, -3),
-	DisplayVersion = "4.9.11", -- the string that is shown as version
-	ReleaseRevision = 6615 -- the revision of the latest stable version that is available
+	Revision = ("$Revision: 6839 $"):sub(12, -3),
+	DisplayVersion = "4.10.4", -- the string that is shown as version
+	ReleaseRevision = 6839 -- the revision of the latest stable version that is available
 }
 
 -- Legacy crap; that stupid "Version" field was never a good idea.
 -- Some functions that should be using ReleaseRevision still use this one, so we will just keep it and set to ReleaseRevision
 DBM.Version = tostring(DBM.ReleaseRevision)
-
 
 DBM_SavedOptions = {}
 
@@ -169,12 +168,10 @@ local enableIcons = true -- set to false when a raid leader or a promoted player
 
 local bannedMods = { -- a list of "banned" (meaning they are replaced by another mod like DBM-Battlegrounds (replaced by DBM-PvP)) boss mods, these mods will not be loaded by DBM (and they wont show up in the GUI)
 	"DBM-Battlegrounds", --replaced by DBM-PvP
-}
-if tonumber((select(2, GetBuildInfo()))) >= 13682 then
 	-- ZG and ZA are now part of the party mods for Cataclysm
-	bannedMods[#bannedMods + 1] = "DBM-ZulAman"
-	bannedMods[#bannedMods + 1] = "DBM-ZG"
-end
+	"DBM-ZulAman",
+	"DBM-ZG",
+}
 
 --------------------------------------------------------
 --  Cache frequently used global variables in locals  --
@@ -494,15 +491,6 @@ do
 		end
 		return handleEvent(nil, event, args)
 	end
-	
-	-- fix for 4.3 which will probably screw with combat log even more crap, so commented out instead of deleted :)
---[[	if tonumber((select(4, GetBuildInfo()))) >= 40300 then
-		local oldHandler = DBM.COMBAT_LOG_EVENT_UNFILTERED
-		function DBM:COMBAT_LOG_EVENT_UNFILTERED(timestamp, event, hideCaster, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, ...)
-			return oldHandler(self, timestamp, event, hideCaster, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, ...)
-		end
-	end--]]
-	
 	mainFrame:SetScript("OnEvent", handleEvent)
 end
 
@@ -858,7 +846,7 @@ SlashCmdList["DBMRANGE"] = function(msg)
 		DBM.RangeCheck:Hide()
 	else
 		local r = tonumber(msg)
-		if r and (r == 10 or r == 11 or r == 15 or r == 28 or r == 5 or r == 6 or r == 8 or r == 12 or r == 20) then
+		if r and (r == 10 or r == 11 or r == 15 or r == 28 or r == 3 or r == 5 or r == 6 or r == 8 or r == 12 or r == 20) then
 			DBM.RangeCheck:Show(r)
 		else
 			DBM.RangeCheck:Show(10)
@@ -2537,6 +2525,7 @@ do
 		if sender == requestedFrom and (GetTime() - requestTime) < 5 and #inCombat == 0 then
 			local lag = select(4, GetNetStats()) / 1000
 			if not mod.combatInfo then return end
+			self:AddMsg(DBM_CORE_COMBAT_STATE_RECOVERED:format(mod.combatInfo.name, strFromTime(time + lag)))
 			table.insert(inCombat, mod)
 			mod.inCombat = true
 			mod.blockSyncs = nil
@@ -2626,6 +2615,48 @@ function DBM:SendTimerInfo(mod, target)
 	end
 end
 
+local soundFiles = {
+	"Sound\\Creature\\RHYOLITH\\VO_FL_RHYOLITH_KILL_02.wav",
+	"Sound\\Creature\\RHYOLITH\\VO_FL_RHYOLITH_CHUNK_01.wav",
+	"Sound\\Creature\\RHYOLITH\\VO_QUEST_42_RHYOLITH_TAUNT_01.wav",
+	"Sound\\Creature\\RHYOLITH\\VO_FL_RHYOLITH_DEATH.wav",
+	"Sound\\Creature\\RHYOLITH\\VO_FL_RHYOLITH_CHUNK_04.wav",
+	"Sound\\Creature\\RHYOLITH\\VO_FL_RHYOLITH_AGGRO.wav",
+	"Sound\\Creature\\XT002Deconstructor\\UR_XT002_Special01.wav",
+	"Sound\\Creature\\Thorim\\UR_Thorim_Start02.wav",
+	"Sound\\Creature\\YoggSaron\\UR_YoggSaron_Slay01.wav",
+	"Sound\\Creature\\YoggSaron\\UR_YoggSaron_Tentacle01.wav",
+	"Sound\\Creature\\YoggSaron\\AK_YoggSaron_Whisper02.wav",
+	"Sound\\Creature\\YoggSaron\\AK_YoggSaron_Whisper03.wav",
+	"Sound\\Creature\\YoggSaron\\AK_YoggSaron_Whisper04.wav",
+	"Sound\\Creature\\YoggSaron\\UR_YoggSaron_Death01.wav",
+	"Sound\\Creature\\Kologarn\\UR_Kologarn_Slay02.wav",
+	"Sound\\Creature\\FlameLeviathan\\UR_Leviathan_HardmodeOn.wav",
+	"Sound\\Creature\\Sindragosa\\IC_Sindragosa_Arcane01.wav",
+	"Sound\\Creature\\LordMarrowgar\\IC_Marrowgar_WW01.wav",
+	"Sound\\Creature\\Chogall\\VO_BT_Chogall_BotEvent28.wav",
+	"Sound\\Creature\\Arthas\\CS_Arthas_StartingPhase5.wav",
+	"Sound\\Creature\\Falric\\HR_FalrIC_SP01.wav",
+	"Sound\\Creature\\Falric\\HR_FalrIC_SP02.wav",
+	"Sound\\Creature\\PrinceMalchezzar\\PrinceAxeToss01.wav",
+	"Sound\\Creature\\PrinceMalchezzar\\PrinceSpecial01.wav",
+	"Sound\\Creature\\MedivhsEcho\\ChessKnightTaken01.wav",
+	"Sound\\Creature\\MedivhsEcho\\ChessBegin01.wav",
+	"sound\\CREATURE\\ALIZABAL\\VO_BH_ALIZABAL_RESET_01.OGG"
+}
+
+function DBM:AprilFools()
+	DBM:Unschedule(DBM.AprilFools)
+	DBM:Schedule(900 + math.random(0, 600) , DBM.AprilFools)
+	if IsInInstance() then return end--Don't play joke if you're raiding.
+	local x = math.random(1, #soundFiles)
+	if DBM.Options.UseMasterVolume then
+		PlaySoundFile(soundFiles[x], "Master")
+	else
+		PlaySoundFile(soundFiles[x])
+	end
+end
+
 do
 	local function requestTimers()
 		local uId = ((GetNumRaidMembers() == 0) and "party") or "raid"
@@ -2639,6 +2670,10 @@ do
 	end
 
 	function DBM:PLAYER_ENTERING_WORLD()
+		local weekday, month, day, year = CalendarGetDate()--Must be called after PLAYER_ENTERING_WORLD
+		if month == 4 and day == 1 then--April 1st
+			DBM:AprilFools()
+		end
 		if #inCombat == 0 then
 			DBM:Schedule(2, requestTimers) -- not sure how late or early PLAYER_ENTERING_WORLD fires
 		end
@@ -3103,15 +3138,17 @@ function bossModPrototype:Stop(cid)
 end
 
 function bossModPrototype:GetDifficulty() 
-	local _, instanceType, difficulty, _, _, playerDifficulty, isDynamicInstance = GetInstanceInfo()
-	if difficulty == 1 then 
+	local _, instanceType, difficulty, _, maxPlayers, playerDifficulty, isDynamicInstance = GetInstanceInfo()
+	if IsPartyLFG() and IsInLFGDungeon() and difficulty == 2 and instanceType == "raid" and maxPlayers == 25 then
+		return "lfr25"
+	elseif difficulty == 1 then
 		return instanceType == "raid" and "normal10" or "normal5"
-	elseif difficulty == 2 then 
+	elseif difficulty == 2 then
 		return instanceType == "raid" and "normal25" or "heroic5"
-	elseif difficulty == 3 then 
-		return "heroic10" 
-	elseif difficulty == 4 then 
-		return "heroic25" 
+	elseif difficulty == 3 then
+		return "heroic10"
+	elseif difficulty == 4 then
+		return "heroic25"
 	end
 end 
 
@@ -3478,7 +3515,7 @@ do
 	end
 
 	function countdownProtoType:Schedule(t)
-		return self.owner:Schedule(t, self.Start, self)
+		return schedule(t, self.Start, self.mod, self)
 	end
 
 	function countdownProtoType:Cancel()
@@ -3511,6 +3548,103 @@ do
 				sound5 = sound5,
 				timer = timer,
 				option = optionName or DBM_CORE_AUTO_COUNTDOWN_OPTION_TEXT:format(spellId),
+				mod = self
+			},
+			mt
+		)
+		if optionName == false then
+			obj.option = nil
+		else
+			self:AddBoolOption(obj.option, optionDefault, "misc")
+		end
+		return obj
+	end
+end
+
+------------------------
+--  Countout object  --
+------------------------
+do
+	local countoutProtoType = {}
+	local mt = {__index = countoutProtoType}
+
+	function countoutProtoType:Start(timer)
+		if not self.option or self.mod.Options[self.option] then
+			timer = timer or self.timer or 10
+			timer = timer <= 5 and self.timer or timer
+			if DBM.Options.CountdownVoice == "Mosh" and timer == 5 then--Don't have 6-10 for him yet.
+				self.sound5:Schedule(timer-4, "Interface\\AddOns\\DBM-Core\\Sounds\\Mosh\\1.ogg")
+				self.sound5:Schedule(timer-3, "Interface\\AddOns\\DBM-Core\\Sounds\\Mosh\\2.ogg")
+				self.sound5:Schedule(timer-2, "Interface\\AddOns\\DBM-Core\\Sounds\\Mosh\\3.ogg")
+				self.sound5:Schedule(timer-1, "Interface\\AddOns\\DBM-Core\\Sounds\\Mosh\\4.ogg")
+				self.sound5:Schedule(timer, "Interface\\AddOns\\DBM-Core\\Sounds\\Mosh\\5.ogg")
+			else--When/if more voices get added we can tweak it to use elseif rules, but for now else works smarter cause then ANY value will return to a default voice.
+				--Ugly as hel way to do it but i coudln't think of a different way to do it accurately
+				if timer == 10 then--Common value for a duration.
+					self.sound5:Schedule(timer-9, "Interface\\AddOns\\DBM-Core\\Sounds\\Corsica_S\\1.mp3")
+					self.sound5:Schedule(timer-8, "Interface\\AddOns\\DBM-Core\\Sounds\\Corsica_S\\2.mp3")
+					self.sound5:Schedule(timer-7, "Interface\\AddOns\\DBM-Core\\Sounds\\Corsica_S\\3.mp3")
+					self.sound5:Schedule(timer-6, "Interface\\AddOns\\DBM-Core\\Sounds\\Corsica_S\\4.mp3")
+					self.sound5:Schedule(timer-5, "Interface\\AddOns\\DBM-Core\\Sounds\\Corsica_S\\5.mp3")
+					self.sound5:Schedule(timer-4, "Interface\\AddOns\\DBM-Core\\Sounds\\Corsica_S\\6.mp3")
+					self.sound5:Schedule(timer-3, "Interface\\AddOns\\DBM-Core\\Sounds\\Corsica_S\\7.mp3")
+					self.sound5:Schedule(timer-2, "Interface\\AddOns\\DBM-Core\\Sounds\\Corsica_S\\8.mp3")
+					self.sound5:Schedule(timer-1, "Interface\\AddOns\\DBM-Core\\Sounds\\Corsica_S\\9.mp3")
+					self.sound5:Schedule(timer, "Interface\\AddOns\\DBM-Core\\Sounds\\Corsica_S\\10.mp3")
+				elseif timer == 8 then--Another common value for a duration.
+					self.sound5:Schedule(timer-7, "Interface\\AddOns\\DBM-Core\\Sounds\\Corsica_S\\1.mp3")
+					self.sound5:Schedule(timer-6, "Interface\\AddOns\\DBM-Core\\Sounds\\Corsica_S\\2.mp3")
+					self.sound5:Schedule(timer-5, "Interface\\AddOns\\DBM-Core\\Sounds\\Corsica_S\\3.mp3")
+					self.sound5:Schedule(timer-4, "Interface\\AddOns\\DBM-Core\\Sounds\\Corsica_S\\4.mp3")
+					self.sound5:Schedule(timer-3, "Interface\\AddOns\\DBM-Core\\Sounds\\Corsica_S\\5.mp3")
+					self.sound5:Schedule(timer-2, "Interface\\AddOns\\DBM-Core\\Sounds\\Corsica_S\\6.mp3")
+					self.sound5:Schedule(timer-1, "Interface\\AddOns\\DBM-Core\\Sounds\\Corsica_S\\7.mp3")
+					self.sound5:Schedule(timer, "Interface\\AddOns\\DBM-Core\\Sounds\\Corsica_S\\8.mp3")
+				elseif timer == 5 then--Probably not many buff durations worth counting out that are less then 5 seconds long
+					self.sound5:Schedule(timer-4, "Interface\\AddOns\\DBM-Core\\Sounds\\Corsica_S\\1.mp3")
+					self.sound5:Schedule(timer-3, "Interface\\AddOns\\DBM-Core\\Sounds\\Corsica_S\\2.mp3")
+					self.sound5:Schedule(timer-2, "Interface\\AddOns\\DBM-Core\\Sounds\\Corsica_S\\3.mp3")
+					self.sound5:Schedule(timer-1, "Interface\\AddOns\\DBM-Core\\Sounds\\Corsica_S\\4.mp3")
+					self.sound5:Schedule(timer, "Interface\\AddOns\\DBM-Core\\Sounds\\Corsica_S\\5.mp3")
+				end
+			end
+		end
+	end
+
+	function countoutProtoType:Schedule(t)
+		return schedule(t, self.Start, self.mod, self)
+	end
+
+	function countoutProtoType:Cancel()
+		self.mod:Unschedule(self.Start, self)
+		self.sound1:Cancel()
+		self.sound2:Cancel()
+		self.sound3:Cancel()
+		self.sound4:Cancel()
+		self.sound5:Cancel()
+	end
+	countoutProtoType.Stop = countoutProtoType.Cancel
+
+	function bossModPrototype:NewCountout(timer, spellId, optionDefault, optionName)
+		local sound5 = self:NewSound(5, false, true)
+		local sound4 = self:NewSound(4, false, true)
+		local sound3 = self:NewSound(3, false, true)
+		local sound2 = self:NewSound(2, false, true)
+		local sound1 = self:NewSound(1, false, true)
+		timer = timer or 10
+		if not spellId then
+			DBM:AddMsg("Error: No spellID given for counted duration timer")
+			spellId = 39505
+		end
+		local obj = setmetatable(
+			{
+				sound1 = sound1,
+				sound2 = sound2,
+				sound3 = sound3,
+				sound4 = sound4,
+				sound5 = sound5,
+				timer = timer,
+				option = optionName or DBM_CORE_AUTO_COUNTOUT_OPTION_TEXT:format(spellId),
 				mod = self
 			},
 			mt
@@ -4017,6 +4151,10 @@ do
 	
 	function bossModPrototype:NewBuffActiveTimer(...)
 		return newTimer(self, "active", ...)
+	end
+
+	function bossModPrototype:NewBuffFadesTimer(...)
+		return newTimer(self, "fades", ...)
 	end
 
 	function bossModPrototype:NewCastTimer(timer, ...)

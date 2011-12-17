@@ -16,10 +16,10 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	TimerSpinners		= "다음 $journal:2770 타이머 보기",
-	TimerSpiderlings	= "다음 $journal:2778 타이머 보기",
-	TimerDrone			= "다음 $journal:2773 타이머 보기",
-	RangeFrame			= "거리 프레임 보기(10 m)"
+	TimerSpinners		= "다음 $journal:2770 바 표시",
+	TimerSpiderlings	= "다음 $journal:2778 바 표시",
+	TimerDrone			= "다음 $journal:2773 바 표시",
+	RangeFrame			= "거리 프레임 보기 (10m)"
 })
 
 L:SetMiscLocalization({
@@ -62,12 +62,12 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	TimerCombatStart	= "전투 시작 타이머 보기",
-	WarnPhase			= "단계 전환 경고 보기",
-	WarnNewInitiate		= "타오르는 발톱 수습생 등장 경고 보기",
-	timerNextInitiate	= "다음 타오르는 발톱 수습생 타이머 보기",
-	TimerPhaseChange	= "단계 전환 타이머 보기",
-	TimerHatchEggs		= "녹아내린 알 부화 타이머 보기",
+	TimerCombatStart	= "전투 시작 바 표시",
+	WarnPhase			= "단계 전환 알림 보기",
+	WarnNewInitiate		= "타오르는 발톱 수습생 알림 보기",
+	timerNextInitiate	= "다음 타오르는 발톱 수습생 등장 바 표시",
+	TimerPhaseChange	= "단계 전환 바 표시",
+	TimerHatchEggs		= "녹아내린 알 부화 바 표시",
 	InfoFrame			= "타오르는 힘 정보 프레임 보기"
 })
 
@@ -78,8 +78,8 @@ L:SetMiscLocalization({
 	FullPower		= "spell:99925",--This is in the emote, shouldn't need localizing, just msg:find
 	LavaWorms		= "불타는 용암 벌레가 땅에서 튀어나옵니다!",--Might use this one day if i feel it needs a warning for something. Or maybe pre warning for something else (like transition soon)
 	PowerLevel		= "타오르는 힘",
-	East			= "동쪽",
-	West			= "서쪽",
+	East			= "오른쪽",
+	West			= "왼쪽",
 	Both			= "양쪽"
 })
 
@@ -120,20 +120,20 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	ResetShardsinThrees	= "$spell:99259 경고 카운트를 일정 횟수마다 재시작(10인/2회,25인/3회)",
-	warnStrike			= "지옥불/학살의 칼날에 피해를 입을 때 경고 보기",
-	timerStrike			= "지옥불/학살의 칼날 공격 간격 타이머 보기",
-	TimerBladeActive	= "활성화된 칼날 유지 타이머 보기",
-	TimerBladeNext		= "다음 지옥불/학살의 칼날 활성화 타이머 보기",
+	ResetShardsinThrees	= "$spell:99259 알림 숫자를 지정 횟수 이후 초기화(10인/2회,25인/3회)",
+	warnStrike			= "지옥불/학살의 칼날에 피해를 입을 때 알림 보기",
+	timerStrike			= "지옥불/학살의 칼날 공격 간격 바 표시",
+	TimerBladeActive	= "활성화된 칼날 유지 시간 바 표시",
+	TimerBladeNext		= "다음 지옥불/학살의 칼날 시전 바 표시",
 	SetIconOnCountdown	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(99516),
 	SetIconOnTorment	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(100232),
-	ArrowOnCountdown	= "$spell:99516의 영향을 받은 경우 DBM 화살표 보기",
-	InfoFrame			= "생기의 불꽃 중첩 정보 프레임 보기",
-	RangeFrame			= "$spell:99404의 거리 프레임 보기(5 m)"
+	ArrowOnCountdown	= "$spell:99516 주문의 영향을 받은 경우 DBM 화살표 보기",
+	InfoFrame			= "생기의 불꽃 정보 프레임 보기",
+	RangeFrame			= "$spell:99404 주문의 영향을 받은 경우 거리 프레임 보기 (5m)"
 })
 
 L:SetMiscLocalization({
-	VitalSpark			= GetSpellInfo(99262).." 중첩"
+	VitalSpark			= GetSpellInfo(99262)
 })
 
 --------------------------------
@@ -149,11 +149,11 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	timerNextSpecial			= "다음 특수 능력 타이머 보기",
-	RangeFrameSeeds				= "$spell:98450의 거리 프레임 보기(12 m)",
-	RangeFrameCat				= "$spell:98374의 거리 프레임 보기(10 m)",
-	LeapArrow					= "$spell:98476이 주변에 시전될 때 DBM 화살표 보기",
-	IconOnLeapingFlames			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(100208)
+	timerNextSpecial		= "다음 불꽃 낫/화염도약 시전 바 표시",
+	RangeFrameSeeds			= "$spell:98450 주문의 영향을 받은 경우 거리 프레임 보기 (12m)",
+	RangeFrameCat			= "$spell:98374 일때 거리 프레임 보기 (10m)",
+	LeapArrow				= "$spell:98476 대상이 근처에 있을 경우 DBM 화살표 보기",
+	IconOnLeapingFlames		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(100208)
 })
 
 L:SetMiscLocalization({
@@ -165,27 +165,30 @@ L:SetMiscLocalization({
 L= DBM:GetModLocalization(198)
 
 L:SetWarningLocalization({
-	warnSplittingBlow		= "%s (%s)",--Spellname in Location
-	warnEngulfingFlame		= "%s (%s)",--Spellname in Location
+	warnRageRagnarosSoon	= "5초 후 %s : %s",
+	warnSplittingBlow		= "%s (%s)",
+	warnEngulfingFlame		= "%s (%s)",
 	WarnRemainingAdds		= "남은 피조물: %d",
-	warnAggro				= "녹아내린 정령으로부터 위협수준 획득함!!!",
-	warnNoAggro				= "녹아내린 정령에게서 안전함:)"
+	warnEmpoweredSulf		= "5초 후 %s"
 })
 
 L:SetTimerLocalization({
-	TimerPhaseSons		= "다음 단계 전환"
+	timerRageRagnaros		= "%s : %s",--Spellname on targetname
+	TimerPhaseSons			= "다음 단계 전환"
 })
 
 L:SetOptionLocalization({
-	warnSplittingBlow			= "$spell:100877 경고 보기",
-	warnEngulfingFlame			= "$spell:99171 경고 보기",
-	WarnEngulfingFlameHeroic	= "영웅 모드에 맞는 $spell:99171 위치 경고 보기",
-	WarnRemainingAdds			= "사잇단계에서 피조물이 얼마나 남았는지에 대한 경고 보기",
-	warnSeedsLand				= "$spell:98520이 시전될때가 아니라 폭발할때 경고 보기",
-	ElementalAggroWarn			= "녹아내린 정령으로부터 위협수준 획득 유무에 대한 경고 보기",
-	TimerPhaseSons				= "전환 단계 지속 타이머 보기",
+	warnRageRagnarosSoon		= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.prewarn:format(101109, GetSpellInfo(101109)),
+	warnSplittingBlow			= "$spell:100877 위치 알림 보기",
+	warnEngulfingFlame			= "$spell:99171 알림 보기",
+	WarnEngulfingFlameHeroic	= "영웅 난이도에서 $spell:99171 위치 알림 보기",
+	WarnRemainingAdds			= "사잇단계에서 남은 화염의 피조물 알림 보기",
+	warnSeedsLand				= "$spell:98520 주문이 시전될 때가 아니라 착지되는 시간에 맞는 알림/바 보기",
+	warnEmpoweredSulf			= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.cast:format(100997, GetSpellInfo(100997)),
+	timerRageRagnaros			= DBM_CORE_AUTO_TIMER_OPTIONS.cast:format(101109, GetSpellInfo(101109)),
+	TimerPhaseSons				= "사잇단계 지속 바 표시",
 	RangeFrame					= "거리 프레임이 필요하게 될 때 거리 프레임 보기",
-	P4IconRangeFilter			= "영웅모드 4단계에서 거리 프레임에 전술 목표 아이콘만 보이도록 하기\n(거리 프레임이 켜져 있어야만 함)",
+	P4IconRangeFilter			= "영웅 난이도 4단계에서 거리 프레임에 전술 목표 아이콘만 보이도록 하기\n(거리 프레임을 사용 중일 때만 작동함)",
 	InfoHealthFrame				= "체력 정보 프레임 보기 (10만 미만)",
 	MeteorFrame					= "$spell:99849 대상 정보 프레임 보기",
 	AggroFrame					= "녹아내린 정령으로 부터 위협수준을 획득하지 않은 대상에 대한 정보 프레임 보기",
@@ -193,8 +196,8 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	East				= "동쪽",
-	West				= "서쪽",
+	East				= "오른쪽",
+	West				= "왼쪽",
 	Middle				= "중앙",
 	North				= "근접",
 	South				= "뒤쪽",
@@ -224,7 +227,7 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	TrashRangeFrame			= "$spell:100012의 거리프레임 보기(10 m)"
+	TrashRangeFrame			= "$spell:100012 주문의 영향을 받은 경우 거리 프레임 보기 (10m)"
 })
 
 L:SetMiscLocalization({
@@ -243,15 +246,36 @@ L:SetWarningLocalization({
 })
 
 L:SetTimerLocalization({
-	timerStaffTransition	= "전환 단계"
+	timerStaffTransition	= "다음 단계 전환"
 })
 
 L:SetOptionLocalization({
-	timerStaffTransition	= "전환 단계 지속 타이머 보기"
+	timerStaffTransition	= "다음 단계 전환 바 표시"
 })
 
 L:SetMiscLocalization({
 	StaffEvent			= "(%S+)|1이;가; 놀드랏실의 가지를 건드리자 격렬하게 반응합니다!",
 	StaffTrees			= "불타는 나무정령이 수호정령을 돕기 위해 땅에서 일어납니다!",--Might add a spec warning for this later.
 	StaffTransition		= "고통받는 수호정령을 태우는 불이 사그라졌습니다!"
+})
+
+-----------------------
+--  Nexus Legendary  --
+-----------------------
+L = DBM:GetModLocalization("NexusLegendary")
+
+L:SetGeneralLocalization({
+	name = "티리나르"
+})
+
+L:SetWarningLocalization({
+})
+
+L:SetTimerLocalization({
+})
+
+L:SetOptionLocalization({
+})
+
+L:SetMiscLocalization({
 })

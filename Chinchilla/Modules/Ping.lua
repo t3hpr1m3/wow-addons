@@ -2,6 +2,8 @@
 local Ping = Chinchilla:NewModule("Ping", "AceEvent-3.0", "AceHook-3.0", "AceTimer-3.0")
 local L = LibStub("AceLocale-3.0"):GetLocale("Chinchilla")
 
+local LSM = LibStub("LibSharedMedia-3.0")
+
 Ping.displayName = L["Ping"]
 Ping.desc = L["Show who last pinged the minimap"]
 
@@ -13,15 +15,12 @@ function Ping:OnInitialize()
 			scale = 1,
 			positionX = 0,
 			positionY = 60,
-			background = {
-				TOOLTIP_DEFAULT_BACKGROUND_COLOR.r, TOOLTIP_DEFAULT_BACKGROUND_COLOR.g, TOOLTIP_DEFAULT_BACKGROUND_COLOR.b, 1,
-			},
-			border = {
-				TOOLTIP_DEFAULT_COLOR.r, TOOLTIP_DEFAULT_COLOR.g, TOOLTIP_DEFAULT_COLOR.b, 1,
-			},
-			textColor = {
-				0.8, 0.8, 0.6, 1,
-			},
+			font = LSM.DefaultMedia.font,
+			backgroundTexture = "Blizzard Tooltip",
+			background = { TOOLTIP_DEFAULT_BACKGROUND_COLOR.r, TOOLTIP_DEFAULT_BACKGROUND_COLOR.g, TOOLTIP_DEFAULT_BACKGROUND_COLOR.b, 1 },
+			borderTexture = "Blizzard Tooltip",
+			border = { TOOLTIP_DEFAULT_COLOR.r, TOOLTIP_DEFAULT_COLOR.g, TOOLTIP_DEFAULT_COLOR.b, 1 },
+			textColor = { 0.8, 0.8, 0.6, 1 },
 			MINIMAPPING_TIMER = 5,
 			MINIMAPPING_FADE_TIMER = 0.5,
 			enabled = true,
@@ -34,23 +33,28 @@ function Ping:OnInitialize()
 end
 
 
-local frame
+local frame, backdrop
 function Ping:OnEnable()
+	backdrop = {
+		bgFile = LSM:Fetch("background", self.db.profile.backgroundTexture, true),
+		edgeFile = LSM:Fetch("border", self.db.profile.borderTexture, true),
+		insets = { left = 4, right = 4, top = 4, bottom = 4 },
+		edgeSize = 16,
+	}
+
 	if not frame then
 		frame = CreateFrame("Frame", "Chinchilla_Ping_Frame")
 		frame:Hide()
-		frame:SetBackdrop({
-			bgFile = [[Interface\Tooltips\UI-Tooltip-Background]],
-			edgeFile = [[Interface\Tooltips\UI-Tooltip-Border]],
-			tile = true, tileSize = 16, edgeSize = 16,
-			insets = { left = 4, right = 4, top = 4, bottom = 4 },
-		})
 
+		frame:SetBackdrop(backdrop)
+		frame:SetFrameLevel(MinimapCluster:GetFrameLevel() + 7)
 		frame:SetWidth(1)
 		frame:SetHeight(1)
 
 		local text = frame:CreateFontString(frame:GetName() .. "_FontString", "ARTWORK", "GameFontNormalSmall")
 		frame.text = text
+
+		self:SetFont()
 		text:SetPoint("CENTER")
 
 		frame:SetScript("OnDragStart", function(this)
@@ -83,6 +87,8 @@ function Ping:OnEnable()
 
 --	self:RawHook("Minimap_SetPing", true)
 	self:RawHook("Minimap_OnClick", true)
+
+	LSM.RegisterCallback(self, "LibSharedMedia_Registered", "MediaRegistered")
 
 	_G.MINIMAPPING_TIMER = self.db.profile.MINIMAPPING_TIMER
 	_G.MINIMAPPING_FADE_TIMER = self.db.profile.MINIMAPPING_FADE_TIMER
@@ -137,8 +143,8 @@ function Ping:MINIMAP_PING(event, unit)
 
 	frame:SetScale(self.db.profile.scale)
 	frame:SetFrameLevel(MinimapCluster:GetFrameLevel() + 7)
-	frame:SetWidth(frame.text:GetWidth() + 12)
-	frame:SetHeight(frame.text:GetHeight() + 12)
+	frame:SetWidth(frame.text:GetWidth() + 16)
+	frame:SetHeight(frame.text:GetHeight() + 14)
 
 	frame:SetBackdropColor(unpack(self.db.profile.background))
 	frame:SetBackdropBorderColor(unpack(self.db.profile.border))
@@ -159,6 +165,8 @@ end
 
 
 local function test()
+	if GetNumPartyMembers() > 0 or GetNumRaidMembers() > 0 then return end -- prevent ping spam in groups
+
 	allowNextPlayerPing = true
 	Minimap:PingLocation(0, 0)
 end
@@ -170,6 +178,42 @@ function Ping:SetMovable(value)
 
 	if value then frame:RegisterForDrag("LeftButton")
 	else frame:RegisterForDrag() end
+end
+
+
+function Ping:MediaRegistered(_, mediaType, mediaName)
+	if mediaType == "font" and mediaName == self.db.profile.font then
+		self:SetFont()
+	elseif mediaType == "background" and mediaName == self.db.profile.backgroundTexture then
+		self:SetBackground()
+	elseif mediaType == "border" and mediaName == self.db.profile.borderTexture then
+		self:SetBorder()
+	end
+end
+
+function Ping:SetFont(value)
+	if value then self.db.profile.font = value
+	else value = self.db.profile.font end
+
+	frame.text:SetFont( LSM:Fetch("font", value, true), 11 )
+end
+
+function Ping:SetBackground(value)
+	if value then self.db.profile.backgroundTexture = value
+	else value = self.db.profile.backgroundTexture end
+
+	backdrop.bgFile = LSM:Fetch("background", value, true)
+
+	frame:SetBackdrop(backdrop)
+end
+
+function Ping:SetBorder(value)
+	if value then self.db.profile.borderTexture = value
+	else value = self.db.profile.borderTexture end
+
+	backdrop.edgeFile = LSM:Fetch("border", value, true)
+
+	frame:SetBackdrop(backdrop)
 end
 
 
@@ -258,6 +302,7 @@ function Ping:GetOptions()
 			type = 'execute',
 			func = test,
 			order = 1,
+			disabled = function() return (GetNumPartyMembers() > 0 or GetNumRaidMembers() > 0) end,
 		},
 		chat = {
 			name = L["Show in chat"],
@@ -308,12 +353,33 @@ function Ping:GetOptions()
 			end,
 			order = 4,
 		},
+		scale = {
+			name = L["Size"],
+			desc = L["Set the size of the ping display."],
+			type = 'range',
+			min = 0.25,
+			max = 4,
+			step = 0.01,
+			bigStep = 0.05,
+			isPercent = true,
+			get = function(info)
+				return self.db.profile.scale
+			end,
+			set = function(info, value)
+				self.db.profile.scale = value
+				test()
+			end,
+			hidden = function(info)
+				return self.db.profile.chat
+			end,
+			order = 5,
+		},
 		position = {
 			name = L["Position"],
 			desc = L["Set the position of the ping indicator"],
 			type = 'group',
 			inline = true,
-			order = 5,
+			order = 6,
 			hidden = function(info)
 				return self.db.profile.chat
 			end,
@@ -369,10 +435,23 @@ function Ping:GetOptions()
 				},
 			},
 		},
+		backgroundTexture = {
+			name = L["Background"],
+			type = "select", dialogControl = 'LSM30_Background',
+			order = 7, width = "double",
+			values = AceGUIWidgetLSMlists.background,
+			get = function() return self.db.profile.backgroundTexture end,
+			set = function(_, value)
+				self:SetBackground(value)
+			end,
+			hidden = function(info)
+				return self.db.profile.chat
+			end,
+		},
 		background = {
 			name = L["Background"],
 			desc = L["Set the background color"],
-			type = 'color',
+			type = 'color', order = 8,
 			hasAlpha = true,
 			get = function(info)
 				return unpack(self.db.profile.background)
@@ -388,12 +467,24 @@ function Ping:GetOptions()
 			hidden = function(info)
 				return self.db.profile.chat
 			end,
-			order = 6,
+		},
+		borderTexture = {
+			name = L["Border"],
+			type = "select", dialogControl = 'LSM30_Border',
+			order = 9, width = "double",
+			values = AceGUIWidgetLSMlists.border,
+			get = function() return self.db.profile.borderTexture end,
+			set = function(_, value)
+				self:SetBorder(value)
+			end,
+			hidden = function(info)
+				return self.db.profile.chat
+			end,
 		},
 		border = {
 			name = L["Border"],
 			desc = L["Set the border color"],
-			type = 'color',
+			type = 'color', order = 10,
 			hasAlpha = true,
 			get = function(info)
 				return unpack(self.db.profile.border)
@@ -409,33 +500,22 @@ function Ping:GetOptions()
 			hidden = function(info)
 				return self.db.profile.chat
 			end,
-			order = 7,
 		},
-		scale = {
-			name = L["Size"],
-			desc = L["Set the size of the ping display."],
-			type = 'range',
-			min = 0.25,
-			max = 4,
-			step = 0.01,
-			bigStep = 0.05,
-			isPercent = true,
-			get = function(info)
-				return self.db.profile.scale
-			end,
-			set = function(info, value)
-				self.db.profile.scale = value
-				test()
-			end,
+		font = {
+			name = L["Font"],
+			type = 'select', width = "double", order = 11,
+			dialogControl = 'LSM30_Font',
+			values = AceGUIWidgetLSMlists.font,
+			get = function() return self.db.profile.font or LSM.DefaultMedia.font end,
+			set = function(_, value) self:SetFont(value) end,
 			hidden = function(info)
 				return self.db.profile.chat
 			end,
-			order = 8,
 		},
 		textColor = {
 			name = L["Text"],
 			desc = L["Set the text color"],
-			type = 'color',
+			type = 'color', order = 12,
 			hasAlpha = true,
 			get = function(info)
 				return unpack(self.db.profile.textColor)
@@ -451,7 +531,6 @@ function Ping:GetOptions()
 			hidden = function(info)
 				return self.db.profile.chat
 			end,
-			order = 9,
 		},
 	}
 end

@@ -1,7 +1,7 @@
 --[[
 	Auctioneer - Search UI - Searcher Vendor
-	Version: 5.12.5198 (QuirkyKiwi)
-	Revision: $Id: SearcherVendor.lua 5184 2011-06-24 00:16:48Z Nechckn $
+	Version: 5.13.5246 (BoldBandicoot)
+	Revision: $Id: SearcherVendor.lua 5170 2011-05-31 10:14:23Z brykrys $
 	URL: http://auctioneeraddon.com/
 
 	This is a plugin module for the SearchUI that assists in searching by refined paramaters
@@ -102,4 +102,4 @@ function lib.Search(item)
 	return false, "Not enough profit"
 end
 
-AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.12/Auc-Util-SearchUI/SearcherVendor.lua $", "$Rev: 5184 $")
+AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.13/Auc-Util-SearchUI/SearcherVendor.lua $", "$Rev: 5170 $")

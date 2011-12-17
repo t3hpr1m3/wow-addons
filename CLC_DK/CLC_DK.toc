@@ -1,6 +1,6 @@
-## Interface: 40200
+## Interface: 40300
 ## Author: Nu7a (Threk)
-## Version: 4.2.0b
+## Version: 4.3.0a
 ## Title: CLC DK
 ## Notes: Death Knight Helper.
 ## SavedVariablesPerCharacter: CLCDK_Settings

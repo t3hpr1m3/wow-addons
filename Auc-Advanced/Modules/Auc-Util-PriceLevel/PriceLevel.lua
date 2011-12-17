@@ -1,7 +1,7 @@
 --[[
 	Auctioneer - Price Level Utility module
-	Version: 5.12.5198 (QuirkyKiwi)
-	Revision: $Id: PriceLevel.lua 4861 2010-09-02 23:35:36Z kandoko $
+	Version: 5.13.5246 (BoldBandicoot)
+	Revision: $Id: PriceLevel.lua 5241 2011-11-30 19:05:41Z Nechckn $
 	URL: http://auctioneeraddon.com/
 
 	This is an addon for World of Warcraft that adds a price level indicator
@@ -271,7 +271,7 @@ function private.ListUpdate()
 			else
 				link =  GetAuctionItemLink("list", offset + i)
 				if link then
-					_,_, quantity, _,_,_, minBid, minInc, buyPrice, bidPrice =  GetAuctionItemInfo("list", offset + i)
+					_,_, quantity, _,_,_,_, minBid, minInc, buyPrice, bidPrice =  GetAuctionItemInfo("list", offset + i)
 					if bidPrice>0 then bidPrice = bidPrice + minInc
 					else bidPrice = minBid end
 					priceLevel, perItem, r,g,b = lib.CalcLevel(link, quantity, bidPrice, buyPrice)
@@ -330,4 +330,4 @@ function lib.CalcLevel(link, quantity, bidPrice, buyPrice, itemWorth)
 	return priceLevel, perItem, r,g,b, lvl, itemWorth
 end
 
-AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.12/Auc-Util-PriceLevel/PriceLevel.lua $", "$Rev: 4861 $")
+AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.13/Auc-Util-PriceLevel/PriceLevel.lua $", "$Rev: 5241 $")

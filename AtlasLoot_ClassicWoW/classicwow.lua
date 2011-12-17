@@ -33,7 +33,6 @@ local moduleName = "AtlasLootClassicWoW"
 ---- Shadowfang Keep
 ---- Stratholme - Crusader's Square
 ---- Stratholme - The Gauntlet
----- The Deadmines: Entrance
 ---- The Deadmines
 ---- The Stockade
 ---- The Sunken Temple
@@ -4015,7 +4014,7 @@ local moduleName = "AtlasLootClassicWoW"
 		["Normal"] = {
 			{
 				{ 1, 13505, "", "=q4=Runeblade of Baron Rivendare", "=ds=#h2#, #w10#", "", "1%"};
-				{ 2, 13335, "", "=q4=Deathcharger's Reins", "=ds=#e26#", "", "0.10%"};
+				{ 2, 13335, "", "=q4=Deathcharger's Reins", "=ds=#e26#", "", "1%"};
 				{ 4, 13340, "", "=q3=Cape of the Black Baron", "=ds=#s4#", "", "8.75%"};
 				{ 5, 22412, "", "=q3=Thuzadin Mantle", "=ds=#s3#, #a1#", "", "4.16%"};
 				{ 6, 13346, "", "=q3=Robes of the Exalted", "=ds=#s5#, #a1#", "", "11.51%"};
@@ -4061,27 +4060,6 @@ local moduleName = "AtlasLootClassicWoW"
 		info = {
 			name = BabbleBoss["Stonespine"],
 			module = moduleName, instance = "StratholmeGauntlet",
-		};
-	};
-
-		--------------------------------
-		--- The Deadmines: Entrance ---
-		--------------------------------
-
-	AtlasLoot_Data["DeadminesEntrance"] = {
-		["Normal"] = {
-			{
-				{ 1, 0, "INV_Box_01", "=q6="..BabbleBoss["Marisa du'Paige"], "=ec1=#j28#"};
-				{ 2, 3019, "", "=q3=Noble's Robe", "=ds=#s5#, #a1#", "", "22.4%"};
-				{ 3, 4660, "", "=q3=Walking Boots", "=ds=#s12#, #a1#", "", "71.4%"};
-				{ 16, 0, "INV_Box_01", "=q6="..BabbleBoss["Brainwashed Noble"], "=ec1=#j28#"};
-				{ 17, 5967, "", "=q3=Girdle of Nobility", "=ds=#s10#, #a1#", "", "70.4%"};
-				{ 18, 3902, "", "=q3=Staff of Nobles", "=ds=#w9#", "", "23.0%"};
-			};
-		};
-		info = {
-			name = BabbleZone["The Deadmines"].." - "..AL["Entrance"],
-			module = moduleName, instance = "TheDeadminesEaI",
 		};
 	};
 
@@ -4222,6 +4200,12 @@ local moduleName = "AtlasLootClassicWoW"
 				{ 2, 1930, "", "=q3=Stonemason Cloak", "=ds=#s4#", "", "0.01%"};
 				{ 3, 1951, "", "=q3=Blackwater Cutlass", "=ds=#h1#, #w10#", "", "0.01%"};
 				{ 4, 1926, "", "=q3=Weighted Sap", "=ds=#h1#, #w6#", "", "0.01%"};
+				{ 17, 0, "INV_Box_01", "=q6="..BabbleBoss["Marisa du'Paige"], "=ec1=#j28#"};
+				{ 18, 3019, "", "=q3=Noble's Robe", "=ds=#s5#, #a1#", "", "22.4%"};
+				{ 19, 4660, "", "=q3=Walking Boots", "=ds=#s12#, #a1#", "", "71.4%"};
+				{ 21, 0, "INV_Box_01", "=q6="..BabbleBoss["Brainwashed Noble"], "=ec1=#j28#"};
+				{ 22, 5967, "", "=q3=Girdle of Nobility", "=ds=#s10#, #a1#", "", "70.4%"};
+				{ 23, 3902, "", "=q3=Staff of Nobles", "=ds=#w9#", "", "23.0%"};
 			};
 		};
 		info = {
@@ -4300,10 +4284,10 @@ local moduleName = "AtlasLootClassicWoW"
 		};
 	};
 
-	AtlasLoot_Data["STHazzasandMorphaz"] = {
+	AtlasLoot_Data["STDragons"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "INV_Box_01", "=q6="..BabbleBoss["Hazzas"], ""};
+				{ 1, 0, "INV_Box_01", "=q6="..AL["Shared"], ""};
 				{ 2, 12465, "", "=q3=Nightfall Drape", "=ds=#s4#", "", "4.48%"};
 				{ 3, 12466, "", "=q3=Dawnspire Cord", "=ds=#s10#, #a1#", "", "4.46%"};
 				{ 4, 12464, "", "=q3=Bloodfire Talons", "=ds=#s9#, #a2#", "", "5.00%"};
@@ -4312,19 +4296,10 @@ local moduleName = "AtlasLootClassicWoW"
 				{ 7, 10797, "", "=q3=Firebreather", "=ds=#h1#, #w10#", "", "4.50%"};
 				{ 8, 12463, "", "=q3=Drakefang Butcher", "=ds=#h2#, #w10#", "", "4.58%"};
 				{ 9, 12243, "", "=q3=Smoldering Claw", "=ds=#w7#", "", "4.56%"};
-				{ 16, 0, "INV_Box_01", "=q6="..BabbleBoss["Morphaz"], ""};
-				{ 17, 12465, "", "=q3=Nightfall Drape", "=ds=#s4#", "", "4.29%"};
-				{ 18, 12466, "", "=q3=Dawnspire Cord", "=ds=#s10#, #a1#", "", "4.12%"};
-				{ 19, 12464, "", "=q3=Bloodfire Talons", "=ds=#s9#, #a2#", "", "4.21%"};
-				{ 20, 10795, "", "=q3=Drakeclaw Band", "=ds=#s13#", "", "4.07%"};
-				{ 21, 10796, "", "=q3=Drakestone", "=ds=#s15#", "", "4.18%"};
-				{ 22, 10797, "", "=q3=Firebreather", "=ds=#h1#, #w10#", "", "4.24%"};
-				{ 23, 12463, "", "=q3=Drakefang Butcher", "=ds=#h2#, #w10#", "", "4.35%"};
-				{ 24, 12243, "", "=q3=Smoldering Claw", "=ds=#w7#", "", "4.09%"};
 			};
 		};
 		info = {
-			name = BabbleBoss["Hazzas"].." & "..BabbleBoss["Morphaz"],
+			name = BabbleBoss["Dreamscythe"]..", "..BabbleBoss["Weaver"]..", "..BabbleBoss["Hazzas"].." & "..BabbleBoss["Morphaz"],
 			module = moduleName, instance = "TheSunkenTemple",
 		};
 	};

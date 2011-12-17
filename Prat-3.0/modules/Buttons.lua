@@ -234,9 +234,9 @@ L:AddLocale("ruRU",
 	-- showbnet_desc = "",
 	-- showbnet_name = "",
 	showmenu_desc = "Отображать меню команд",
-	showmenu_name = "Отображать меню", -- Needs review
-	showminimize_desc = "Показать Кнопку минимизации", -- Needs review
-	showminimize_name = "Показать Кнопку минимизации", -- Needs review
+	showmenu_name = "Отображать меню",
+	showminimize_desc = "Показать Кнопку минимизации",
+	showminimize_name = "Показать Кнопку минимизации",
 }
 
 )
@@ -261,10 +261,10 @@ L:AddLocale("zhCN",
 	scrollReminder_name = "显示向下滚动提醒",
 	-- showbnet_desc = "",
 	-- showbnet_name = "",
-	-- showmenu_desc = "",
-	-- showmenu_name = "",
-	-- showminimize_desc = "",
-	-- showminimize_name = "",
+	showmenu_desc = "显示聊天菜单", -- Needs review
+	showmenu_name = "显示菜单", -- Needs review
+	showminimize_desc = "显示最小化按钮", -- Needs review
+	showminimize_name = "显示最小化按钮", -- Needs review
 }
 
 )

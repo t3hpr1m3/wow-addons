@@ -1,6 +1,6 @@
 --[[
 	Auctioneer - AH-WindowControl
-	Version: 5.12.5198 (QuirkyKiwi)
+	Version: 5.13.5246 (BoldBandicoot)
 	Revision: $Id: Auc-Util-AHWindowControl.lua 5133 2011-04-29 04:10:49Z Hirsute $
 	URL: http://auctioneeraddon.com/
 
@@ -329,4 +329,4 @@ function lib.ToggleDebug()
 	end
 end
 
-AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.12/Auc-Util-AHWindowControl/Auc-Util-AHWindowControl.lua $", "$Rev: 5133 $")
+AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.13/Auc-Util-AHWindowControl/Auc-Util-AHWindowControl.lua $", "$Rev: 5133 $")

@@ -1,4 +1,4 @@
-﻿## Interface: 40200
+﻿## Interface: 40300
 ## X-Min-Interface: 40200
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0PvP|r
 ## Title-deDE:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0PvP|r
@@ -34,7 +34,7 @@
 ## X-DBM-Mod-Name-esMX: JcJ
 ## X-DBM-Mod-Sort: 175
 ## X-DBM-Mod-LoadZoneID: 461,443,401,540,482
-## X-Curse-Packaged-Version: DBM-4.10.0-117-gea5f9b9
+## X-Curse-Packaged-Version: 4.10.4
 ## X-Curse-Project-Name: Deadly Boss Mods
 ## X-Curse-Project-ID: deadly-boss-mods
 ## X-Curse-Repository-ID: wow/deadly-boss-mods/mainline

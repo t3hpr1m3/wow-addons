@@ -1,7 +1,7 @@
 ﻿--[[
 	Auctioneer
-	Version: 5.12.5198 (QuirkyKiwi)
-	Revision: $Id: CoreSettings.lua 5184 2011-06-24 00:16:48Z Nechckn $
+	Version: 5.13.5246 (BoldBandicoot)
+	Revision: $Id: CoreSettings.lua 5210 2011-07-19 19:07:52Z Nechckn $
 	URL: http://auctioneeraddon.com/
 
 	Settings GUI
@@ -519,11 +519,10 @@ function lib.MakeGuiConfig()
 	gui:AddControl(id, "Slider",	0, 1, "scancommit.ttl", 0, 300, 1, _TRANS('ADV_Interface_ScanRetrieveTTL').." %d ".._TRANS('ADV_Interface_seconds'))--Scan Retrieval Time-to-Live
 	gui:AddTip(id, _TRANS('ADV_HelpTooltip_ScanRetrieveTTL') )--The number of seconds Auctioneer will spend trying to get data that was missing from the scan initially.
 
-	-- experimental settings, subject to change. do not localize yet
-	gui:AddControl(id, "Checkbox",	0, 1, "core.scan.sellernamedelay", "Additional scanning to retrieve more Seller names")
-	gui:AddTip(id, "Perform additional scanning to retrieve more data about the names of Sellers. If this option is disabled scans will finish sooner but some filters and searchers will not work")
-	gui:AddControl(id, "Checkbox",	0, 1, "core.scan.scanallqueries", "Scan manual searches and searches by other Addons")
-	gui:AddTip(id, "Enable to perform scanning of every Auctionhouse search. Disable to only scan Auctioneer's own searches.\nYou may need to disable this option if you have compatibility problems with other AddOns")
+	gui:AddControl(id, "Checkbox",	0, 1, "core.scan.sellernamedelay", _TRANS('ADV_Interface_ScanSellerNames'))--"Additional scanning to retrieve more Seller names"
+	gui:AddTip(id, _TRANS('ADV_HelpTooltip_ScanSellerNames')) --"Perform additional scanning to retrieve more data about the names of Sellers. If this option is disabled scans will finish sooner but some filters and searchers will not work"
+	gui:AddControl(id, "Checkbox",	0, 1, "core.scan.scanallqueries", _TRANS('ADV_Interface_ScanAllQueries')) --"Scan manual searches and searches by other Addons"
+	gui:AddTip(id, _TRANS('ADV_HelpTooltip_ScanAllQueries')) --"Enable to perform scanning of every Auctionhouse search. Disable to only scan Auctioneer's own searches.\nYou may need to disable this option if you have compatibility problems with other AddOns"
 
 	--[[ temporarily disabled
 	gui:AddControl(id, "Slider",	0, 1, "core.scan.unresolvedtolerance", 0, 100, 1, "Unresolved auctions tolerance: %d")
@@ -573,10 +572,8 @@ function lib.MakeGuiConfig()
 	gui:AddControl(id, "Subhead",     0,	_TRANS('ADV_Interface_ModTTShow')) --"Show Tooltip:"
 	gui:AddControl(id, "Selectbox", 0, 1, { { "always", _TRANS('ADV_Interface_mts_always') }, {"alt", _TRANS('ADV_Interface_mts_alt') }, { "noalt", _TRANS('ADV_Interface_mts_noalt') }, {"shift", _TRANS('ADV_Interface_mts_shift') }, {"noshift", _TRANS('ADV_Interface_mts_noshift')}, {"ctrl", _TRANS('ADV_Interface_mts_ctrl')},{"noctrl", _TRANS('ADV_Interface_mts_noctrl')}, { "never", _TRANS('ADV_Interface_mts_never')} }, "ModTTShow")
 	gui:AddTip(id, _TRANS('ADV_HelpTooltip_ModTTShow')) --"Determines Tooltip behavior. Always: Show Auctioneer's Tooltip every time. When <mod> is pressed: Only show Auctioneer's tooltip if the specified modifier is pressed. When <mod> is not pressed: Only show Auctioneer's tooltip if the specified modifier is not pressed. Never: Never show Auctioneer's tooltip."
-	-- ### new setting
-	gui:AddControl(id, "Checkbox",   0, 1, "core.tooltip.altchatlink_leftclick", "Open tooltips from chat links with Alt left-clicks")
-	gui:AddTip(id, "Enables opening a tooltip by left-clicking on an item link in chat while the Alt key is pressed.")
-	-- ### end new setting
+	gui:AddControl(id, "Checkbox",   0, 1, "core.tooltip.altchatlink_leftclick", _TRANS('ADV_Interface_AltChatLinkLeft')) --"Open tooltips from chat links with Alt left-clicks"
+	gui:AddTip(id, _TRANS('ADV_HelpTooltip_AltChatLinkLeft')) --"Enables opening a tooltip by left-clicking on an item link in chat while the Alt key is pressed."
 	gui:AddControl(id, "Checkbox",   0, 1, "scandata.tooltip.display", _TRANS('ADV_Interface_ScanDataDisplay')) --"Display scan data tooltip"
 	gui:AddTip(id, _TRANS('ADV_HelpTooltip_ScanDataDisplay')) --"Enable the display of how many items in the current scan image match this item"
 	gui:AddControl(id, "Checkbox",   0, 3, "scandata.tooltip.modifier", _TRANS('ADV_Interface_ScanDataModifier')) --"Only show exact match unless SHIFT is held"
@@ -689,4 +686,4 @@ function private.CheckObsolete()
 	end
 end
 
-AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.12/Auc-Advanced/CoreSettings.lua $", "$Rev: 5184 $")
+AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.13/Auc-Advanced/CoreSettings.lua $", "$Rev: 5210 $")

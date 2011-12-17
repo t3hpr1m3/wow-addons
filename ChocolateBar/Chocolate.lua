@@ -26,8 +26,15 @@ local function resizeFrame(self)
 	if self.bar then self.bar:UpdateCenter() end
 end
 
+function findpattern(text, pattern, start)
+  return string.sub(text, string.find(text, pattern, start))
+end
+
 local function TextUpdater(frame, value)
-	--frame.text:SetText("("..frame.settings.index..") "..value)
+	if db.forceColor then
+		value = string.gsub(value, "|c........", "")
+		value = string.gsub(value, "|r", "")
+	end
 	frame.text:SetText(value)
 	resizeFrame(frame)
 end
@@ -236,32 +243,15 @@ local function OnClick(self, ...)
 	end
 end
 
-local function PrepareTooltip(frame, anchorFrame)
-	--[[
-	if frame == GameTooltip then
-		frame.fortressOnLeave = frame:GetScript("OnLeave")
-		frame.fortressBlock = anchorFrame
-		frame.fortressName = anchorFrame.name
-		frame:EnableMouse(true)
-		frame:SetScript("OnLeave", GT_OnLeave)
-	end
-	--]]
-	frame:SetOwner(anchorFrame, "ANCHOR_NONE")
-	frame:ClearAllPoints()
-	local a1, a2 = GetAnchors(anchorFrame)
-	frame:SetPoint(a1, anchorFrame, a2)	
-end
-
 local function Update(self, f,key, value, name)
 	local update = updaters[key]
-	--local update = uniqueUpdaters[key]
 	if update then
 		update(f, value, name)
 	end
 end
 
 local function OnDragStart(frame)
-	if not ChocolateBar.db.profile.locked or _G.IsAltKeyDown() then 
+	if not ChocolateBar.db.profile.locked or _G.IsAltKeyDown() then
 		local bar = frame.bar
 		ChocolateBar:TempDisAutohide(true)
 		ChocolateBar.dragging = true
@@ -283,7 +273,6 @@ local function OnDragStart(frame)
 		Drag:Start(bar, frame.name, frame)
 		frame:StartMoving()
 		frame.isMoving = true
-		
 	end
 end
 

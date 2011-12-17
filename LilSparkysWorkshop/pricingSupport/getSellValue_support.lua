@@ -11,19 +11,23 @@
 do
 
 	local function VendorCost(itemID)
-		local value = GetSellValue(itemID)
+		if itemID then
+			local value = GetSellValue(itemID)
 
-		if value then
-			return value * 4
+			if value then
+				return value * 4
+			end
 		end
 	end
 
 
 	local function VendorValue(itemID)
-		local value = GetSellValue(itemID)
+		if itemID then
+			local value = GetSellValue(itemID)
 
-		if value then
-			return value
+			if value then
+				return value
+			end
 		end
 	end
 

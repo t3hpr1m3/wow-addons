@@ -229,7 +229,7 @@ L:AddLocale("ruRU",
 	-- reflow_desc = "",
 	-- reflow_name = "",
 	reminder_desc = "Показать кнопку прокрутки, когда чат прокручен вверх, то есть последнее сообщение не в нижней части окна чата.", -- Needs review
-	reminder_name = "Показать прокрутку вниз", -- Needs review
+	reminder_name = "Показать прокрутку вниз",
 }
 
 )
@@ -253,8 +253,8 @@ L:AddLocale("zhCN",
 	-- buttonframe_name = "",
 	chatmenu_desc = "开启或关闭聊天菜单。",
 	chatmenu_name = "显示聊天菜单",
-	-- reflow_desc = "",
-	-- reflow_name = "",
+	reflow_desc = "聊天框文字应该此按钮而非位于其下方", -- Needs review
+	reflow_name = "文字环绕", -- Needs review
 	reminder_desc = "当不在聊天窗口底部时显示提醒按钮。",
 	reminder_name = "显示鼠标滚动提醒器",
 }

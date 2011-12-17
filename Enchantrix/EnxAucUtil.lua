@@ -1,7 +1,7 @@
 --[[
 	Enchantrix Addon for World of Warcraft(tm).
-	Version: 5.12.5198 (QuirkyKiwi)
-	Revision: $Id: EnxAucUtil.lua 4432 2009-08-29 14:55:35Z dinesh $
+	Version: 5.13.5246 (BoldBandicoot)
+	Revision: $Id: EnxAucUtil.lua 5210 2011-07-19 19:07:52Z Nechckn $
 	URL: http://enchantrix.org/
 
 	This is an addon for World of Warcraft that add a list of what an item
@@ -30,21 +30,17 @@
 		http://www.fsf.org/licensing/licenses/gpl-faq.html#InterpreterIncompat
 
 ]]
-Enchantrix_RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.12/Enchantrix/EnxAucUtil.lua $","$Rev: 4432 $")
+Enchantrix_RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.13/Enchantrix/EnxAucUtil.lua $","$Rev: 5210 $")
 
 -- Provide fixed price data by registering ourselves as a bonafide legitimate Auctioneer module.
-if (not (AucAdvanced and AucAdvanced.Modules and AucAdvanced.Modules.Util) ) then return end
+if not AucAdvanced then return end
+local lib = AucAdvanced.NewModule("Util", "Enchantrix", nil, true)
+if not lib then return end
 
-local lib = {}
 Enchantrix.AucUtil = lib
-
-AucAdvanced.Modules.Util.Enchantrix = lib
-
---local print = AucAdvanced.Print
 
 local get = Enchantrix.Settings.GetSetting
 
-function lib.GetName() return "Enchantrix" end
 
 local priceTable = {}
 local priceTableAge

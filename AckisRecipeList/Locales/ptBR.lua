@@ -6,7 +6,7 @@ ptBR localization strings for Ackis Recipe List
 File date: 2011-09-04T15:07:34Z 
 File revision: @file-revision@ 
 Project revision: @project-revision@
-Project version: 2.2.10
+Project version: 2.2.11
 ************************************************************************
 Currently maintained by:
 http://www.wowace.com/addons/arl/localization/translators/
@@ -29,15 +29,14 @@ local L = LibStub("AceLocale-3.0"):NewLocale("Ackis Recipe List", "ptBR", false)
 if not L then return end
 
 L["\"Cookie\" McWeaksauce"] = "\"Biscoito\" McMolhofraco" -- Needs review
-L["ALL_FILTERED"] = "Apesar de você já ter escaneado esta profissão, seus filtros impedem a exibição de qualquer receita. Por favor, altere seus filtros e tente novamente." -- Needs review
-L["ALT_CLICK"] = "Alt-Clique para adicionar/remover esta receita de sua lista de ignoradas." -- Needs review
-L["ARL_ALLEXCLUDED"] = "Apesar de você já ter escaneado esta profissão, suas exceções impedem a exibição de qualquer receita. Por favor, altere suas exceções e tente novamente." -- Needs review
-L["ARL_ALLKNOWN"] = "Você sabe todas as receitas desta profissão." -- Needs review
+L["ALL_FILTERED"] = "Apesar de você já ter escaneado esta profissão, seus filtros impedem a exibição de qualquer receita. Por favor, altere seus filtros e tente novamente."
+L["ALT_CLICK"] = "Alt-Clique para adicionar/remover esta receita de sua lista de ignoradas."
+L["ARL_ALLEXCLUDED"] = "Apesar de você já ter escaneado esta profissão, suas exceções impedem a exibição de qualquer receita. Por favor, altere suas exceções e tente novamente."
+L["ARL_ALLKNOWN"] = "Você sabe todas as receitas desta profissão."
 L["AXE_DESC"] = "Receitas que produzem machados devem ser incluídos no escaneamento."
-L["About"] = "Sobre" -- Needs review
-L["Acquisition"] = "Aquisição" -- Needs review
+L["About"] = "Sobre"
+L["Acquisition"] = "Aquisição"
 L["Aged Dalaran Wizard"] = "Mago Idoso de Dalaran" -- Needs review
-L["Are We There, Yeti?"] = "Já Chegamos, Yeti?" -- Needs review
 L["Axe"] = "Machado"
 L["BOAFilter"] = "Item Ligado à Conta" -- Needs review
 L["BOA_DESC"] = "Receitas que criem itens que Ligam à Conta serão incluídas no escaneamento." -- Needs review
@@ -65,9 +64,9 @@ L["Cloth"] = "Pano" -- Needs review
 L["Common Issues"] = "Problemas comuns" -- Needs review
 L["DAGGER_DESC"] = "Receitas que criem adaga serão incluídas no escaneamento." -- Needs review
 L["Dagger"] = "Adaga" -- Needs review
-L["Mace"] = "Bastão" -- Needs review
+L["Mace"] = "Maça" -- Needs review
 L["Obtain"] = "Obter"
 L["Obtained From"] = "Obtido de"
-L["One Hand"] = "Uma Mão" -- Needs review
+L["One Hand"] = "Uma Mão"
 L["Profile Options"] = "Opções do perfil"
 L["UNKNOWN_DESC"] = "Incluir todas as receitas desconhecidas no escaneamento."

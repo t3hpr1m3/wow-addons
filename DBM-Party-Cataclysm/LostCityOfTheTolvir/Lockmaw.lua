@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Lockmaw", "DBM-Party-Cataclysm", 5)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 6499 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 6700 $"):sub(12, -3))
 mod:SetCreatureID(43614)
 mod:SetModelID(33438)
 mod:SetZone()
@@ -21,7 +21,7 @@ local warnDustFlail	= mod:NewSpellAnnounce(81642, 3)
 local warnEnrage	= mod:NewSpellAnnounce(81706, 4)
 
 local timerScentBlood	= mod:NewTargetTimer(30, 81690)
-local timerPoison		= mod:NewBuffActiveTimer(12, 81630)
+local timerPoison		= mod:NewBuffFadesTimer(12, 81630)
 local timerDustFlail	= mod:NewBuffActiveTimer(5, 81642)
 
 mod:AddBoolOption("RangeFrame")

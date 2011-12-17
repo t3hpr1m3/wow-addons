@@ -40,6 +40,8 @@ local COMMON1		= private.COMMON_FLAGS_WORD1
 
 local A			= private.ACQUIRE_TYPES
 
+local COORD_FORMAT	= "(%.2f, %.2f)"
+
 -------------------------------------------------------------------------------
 -- Dialogs.
 -------------------------------------------------------------------------------
@@ -253,14 +255,13 @@ function private.InitializeListFrame()
 	end
 
 	local function ListItem_OnClick(self, button, down)
-		local clickedIndex = self.string_index
+		local clicked_index = self.string_index
 
 		-- Don't do anything if they've clicked on an empty button
-		if not clickedIndex or clickedIndex == 0 then
+		if not clicked_index or clicked_index == 0 then
 			return
 		end
-		local clicked_line = ListFrame.entries[clickedIndex]
-		local traverseIndex = 0
+		local clicked_line = ListFrame.entries[clicked_index]
 
 		if not clicked_line then
 			return
@@ -268,10 +269,19 @@ function private.InitializeListFrame()
 
 		-- First, check if this is a "modified" click, and react appropriately
 		if clicked_line.recipe_id and _G.IsModifierKeyDown() then
-			if _G.IsControlKeyDown() and _G.IsShiftKeyDown() then
-				addon:AddWaypoint(clicked_line.recipe_id, clicked_line.acquire_id, clicked_line.location_id, clicked_line.npc_id)
+			local profession_recipes = private.profession_recipe_list[private.ORDERED_PROFESSIONS[MainPanel.profession]]
+
+			if _G.IsControlKeyDown() then
+				if _G.IsShiftKeyDown() then
+					addon:AddWaypoint(clicked_line.recipe_id, clicked_line.acquire_id, clicked_line.location_id, clicked_line.npc_id)
+				else
+					local edit_box = _G.ChatEdit_ChooseBoxForSend()
+
+					_G.ChatEdit_ActivateChat(edit_box)
+					edit_box:Insert(_G.GetSpellLink(profession_recipes[clicked_line.recipe_id].spell_id))
+				end
 			elseif _G.IsShiftKeyDown() then
-				local crafted_item_id = private.recipe_list[clicked_line.recipe_id]:CraftedItemID()
+				local crafted_item_id = profession_recipes[clicked_line.recipe_id]:CraftedItemID()
 
 				if crafted_item_id then
 					local _, item_link = _G.GetItemInfo(crafted_item_id)
@@ -287,11 +297,6 @@ function private.InitializeListFrame()
 				else
 					addon:Print(L["NoItemLink"])
 				end
-			elseif _G.IsControlKeyDown() then
-				local edit_box = _G.ChatEdit_ChooseBoxForSend()
-
-				_G.ChatEdit_ActivateChat(edit_box)
-				edit_box:Insert(_G.GetSpellLink(private.recipe_list[clicked_line.recipe_id].spell_id))
 			elseif _G.IsAltKeyDown() then
 				local exclusion_list = addon.db.profile.exclusionlist
 				local recipe_id = clicked_line.recipe_id
@@ -305,10 +310,9 @@ function private.InitializeListFrame()
 			-- 2) We clicked on the recipe button of an open recipe
 			-- 3) we clicked on the expanded text of an open recipe
 			if clicked_line.is_expanded then
-				traverseIndex = clickedIndex + 1
-
 				local check_type = clicked_line.type
-				local entry = ListFrame.entries[traverseIndex]
+				local removal_index = clicked_index + 1
+				local entry = ListFrame.entries[removal_index]
 				local current_tab = MainPanel.tabs[MainPanel.current_tab]
 
 				-- get rid of our expanded lines
@@ -318,17 +322,13 @@ function private.InitializeListFrame()
 						break
 					end
 					current_tab:ModifyEntry(entry, false)
-					ReleaseTable(table.remove(ListFrame.entries, traverseIndex))
-					entry = ListFrame.entries[traverseIndex]
-
-					if not entry then
-						break
-					end
+					ReleaseTable(table.remove(ListFrame.entries, removal_index))
+					entry = ListFrame.entries[removal_index]
 				end
 				current_tab:ModifyEntry(clicked_line, false)
 				clicked_line.is_expanded = false
 			else
-				ListFrame:ExpandEntry(clickedIndex)
+				ListFrame:ExpandEntry(clicked_index)
 				clicked_line.is_expanded = true
 			end
 		else
@@ -361,7 +361,7 @@ function private.InitializeListFrame()
 					ReleaseTable(table.remove(entries, child_index))
 				end
 			else
-				addon:Debug("Error: clicked_line has no parent.")
+				addon:Debug("Error: clicked_line (%s) has no parent.", clicked_line.type or _G.UNKNOWN)
 			end
 		end
 		QTip:Release(acquire_tip)
@@ -456,6 +456,7 @@ function private.InitializeListFrame()
 				if npc_id then
 					entry.npc_id = npc_id
 				end
+				entry.parent = parent_entry
 			else
 				addon:Debug("Attempting to parent an entry to itself.")
 			end
@@ -794,14 +795,14 @@ function private.InitializeListFrame()
 			local recipes_total_filtered = 0
 			local recipes_known_filtered = 0
 
-			local recipe_list = private.recipe_list
-			local current_prof = MainPanel.prof_name or private.ORDERED_PROFESSIONS[MainPanel.profession]
-			local can_display = false
+			local profession_recipes = private.profession_recipe_list[private.ORDERED_PROFESSIONS[MainPanel.profession]]
+			local can_display
 
-			for recipe_id, recipe in pairs(recipe_list) do
+			for recipe_id, recipe in pairs(profession_recipes) do
+				can_display = false
 				recipe:RemoveState("VISIBLE")
 
-				if recipe.profession == current_prof and not recipe.is_ignored then
+				if not recipe.is_ignored then
 					local is_known
 
 					if MainPanel.is_linked then
@@ -826,8 +827,6 @@ function private.InitializeListFrame()
 							can_display = false
 						end
 					end
-				else
-					can_display = false
 				end
 
 				if can_display then
@@ -850,12 +849,12 @@ function private.InitializeListFrame()
 			local unknown_count = 0
 
 			for spell_id in pairs(exclusion_list) do
-				local recipe = recipe_list[spell_id]
+				local recipe = profession_recipes[spell_id]
 
 				if recipe then
-					if recipe:HasState("KNOWN") and recipe.profession == current_prof then
+					if recipe:HasState("KNOWN") then
 						known_count = known_count + 1
-					elseif recipe.profession == current_prof then
+					else
 						unknown_count = unknown_count + 1
 					end
 				end
@@ -1059,24 +1058,12 @@ function private.InitializeListFrame()
 			cur_button:SetScript("OnLeave", Bar_OnLeave)
 			cur_button:Enable()
 
-			button_index = button_index + 1
-			string_index = string_index + 1
-		end
-		button_index = 1
-		string_index = button_index + offset
-
-		-- This function could possibly have been called from a mouse click or by scrolling. Since, in those cases, the list entries have
-		-- changed, the mouse is likely over a different entry - a tooltip should be generated for it.
-		while button_index <= NUM_RECIPE_LINES and string_index <= num_entries do
-			local cur_state = self.state_buttons[button_index]
-			local cur_button = self.entry_buttons[button_index]
-
+			-- This function could possibly have been called from a mouse click or by scrolling. Since, in those cases, the list entries have
+			-- changed, the mouse is likely over a different entry - a tooltip should be generated for it.
 			if cur_state:IsMouseOver() then
 				Button_OnEnter(cur_state)
-				break
 			elseif cur_button:IsMouseOver() then
 				Bar_OnEnter(cur_button)
-				break
 			end
 			button_index = button_index + 1
 			string_index = string_index + 1
@@ -1086,8 +1073,6 @@ function private.InitializeListFrame()
 	-------------------------------------------------------------------------------
 	-- Functions and data pertaining to individual list entries.
 	-------------------------------------------------------------------------------
-	local faction_labels
-
 	local function CanDisplayFaction(faction)
 		if addon.db.profile.filters.general.faction then
 			return true
@@ -1121,7 +1106,7 @@ function private.InitializeListFrame()
 		local coord_text = ""
 
 		if trainer.coord_x ~= 0 and trainer.coord_y ~= 0 then
-			coord_text = SetTextColor(CATEGORY_COLORS["coords"], ("(%d, %d)"):format(trainer.coord_x, trainer.coord_y))
+			coord_text = SetTextColor(CATEGORY_COLORS["coords"], COORD_FORMAT:format(trainer.coord_x, trainer.coord_y))
 		end
 		local entry = AcquireTable()
 
@@ -1156,7 +1141,7 @@ function private.InitializeListFrame()
 		local coord_text = ""
 
 		if vendor.coord_x ~= 0 and vendor.coord_y ~= 0 then
-			coord_text = SetTextColor(CATEGORY_COLORS["coords"], "(" .. vendor.coord_x .. ", " .. vendor.coord_y .. ")")
+			coord_text = SetTextColor(CATEGORY_COLORS["coords"], COORD_FORMAT:format(vendor.coord_x, vendor.coord_y))
 		end
 		local entry = AcquireTable()
 		local quantity = vendor.item_list[recipe_id]
@@ -1184,7 +1169,7 @@ function private.InitializeListFrame()
 		local coord_text = ""
 
 		if mob.coord_x ~= 0 and mob.coord_y ~= 0 then
-			coord_text = SetTextColor(CATEGORY_COLORS["coords"], "(" .. mob.coord_x .. ", " .. mob.coord_y .. ")")
+			coord_text = SetTextColor(CATEGORY_COLORS["coords"], COORD_FORMAT:format(mob.coord_x, mob.coord_y))
 		end
 		local entry = AcquireTable()
 
@@ -1216,7 +1201,7 @@ function private.InitializeListFrame()
 		local coord_text = ""
 
 		if quest.coord_x ~= 0 and quest.coord_y ~= 0 then
-			coord_text = SetTextColor(CATEGORY_COLORS["coords"], "(" .. quest.coord_x .. ", " .. quest.coord_y .. ")")
+			coord_text = SetTextColor(CATEGORY_COLORS["coords"], COORD_FORMAT:format(quest.coord_x, quest.coord_y))
 		end
 		local entry = AcquireTable()
 		entry.text = ("%s%s %s"):format(PADDING, hide_type and "" or SetTextColor(CATEGORY_COLORS["quest"], L["Quest"]) .. ":", name)
@@ -1242,6 +1227,8 @@ function private.InitializeListFrame()
 		return ListFrame:InsertEntry(entry, parent_entry, entry_index, entry_type, true)
 	end
 
+	local FACTION_LABELS
+
 	local function ExpandReputationData(entry_index, entry_type, parent_entry, vendor_id, rep_id, rep_level, recipe_id, hide_location, hide_type)
 		local rep_vendor = private.vendor_list[vendor_id]
 
@@ -1249,10 +1236,10 @@ function private.InitializeListFrame()
 			return entry_index
 		end
 
-		if not faction_labels then
+		if not FACTION_LABELS then
 			local rep_color = private.REPUTATION_COLORS
 
-			faction_labels = {
+			FACTION_LABELS = {
 				[0] = SetTextColor(rep_color["neutral"], BFAC["Neutral"] .. " : "),
 				[1] = SetTextColor(rep_color["friendly"], BFAC["Friendly"] .. " : "),
 				[2] = SetTextColor(rep_color["honored"], BFAC["Honored"] .. " : "),
@@ -1270,7 +1257,7 @@ function private.InitializeListFrame()
 		entry_index = ListFrame:InsertEntry(entry, parent_entry, entry_index, entry_type, true)
 
 		entry = AcquireTable()
-		entry.text = PADDING .. PADDING .. faction_labels[rep_level] .. name
+		entry.text = PADDING .. PADDING .. FACTION_LABELS[rep_level] .. name
 		entry.recipe_id = recipe_id
 		entry.npc_id = vendor_id
 
@@ -1279,7 +1266,7 @@ function private.InitializeListFrame()
 		local coord_text = ""
 
 		if rep_vendor.coord_x ~= 0 and rep_vendor.coord_y ~= 0 then
-			coord_text = SetTextColor(CATEGORY_COLORS["coords"], "(" .. rep_vendor.coord_x .. ", " .. rep_vendor.coord_y .. ")")
+			coord_text = SetTextColor(CATEGORY_COLORS["coords"], COORD_FORMAT:format(rep_vendor.coord_x, rep_vendor.coord_y))
 		end
 
 		if coord_text == "" and hide_location then
@@ -1400,9 +1387,9 @@ function private.InitializeListFrame()
 		local orig_index = entry_index
 		local current_entry = self.entries[orig_index]
 		local expand_all = expand_mode == "deep"
-		local search_box = MainPanel.search_editbox
 		local current_tab = MainPanel.tabs[MainPanel.current_tab]
 		local prof_name = private.ORDERED_PROFESSIONS[MainPanel.profession]
+		local profession_recipes = private.profession_recipe_list[prof_name]
 
 		-- Entry_index is the position in self.entries that we want to expand. Since we are expanding the current entry, the return
 		-- value should be the index of the next button after the expansion occurs
@@ -1422,9 +1409,9 @@ function private.InitializeListFrame()
 
 				for index = 1, #sorted_recipes do
 					local spell_id = sorted_recipes[index]
-					local recipe_entry = private.recipe_list[spell_id]
+					local recipe_entry = profession_recipes[spell_id]
 
-					if recipe_entry:HasState("VISIBLE") and search_box:MatchesRecipe(recipe_entry) then
+					if recipe_entry:HasState("VISIBLE") and MainPanel.search_editbox:MatchesRecipe(recipe_entry) then
 						local entry = AcquireTable()
 						local expand = false
 						local type = "subheader"
@@ -1445,7 +1432,7 @@ function private.InitializeListFrame()
 					end
 				end
 			elseif current_entry.type == "subheader" then
-				for acquire_type, acquire_data in pairs(private.recipe_list[current_entry.recipe_id].acquire_data) do
+				for acquire_type, acquire_data in pairs(profession_recipes[current_entry.recipe_id].acquire_data) do
 					if acquire_type == acquire_id then
 						entry_index = ExpandAcquireData(entry_index, "subentry", current_entry, acquire_type, acquire_data,
 										current_entry.recipe_id, false, true)
@@ -1467,9 +1454,9 @@ function private.InitializeListFrame()
 
 				for index = 1, #sorted_recipes do
 					local spell_id = sorted_recipes[index]
-					local recipe_entry = private.recipe_list[spell_id]
+					local recipe_entry = profession_recipes[spell_id]
 
-					if recipe_entry:HasState("VISIBLE") and search_box:MatchesRecipe(recipe_entry) then
+					if recipe_entry:HasState("VISIBLE") and MainPanel.search_editbox:MatchesRecipe(recipe_entry) then
 						local expand = false
 						local type = "subheader"
 						local entry = AcquireTable()
@@ -1491,7 +1478,7 @@ function private.InitializeListFrame()
 					end
 				end
 			elseif current_entry.type == "subheader" then
-				local recipe_entry = private.recipe_list[current_entry.recipe_id]
+				local recipe_entry = profession_recipes[current_entry.recipe_id]
 
 				-- World Drops are not handled here because they are of type "entry".
 				for acquire_type, acquire_data in pairs(recipe_entry.acquire_data) do
@@ -1539,7 +1526,7 @@ function private.InitializeListFrame()
 		-- Normal entry - expand all acquire types.
 		local recipe_id = self.entries[orig_index].recipe_id
 
-		for acquire_type, acquire_data in pairs(private.recipe_list[recipe_id].acquire_data) do
+		for acquire_type, acquire_data in pairs(profession_recipes[recipe_id].acquire_data) do
 			entry_index = ExpandAcquireData(entry_index, "entry", current_entry, acquire_type, acquire_data, recipe_id)
 		end
 		return entry_index
@@ -1641,8 +1628,6 @@ do
 	-------------------------------------------------------------------------------
 	-- Functions for adding individual acquire type data to the tooltip.
 	-------------------------------------------------------------------------------
-	local COORD_FORMAT = "(%.2f, %.2f)"
-
 	local TOOLTIP_ACQUIRE_FUNCS = {
 		[A.TRAINER] = function(recipe_id, identifier, location, acquire_info, addline_func)
 			local trainer = private.trainer_list[identifier]

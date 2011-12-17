@@ -4,7 +4,7 @@
 -- Lilsparky of Lothar
 
 
-local REV = ("110")
+local REV = ("119")
 local LSW_VERSION = "LSW r"..REV
 local LSW_VERSION_LONG = "LilSparky's Workshop r"..REV
 
@@ -16,11 +16,39 @@ LSWPrices = {value={}, valueSamples={},cost={},costSamples={}}
 local defaultConfig = {
 	residualValueFactor = 50,
 	vendorOverride = {},
-	itemBOP = {},
+--	itemBOP = {},
+	fixedPrice = {},
 }
 
 
 LSW = { rev = tonumber(string.match(REV,"(%d+)")) or 9999 }
+
+itemBOP = {}
+
+
+local function EasyMenu_Initialize( frame, level, menuList )
+	if type(menuList)=="function" then
+		menuList = menuList()
+	end
+
+	for index = 1, #menuList do
+		local value = menuList[index]
+		if (value.text) then
+			value.index = index;
+			UIDropDownMenu_AddButton( value, level );
+		end
+	end
+end
+
+local function EasyMenu(menuList, menuFrame, anchor, x, y, displayMode, autoHideDelay )
+	if ( displayMode == "MENU" ) then
+		menuFrame.displayMode = displayMode;
+	end
+	UIDropDownMenu_Initialize(menuFrame, EasyMenu_Initialize, displayMode, nil, menuList);
+	ToggleDropDownMenu(1, nil, menuFrame, anchor, x, y, menuList);
+end
+
+
 
 
 do
@@ -89,9 +117,18 @@ do
 
 
 	local function DoTextEntry(button, option)
+		local defaultText
+
+		if option.default then
+			if type(option.default) == "function" then
+				defaultText = option.default(option)
+			else
+				defaultText = option.default
+			end
+		end
 
 		menuInputBox.label:SetText(option.name)
-		menuInputBox.editBox:SetText(option.optionTable[option.variable])
+		menuInputBox.editBox:SetText(option.optionTable[option.variable] or defaultText or "")
 		menuInputBox:Show()
 		menuInputBox:SetPoint("TOPLEFT",button,"TOPRIGHT",10,0)
 
@@ -113,7 +150,17 @@ do
 			option.callback(button, option)
 		end
 
-		option.entry.text = string.format(option.formatString, option.name, option.optionTable[option.variable])
+		local defaultText
+
+		if option.default then
+			if type(option.default) == "function" then
+				defaultText = option.default(option)
+			else
+				defaultText = option.default
+			end
+		end
+
+		option.entry.text = string.format(option.formatString, option.name, option.optionTable[option.variable] or defaultText or "--")
 		self.button:SetText(option.entry.text)
 	end
 
@@ -132,7 +179,7 @@ do
 	end
 
 
-	local function RegisterValue(menu, name, formatString, optionTable, variable, callback)
+	local function RegisterValue(menu, name, formatString, optionTable, variable, callback, default)
 		local o = {}
 
 		o.name = name
@@ -141,6 +188,7 @@ do
 		o.type = "value"
 		o.callback = callback
 		o.formatString = formatString
+		o.default = default
 
 		table.insert(menu.options, o)
 	end
@@ -169,14 +217,26 @@ do
 
 				table.insert(menuTable, button)
 			elseif o.type == "value" then
+				local defaultText
+
+				if o.default then
+					if type(o.default) == "function" then
+						defaultText = o.default(o)
+					else
+						defaultText = o.default
+					end
+				end
+
 				local button = {
-					text = string.format(o.formatString, o.name, o.optionTable[o.variable]),
+					text = string.format(o.formatString, o.name, o.optionTable[o.variable] or defaultText or "--"),
 					arg1 = o,
-					notCheckable = true,
 					func = DoTextEntry,
 					keepShownOnClick = true,
 					value = i,
 				}
+
+				button.notCheckable = true
+				button.isNotRadio = true
 
 				o.entry = button
 
@@ -212,8 +272,10 @@ do
 					text = o.text,
 					menuList = subTable,
 					value = i,
+					arg1 = o,
 					hasArrow = true,
 					notCheckable = true,
+					isNotRadio = true,
 				}
 				o.entry = button
 
@@ -225,10 +287,10 @@ do
 	end
 
 
-	local function RegisterSubMenu(menu, name, optionTable, variable, subMenuEntries, callback)
+	local function RegisterSubMenu(menu, name, optionTable, variable, subMenuEntries, callback, default)
 		local subMenu = LSW:RegisterMenu(name.."-subMenu")
 		local m = {}
-		local setting = subMenuEntries[optionTable[variable]] or optionTable[variable] or "???"
+		local setting = subMenuEntries[optionTable[variable]] or optionTable[variable] or default or "???"
 		local selected
 
 		for value, name in pairs(subMenuEntries) do
@@ -241,6 +303,7 @@ do
 			o.value = value
 			o.menuParent = m
 			o.callback = callback
+			o.default = default
 
 			table.insert(subMenu.options, o)
 
@@ -412,14 +475,25 @@ do
 		end
 
 		progressBar.frame:SetPoint("BOTTOM",parentFrame,"TOP",0,0)
+		progressBar.isShown = false
+		progressBar.initTime = GetTime()
 	end
 
 
 	function progressBar:Show(progress, text)
 		if progressBar.frame then
 --			progressBar.frame:Show()
-			if not LSW:GetTimer("showProgressBar") and not progressBar.frame:IsVisible() then
-				LSW:CreateTimer("showProgressBar", 0.25, function() progressBar.frame:Show() end)
+--			if not LSW:GetTimer("showProgressBar") and not progressBar.frame:IsVisible() then
+--				LSW:CreateTimer("showProgressBar", 0.25, function() progressBar.frame:Show() end)
+--			end
+
+			if not progressBar.isShown and progress > 0.1 then			-- if the bar is not currently shown and it's at least 10% complete then decide whether to show the bar
+				local elapsed = GetTime() - progressBar.initTime
+
+				if (elapsed / progress) > 1 then						-- only show if the expected time to complete is longer than 1 second
+					progressBar.isShown = true
+					progressBar.frame:Show()
+				end
 			end
 
 			progressBar.textRight:SetFormattedText("%d%%", progress*100)
@@ -433,8 +507,9 @@ do
 
 	function progressBar:Hide()
 		if progressBar.frame then
-			LSW:DeleteTimer("showProgressBar")
+--			LSW:DeleteTimer("showProgressBar")
 
+			progressBar.isShown = false
 			progressBar.frame:Hide()
 		end
 	end
@@ -488,6 +563,7 @@ do
 
 	local currentSkillLevel = 1
 
+	local curentRecipe
 
 	-- these could certainly be made language specific if needed
 	local itemFateList={"a", "v", "d"}
@@ -529,6 +605,114 @@ do
 	local costMenu =
 	{
 	}
+
+
+	local itemMenuTable = {}
+	local itemMenu = {}
+
+
+	local function flushAndRedraw(button, opt)
+		CloseDropDownMenus()
+		LSW:FlushPriceData()
+	end
+
+	local function redraw(button, opt)
+		CloseDropDownMenus()
+		LSW:CreateTimer("updateData-Redraw", 0.05, LSW.UpdateData)
+	end
+
+	local function convertToCopper(button, opt)
+		local valNum = tonumber(opt.optionTable[opt.variable])
+
+		opt.optionTable[opt.variable] = valNum
+
+		flushAndRedraw(button, opt)
+	end
+
+
+	local function assignOverride(button, opt)
+		if LSWConfig.vendorOverride[opt.variable] == "nil" then
+			LSWConfig.vendorOverride[opt.variable] = nil
+		end
+
+		flushAndRedraw(button, opt)
+	end
+
+
+	local function DeleteOverride(menuEntry, opt)
+		LSWConfig.vendorOverride[opt.variable] = nil
+	end
+
+
+	local function GetItemCost(option)
+		local itemID = option.variable
+
+		return LSW:GetItemCost(itemID)/10000
+	end
+
+
+	local function GenerateItemMenu(itemID)
+		if not itemMenuTable[itemID] then
+			local menu = LSW:RegisterMenu(GetItemInfo(itemID))
+
+			local b = menu:RegisterSubMenu("Availability: ", LSWConfig.vendorOverride, itemID, {[true] = "|cff206080Vendor", [false] = "|cff909050Auction", ["nil"] = "Default"}, assignOverride, "Default")
+
+			local b = menu:RegisterValue("Fixed Price", "%s: |cffc0ff80%sg", LSWConfig.fixedPrice, itemID, convertToCopper, GetItemCost)
+
+
+
+			itemMenu[itemID] = menu
+
+			itemMenuTable[itemID] = menu:GenerateMenuTable()
+		end
+
+		itemMenuTable[itemID][1].notCheckable = false
+
+		if LSWConfig.vendorOverride[itemID] ~= nil then
+--[[
+			if LSWConfig.vendorOverride[itemID] then
+				itemMenuTable[itemID][1].text = "Availability: |cff206080Vendor"
+			else
+				itemMenuTable[itemID][1].text = "Availability: |cff909050Auction"
+			end
+]]
+			itemMenuTable[itemID][1].func = nil
+			itemMenuTable[itemID][1].checked = true
+		else
+--			itemMenuTable[itemID][1].text = "Adjust Item Availabilty"
+			itemMenuTable[itemID][1].func = nil
+			itemMenuTable[itemID][1].checked = false
+		end
+
+
+		itemMenuTable[itemID][2].notCheckable = nil
+		itemMenuTable[itemID][2].checked = LSWConfig.fixedPrice[itemID] ~= nil
+	end
+
+
+
+	local function GenerateReagentOverrideMenu()
+		local reagentList = recipeCache.reagents[currentRecipe]
+
+		local menu = {}
+
+		for itemID in pairs(reagentList) do
+
+			GenerateItemMenu(itemID)
+
+			local button = {
+				text = GetItemInfo(itemID),
+				menuList = itemMenuTable[itemID],
+				hasArrow = true,
+				notCheckable = true,
+			}
+
+			table.insert(menu, button)
+		end
+
+		return menu
+	end
+
 
 
 
@@ -663,7 +847,9 @@ do
 
 --				scrollVellum = 38682 					-- was scroll.vellumID but as of 4.0.1, there are no longer different vellum types
 			else
-				itemID = -recipeID
+				if itemID == recipeID then
+					itemID = -recipeID
+				end
 			end
 		end
 
@@ -676,8 +862,8 @@ do
 			return
 		end
 
-		if LSWConfig.itemBOP[itemID] then
-			return LSWConfig.itemBOP[itemID]
+		if itemBOP[itemID] then
+			return itemBOP[itemID]
 		end
 
 		local tooltip = LSWParsingTooltip
@@ -701,7 +887,7 @@ do
 			end
 		end
 
-		LSWConfig.itemBOP[itemID] = bop
+		itemBOP[itemID] = bop
 
 		return bop
 	end
@@ -754,7 +940,7 @@ do
 		local optionsMenuTable = optionsMenu:GenerateMenuTable()
 
 		if #optionsMenuTable>0 then
-			local button = { text = optionsMenu.name, menuList = optionsMenuTable, hasArrow = true}
+			local button = { text = optionsMenu.name, menuList = optionsMenuTable, hasArrow = true, notCheckable = true }
 			table.insert(costMenu, button)
 			table.insert(valueMenu, button)
 			table.insert(profitMenu, button)
@@ -780,17 +966,24 @@ do
 
 
 		if #costBasisMenuTable>0 then
-			local button = { text = costBasisMenu.name, menuList = costBasisMenuTable, hasArrow = true}
+			local button = { text = costBasisMenu.name, menuList = costBasisMenuTable, hasArrow = true, notCheckable = true }
 			table.insert(costMenu, button)
 
 			table.insert(profitMenu, button)
 		end
 
+		local reagentOverrides = LSW:RegisterMenu("Reagent Cost Overrides")
+
+		local button = { text = "Reagent Cost Overrides", menuList = GenerateReagentOverrideMenu, hasArrow = true, notCheckable = true }
+		table.insert(costMenu, button)
+
+		table.insert(profitMenu, button)
+
 
 
 		for menuName, menuTable in pairs(supportMenuList) do
 			if #menuTable>0 then
-				local button = { text = menuName.." Options", menuList = menuTable, hasArrow = true}
+				local button = { text = menuName.." Options", menuList = menuTable, hasArrow = true, notCheckable = true }
 				table.insert(costMenu, button)
 				table.insert(valueMenu, button)
 				table.insert(profitMenu, button)
@@ -822,8 +1015,8 @@ do
 			LSW:FlushPriceData()
 		end)
 
-		table.insert(valueMenu,{ text = "Value Module: "..valueName, menuList = temp, hasArrow = true })
-		table.insert(profitMenu, { text = "Value Module: "..valueName, menuList = temp, hasArrow = true })
+		table.insert(valueMenu,{ text = "Value Module: "..valueName, menuList = temp, hasArrow = true, notCheckable = true  })
+		table.insert(profitMenu, { text = "Value Module: "..valueName, menuList = temp, hasArrow = true, notCheckable = true  })
 
 
 		local i = #costMenu + 1
@@ -839,8 +1032,10 @@ do
 			LSW:FlushPriceData()
 		end)
 
-		table.insert(costMenu,{ text = "Cost Module: "..costName, menuList = temp, hasArrow = true })
-		table.insert(profitMenu, { text = "Cost Module: "..costName, menuList = temp, hasArrow = true })
+		table.insert(costMenu,{ text = "Cost Module: "..costName, menuList = temp, hasArrow = true, notCheckable = true })
+		table.insert(profitMenu, { text = "Cost Module: "..costName, menuList = temp, hasArrow = true, notCheckable = true  })
+
+
 
 
 
@@ -1096,12 +1291,14 @@ do
 		local cache = itemCache[itemID]
 
 		if cache then
-			local _, itemLink = GetItemInfo(itemID)
+--			local _, itemLink = GetItemInfo(itemID)
 
 			if cache.syncValue ~= priceDataSync then
 				cache.syncValue = priceDataSync
 
-				cache.auctionValue, cache.auctionValueCount = LSW.auctionValue(itemID)
+				if not cache.BOP then
+					cache.auctionValue, cache.auctionValueCount = LSW.auctionValue(itemID)
+				end
 
 				if not cache.auctionValue then
 					cache.auctionValue, cache.auctionValueCount = 0, 0
@@ -1133,21 +1330,16 @@ do
 	end
 
 
+
 	local function UpdateItemCost(itemID)
 		local cache = itemCache[itemID]
 		local spam
 
 		if cache then
-			local _, itemLink = GetItemInfo(itemID)
---[[
-if itemLink then
-	spam = itemLink:find("Ink")
-	spam = false
-end
-]]
---LSW:DebugMessage(spam, "updating prices for "..(itemLink or itemID))
-
-			if cache.syncCost ~= priceDataSync then
+			if LSWConfig.fixedPrice[itemID] then
+				cache.bestCost = LSWConfig.fixedPrice[itemID]*10000
+				cache.source = "f"
+			elseif cache.syncCost ~= priceDataSync then
 				cache.syncCost = priceDataSync
 
 				if cache.BOP ~= true then
@@ -1156,7 +1348,61 @@ end
 
 --LSW:DebugMessage(spam, "can craft? "..tostring(cache.canCraft))
 
-				cache.bestCost = nil					-- needed to help avoid infinite loops in recursion
+				local bestCost
+				local source = "?"
+
+				local itemIsVendorItem = LSW.vendorAvailability and LSW.vendorAvailability(itemID)
+
+				if LSWConfig.vendorOverride[itemID]~=nil then
+					itemIsVendorItem = LSWConfig.vendorOverride[itemID]
+				end
+
+				if LSWConfig.costBasis == COST_BASIS_PURCHASE then									-- best = least money
+					if itemIsVendorItem then
+						if not bestCost or (cache.vendorCost and bestCost > cache.vendorCost) then
+							bestCost = cache.vendorCost
+							if bestCost then
+								source = "v"
+							end
+						end
+					end
+
+					if not bestCost or (cache.auctionCost and bestCost > cache.auctionCost) then
+						bestCost = cache.auctionCost
+						if bestCost then
+							source = "a"
+						end
+					end
+				else																				-- best = most money
+					if itemIsVendorItem then														-- if item comes from vendor, then figure you need to buy it
+						if not bestCost or (cache.vendorCost and bestCost < cache.vendorCost) then
+							bestCost = cache.vendorCost
+							if bestCost then
+								source = "v"
+							end
+						end
+					end
+
+					if not itemIsVendorItem then														-- if it's not a vendor item, then figure you can at least sell it if there's no ah data
+						if not bestCost or (cache.vendorValue and bestCost < cache.vendorValue) then
+							bestCost = cache.vendorValue
+							if bestCost then
+								source = "v"
+							end
+						end
+
+						if not bestCost or (cache.auctionCost and bestCost < cache.auctionCost) then
+							bestCost = cache.auctionCost
+							if bestCost then
+								source = "a"
+							end
+						end
+					end
+				end
+
+				cache.source = source
+				cache.bestCost = bestCost or 0
+
 
 				local canCraft = cache.canCraft and (type(cache.canCraft) ~= "table" or (LSW[cache.canCraft[1]] >= cache.canCraft[2]))
 
@@ -1221,6 +1467,25 @@ end
 						cache.craftCost = bestCraftCost
 						cache.craftCostID = bestCraftID
 						cache.craftResidual = bestCraftResidual
+
+
+						if LSWConfig.costBasis == COST_BASIS_PURCHASE then									-- best = least money
+							if not bestCost or (cache.craftCost and (bestCost > cache.craftCost or LSWConfig.forceCraft)) then
+								bestCost = cache.craftCost
+								if bestCost then
+									source = "c"
+								end
+							end
+						else																				-- best = most money
+							if not itemIsVendorItem then
+								if cache.craftCost and LSWConfig.forceCraft then
+									bestCost = cache.craftCost
+									if bestCost then
+										source = "c"
+									end
+								end
+							end
+						end
 					end
 				else
 					cache.craftCost = nil
@@ -1228,72 +1493,6 @@ end
 					cache.craftResidual = nil
 				end
 
-
-				local bestCost
-				local source = "?"
-
-				local itemIsVendorItem = LSW.vendorAvailability and LSW.vendorAvailability(itemID)
-
-				if LSWConfig.vendorOverride[itemID]~=nil then
-					itemIsVendorItem = LSWConfig.vendorOverride[itemID]
-				end
-
-				if LSWConfig.costBasis == COST_BASIS_PURCHASE then									-- best = least money
-					if not LSW.vendorAvailability or itemIsVendorItem then
-						if not bestCost or (cache.vendorCost and bestCost > cache.vendorCost) then
-							bestCost = cache.vendorCost
-							if bestCost then
-								source = "v"
-							end
-						end
-					end
-
-					if not bestCost or (cache.auctionCost and bestCost > cache.auctionCost) then
-						bestCost = cache.auctionCost
-						if bestCost then
-							source = "a"
-						end
-					end
-
-					if not bestCost or (cache.craftCost and (bestCost > cache.craftCost or LSWConfig.forceCraft)) then
-						bestCost = cache.craftCost
-						if bestCost then
-							source = "c"
-						end
-					end
-				else																				-- best = most money
-					if not LSW.vendorAvailability or itemIsVendorItem then							-- if item comes from vendor, then figure you need to buy it
-						if not bestCost or (cache.vendorCost and bestCost < cache.vendorCost) then
-							bestCost = cache.vendorCost
-							if bestCost then
-								source = "v"
-							end
-						else																		-- if it's not a vendor item, then figure you can at least sell it if there's no ah data
-							if not bestCost or (cache.vendorValue and bestCost < cache.vendorValue) then
-								bestCost = cache.vendorValue
-								if bestCost then
-									source = "v"
-								end
-							end
-						end
-					end
-
-					if not itemIsVendorItem then
-						if not bestCost or (cache.auctionCost and bestCost < cache.auctionCost) then
-							bestCost = cache.auctionCost
-							if bestCost then
-								source = "a"
-							end
-						end
-
-						if cache.craftCost and LSWConfig.forceCraft then
-							bestCost = cache.craftCost
-							if bestCost then
-								source = "c"
-							end
-						end
-					end
-				end
 
 				cache.source = source
 				cache.bestCost = bestCost or 0
@@ -1345,19 +1544,22 @@ end
 	local updateIterateRefreshCount = 10
 
 	local function UpdateIterator(timer)
-		local count = 10
+		local count = 0
+		local startTime = GetTime()
 
-		while (count > 0) do
-			local name, skillType = GetTradeSkillInfo(updateIterateSkill)
+		while ((GetTime() - startTime) < .025) do
+			local index = updateIterateSkill
+
+			local name, skillType = GetTradeSkillInfo(index)
 
 			if skillType ~= "header" then
-				local recipeLink = GetTradeSkillRecipeLink(updateIterateSkill)
+				local recipeLink = GetTradeSkillRecipeLink(index)
 				local recipeID = LSW:FindID(recipeLink)
 
 				if not recipeCache.results[recipeID] or recipeCache.sync[recipeID] ~= priceDataSync then
 					UpdateSingleRecipePrice(recipeID)
 
-					count = count - 1
+					count = count + 1
 				end
 			end
 
@@ -1379,7 +1581,6 @@ end
 			end
 			updateIterateRefreshCount = 10
 		end
-
 
 
 		if updateIterateSkill > updateIterateSkillMax then
@@ -1761,6 +1962,10 @@ end
 			return 0
 		end
 
+		if level > 10 then			-- hard limit on recursion
+			return 0
+		end
+
 --[[
 		if itemID < 0 then
 			reagentName = "Disenchant "..GetItemInfo(itemID)
@@ -1967,13 +2172,24 @@ end
 
 
 	local function CostButton_OnLeave()
-		LSWTooltip:Hide();
+		LSWTooltip:Hide()
 	end
 
 	local function CostButton_OnClick(frame, button)
 		if (frame:GetText() == " ") then return end
 
 		if (button=="RightButton") then
+			local skillID =  frame:GetID()
+			local skillName, skillType, itemLink, recipeLink, itemID, recipeID = LSW:GetTradeSkillData(skillID)
+
+			if recipeCache.reagents[recipeID] then
+				for itemID in pairs(recipeCache.reagents[recipeID]) do
+					GenerateItemMenu(itemID)
+				end
+			end
+
+			currentRecipe = recipeID
+
 			EasyMenu(costMenu, LSWMenuFrame, frame, 0,0, "MENU", 5)
 		end
 	end
@@ -2293,14 +2509,12 @@ end
 	end
 
 
-
 	local function OnLoad()
 		if not LSW.initialized then
-			LSW.initialized = true
-
 			if LibStub then
 				periodicTable = LibStub:GetLibrary("LibPeriodicTable-3.1", true)
 			end
+
 
 --			LSW:ItemTableViewInit()
 --			LSW:RecipeTableViewInit()
@@ -2315,9 +2529,12 @@ end
 
 			DeepCopy(defaultConfig, LSWConfig)
 
+			LSWConfig.itemBOP = nil
 
-			InitializeFrameSupport()
 			InitializePricingSupport()
+			InitializeFrameSupport()
+
+			LSW.initialized = true
 		end
 	end
 
@@ -2341,6 +2558,9 @@ end
 	LSW.auctionCost = function() return nil,0 end
 	LSW.auctionValue = function() return nil,0 end
 
+
+
+
 	function LSW:CreateTimer(name, countDown, triggerFunction, repeatTime)
 		timerList[name] = {name=name, countDown=countDown, triggerFunction=triggerFunction, repeatTime=repeatTime}
 	end
@@ -2356,7 +2576,41 @@ end
 	end
 
 
+	local function ClearPriceData(itemID)
+		local icache = itemCache[itemID]
+		if icache and (icache.syncValue or icache.syncCost) then
+--print("clear price for", (GetItemInfo(itemID)))
+			icache.syncValue = nil
+			icache.syncCost = nil
 
+			if icache.craftSource then
+				for sourceRecipeID in pairs(icache.craftSource) do
+					recipeCache.sync[sourceRecipeID] = nil
+--print("clear price for",GetSpellLink(sourceRecipeID))
+
+					if recipeCache.results[sourceRecipeID] then
+						for itemID in pairs(recipeCache.results[sourceRecipeID]) do
+							ClearPriceData(itemID)
+						end
+					end
+				end
+			end
+		end
+	end
+
+
+	local function AuctionDataUpdate()
+		local num, totalNum = GetNumAuctionItems("list")
+
+		for i=1,num do
+			local itemLink = GetAuctionItemLink("list",i)
+
+			if itemLink then
+				local itemID = tonumber(string.match(itemLink,"item:(%d+)"))
+				ClearPriceData(itemID)
+			end
+		end
+	end
 
 
 	local master = CreateFrame("Frame", "LSWMasterFrame")
@@ -2368,6 +2622,7 @@ end
 		OnLoad()
 		master:RegisterEvent("TRADE_SKILL_UPDATE")
 		master:RegisterEvent("MODIFIER_STATE_CHANGED")
+		master:RegisterEvent("AUCTION_ITEM_LIST_UPDATE")
 		UpdateWindow()
 
 		LSW:CreateTimer("updateData-UpdateEvent", 0.1, LSW.UpdateData)
@@ -2385,6 +2640,10 @@ end
 
 		if event == "MODIFIER_STATE_CHANGED" then
 			UpdateWindow()
+		end
+
+		if event == "AUCTION_ITEM_LIST_UPDATE" then
+			AuctionDataUpdate()
 		end
 	end)
 
@@ -2414,7 +2673,8 @@ end
 						timer:triggerFunction()
 
 						if timer.repeatTime then
-							timer.countDown = timer.countDown + timer.repeatTime
+--							timer.countDown = timer.countDown + timer.repeatTime
+							timer.countDown = timer.repeatTime
 						else
 							timerList[name] = nil
 						end

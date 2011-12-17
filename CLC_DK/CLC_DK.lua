@@ -90,7 +90,7 @@ if select(2, UnitClass("player")) == "DEATHKNIGHT" then
 			["Strangulate"] = GetSpellInfo(47476),	
 			
 			--Blood Only
-			["Blade Barrier"] = GetSpellInfo(64856), 
+			["Blade Barrier"] = GetSpellInfo(49501), 
 			["Blood Shield"] = GetSpellInfo(77535),		
 			["Crimson Scourge"] = GetSpellInfo(81141),
 			["Bone Shield"] = GetSpellInfo(49222),
@@ -214,6 +214,7 @@ if select(2, UnitClass("player")) == "DEATHKNIGHT" then
 				spells["Dancing Rune Weapon"],
 				spells["Rune Tap"],	
 				spells["Scarlet Fever"],
+				spells["Lichborne"],
 				spells["Vampiric Blood"],
 			},
 			Buffs = {--List of Buffs
@@ -322,6 +323,14 @@ if select(2, UnitClass("player")) == "DEATHKNIGHT" then
 		spells["Image of Immortality"] = GetSpellInfo(92222)
 		AddTrinket(select(1, GetItemInfo(62466)), {spells["Image of Immortality"], true, 62466})
 		
+		--Essence of the Eternal Flame
+		spells["Essence of the Eternal Flame"] = GetSpellInfo(97010)
+		AddTrinket(select(1, GetItemInfo(69002)), {spells["Essence of the Eternal Flame"], true, 69002})
+		
+		-- Rotting Skull
+		spells["Titanic Strength"] = GetSpellInfo(109746)
+		AddTrinket(select(1, GetItemInfo(77987)), {spells["Titanic Strength"], true, 77987})
+		
 		--Bloodthirsty Gladiator's Badge of Victory
 		spells["Call of Victory1"] = GetSpellInfo(92224)
 		AddTrinket(select(1, GetItemInfo(64689)), {spells["Call of Victory1"], true, 64689})
@@ -363,6 +372,10 @@ if select(2, UnitClass("player")) == "DEATHKNIGHT" then
 		spells["Accelerated"] = GetSpellInfo(96980)
 		AddTrinket(select(1, GetItemInfo(68995)), {spells["Accelerated"], false, 0, 0, false})
 		
+		--Eye of Unmaking
+		spells["Titanic Strength"] = GetSpellInfo(109748)
+		AddTrinket(select(1, GetItemInfo(77977)), {spells["Titanic Strength"], false, 0, 0, false})
+				
 		
 		--ICD
 		-- Heart of Rage
@@ -392,6 +405,16 @@ if select(2, UnitClass("player")) == "DEATHKNIGHT" then
 		-- Right Eye of Rajh
 		spells["Eye of Doom"] = GetSpellInfo(91368)
 		AddTrinket(select(1, GetItemInfo(56431)), {spells["Eye of Doom"], false, 10*5, 0, false})
+		
+		-- Rosary of Light
+		spells["Rosary of Light"] = GetSpellInfo(102660)
+		AddTrinket(select(1, GetItemInfo(72901)), {spells["Rosary of Light"], false, 20*5, 0, false})	
+		
+		-- Creche of the Final Dragon
+		spells["Haste"] = GetSpellInfo(109743)
+		AddTrinket(select(1, GetItemInfo(77972)), {spells["Haste"], false, 20*5, 0, false})
+		
+		
 	
 		if debugg then print("CLCDK:Trinkets Loaded")end
 		return loaded

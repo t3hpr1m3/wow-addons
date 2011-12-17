@@ -1,11 +1,11 @@
-﻿## Interface: 40200
+﻿## Interface: 40300
 ## Title: ChocolateBar
 ## Notes: A display for LibDataBroker-1.1
 ## Author: yess
-## Version: v2.2
+## Version: v2.2.4
 ## X-Email: starfire@fantasymail.de
 ## OptionalDeps: Ace3, LibSharedMedia-3.0, LibJostle-3.0
-## X-Curse-Packaged-Version: v2.2
+## X-Curse-Packaged-Version: v2.2.4
 ## X-Curse-Project-Name: ChocolateBar Broker Display
 ## X-Curse-Project-ID: chocolatebar
 ## X-Curse-Repository-ID: wow/chocolatebar/mainline
@@ -33,6 +33,8 @@ localization\frFr.lua
 localization\koKR.lua
 localization\zhCN.lua
 localization\zhTW.lua
+localization\ptBR.lua
+localization\ruRU.lua
 
 Core.lua
 DragAndDrop.lua

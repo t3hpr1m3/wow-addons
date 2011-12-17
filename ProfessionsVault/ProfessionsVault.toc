@@ -1,4 +1,4 @@
-## Interface: 40200
+## Interface: 40300
 ## Title: ProfessionsVault
 ## Author: oscarucb
 ## Description: Simple and super light-weight tracking of profession links for all your alts.
@@ -6,17 +6,17 @@
 ## URL: http://www.wowace.com/addons/professionsvault
 ## X-Category: Profession
 ## Credits: translators: next96, freydis88, Farook, Shorty, alpha2009, zhTW, D_Angel, Valdesca, ChtiClem
-## Version: 5.6
-## X-Build: 266
-## X-ReleaseDate: 2011-09-01T04:32:05Z
-## X-Revision: $Revision: 266 $
+## Version: 5.8.1
+## X-Build: 280
+## X-ReleaseDate: 2011-12-03T02:30:41Z
+## X-Revision: $Revision: 276 $
 ## SavedVariables: ProfessionsVaultDB 
 ## SavedVariablesPerCharacter: 
 ## X-Embeds: Ace3, LibDataBroker-1.1, LibDBIcon-1.0
 ## OptionalDeps: Ace3, LibDataBroker-1.1, LibDBIcon-1.0, AtlasLoot
 ## LoadManagers: AddonLoader
 ## X-LoadOn-Always: delayed
-## X-Curse-Packaged-Version: 5.6
+## X-Curse-Packaged-Version: 5.8.1
 ## X-Curse-Project-Name: ProfessionsVault
 ## X-Curse-Project-ID: professionsvault
 ## X-Curse-Repository-ID: wow/professionsvault/mainline

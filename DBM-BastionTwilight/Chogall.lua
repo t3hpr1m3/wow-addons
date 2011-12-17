@@ -2,7 +2,7 @@
 local mod	= DBM:NewMod("Chogall", "DBM-BastionTwilight")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 6496 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 6701 $"):sub(12, -3))
 mod:SetCreatureID(43324)
 mod:SetModelID(34576)
 mod:SetZone()
@@ -54,7 +54,7 @@ local timerFlamingDestruction		= mod:NewBuffActiveTimer(10, 81194, nil, mod:IsTa
 local timerEmpoweredShadows			= mod:NewBuffActiveTimer(9, 81572, nil, mod:IsHealer())
 local timerFuryCD					= mod:NewCDTimer(47, 82524, nil, mod:IsTank() or mod:IsHealer())--47-48 unless a higher priority ability is channeling (such as summoning adds or MC)
 local timerCreationsCD				= mod:NewNextTimer(30, 82414)
-local timerSickness					= mod:NewBuffActiveTimer(5, 82235)
+local timerSickness					= mod:NewBuffFadesTimer(5, 82235)
 local timerFlamesOrders				= mod:NewNextTimer(25, 81171, nil, mod:IsDps())--Orders are when he summons elemental
 local timerShadowsOrders			= mod:NewNextTimer(25, 81556, nil, mod:IsDps())--These are more for dps to switch to them to lower em so useless for normal mode
 local timerFlamingDestructionCD		= mod:NewNextTimer(20, 81194, nil, mod:IsTank() or mod:IsHealer())--Timer for when the special actually goes off (when he absorbs elemental)
@@ -285,7 +285,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 end
 
 function mod:SPELL_DAMAGE(args)
-	if args:IsSpellID(81538, 93212, 93123, 93214) and args:IsPlayer() and GetTime() - blazeSpam >= 4 then
+	if args:IsSpellID(81538, 93212, 93213, 93214) and args:IsPlayer() and GetTime() - blazeSpam >= 4 then
 		specWarnBlaze:Show()
 		blazeSpam = GetTime()
 	end

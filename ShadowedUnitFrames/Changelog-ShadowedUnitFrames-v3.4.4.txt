@@ -1,0 +1,17 @@
+tag v3.4.4
+e7d20baceeaddd80af77c4bc1009d5d43bf1cd51
+Shadowed <shadowed.wow@gmail.com>
+2011-12-02 08:17:43 -0800
+
+Tagging as release 3.4.4
+
+
+--------------------
+
+Shadowed:
+	- Fixed a bug where using the enlarge self auras and anchoring buffs and debuffs to themselves would cause too many auras to be shown, or aura positioning to get messed up
+	- Need to reset ranged.time when updating the group too
+	- Oops, default power color should be by type not class
+	- Fixed a typo causing temporary enchants to error when using ranged enchants
+	- Added ability to color power bar by class, added a warning to disable ShadowedUF_ClassPower so people stop posting about it
+	- Bump options TOC

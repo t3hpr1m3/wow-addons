@@ -1,7 +1,7 @@
 --[[
 	Auctioneer
-	Version: 5.12.5198 (QuirkyKiwi)
-	Revision: $Id: CoreManifest.lua 5184 2011-06-24 00:16:48Z Nechckn $
+	Version: 5.13.5246 (BoldBandicoot)
+	Revision: $Id: CoreManifest.lua 5174 2011-06-01 10:27:55Z brykrys $
 	URL: http://auctioneeraddon.com/
 
 	This is an addon for World of Warcraft that adds statistical history to the auction data that is collected
@@ -72,7 +72,7 @@ end
 AucAdvanced = {}
 local lib = AucAdvanced
 
-lib.Version="5.12.5198";
+lib.Version="5.13.5246";
 if (lib.Version == "<".."%version%>") then
 	lib.Version = "5.12.DEV";
 end
@@ -125,4 +125,4 @@ function lib.ValidateInstall()
 	return true --NoOp for the moment
 end
 
-AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.12/Auc-Advanced/CoreManifest.lua $", "$Rev: 5184 $")
+AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.13/Auc-Advanced/CoreManifest.lua $", "$Rev: 5174 $")

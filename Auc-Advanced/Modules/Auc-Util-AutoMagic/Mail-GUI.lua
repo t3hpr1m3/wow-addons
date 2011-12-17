@@ -1,6 +1,6 @@
 --[[
 	Auctioneer - AutoMagic Utility module
-	Version: 5.12.5198 (QuirkyKiwi)
+	Version: 5.13.5246 (BoldBandicoot)
 	Revision: $Id: Mail-GUI.lua 4556 2009-12-03 22:20:32Z Kandoko $
 	URL: http://auctioneeraddon.com/
 
@@ -168,4 +168,4 @@ function lib.makeMailGUI()
 	lib.ammailgui.loadpigment:SetScript("OnEnter", function() lib.buttonTooltips( lib.ammailgui.loadpigment, "Add all Pigments \nto the mail.") end)
 	lib.ammailgui.loadpigment:SetScript("OnLeave", function() GameTooltip:Hide() end)
 end
-AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.12/Auc-Util-AutoMagic/Mail-GUI.lua $", "$Rev: 4556 $")
+AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.13/Auc-Util-AutoMagic/Mail-GUI.lua $", "$Rev: 4556 $")

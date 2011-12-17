@@ -1,4 +1,4 @@
-﻿-- $Id: constants.ru.lua 3537 2011-09-08 14:14:53Z hegarol $
+﻿-- $Id: constants.ru.lua 3607 2011-10-18 10:35:15Z hegarol $
 --[[
 constants.ru.lua
 This file defines an AceLocale table for all the various text strings needed
@@ -490,15 +490,9 @@ if AL then
 	AL["10/25 Man"] = "10/25 Чел";
 	AL["Epic Set"] = "Превосходные комплекты";
 	AL["Rare Set"] = "Редкие комплекты";
-	AL["Season 1"] = "Сезон 1";
-	AL["Season 2"] = "Сезон 2";
-	AL["Season 3"] = "Сезон 3";
-	AL["Season 4"] = "Сезон 4";
-	AL["Season 5"] = "Сезон 5";
-	AL["Season 6"] = "Сезон 6";
-	AL["Season 7"] = "Сезон 7";
-	AL["Season 8"] = "Сезон 8";
 	AL["Season 9"] = "Сезон 9";
+	AL["Season 10"] = "Сезон 10";
+	AL["Season 11"] = "Сезон 11";
 	AL["Fire"] = "Огонь";
 	AL["Water"] = "Вода";
 	AL["Wind"] = "Ветер";
@@ -650,7 +644,6 @@ if AL then
 	AL["Alliance Tabards"] = "Накидки альянса";
 	AL["Card Game Tabards"] = "Накидки с игровых карт";
 	AL["Horde Tabards"] = "Накидки орды";
-	AL["Neutral Faction Tabards"] = "Накидки нейтральных фракций";
 	AL["PvP Tabards"] = "PvP накидки";
 	AL["Unobtainable Tabards"] = "Недоступные накидки";
 
@@ -950,11 +943,6 @@ if AL then
 	AL["Templars"] = "Храмовники";
 	AL["Dukes"] = "Герцоги";
 	AL["High Council"] = "Верховный советник";
-	AL["Barleybrew Brewery"] = "Ячменевское Тчали";
-	AL["Thunderbrew Brewery"] = "Грозовар Тчали";
-	AL["Gordok Brewery"] = "Гордок Тчали";
-	AL["Drohn's Distillery"] = "Винокурня Дрона";
-	AL["T'chali's Voodoo Brewery"] = "Пивоваренного завода Тчали Вуду";
 	AL["Scarshield Quartermaster"] = "Интендант из легиона Изрубленного Щита";
 	AL["Father Flame"] = "Огонь отцов";
 	AL["Thomas Yance"] = "Томас Янс";
@@ -1038,7 +1026,6 @@ if AL then
 	AL["Ripe Disgusting Jar"] = "Совершенно омерзительный кувшин";
 	AL["Cracked Egg"] = "Треснутое яйцо";
 	AL["Small Spice Bag"] = "Маленький мешочек со специями";
-	AL["Handful of Candy"] = "Пригоршня конфет";
 	AL["Lovely Dress Box"] = "Коробка с красивым платьем";
 	AL["Dinner Suit Box"] = "Коробка с вечерним костюмом";
 	AL["Bag of Heart Candies"] = "Пакетик с леденцами-сердечками";

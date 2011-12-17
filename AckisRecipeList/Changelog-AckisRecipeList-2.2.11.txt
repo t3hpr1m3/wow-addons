@@ -1,0 +1,69 @@
+tag 2.2.11
+544a9f1a94e7516fcd47adf72f5542ce63d797cb
+mike <mike@broinitup.com>
+2011-12-07 12:15:40 -0500
+
+Tagging as 2.2.11
+
+
+--------------------
+
+mike:
+	- update changelog
+	- Add a new Jewelcrafting recipe put into the game, "Stardust"
+	- Dump the Leatherworking database
+	- Dump the Blacksmithing database
+	- Removed the Engineering recipe: "Copper Tube", completely removed from the game
+	- Add :SetRecipeItemID() to the new Jewelcrafting recipe entries
+	- sort the new Jewelcrafting recipes
+	- sort the Tailoring recipes
+	- fixed the vendor ids.
+John Pasula:
+	- Add ground work for epic JC recipes (vendor, localization, etc.)
+	- Forgot the black silk vest skill levels.
+	- Update tailoring stuffz.
+	- Update leatherworking with 4.3 stuff.  The packager is dead. Long live the packager.
+	- Update Enchanting - Executioner added back in to the game.
+	- 4.3 BS plans added.  Torhal is a scumbag.
+	- Mark Copper Tube as removed from the game. Ticket 1364.
+	- Update Xizzer's vendor location and Zap trainer location. Ticket 1359
+	- Update Mishta and Zorbin Vendor locations. Ticket 1354.
+	- Lets update Glyph of Levitate to be 175 skill level.  We don't really know what it is, but it's not 170 (higher).  Ticket 1272.
+	- Update Logannas coordinates.  Ticket 1350.
+	- Mark Gift of Arthas as retired.  Update mob db and localization.  Ticket 1349.
+	- Update faction flags for Fire Protection Potion. Ticket 1384.
+	- Remove shadowmage from locale table.
+	- Remove Shadowmage (Mob ID 8550) and upate Dark Adept location. Ticket 1351
+James D. Callahan III:
+	- Make sure recipe is non-nil before attempting to check its visible state.
+mike:
+	- the pvp pieces Bloodthirsty -> Vicious and scanned the Jewelcrafting trainer - Lugrah
+	- the pvp pieces Bloodthirsty -> Vicious
+	- Added the new Inscription recipe: Glyph of Shadow
+	- Added new recipes from 4.3.. commented out atm, will be adding them in the coming days
+	- Added the new recipe: Maelstrom Shatter
+John Pasula:
+	- ToC Bump.
+mike:
+	- Removed the alliance filter flag from the Cooking recipe "Strider Stew"
+	- Cleaned up the acquire for "Minor Recombobulator" .. removed and added some vendors
+James D. Callahan III:
+	- Typo fix in embeds.xml
+	- I could have sworn I'd removed all of the Quest name localizations two years ago, but here one is!
+	- Use the per-profession recipe list wherever possible instead of the monolithic recipe list, removing the requirement to check if the recipe is indeed of the required profession. Minor cleanup along the way.
+	- Minor cleanup.
+	- Allow more than one debug toast at a time since it's no longer a "Hey, you have debug messages!" toast.
+	- The "Faction" obtain filter now displays the name of the opposing faction, and its tooltip now more accurately describes its purpose.
+mike:
+	- imported phrases for translations
+James D. Callahan III:
+	- Small logic cleanup and variable renames for clarity.
+	- Print the debug message in the debug toast instead of simply stating that there is a new debug message.
+	- When inserting a new entry into the list, SET ITS PARENT! This allows collapsing of expanded subheaders by clicking a subentry.
+	- Normalized all coordinate displays; the coordinates in the list will now be in the same format as those in the tooltip.
+	- Declare faction_labels just before it's needed, and uppercase it since it's a constant.
+	- Perform mouseover checks while populating the list instead of iterating over the buttons twice.
+	- Minor logic cleanup.
+mike:
+	- Added the vendor flag and vendor acquire to the "Bread of the Dead" Cooking recipe
+	- Added a new vendor: "Chapman"

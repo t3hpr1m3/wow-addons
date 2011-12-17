@@ -1,4 +1,4 @@
--- $Id: constants.en.lua 3541 2011-09-09 12:10:45Z lag123 $
+-- $Id: constants.en.lua 3628 2011-11-09 10:04:43Z hegarol $
 --[[
 constants.en.lua
 This file defines an AceLocale table for all the various text strings needed
@@ -250,6 +250,8 @@ if AL then
 	AL["ilvl 372"] = true;
 	AL["ilvl 378"] = true;
 	AL["ilvl 391"] = true;
+	AL["ilvl 397"] = true;
+	AL["ilvl 410"] = true;
 
 	-- #######################################
 	-- UI things END
@@ -352,6 +354,7 @@ if AL then
 	AL["Tier 9 Set"] = true;
 	AL["Tier 10 Set"] = true;
 	AL["Tier 11/12 Set"] = true;
+	AL["Tier 13 Set"] = true;
 	AL["TCG Items"] = true; -- Trading Card Game Items
 	AL["Transformation Items"] = true;
 
@@ -386,6 +389,7 @@ if AL then
 	AL["Skettis"] = true;
 	AL["Stranglethorn Fishing Extravaganza"] = true;
 	AL["Kalu'ak Fishing Derby"] = true;
+	AL["Fishing Contests"] = true;
 
 	-- Minimap Button
 	AL["|cff1eff00Left-Click|r Browse Loot Tables"] = true;
@@ -531,7 +535,9 @@ if AL then
 	AL["Dungeon Set 1"] = true;
 	AL["Dungeon Set 2"] = true;
 	AL["Dungeon Set 1/2"] = true;
+	AL["Replica"] = true;
 	AL["Dungeon Set 3"] = true;
+	AL["Dungeon Set 4"] = true;
 	AL["Tier 1"] = true;
 	AL["Tier 2"] = true;
 	AL["Tier 3"] = true;
@@ -544,20 +550,14 @@ if AL then
 	AL["Tier 10"] = true;
 	AL["Tier 11"] = true;
 	AL["Tier 12"] = true;
+	AL["Tier 13"] = true;
 	AL["10 Man"] = true;
 	AL["10/25 Man"] = true;
 	AL["Epic Set"] = true;
 	AL["Rare Set"] = true;
-	AL["Season 1"] = true;
-	AL["Season 2"] = true;
-	AL["Season 3"] = true;
-	AL["Season 4"] = true;
-	AL["Season 5"] = true;
-	AL["Season 6"] = true;
-	AL["Season 7"] = true;
-	AL["Season 8"] = true;
 	AL["Season 9"] = true;
 	AL["Season 10"] = true;
+	AL["Season 11"] = true;
 	AL["Fire"] = true;
 	AL["Water"] = true;
 	AL["Wind"] = true;
@@ -589,6 +589,7 @@ if AL then
 	AL["Accessories"] = true;
 	AL["Rare"] = true;
 	AL["Specializations"] = true;
+	AL["Raid Finder"] = true;
 
 	-- Loot Table Names
 	AL["Level 30-39"] = true;
@@ -597,6 +598,7 @@ if AL then
 	AL["Summon"] = true;
 	AL["Random"] = true;
 	AL["Brew of the Month Club"] = true;
+	AL["Food and Drinks"] = true;
 
 	-- Profession descriptions
 	AL["Buff"] = true;
@@ -639,6 +641,8 @@ if AL then
 	AL["Speed"] = true;
 	AL["Rod"] = true; -- Used in categorizing Enchating Misc, ex: Runed Elementium Rod, Runed Fel Iron Rod. "Rod" is used as a category name
 	AL["Oil"] = true; -- Used in categorizing Enchating Misc, ex: Superior Wizard Oil, Wizard Oil
+	AL["Culture"] = true;
+	AL["Description"] = true;
 	AL["Dwarf"] = true;
 	AL["Draenei"] = true;
 	AL["Night Elf"] = true;
@@ -669,6 +673,7 @@ if AL then
 	AL["Trial of the Crusader Patterns/Plans"] = true;
 	AL["BRD Blacksmithing Plans"] = true;
 	AL["Firelands Patterns/Plans"] = true;
+	AL["Dragon Soul Patterns/Plans"] = true;
 
 	-- General titles
 	AL["Achievement"] = true;
@@ -712,7 +717,6 @@ if AL then
 	AL["Alliance Tabards"] = true;
 	AL["Card Game Tabards"] = true;
 	AL["Horde Tabards"] = true;
-	AL["Neutral Faction Tabards"] = true;
 	AL["PvP Tabards"] = true;
 	AL["Unobtainable Tabards"] = true;
 
@@ -812,6 +816,12 @@ if AL then
 
 	-- Fifteenth set
 	AL["Twilight of the Dragons"] = true;
+
+	-- Seventeenth set
+	AL["Crown of Heaven"] = true;
+
+	-- Eighteenth set
+	AL["Tomb of the Forgotten"] = true;
 
 	-- Battleground Brackets
 	AL["Old PvP Rewards"] = true;
@@ -1012,11 +1022,6 @@ if AL then
 	AL["Templars"] = true;
 	AL["Dukes"] = true;
 	AL["High Council"] = true;
-	AL["Barleybrew Brewery"] = true;
-	AL["Thunderbrew Brewery"] = true;
-	AL["Gordok Brewery"] = true;
-	AL["Drohn's Distillery"] = true;
-	AL["T'chali's Voodoo Brewery"] = true;
 	AL["Scarshield Quartermaster"] = true;
 	AL["Father Flame"] = true;
 	AL["Thomas Yance"] = true;
@@ -1106,7 +1111,9 @@ if AL then
 	AL["Ripe Disgusting Jar"] = true;
 	AL["Cracked Egg"] = true;
 	AL["Small Spice Bag"] = true;
-	AL["Handful of Candy"] = true;
+	AL["Handful of Treats"] = true;
+	AL["Consumable Wands & Masks"] = true;
+	AL["Permanent Masks"] = true;
 	AL["Lovely Dress Box"] = true;
 	AL["Dinner Suit Box"] = true;
 	AL["Bag of Heart Candies"] = true;

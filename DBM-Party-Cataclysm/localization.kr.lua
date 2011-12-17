@@ -26,7 +26,7 @@ L:SetWarningLocalization({
 })
 
 L:SetOptionLocalization({
-	WarnAdd		= "광신도가 $spell:75608 효과를 잃었을 때 경고 보기(광신도 진화)"
+	WarnAdd		= "광신도가 $spell:75608 효과를 잃었을 때 알림 보기(광신도 진화)"
 })
 
 -----------------------
@@ -43,7 +43,7 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	TimerSuperheated	= "$spell:75846 지속 타이머 보기"
+	TimerSuperheated	= "$spell:75846 효과 바 표시"
 })
 
 ------------
@@ -144,7 +144,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetOptionLocalization{
-	PingBlitz	= "당신이 $spell:74670 의 대상이 될 경우 미니맵에 위치 표시하기"
+	PingBlitz	= "$spell:74670 대상이 될 경우 미니맵에 위치 표시"
 }
 
 L:SetMiscLocalization{
@@ -239,7 +239,7 @@ L:SetWarningLocalization({
 })
 
 L:SetOptionLocalization({
-	WarnSplitSoon	= "분리 사전 경고 보기"
+	WarnSplitSoon	= "분리 사전 알림 보기"
 })
 
 -------------
@@ -298,8 +298,8 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization{
-	specWarnPhase2Soon	= "2 단계 특수 경고 보기(5초 전)",
-	timerPhase2 		= "2 단계 시작 타이머 보기"
+	specWarnPhase2Soon	= "2 단계 시작 특수 경고 보기(5초 전)",
+	timerPhase2 		= "2 단계 시작 바 표시"
 }
 
 ------------------------
@@ -312,12 +312,12 @@ L:SetGeneralLocalization({
 })
 
 L:SetOptionLocalization{
-	BossHealthAdds	= "추가되는 몹의 체력 프레임 보기"	-- translate
+	BossHealthAdds	= "추가 몬스터에 대한 체력 프레임 보기"
 }
 
 L:SetMiscLocalization{
-	BlazeHeavens		= "천상의 불꽃",	-- translate
-	HarbringerDarkness	= "암흑의 전령"	-- translate, 영혼의파편
+	BlazeHeavens		= "천상의 불꽃",
+	HarbringerDarkness	= "암흑의 전령"
 }
 
 --------------
@@ -330,7 +330,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetOptionLocalization{
-	RangeFrame	= "거리 프레임 보기 (5 m)"		-- translate
+	RangeFrame	= "거리 프레임 보기 (5m)"
 }
 
 ----------
@@ -339,7 +339,7 @@ L:SetOptionLocalization{
 L = DBM:GetModLocalization("Augh")
 
 L:SetGeneralLocalization({
-	name = "오우"		-- translate
+	name = "오우"
 })
 
 -----------------------
@@ -376,7 +376,7 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization{
-	TimerAdds		= "다음 유령 소환 타이머 보기"
+	TimerAdds		= "다음 유령 소환 바 표시"
 }
 
 L:SetMiscLocalization{
@@ -393,12 +393,12 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization{
-	specWarnCoagulant	= "녹색 - 움직이세요!",	-- Green light
-	specWarnRedMix		= "빨강 - 움직이지 마세요!"		-- Red light
+	specWarnCoagulant	= "녹색 빛 - 움직이세요!",	-- Green light
+	specWarnRedMix		= "빨강 빛 - 움직이지 마세요!"		-- Red light
 }
 
 L:SetOptionLocalization{
-	RedLightGreenLight	= "녹색/빨강 이동 관련 특수 경고 보기"
+	RedLightGreenLight	= "녹색/빨강 빛 이동 관련 특수 경고 보기"
 }
 
 ------------------
@@ -409,12 +409,6 @@ L = DBM:GetModLocalization("Godfrey")
 L:SetGeneralLocalization({
 	name = "고드프리 경"
 })
-
-L:SetWarningLocalization{
-}
-
-L:SetOptionLocalization{
-}
 
 ---------------------
 --  The Stonecore  --
@@ -438,11 +432,11 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	WarnEmerge		= "등장 경고 보기",
-	WarnSubmerge	= "잠수 경고 보기",
-	TimerEmerge		= "다음 등장 타이머 보기",
-	TimerSubmerge	= "다음 잠수 타이머 보기",
-	CrystalArrow	= "당신 주변에 $spell:81634이 시전 된 경우 DBM 화살표 보기",
+	WarnEmerge		= "등장 알림 보기",
+	WarnSubmerge	= "잠수 알림 보기",
+	TimerEmerge		= "다음 등장 바 표시",
+	TimerSubmerge	= "다음 잠수 바 표시",
+	CrystalArrow	= "$spell:81634 대상이 근처에 있을 경우 DBM 화살표 보기",
 	RangeFrame		= "거리 프레임 보기 (5m)"	
 })
 
@@ -478,10 +472,10 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	WarnAirphase				= "공중 단계일 때 경고 보기",
-	WarnGroundphase				= "지상 단계일 때 경고 보기",
-	TimerAirphase				= "다음 공중 단계 타이머 보기",
-	TimerGroundphase			= "다음 지상 단계 타이머 보기",
+	WarnAirphase				= "공중 단계 알림 보기",
+	WarnGroundphase				= "지상 단계 알림 보기",
+	TimerAirphase				= "다음 공중 단계 바 표시",
+	TimerGroundphase			= "다음 지상 단계 바 표시",
 	specWarnCrystalStorm		= "$spell:92265 특수 경고 보기"
 })
 
@@ -532,7 +526,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetOptionLocalization({
-	SpecWarnStaticCling	= "$spell:87618의 특수 경고 보기"
+	SpecWarnStaticCling	= "$spell:87618 특수 경고 보기"
 })
 
 L:SetWarningLocalization({
@@ -601,13 +595,13 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	WarnBear		= "곰 형상 경고 보기",
-	WarnBearSoon	= "곰 형상 사전 경고 보기(soon)",
-	WarnNormal		= "인간 형상 경고 보기",
-	WarnNormalSoon	= "인간 형상 사전 경고 보기(soon)",
-	TimerBear		= "다음 곰 형상 타이머 보기",
-	TimerNormal		= "다음 인간 형상 타이머 보기",
-	InfoFrame		= "$spell:42402 디버프에 대한 정보 프레임 보기"
+	WarnBear		= "곰 형상 알림 보기",
+	WarnBearSoon	= "곰 형상 사전 알림 보기",
+	WarnNormal		= "인간 형상 알림 보기",
+	WarnNormalSoon	= "인간 형상 사전 알림 보기",
+	TimerBear		= "다음 곰 형상 바 표시",
+	TimerNormal		= "다음 인간 형상 바 표",
+	InfoFrame		= "$spell:42402 효과에 대한 정보 프레임 보기"
 }
 
 L:SetMiscLocalization{
@@ -625,20 +619,11 @@ L:SetGeneralLocalization{
 	name = "아킬존 (5인)"
 }
 
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
-}
-
 L:SetOptionLocalization{
 	StormIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(43648),
-	RangeFrame		= "거리 프레임 보기 (10 m)",
-	StormArrow		= "$spell:97300이 시전된 경우 DBM 화살표 보기", -- translate
+	RangeFrame		= "거리 프레임 보기 (10m)",
+	StormArrow		= "$spell:97300 시전시 DBM 화살표 보기", -- translate
 	SetIconOnEagle	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(97318)
-}
-
-L:SetMiscLocalization{
 }
 
 ---------------
@@ -648,12 +633,6 @@ L = DBM:GetModLocalization("Janalai5")
 
 L:SetGeneralLocalization{
 	name = "잔알라이 (5인)"
-}
-
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
@@ -680,12 +659,9 @@ L:SetWarningLocalization{
 	WarnNormal	= "보통 단계"
 }
 
-L:SetTimerLocalization{
-}
-
 L:SetOptionLocalization{
-	WarnSpirit	= "영혼 단계 경고 보기",
-	WarnNormal	= "보통 단계 경고 보기"
+	WarnSpirit	= "영혼 단계 알림 보기",
+	WarnNormal	= "보통 단계 알림 보기"
 }
 
 L:SetMiscLocalization{
@@ -702,15 +678,12 @@ L:SetGeneralLocalization{
 	name = "사술 군주 말라크라스 (5인)"
 }
 
-L:SetWarningLocalization{
-}
-
 L:SetTimerLocalization{
 	TimerSiphon	= "%s: %s"
 }
 
 L:SetOptionLocalization{
-	TimerSiphon	= "$spell:43501 타이머 보기"
+	TimerSiphon	= "$spell:43501 바 표시"
 }
 
 L:SetMiscLocalization{
@@ -726,16 +699,13 @@ L:SetGeneralLocalization{
 	name = "다카라"
 }
 
-L:SetWarningLocalization{
-}
-
 L:SetTimerLocalization{
 	timerNextForm	= "다음 형상 변환"
 }
 
 L:SetOptionLocalization{
-	timerNextForm	= "형상 변환 타이머 보기",
-	InfoFrame		= "$spell:42402 디버프에 대한 정보 프레임 보기",
+	timerNextForm	= "형상 변환 바 표시",
+	InfoFrame		= "$spell:42402 효과에 대한 정보 프레임 보기",
 	ThrowIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(97639),
 	ClawRageIcon	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(97672)
 }
@@ -755,18 +725,9 @@ L:SetGeneralLocalization{
 	name = "대사제 베녹시스"
 }
 
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
-}
-
 L:SetOptionLocalization{
 	SetIconOnToxicLink	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(96477),
-	LinkArrow			= "$spell:96477의 영향을 받을경우 DBM 화살표 보기" -- translate
-}
-
-L:SetMiscLocalization{
+	LinkArrow			= "$spell:96477 주문의 영향을 받을경우 DBM 화살표 보기" -- translate
 }
 
 ------------------------
@@ -780,15 +741,12 @@ L:SetGeneralLocalization{
 
 L:SetWarningLocalization{
 	WarnRevive		= "영혼 부활 - %d회 남음",
-	SpecWarnOhgan	= "오간 되살아남! 극딜!"
-}
-
-L:SetTimerLocalization{
+	SpecWarnOhgan	= "오간 되살아남!"
 }
 
 L:SetOptionLocalization{
-	WarnRevive		= "영혼 부활 남은 횟수 경고 보기",
-	SpecWarnOhgan	= "오간이 공격 가능 할때 특수 경고 보기",
+	WarnRevive		= "영혼 부활 남은 횟수 알림 보기",
+	SpecWarnOhgan	= "되살아난 오간이 공격 가능 할때 특수 경고 보기",
 	SetIconOnOhgan	= "되살아난 오간에게 전술 목표 아이콘 설정하기" -- translate
 }
 
@@ -809,12 +767,9 @@ L:SetWarningLocalization{
 	SpecWarnToxic	= "독 가마솥 클릭!"
 }
 
-L:SetTimerLocalization{
-}
-
 L:SetOptionLocalization{
-	SpecWarnToxic	= "$spell:96328 디버프가 없을 경우 특수 경고 보기",
-	InfoFrame		= "$spell:96328 디버프 없음에 대한 정보 프레임 보기",
+	SpecWarnToxic	= "$spell:96328 효과가 없을 경우 특수 경고 보기",
+	InfoFrame		= "$spell:96328 효과 없음에 대한 정보 프레임 보기",
 	SetIconOnGaze	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(96342)
 }
 
@@ -831,18 +786,6 @@ L:SetGeneralLocalization{
 	name = "대여사제 킬나라"
 }
 
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
-}
-
-L:SetOptionLocalization{
-}
-
-L:SetMiscLocalization{
-}
-
 ----------------------------
 -- Jindo --
 ----------------------------
@@ -856,11 +799,8 @@ L:SetWarningLocalization{
 	WarnBarrierDown	= "학카르의 사슬 보호막 사라짐 - %d/3"
 }
 
-L:SetTimerLocalization{
-}
-
 L:SetOptionLocalization{
-	WarnBarrierDown	= "학카르의 사슬 보호막이 사라질 때 경고 보기",
+	WarnBarrierDown	= "학카르의 사슬 보호막이 사라질 때 알림 보기",
 	BodySlamIcon	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(97198)
 }
 
@@ -882,18 +822,6 @@ L:SetGeneralLocalization{
 	name = "그리렉"
 }
 
-L:SetWarningLocalization({
-})
-
-L:SetTimerLocalization({
-})
-
-L:SetOptionLocalization({
-})
-
-L:SetMiscLocalization({
-})
-
 ---------------
 -- Hazza'rah --
 ---------------
@@ -904,18 +832,6 @@ L = DBM:GetModLocalization("CoMGHazzarah")
 L:SetGeneralLocalization{
 	name = "하자라"
 }
-
-L:SetWarningLocalization({
-})
-
-L:SetTimerLocalization({
-})
-
-L:SetOptionLocalization({
-})
-
-L:SetMiscLocalization({
-})
 
 --------------
 -- Renataki --
@@ -928,18 +844,6 @@ L:SetGeneralLocalization{
 	name = "레나타키"
 }
 
-L:SetWarningLocalization({
-})
-
-L:SetTimerLocalization({
-})
-
-L:SetOptionLocalization({
-})
-
-L:SetMiscLocalization({
-})
-
 ---------------
 -- Wushoolay --
 ---------------
@@ -950,18 +854,6 @@ L = DBM:GetModLocalization("CoMWushoolay")
 L:SetGeneralLocalization{
 	name = "우슐레이"
 }
-
-L:SetWarningLocalization({
-})
-
-L:SetTimerLocalization({
-})
-
-L:SetOptionLocalization({
-})
-
-L:SetMiscLocalization({
-})
 
 --------------------
 --  World Bosses  --
@@ -974,18 +866,6 @@ L:SetGeneralLocalization{
 	name = "아크마하트"
 }
 
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
-}
-
-L:SetOptionLocalization{
-}
-
-L:SetMiscLocalization{
-}
-
 -----------
 -- Garr --
 ----------
@@ -993,18 +873,6 @@ L = DBM:GetModLocalization("Garr")
 
 L:SetGeneralLocalization{
 	name = "가르 (대격변)"
-}
-
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
-}
-
-L:SetOptionLocalization{
-}
-
-L:SetMiscLocalization{
 }
 
 ----------------
@@ -1016,17 +884,8 @@ L:SetGeneralLocalization{
 	name = "줄락둠"
 }
 
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
-}
-
 L:SetOptionLocalization{
 	SetIconOnMC	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(93621)
-}
-
-L:SetMiscLocalization{
 }
 
 -----------
@@ -1038,18 +897,6 @@ L:SetGeneralLocalization{
 	name = "모부스"
 }
 
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
-}
-
-L:SetOptionLocalization{
-}
-
-L:SetMiscLocalization{
-}
-
 -----------
 -- Xariona --
 -----------
@@ -1057,18 +904,6 @@ L = DBM:GetModLocalization("Xariona")
 
 L:SetGeneralLocalization{
 	name = "자리오나"
-}
-
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
-}
-
-L:SetOptionLocalization{
-}
-
-L:SetMiscLocalization{
 }
 
 ----------------
@@ -1082,18 +917,6 @@ L:SetGeneralLocalization{
 	name = "실바나스의 환영"
 }
 
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
-}
-
-L:SetOptionLocalization{
-}
-
-L:SetMiscLocalization{
-}
-
 ---------------------
 -- Echo of Tyrande --
 ---------------------
@@ -1101,18 +924,6 @@ L = DBM:GetModLocalization("EchoTyrande")
 
 L:SetGeneralLocalization{
 	name = "티란데의 환영"
-}
-
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
-}
-
-L:SetOptionLocalization{
-}
-
-L:SetMiscLocalization{
 }
 
 -------------------
@@ -1124,15 +935,12 @@ L:SetGeneralLocalization{
 	name = "제이나의 환영"
 }
 
-L:SetWarningLocalization{
-}
-
 L:SetTimerLocalization{
-	TimerFlarecoreDetonate	= "Flarecore detonate"
+	TimerFlarecoreDetonate	= "섬광핵 폭발"
 }
 
 L:SetOptionLocalization{
-	TimerFlarecoreDetonate	= "Show timer for $spell:101927 detonate"
+	TimerFlarecoreDetonate	= "$spell:101927 폭발 까지 남은 시간 바 표시"
 }
 
 L:SetMiscLocalization{
@@ -1147,37 +955,17 @@ L:SetGeneralLocalization{
 	name = "바인의 환영"
 }
 
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
-}
-
-L:SetOptionLocalization{
-}
-
-L:SetMiscLocalization{
-}
-
 --------------
 -- Murozond --
 --------------
 L = DBM:GetModLocalization("Murozond")
 
 L:SetGeneralLocalization{
-	name = "무로존드"
-}
-
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
-}
-
-L:SetOptionLocalization{
+	name = "무르도즈노"
 }
 
 L:SetMiscLocalization{
+	Kill		= "넌 네가 무슨 짓을 저지르는지 모른다. 아만툴... 내가... 본... 것은..."
 }
 
 ------------------------
@@ -1191,17 +979,10 @@ L:SetGeneralLocalization{
 	name = "페로스안"
 }
 
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
-}
-
-L:SetOptionLocalization{
-}
-
 L:SetMiscLocalization{
+	Pull		= "필멸자 주제에 내 앞에 서고도 살기를 바라느냐!"
 }
+
 
 -------------
 -- Azshara --
@@ -1209,19 +990,24 @@ L:SetMiscLocalization{
 L = DBM:GetModLocalization("Azshara")
 
 L:SetGeneralLocalization{
-	name = "아즈샤라"
+	name = "여왕 아즈샤라"
 }
 
 L:SetWarningLocalization{
+	WarnAdds	= "곧 부하 소환"
 }
 
 L:SetTimerLocalization{
+	TimerAdds	= "다음 부하 소환"
 }
 
 L:SetOptionLocalization{
+	WarnAdds	= "새로운 부하가 소환될 때 알림 보기",
+	TimerAdds	= "다음 부화 소환 바 표시"
 }
 
 L:SetMiscLocalization{
+	Kill		= "그만! 너희랑 놀아 주는 것도 재미있다만, 난 더 중요한 일이 있어 이만 가봐야겠다."
 }
 
 -----------------------------
@@ -1233,16 +1019,16 @@ L:SetGeneralLocalization{
 	name = "만노로스와 바르덴"
 }
 
-L:SetWarningLocalization{
-}
-
 L:SetTimerLocalization{
+	TimerTyrandeHelp	= "티란데 도움요청"
 }
 
 L:SetOptionLocalization{
+	TimerTyrandeHelp	= "티란데 도움요청 까지 남은시간 바 표시"
 }
 
 L:SetMiscLocalization{
+	Kill		= "안 돼... 안 돼! 승리가 눈앞에 있는데 어떻게 이런 일이! 내가 빈손으로 그분께 돌아갈 것 같으냐! 난... 이 초라한 세계를 떠날 수 없어! 안 돼... 안 돼애애애애!"
 }
 
 ------------------------
@@ -1256,16 +1042,8 @@ L:SetGeneralLocalization{
 	name = "아큐리온"
 }
 
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
-}
-
-L:SetOptionLocalization{
-}
-
 L:SetMiscLocalization{
+	Pull		= "넌 하찮은 필멸자일 뿐. 필멸자답게 황천에나 떨어져라."
 }
 
 ----------------------
@@ -1277,16 +1055,8 @@ L:SetGeneralLocalization{
 	name = "아시라 돈슬레이어"
 }
 
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
-}
-
-L:SetOptionLocalization{
-}
-
 L:SetMiscLocalization{
+	Pull		= "자, 본론으로 들어갈까?"
 }
 
 ---------------------------
@@ -1296,16 +1066,4 @@ L = DBM:GetModLocalization("Benedictus")
 
 L:SetGeneralLocalization{
 	name = "대주교 베네딕투스"
-}
-
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
-}
-
-L:SetOptionLocalization{
-}
-
-L:SetMiscLocalization{
 }

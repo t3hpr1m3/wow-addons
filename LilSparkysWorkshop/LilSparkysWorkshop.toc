@@ -1,4 +1,4 @@
-## Interface: 40000
+## Interface: 40300
 ## Title: LilSparky's Workshop
 ## Notes: LilSparky's Workshop mod for Trade Skills
 ## RequiredDeps:
@@ -9,8 +9,8 @@
 ## Notes: Provides Auction-derived prices for Trade Skills
 ## Author: lilsparky
 ## X-Category: Tradeskill
-## X-Revision: 110
-## X-Curse-Packaged-Version: 110release
+## X-Revision: 119
+## X-Curse-Packaged-Version: 119release
 ## X-Curse-Project-Name: LilSparky's Workshop
 ## X-Curse-Project-ID: lil-sparkys-workshop
 ## X-Curse-Repository-ID: wow/lil-sparkys-workshop/mainline
@@ -36,8 +36,8 @@ pricingSupport\auctionator_support.lua
 pricingSupport\cachedPrices_support.lua
 
 
-pricingSupport\informant_support.lua
 pricingSupport\getSellValue_support.lua
+pricingSupport\informant_support.lua
 pricingSupport\enchantrix_support.lua
 pricingSupport\disenchanting_support.lua
 pricingSupport\milling_support.lua

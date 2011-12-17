@@ -1,7 +1,7 @@
 --[[
 	Enchantrix Addon for World of Warcraft(tm).
-	Version: 5.12.5198 (QuirkyKiwi)
-	Revision: $Id: EnxTooltip.lua 5194 2011-07-04 17:46:21Z Nechckn $
+	Version: 5.13.5246 (BoldBandicoot)
+	Revision: $Id: EnxTooltip.lua 5188 2011-06-29 16:14:04Z brykrys $
 	URL: http://enchantrix.org/
 
 	Tooltip functions.
@@ -28,7 +28,7 @@
 		since that is its designated purpose as per:
 		http://www.fsf.org/licensing/licenses/gpl-faq.html#InterpreterIncompat
 ]]
-Enchantrix_RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.12/Enchantrix/EnxTooltip.lua $", "$Rev: 5194 $")
+Enchantrix_RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.13/Enchantrix/EnxTooltip.lua $", "$Rev: 5188 $")
 
 -- Global functions
 local addonLoaded	-- Enchantrix.Tooltip.AddonLoaded()
@@ -734,7 +734,7 @@ function hookSpellTooltip(tipFrame, link, name, rank)
 end
 
 Enchantrix.Tooltip = {
-	Revision		= "$Revision: 5194 $",
+	Revision		= "$Revision: 5188 $",
 
 	AddonLoaded		= addonLoaded,
 	Format			= tooltipFormat,

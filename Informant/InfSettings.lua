@@ -1,8 +1,8 @@
 --[[
 	Informant - An addon for World of Warcraft that shows pertinent information about
 	an item in a tooltip when you hover over the item in the game.
-	Version: 5.12.5198 (QuirkyKiwi)
-	Revision: $Id: InfSettings.lua 5184 2011-06-24 00:16:48Z Nechckn $
+	Version: 5.13.5246 (BoldBandicoot)
+	Revision: $Id: InfSettings.lua 5210 2011-07-19 19:07:52Z Nechckn $
 	URL: http://auctioneeraddon.com/dl/Informant/
 
 	Command handler. Assumes responsibility for allowing the user to set the
@@ -63,7 +63,7 @@ Usage:
 
 
 ]]
-Informant_RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.12/Informant/InfSettings.lua $", "$Rev: 5184 $")
+Informant_RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.13/Informant/InfSettings.lua $", "$Rev: 5210 $")
 
 local lib = {}
 Informant.Settings = lib
@@ -391,12 +391,8 @@ function lib.MakeGuiConfig()
 	gui:AddControl(id, "Subhead",     0,	_TRANS('INF_Interface_ModTTShow')) --"Show Tooltip:"
 	gui:AddControl(id, "Selectbox", 0, 1, { { "always", _TRANS('INF_Interface_MTS_Always') }, {"alt", _TRANS('INF_Interface_MTS_Alt') }, { "noalt", _TRANS('INF_Interface_MTS_NoAlt') }, {"shift", _TRANS('INF_Interface_MTS_Shift') }, {"noshift", _TRANS('INF_Interface_MTS_NoShift')}, {"ctrl", _TRANS('INF_Interface_MTS_Ctrl')},{"noctrl", _TRANS('INF_Interface_MTS_NoCtrl')}, { "never", _TRANS('INF_Interface_MTS_Never')} }, "ModTTShow")
 	gui:AddTip(id, _TRANS('INF_HelpTooltip_ModTTShow')) --"Determines Tooltip behavior. Always: Show Informant's Tooltip every time. When <mod> is pressed: Only show Informant's tooltip if the specified modifier is pressed. When <mod> is not pressed: Only show Informant's tooltip if the specified modifier is not pressed. Never: Never show Informant's tooltip."
-
-	-- TODO - activate localizations
-	--gui:AddControl(id, "Checkbox",   0, 1, "altchatlink-tooltip", _TRANS('INF_Interface_AltChatLink')) --"Open tooltips from chat links with Alt left-clicks"
-	--gui:AddTip(id, _TRANS('INF_HelpTooltip_AltChatLink')) --"Enables opening a tooltip by left-clicking on an item link in chat while the Alt key is pressed."
-	gui:AddControl(id, "Checkbox",   0, 1, "altchatlink-tooltip", "Open tooltips from chat links with Alt left-clicks")
-	gui:AddTip(id, "Enables opening a tooltip by left-clicking on an item link in chat while the Alt key is pressed.")
+	gui:AddControl(id, "Checkbox",   0, 1, "altchatlink-tooltip", _TRANS('INF_Interface_AltChatLink')) --"Open tooltips from chat links with Alt left-clicks"
+	gui:AddTip(id, _TRANS('INF_HelpTooltip_AltChatLink')) --"Enables opening a tooltip by left-clicking on an item link in chat while the Alt key is pressed."
 
 	gui:AddControl(id, "Checkbox",   0, 1, "auto-update", _TRANS('INF_Interface_AutoUpdate')) --"Automatically update item information at merchants"
 	gui:AddTip(id, _TRANS('INF_HelpTooltip_AutoUpdate')) --"Allow Informant to scan your bags and merchant inventory for updates"

@@ -329,7 +329,7 @@ L:AddLocale("ruRU",
 	["<keyword> - finds all aliases matching <keyword> (cmd aliases: /findalias)"] = "<keyword> - найти все псевдонимы, совпадающие с <keyword> (команда: /findalias)",
 	["Display extra information in the chat frame when commands are dealiased"] = "Отображать дополнительную информацию в рамке чата при раскрытии псевдонимов команд",
 	["Don't overwrite existing aliases when using /addalias"] = "Не перезаписывать существующие псевдонимы при использовани /addalias",
-	["Expand aliases as you are typing"] = "Раскрыть псевдонимы, которые вы вводили", -- Needs review
+	["Expand aliases as you are typing"] = "Раскрыть псевдонимы, которые вы вводили",
 	["No aliases have been defined"] = "Псевдонимов не обнаружено",
 	Options = "Настройки",
 	["Options for altering the behaviour of Alias"] = "Опции для изменения поведения Псевдонимов",
@@ -349,13 +349,13 @@ L:AddLocale("ruRU",
 	module_desc = "Добовляет команду /alias, which can be used to alias slash commands in a similar way to the Unix alias command.",
 	module_name = "Псевдонимы",
 	noclobber = "защита настроек",
-	["noclobber set - skipping new alias: /%s already expands to /%s"] = "защита настроек - пропускаем новый псевдоним:  /%s уже задано как /%s", -- Needs review
+	["noclobber set - skipping new alias: /%s already expands to /%s"] = "защита настроек - пропускаем новый псевдоним:  /%s уже задано как /%s",
 	["overwriting existing alias \"/%s\" (was aliased to \"/%s\")"] = "перезапись сужествующего псевдонима \"/%s\" (теперь псевдоним \"/%s\")",
 	["refusing to alias \"/%s\" to anything in the interests of Not Buggering Everything Up"] = "отказ псевдониму \"/%s\" в чём-либо, чтобы не испортить ВСЁ",
 	["remove an alias"] = "убрать псевдоним",
 	["total aliases: %d"] = "всего псевдонимов: %d",
-	["tried to show value for alias \"%s\" but undefined in module.Aliases!"] = "\"%s\" не определено в модуле \"Псевдонимы\" при попытке показать значение!", -- Needs review
-	unalias = true, -- Needs review
+	["tried to show value for alias \"%s\" but undefined in module.Aliases!"] = "\"%s\" не определено в модуле \"Псевдонимы\" при попытке показать значение!",
+	unalias = "удалить псевдоним", -- Needs review
 	verbose = "подробно",
 	["warnUser() called with nil argument!"] = "Функция warnUser() вызвана с нулевым аргументом!",
 	["warnUser() called with zero length string!"] = "Функция warnUser() вызвана со строкой нулевой длины!",

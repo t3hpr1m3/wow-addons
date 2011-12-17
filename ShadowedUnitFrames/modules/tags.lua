@@ -674,6 +674,14 @@ Tags.defaultTags = {
 			return ShadowUF.L["Offline"]
 		end
 	end]],
+	["sshards"] = [[function(unit, unitOwner)
+		local points = UnitPower(ShadowUF.playerUnit, SPELL_POWER_SOUL_SHARDS)
+		return points and points > 0 and points
+	end]],
+	["hpower"] = [[function(unit, unitOwner)
+		local points = UnitPower(ShadowUF.playerUnit, SPELL_POWER_HOLY_POWER)
+		return points and points > 0 and points
+	end]],
 	["cpoints"] = [[function(unit, unitOwner)
 		local points = GetComboPoints(ShadowUF.playerUnit)
 		if( points == 0 ) then
@@ -696,7 +704,14 @@ Tags.defaultTags = {
 			end
 		end
 	end]],
-	["dechp"] = [[function(unit, unitOwner) return string.format("%.1f%%", (UnitHealth(unit) / UnitHealthMax(unit)) * 100) end]],
+	["dechp"] = [[function(unit, unitOwner)
+		local maxHealth = UnitHealthMax(unit)
+		if( maxHealth <= 0 ) then
+			return "0.0%"
+		end
+		
+		return string.format("%.1f%%", (UnitHealth(unit) / maxHealth) * 100)
+	end]],
 	["classification"] = [[function(unit, unitOwner)
 		local classif = UnitClassification(unit)
 		if( classif == "rare" ) then
@@ -764,14 +779,34 @@ Tags.defaultTags = {
 		if( powerType ~= 1 and powerType ~= 3 ) then return nil end
 		return UnitPower(unit, 0)
 	end]],
+	-- ["abs:crtabs"] = [[function(unit, unitOwner, fontString)
+	-- 	local absorb = fontString.parent.absorb
+	-- 	return absorb > 0 and string.format("%d", absorb)
+	-- ]],
+	-- ["crtabs"] = [[function(unit, unitOwner, fontString)
+	-- 	local absorb = fontString.parent.absorb
+	-- 	return absorb > 0 and ShadowUF:FormatLargeNumber(absorb)
+	-- ]],
+	-- ["crtabs:name"] = [[function(unit, unitOwner, fontString)
+	-- 	local absorb = fontString.parent.absorb
+	-- 	return absorb > 0 and string.format("+%d", heal) or ShadowUF.tagFunc.name(unit, unitOwner, fontString)
+	-- ]],
+	["per:incheal"] = [[function(unit, unitOwner, fontString)
+		local heal = UnitGetIncomingHeals(unit)
+		local maxHealth = UnitHealthMax(unit)
+		return heal and heal > 0 and maxHealth > 0 and string.format("%d%%", (heal / maxHealth))
+	end]],
 	["abs:incheal"] = [[function(unit, unitOwner, fontString)
-		return fontString.incoming and string.format("%d", fontString.incoming)
+	    local heal = UnitGetIncomingHeals(unit) 
+		return heal and heal > 0 and string.format("%d", heal)
 	end]],
 	["incheal"] = [[function(unit, unitOwner, fontString)
-		return fontString.incoming and ShadowUF:FormatLargeNumber(fontString.incoming) or nil
+	    local heal = UnitGetIncomingHeals(unit)
+		return heal and heal > 0 and ShadowUF:FormatLargeNumber(heal)
 	end]],
 	["incheal:name"] = [[function(unit, unitOwner, fontString)
-		return fontString.incoming and string.format("+%d", fontString.incoming) or ShadowUF.tagFunc.name(unit, unitOwner)
+	    local heal = UnitGetIncomingHeals(unit)
+		return heal and heal > 0 and string.format("+%d", heal) or ShadowUF.tagFunc.name(unit, unitOwner, fontString)
 	end]],
 	["unit:raid:targeting"] = [[function(unit, unitOwner, fontString)
 		if( GetNumRaidMembers() == 0 ) then return nil end
@@ -805,53 +840,59 @@ Tags.defaultTags = {
 
 -- Default tag events
 Tags.defaultEvents = {
-	["hp:color"]			= "UNIT_HEALTH UNIT_MAXHEALTH",
+	["hp:color"]			= "UNIT_HEALTH UNIT_HEALTH_FREQUENT UNIT_MAXHEALTH",
 	["short:druidform"]		= "UNIT_AURA",
 	["druidform"]			= "UNIT_AURA",
-	["guild"]				= "UNIT_NAME_UPDATE", -- Not sure when this data is available, guessing
+	["guild"]				= "UNIT_NAME_UPDATE",
+	["per:incheal"]			= "UNIT_HEAL_PREDICTION",
 	["abs:incheal"]			= "UNIT_HEAL_PREDICTION",
 	["incheal:name"]		= "UNIT_HEAL_PREDICTION",
 	["incheal"]				= "UNIT_HEAL_PREDICTION",
+	-- ["crtabs"]				= "CRTABS",
+	-- ["abs:crtabs"]			= "CRTABS",
+	-- ["crtabs:name"]			= "CRTABS",
 	["afk"]					= "PLAYER_FLAGS_CHANGED", -- Yes, I know it's called PLAYER_FLAGS_CHANGED, but arg1 is the unit including non-players.
 	["afk:time"]			= "PLAYER_FLAGS_CHANGED UNIT_CONNECTION",
 	["status:time"]			= "UNIT_POWER UNIT_CONNECTION",
 	["pvp:time"]			= "PLAYER_FLAGS_CHANGED",
-	["curhp"]               = "UNIT_HEALTH UNIT_CONNECTION",
-	["abscurhp"]			= "UNIT_HEALTH UNIT_CONNECTION",
-	["curmaxhp"]			= "UNIT_HEALTH UNIT_MAXHEALTH UNIT_CONNECTION",
-	["absolutehp"]			= "UNIT_HEALTH UNIT_MAXHEALTH UNIT_CONNECTION",
-	["smart:curmaxhp"]		= "UNIT_HEALTH UNIT_MAXHEALTH UNIT_CONNECTION",
+	["curhp"]               = "UNIT_HEALTH UNIT_HEALTH_FREQUENT UNIT_CONNECTION",
+	["abscurhp"]			= "UNIT_HEALTH UNIT_HEALTH_FREQUENT UNIT_CONNECTION",
+	["curmaxhp"]			= "UNIT_HEALTH UNIT_HEALTH_FREQUENT UNIT_MAXHEALTH UNIT_CONNECTION",
+	["absolutehp"]			= "UNIT_HEALTH UNIT_HEALTH_FREQUENT UNIT_MAXHEALTH UNIT_CONNECTION",
+	["smart:curmaxhp"]		= "UNIT_HEALTH UNIT_HEALTH_FREQUENT UNIT_MAXHEALTH UNIT_CONNECTION",
 	["curpp"]               = "UNIT_POWER UNIT_DISPLAYPOWER",
 	["abscurpp"]            = "UNIT_POWER UNIT_DISPLAYPOWER UNIT_MAXPOWER",
 	["curmaxpp"]			= "UNIT_POWER UNIT_DISPLAYPOWER UNIT_MAXPOWER",
 	["absolutepp"]			= "UNIT_POWER UNIT_DISPLAYPOWER UNIT_MAXPOWER",
 	["smart:curmaxpp"]		= "UNIT_POWER UNIT_DISPLAYPOWER UNIT_MAXPOWER",
-	["druid:curpp"]  	    = "UNIT_POWER UNIT_DISPLAYPOWER",
-	["druid:abscurpp"]      = "UNIT_POWER UNIT_DISPLAYPOWER",
-	["druid:curmaxpp"]		= "UNIT_POWER UNIT_MAXPOWER UNIT_DISPLAYPOWER",
-	["druid:absolutepp"]	= "UNIT_POWER UNIT_MAXPOWER UNIT_DISPLAYPOWER",
+	["druid:curpp"]  	    = "UNIT_POWER:MANA UNIT_DISPLAYPOWER",
+	["druid:abscurpp"]      = "UNIT_POWER:MANA UNIT_DISPLAYPOWER",
+	["druid:curmaxpp"]		= "UNIT_POWER:MANA UNIT_MAXPOWER UNIT_DISPLAYPOWER",
+	["druid:absolutepp"]	= "UNIT_POWER:MANA UNIT_MAXPOWER UNIT_DISPLAYPOWER",
+	["sshards"]				= "UNIT_POWER",
+	["hpower"]				= "UNIT_POWER",
 	["level"]               = "UNIT_LEVEL PLAYER_LEVEL_UP",
 	["levelcolor"]			= "UNIT_LEVEL PLAYER_LEVEL_UP",
 	["maxhp"]               = "UNIT_MAXHEALTH",
-	["def:name"]			= "UNIT_NAME_UPDATE UNIT_MAXHEALTH UNIT_HEALTH",
+	["def:name"]			= "UNIT_NAME_UPDATE UNIT_MAXHEALTH UNIT_HEALTH UNIT_HEALTH_FREQUENT",
 	["absmaxhp"]			= "UNIT_MAXHEALTH",
 	["maxpp"]               = "UNIT_MAXPOWER",
 	["absmaxpp"]			= "UNIT_MAXPOWER",
-	["missinghp"]           = "UNIT_HEALTH UNIT_MAXHEALTH UNIT_CONNECTION",
+	["missinghp"]           = "UNIT_HEALTH UNIT_HEALTH_FREQUENT UNIT_MAXHEALTH UNIT_CONNECTION",
 	["missingpp"]           = "UNIT_POWER UNIT_MAXPOWER",
 	["name"]                = "UNIT_NAME_UPDATE",
 	["abbrev:name"]			= "UNIT_NAME_UPDATE",
 	["server"]				= "UNIT_NAME_UPDATE",
 	["colorname"]			= "UNIT_NAME_UPDATE",
-	["perhp"]               = "UNIT_HEALTH UNIT_MAXHEALTH UNIT_CONNECTION",
+	["perhp"]               = "UNIT_HEALTH UNIT_HEALTH_FREQUENT UNIT_MAXHEALTH UNIT_CONNECTION",
 	["perpp"]               = "UNIT_POWER UNIT_MAXPOWER UNIT_CONNECTION",
-	["status"]              = "UNIT_HEALTH PLAYER_UPDATE_RESTING UNIT_CONNECTION",
+	["status"]              = "UNIT_HEALTH UNIT_HEALTH_FREQUENT PLAYER_UPDATE_RESTING UNIT_CONNECTION",
 	["smartlevel"]          = "UNIT_LEVEL PLAYER_LEVEL_UP UNIT_CLASSIFICATION_CHANGED",
 	["cpoints"]             = "UNIT_COMBO_POINTS PLAYER_TARGET_CHANGED",
 	["rare"]                = "UNIT_CLASSIFICATION_CHANGED",
 	["classification"]      = "UNIT_CLASSIFICATION_CHANGED",
 	["shortclassification"] = "UNIT_CLASSIFICATION_CHANGED",
-	["dechp"]				= "UNIT_HEALTH UNIT_MAXHEALTH",
+	["dechp"]				= "UNIT_HEALTH UNIT_HEALTH_FREQUENT UNIT_MAXHEALTH",
 	["group"]				= "RAID_ROSTER_UPDATE",
 	["unit:color:aggro"]	= "UNIT_THREAT_SITUATION_UPDATE",
 	["color:aggro"]			= "UNIT_THREAT_SITUATION_UPDATE",
@@ -880,7 +921,11 @@ Tags.defaultFrequents = {
 
 -- Default tag categories
 Tags.defaultCategories = {
+	-- ["crtabs"]				= "absorb",
+	-- ["crtabs:name"]			= "absorb",
+	-- ["abs:crtabs"]			= "absorb",
 	["hp:color"]			= "health",
+	["per:incheal"]			= "health",
 	["abs:incheal"]			= "health",
 	["incheal"]				= "health",
 	["incheal:name"]		= "health",
@@ -939,6 +984,8 @@ Tags.defaultCategories = {
 	["druid:abscurpp"]      = "power",
 	["druid:curmaxpp"]		= "power",
 	["druid:absolutepp"]	= "power",
+	["sshards"]				= "misc",
+	["hpower"]				= "misc",
 	["situation"]			= "playerthreat",
 	["color:sit"]			= "playerthreat",
 	["scaled:threat"]		= "playerthreat",
@@ -959,6 +1006,10 @@ Tags.defaultHelp = {
 	["guild"]				= L["Show's the units guild name if they are in a guild."],
 	["short:druidform"]		= L["Short version of [druidform], C = Cat, B = Bear, F = Flight and so on."],
 	["druidform"]			= L["Returns the units current form if they are a druid, Cat for Cat Form, Moonkin for Moonkin and so on."],
+	-- ["crtabs"]				= L["Shorten current absorb value, if 13,000 absorb is on a target it will show 13k."],
+	-- ["abs:crtabs"]			= L["Absolute current absorb value, if 15,000 absorb is on a target it will show 15,000."],
+	-- ["crtabs:name"]			= L["If the unit has absorbs on them, it will show the absolute absorb value, otherwise it will show the units name."],
+	["per:incheal"]			= L["Percent of the players current health that's being healed, if they have 100,000 total health and 15,000 is incoming then 15% is shown."],
 	["abs:incheal"]			= L["Absolute incoming heal value, if 10,000 healing is incoming it will show 10,000."],
 	["incheal"]				= L["Shorten incoming heal value, if 13,000 healing is incoming it will show 13k."],
 	["incheal:name"]		= L["If the unit has heals incoming, it will show the absolute incoming heal value, otherwise it will show the units name."],
@@ -969,6 +1020,8 @@ Tags.defaultHelp = {
 	["status:time"]			= L["Shows how long an unit has been offline."],
 	["afk"]					= L["Shows AFK, DND or nothing depending on the units away status."],
 	["cpoints"]				= L["Total number of combo points you have on your target."],
+	["hpower"]				= L["Total number of active holy power."],
+	["sshards"]				= L["Total number of active soul shards."],
 	["smartlevel"]			= L["Smart level, returns Boss for bosses, +50 for a level 50 elite mob, or just 80 for a level 80."],
 	["classification"]		= L["Units classification, Rare, Rare Elite, Elite, Boss, nothing is shown if they aren't any of those."],
 	["shortclassification"]	= L["Short classifications, R for Rare, R+ for Rare Elite, + for Elite, B for boss, nothing is shown if they aren't any of those."],
@@ -1029,6 +1082,7 @@ Tags.defaultHelp = {
 }
 
 Tags.defaultNames = {
+	["per:incheal"]			= L["Incoming heal (Percent)"],
 	["incheal:name"]		= L["Incoming heal/Name"],
 	["unit:scaled:threat"]	= L["Unit scaled threat"],
 	["unit:color:sit"]		= L["Unit colored situation"],
@@ -1037,6 +1091,9 @@ Tags.defaultNames = {
 	["guild"]				= L["Guild name"],
 	["druidform"]			= L["Druid form"],
 	["short:druidform"]		= L["Druid form (Short)"],
+	-- ["abs:crtabs"]			= L["Current absorb (Absolute)"],
+	-- ["crtabs"]				= L["Current absorb (Short)"],
+	-- ["crtabs:name"]			= L["Current absorb/Name"],
 	["abs:incheal"]			= L["Incoming heal (Absolute)"],
 	["incheal"]				= L["Incoming heal (Short)"],
 	["abbrev:name"]			= L["Name (Abbreviated)"],
@@ -1047,6 +1104,8 @@ Tags.defaultNames = {
 	["status:time"]			= L["Offline timer"],
 	["afk"]					= L["AFK status"],
 	["cpoints"]				= L["Combo points"],
+	["hpower"]				= L["Holy power"],
+	["sshards"]				= L["Soul shards"],
 	["smartlevel"]			= L["Smart level"],
 	["classification"]		= L["Classificaiton"],
 	["shortclassification"]	= L["Short classification"],
@@ -1106,6 +1165,7 @@ Tags.defaultNames = {
 Tags.eventType = {
 	["UNIT_POWER"] = "power",
 	["UNIT_MAXPOWER"] = "power",
+	["UNIT_HEALTH_FREQUENT"] = "health",
 	["UNIT_HEALTH"] = "health",
 	["UNIT_MAXHEALTH"] = "health",
 	["RAID_ROSTER_UPDATE"] = "unitless",
@@ -1141,14 +1201,14 @@ local function loadAPIEvents()
 		["UnitName"]				= "UNIT_NAME_UPDATE",
 		["UnitClassification"]		= "UNIT_CLASSIFICATION_CHANGED",
 		["UnitFactionGroup"]		= "UNIT_FACTION PLAYER_FLAGS_CHANGED",
-		["UnitHealth%("]			= "UNIT_HEALTH",
+		["UnitHealth%("]			= "UNIT_HEALTH UNIT_HEALTH_FREQUENT",
 		["UnitHealthMax"]			= "UNIT_MAXHEALTH",
 		["UnitPower%("]				= "UNIT_POWER",
 		["UnitPowerMax"]			= "UNIT_MAXPOWER",
 		["UnitPowerType"]			= "UNIT_DISPLAYPOWER",
-		["UnitIsDead"]				= "UNIT_HEALTH",
-		["UnitIsGhost"]				= "UNIT_HEALTH",
-		["UnitIsConnected"]			= "UNIT_HEALTH UNIT_CONNECTION",
+		["UnitIsDead"]				= "UNIT_HEALTH UNIT_HEALTH_FREQUENT",
+		["UnitIsGhost"]				= "UNIT_HEALTH UNIT_HEALTH_FREQUENT",
+		["UnitIsConnected"]			= "UNIT_HEALTH UNIT_HEALTH_FREQUENT UNIT_CONNECTION",
 		["UnitIsAFK"]				= "PLAYER_FLAGS_CHANGED",
 		["UnitIsDND"]				= "PLAYER_FLAGS_CHANGED",
 		["UnitIsPVP"]				= "PLAYER_FLAGS_CHANGED UNIT_FACTION",

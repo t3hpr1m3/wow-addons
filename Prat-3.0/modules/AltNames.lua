@@ -638,7 +638,7 @@ Prat:AddModuleToLoad(function()
 	Alt = "Альт",
 	AltNames = "Имя альтов",
 	["Alts:"] = "Альты:",
-	["Be quiet"] = "Молчи", -- Needs review
+	["Be quiet"] = "Молчи",
 	["Class colour"] = "Окраска по классу",
 	["Clear all"] = "Очистить все",
 	["Clear all links between alts and main names."] = "Очистить все ссылки между альтами и основными именами.",

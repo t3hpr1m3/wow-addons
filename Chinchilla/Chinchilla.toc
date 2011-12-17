@@ -1,6 +1,6 @@
-## Interface: 40200
+## Interface: 40300
 ## Title: Chinchilla
-## Version: 2.4.2
+## Version: v2.5
 ## Notes: Minimap addon of awesomeness. *chewing sound*. It'll nibble your hay pellets.
 ## Notes-frFR: Minicarte incroyablement incroyable. *bruit de mastication*. Il va grignoter votre foin.
 ## Notes-deDE: Geniales Minikarten-Addon. *kauendes Geräusch* Es wird deine Futterkörner knabbern.
@@ -15,8 +15,8 @@
 ## X-Category: Map
 ## X-Icon: Interface\AddOns\Chinchilla\Art\icon
 ## SavedVariables: Chinchilla2DB
-## OptionalDeps: !Swatter, !BugGrabber, Ace3, Blizzard_TimeManager, TitanClock
-## X-Curse-Packaged-Version: 2.4.2
+## OptionalDeps: !Swatter, !BugGrabber, Ace3, LibSharedMedia-3.0, Blizzard_TimeManager, TitanClock, GatherMate2
+## X-Curse-Packaged-Version: v2.5
 ## X-Curse-Project-Name: Chinchilla Minimap
 ## X-Curse-Project-ID: chinchilla
 ## X-Curse-Repository-ID: wow/chinchilla/mainline
@@ -34,6 +34,8 @@ Libs\AceLocale-3.0\AceLocale-3.0.xml
 Libs\AceEvent-3.0\AceEvent-3.0.xml
 Libs\AceTimer-3.0\AceTimer-3.0.xml
 Libs\AceHook-3.0\AceHook-3.0.xml
+Libs\LibSharedMedia-3.0\LibSharedMedia-3.0.lua
+Libs\AceGUI-3.0-SharedMediaWidgets\widget.xml
 #@end-no-lib-strip@
 
 Locale\enUS.lua

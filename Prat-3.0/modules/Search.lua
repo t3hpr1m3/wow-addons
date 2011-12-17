@@ -118,7 +118,7 @@ Suche]=], -- Needs review
  /find <文字>
 
  /findall <文字>]=], -- Needs review
-	-- module_name = "",
+	module_name = "搜索", -- Needs review
 }
 
     )

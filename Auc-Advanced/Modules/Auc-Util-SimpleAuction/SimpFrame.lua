@@ -1,7 +1,7 @@
 --[[
 	Auctioneer - Simplified Auction Posting
-	Version: 5.12.5198 (QuirkyKiwi)
-	Revision: $Id: SimpFrame.lua 4993 2010-11-01 14:04:07Z brykrys $
+	Version: 5.13.5246 (BoldBandicoot)
+	Revision: $Id: SimpFrame.lua 5210 2011-07-19 19:07:52Z Nechckn $
 	URL: http://auctioneeraddon.com/
 
 	This is an addon for World of Warcraft that adds a simple dialog for
@@ -632,7 +632,8 @@ function private.LoadItemLink(itemLink, size)
 		private.SetIconCount(itemCount)
 
 		frame.name:SetText(itemName)
-		frame.name:SetTextColor(GetItemQualityColor(itemRarity))
+		local r, g, b = GetItemQualityColor(itemRarity)
+		frame.name:SetTextColor(r, g, b)
 	else
 		frame.icon.itemLink = nil
 		frame.icon:SetNormalTexture(nil)
@@ -1290,4 +1291,4 @@ function private.CreateFrames()
 	frame:RegisterEvent("BAG_UPDATE")
 end
 
-AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.12/Auc-Util-SimpleAuction/SimpFrame.lua $", "$Rev: 4993 $")
+AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.13/Auc-Util-SimpleAuction/SimpFrame.lua $", "$Rev: 5210 $")

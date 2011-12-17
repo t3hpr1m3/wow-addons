@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Venoxis", "DBM-Party-Cataclysm", 11)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 6499 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 6706 $"):sub(12, -3))
 mod:SetCreatureID(52155)
 mod:SetModelID(37788)
 mod:SetZone()
@@ -10,10 +10,13 @@ mod:SetUsedIcons(7, 8)
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
-	"SPELL_AURA_APPLIED",
-	"SPELL_AURA_REMOVED",
 	"SPELL_CAST_START",
 	"SPELL_DAMAGE"
+)
+
+mod:RegisterEvents(
+	"SPELL_AURA_APPLIED",
+	"SPELL_AURA_REMOVED"
 )
 
 local warnWordHethiss		= mod:NewSpellAnnounce(96560, 2)

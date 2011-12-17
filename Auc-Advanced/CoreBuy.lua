@@ -1,7 +1,7 @@
 --[[
 	Auctioneer
-	Version: 5.12.5198 (QuirkyKiwi)
-	Revision: $Id: CoreBuy.lua 5159 2011-05-14 19:18:45Z Nechckn $
+	Version: 5.13.5246 (BoldBandicoot)
+	Revision: $Id: CoreBuy.lua 5241 2011-11-30 19:05:41Z Nechckn $
 	URL: http://auctioneeraddon.com/
 
 	This is an addon for World of Warcraft that adds statistical history to the auction data that is collected
@@ -353,7 +353,7 @@ function lib.ScanPage(startat)
 				if link == BuyRequest.link then
 					local price = BuyRequest.price
 					local brSeller = BuyRequest.sellername
-					local name, texture, count, _, _, _, minBid, minIncrement, buyout, curBid, ishigh, owner = GetAuctionItemInfo("list", ind)
+					local name, texture, count, _, _, _, _, minBid, minIncrement, buyout, curBid, ishigh, owner = GetAuctionItemInfo("list", ind)
 					if (not owner or brSeller == "" or owner == brSeller)
 					and (count == BuyRequest.count)
 					and (minBid == BuyRequest.minbid)
@@ -424,7 +424,7 @@ function private.PerformPurchase()
 	end
 	local link = GetAuctionItemLink("list", index)
 	link = AucAdvanced.SanitizeLink(link)
-	local name, texture, count, _, _, _, minBid, minIncrement, buyout, curBid, ishigh, owner = GetAuctionItemInfo("list", index)
+	local name, texture, count, _, _, _, _, minBid, minIncrement, buyout, curBid, ishigh, owner = GetAuctionItemInfo("list", index)
 
 	if (private.CurRequest.link ~= link) then
 		aucPrint(highlight.."Cancelling bid: "..index.." link does not match")
@@ -543,7 +543,7 @@ local function OnEvent(frame, event, message, ...)
 			local link = GetAuctionItemLink("list", index)
 			link = AucAdvanced.SanitizeLink(link)
 			if link == request.link then
-				local _, _, count, _, _, _, minBid, minIncrement, buyout, curBid, ishigh, owner = GetAuctionItemInfo("list", index)
+				local _, _, count, _, _, _, _, minBid, minIncrement, buyout, curBid, ishigh, owner = GetAuctionItemInfo("list", index)
 				if count == request.count and minBid == request.minbid and buyout == request.buyout then
 					local price = request.price
 					local sellername = request.sellername
@@ -708,4 +708,4 @@ private.Prompt.DragBottom:SetHighlightTexture("Interface\\FriendsFrame\\UI-Frien
 private.Prompt.DragBottom:SetScript("OnMouseDown", DragStart)
 private.Prompt.DragBottom:SetScript("OnMouseUp", DragStop)
 
-AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.12/Auc-Advanced/CoreBuy.lua $", "$Rev: 5159 $")
+AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.13/Auc-Advanced/CoreBuy.lua $", "$Rev: 5241 $")

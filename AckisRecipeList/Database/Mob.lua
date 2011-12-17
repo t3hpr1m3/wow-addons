@@ -2,10 +2,10 @@
 ************************************************************************
 Mob.lua
 ************************************************************************
-File date: 2011-10-17T07:30:55Z
-File hash: 75ee99f
-Project hash: d552bcd
-Project version: 2.2.10
+File date: 2011-12-05T18:38:30Z
+File hash: 19378dc
+Project hash: 6177bc5
+Project version: 2.2.11
 ************************************************************************
 Please see http://www.wowace.com/addons/arl/ for more information.
 ************************************************************************
@@ -79,8 +79,7 @@ function addon:InitMob()
 
 	-- Eastern Plaguelands
 	AddMob(1844,	L["Foreman Marcrid"],			"Eastern Plaguelands", 54.0, 68.0)
-	AddMob(8546,	L["Dark Adept"],			"Eastern Plaguelands", 65.8, 37.9)
-	AddMob(8550,	L["Shadowmage"],			"Eastern Plaguelands", 78.5, 35.3)
+	AddMob(8546,	L["Dark Adept"],			"Eastern Plaguelands", 37.6, 45.0)
 	AddMob(8561,	L["Mossflayer Shadowhunter"],		"Eastern Plaguelands", 60.9, 21.5)
 	AddMob(9451,	L["Scarlet Archmage"],			"Eastern Plaguelands", 81.5, 75.4)
 
@@ -225,8 +224,6 @@ function addon:InitMob()
 	AddMob(6559,	L["Glutinous Ooze"],			"Un'Goro Crater", 39.0, 37.7)
 
 	-- Western Plaguelands
-	AddMob(1783,	L["Skeletal Flayer"],			"Western Plaguelands", 50.7, 80.5)
-	AddMob(1791,	L["Slavering Ghoul"],			"Western Plaguelands", 36.0, 56.5)
 	AddMob(1812,	L["Rotting Behemoth"],			"Western Plaguelands", 64.5, 36.6)
 
 	-- Westfall

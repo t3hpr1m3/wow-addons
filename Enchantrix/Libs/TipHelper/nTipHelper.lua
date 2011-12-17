@@ -1,7 +1,7 @@
 --[[
 	Norganna's Tooltip Helper class
-	Version: 1.2
-	Revision: $Id: nTipHelper.lua 310 2011-06-07 19:41:37Z brykrys $
+	Version: 1,3
+	Revision: $Id: nTipHelper.lua 315 2011-07-18 11:53:36Z brykrys $
 	URL: http://norganna.org/tthelp
 
 	This is a slide-in helper class for the Norganna's AddOns family of AddOns
@@ -43,7 +43,7 @@
 if not LibStub then -- LibStub is included in LibExtraTip
 	error("TipHelper cannot load because LibExtraTip is not loaded (LibStub missing)")
 end
-local MAJOR,MINOR,REVISION = "nTipHelper", 1, 1.2
+local MAJOR,MINOR,REVISION = "nTipHelper", 1, 3
 local LIBSTRING = MAJOR..":"..MINOR
 local lib = LibStub:NewLibrary(LIBSTRING,REVISION)
 if not lib then return end
@@ -154,19 +154,29 @@ do -- tooltip class definition
 	end
 
 	function lib:DecodeLink(link, info)
-		local lType,id,enchant,gem1,gem2,gem3,gemBonus,suffix,seed,factor
+		local lType,id,enchant,gem1,gem2,gem3,gemBonus,suffix,seed,factor,ulevel,reforge
 		local vartype = type(link)
 		if (vartype == "string") then
-			lType,id,enchant,gem1,gem2,gem3,gemBonus,suffix,seed = breakHyperlink("Hitem:", 6, strsplit("|", link))
+			lType,id,enchant,gem1,gem2,gem3,gemBonus,suffix,seed,ulevel,reforge = strsplit(":", link)
+			lType = lType:sub(-4)
 			if (lType ~= "item") then return end
 			id = tonumber(id) or 0
 			enchant = tonumber(enchant) or 0
 			suffix = tonumber(suffix) or 0
 			seed = tonumber(seed) or 0
 			factor = lib:GetFactor(suffix, seed)
+			gem1 = tonumber(gem1) or 0
+			gem2 = tonumber(gem2) or 0
+			gem3 = tonumber(gem3) or 0
+			gemBonus = tonumber(gemBonus) or 0
+			if reforge then
+				reforge = tonumber((strsplit("|", reforge))) or 0
+			else
+				reforge = 0
+			end
 		elseif (vartype == "number") then
-			lType,id, suffix,factor,enchant,seed, gem1,gem2,gem3,gemBonus =
-				"item",link, 0,0,0,0, 0,0,0,0
+			lType,id, suffix,factor,enchant,seed, gem1,gem2,gem3,gemBonus,reforge =
+				"item",link, 0,0,0,0, 0,0,0,0, 0
 		end
 		if info and type(info) == "table" then
 			info.itemLink      = link
@@ -180,8 +190,9 @@ do -- tooltip class definition
 			info.itemGem2      = gem2
 			info.itemGem3      = gem3
 			info.itemGemBonus  = gemBonus
+			info.itemReforge   = reforge
 		end
-		return lType,id,suffix,factor,enchant,seed,gem1,gem2,gem3,gemBonus
+		return lType,id,suffix,factor,enchant,seed,gem1,gem2,gem3,gemBonus,reforge
 	end
 
 	function lib:GetLinkQuality(link)
@@ -350,17 +361,17 @@ do -- tooltip class definition
 		local m = MoneyViewClass:new(high, wide, red,green,blue);
 		return m
 	end
-	
+
 	function lib:AltChatLinkRegister(callback)
 		-- 'callback' is a function which should take the same parameters as SetItemRef
 		-- and should return one of the LibAltChatLink constants (may return nil instead of NO_ACTION)
 		libACL:AddCallback(callback)
 	end
-	
+
 	function lib:AltChatLinkConstants()
 		return libACL.OPEN_TOOLTIP, libACL.NO_ACTION, libACL.BLOCK_TOOLTIP
 	end
 
 end -- tooltip class definition
 
-LibStub("LibRevision"):Set("$URL: http://svn.norganna.org/libs/trunk/TipHelper/nTipHelper.lua $","$Rev: 310 $","5.12.DEV.", 'auctioneer', 'libs')
+LibStub("LibRevision"):Set("$URL: http://svn.norganna.org/libs/trunk/TipHelper/nTipHelper.lua $","$Rev: 315 $","5.12.DEV.", 'auctioneer', 'libs')

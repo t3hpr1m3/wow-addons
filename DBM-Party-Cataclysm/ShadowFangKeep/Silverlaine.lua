@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Silverlaine", "DBM-Party-Cataclysm", 6)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 6499 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 6700 $"):sub(12, -3))
 mod:SetCreatureID(3887)
 mod:SetModelID(37288)
 mod:SetZone()
@@ -17,7 +17,7 @@ mod:RegisterEventsInCombat(
 local warnVeilShadow	= mod:NewSpellAnnounce(93956, 3)
 local warnWorgenSpirit	= mod:NewSpellAnnounce(93857, 3)
 
-local timerVeilShadow	= mod:NewBuffActiveTimer(8, 93956)
+local timerVeilShadow	= mod:NewBuffFadesTimer(8, 93956)
 local timerWorgenSpirit	= mod:NewCastTimer(2, 93857)
 
 local veilShadowCast = 0

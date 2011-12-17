@@ -1,7 +1,7 @@
 --[[
 	Auctioneer - Search UI - Filter IgnoreTimeLeft
-	Version: 5.12.5198 (QuirkyKiwi)
-	Revision: $Id: FilterTimeLeft.lua 4432 2009-08-29 14:55:35Z dinesh $
+	Version: 5.13.5246 (BoldBandicoot)
+	Revision: $Id: FilterTimeLeft.lua 5232 2011-11-23 17:47:17Z Nechckn $
 	URL: http://auctioneeraddon.com/
 
 	This is a plugin module for the SearchUI that assists in searching by refined paramaters
@@ -66,9 +66,10 @@ function lib:MakeGuiConfig(gui)
 	gui:AddControl(id, "Subhead",     .5, "Filter for:")
 	for name, searcher in pairs(AucSearchUI.Searchers) do
 		if searcher and searcher.Search then
-			gui:AddControl(id, "Checkbox", 0.5, 1, "ignoretimeleft.filter."..name, name)
+			local setting = "ignoretimeleft.filter."..name
+			default(setting, false)
+			gui:AddControl(id, "Checkbox", 0.5, 1, setting, name)
 			gui:AddTip(id, "Filter Time-left when searching with "..name)
-			default("ignoretimeleft.filter."..name, false)
 		end
 	end
 end
@@ -108,4 +109,4 @@ function lib.PostFilter(item, searcher, buyorbid)
 	return false
 end
 
-AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.12/Auc-Util-SearchUI/FilterTimeLeft.lua $", "$Rev: 4432 $")
+AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.13/Auc-Util-SearchUI/FilterTimeLeft.lua $", "$Rev: 5232 $")

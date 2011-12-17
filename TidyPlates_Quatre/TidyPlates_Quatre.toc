@@ -1,4 +1,4 @@
-## Interface: 40200
+## Interface: 40300
 ## Title: Tidy Plates: Quatre Theme
 ## Notes: It's #4!
 ## Author: A very very foolish man

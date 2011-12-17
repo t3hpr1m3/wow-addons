@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("LadyNazjar", "DBM-Party-Cataclysm", 9)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 6499 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 6700 $"):sub(12, -3))
 mod:SetCreatureID(40586)
 mod:SetModelID(34342)
 mod:SetZone()
@@ -26,7 +26,7 @@ local timerWaterspout		= mod:NewBuffActiveTimer(60, 75863)
 local timerShockBlast		= mod:NewCastTimer(3, 76008)
 local timerShockBlastCD		= mod:NewCDTimer(13, 76008)
 local timerGeyser			= mod:NewCastTimer(5, 75722)
-local timerFungalSpores		= mod:NewBuffActiveTimer(15, 80564)
+local timerFungalSpores		= mod:NewBuffFadesTimer(15, 80564)
 
 local specWarnShockBlast	= mod:NewSpecialWarningInterrupt(76008)
 

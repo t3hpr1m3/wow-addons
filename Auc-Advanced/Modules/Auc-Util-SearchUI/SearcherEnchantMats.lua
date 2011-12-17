@@ -1,6 +1,6 @@
 --[[
 	Auctioneer - Search UI - Searcher EnchantMats
-	Version: 5.12.5198 (QuirkyKiwi)
+	Version: 5.13.5246 (BoldBandicoot)
 	Revision: $Id: SearcherEnchantMats.lua 5039 2010-12-11 21:12:17Z brykrys $
 	URL: http://auctioneeraddon.com/
 
@@ -386,4 +386,4 @@ function lib.Search(item)
 	return false, "Not enough profit"
 end
 
-AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.12/Auc-Util-SearchUI/SearcherEnchantMats.lua $", "$Rev: 5039 $")
+AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.13/Auc-Util-SearchUI/SearcherEnchantMats.lua $", "$Rev: 5039 $")

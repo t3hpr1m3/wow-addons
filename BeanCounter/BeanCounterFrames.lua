@@ -1,7 +1,7 @@
 --[[
 	Auctioneer Addon for World of Warcraft(tm).
-	Version: 5.12.5198 (QuirkyKiwi)
-	Revision: $Id: BeanCounterFrames.lua 5127 2011-04-21 18:06:00Z kandoko $
+	Version: 5.13.5246 (BoldBandicoot)
+	Revision: $Id: BeanCounterFrames.lua 5241 2011-11-30 19:05:41Z Nechckn $
 	URL: http://auctioneeraddon.com/
 
 	BeanCounterFrames - AuctionHouse UI for Beancounter
@@ -28,7 +28,7 @@
 		since that is it's designated purpose as per:
 		http://www.fsf.org/licensing/licenses/gpl-faq.html#InterpreterIncompat
 ]]
-LibStub("LibRevision"):Set("$URL: http://svn.norganna.org/auctioneer/branches/5.12/BeanCounter/BeanCounterFrames.lua $","$Rev: 5127 $","5.1.DEV.", 'auctioneer', 'libs')
+LibStub("LibRevision"):Set("$URL: http://svn.norganna.org/auctioneer/branches/5.13/BeanCounter/BeanCounterFrames.lua $","$Rev: 5241 $","5.1.DEV.", 'auctioneer', 'libs')
 
 local lib = BeanCounter
 local private, print, get, set, _BC = lib.getLocals()
@@ -82,15 +82,15 @@ function private.AuctionUI()
 			AuctionFrameBot:SetTexture("Interface\\AuctionFrame\\UI-AuctionFrame-Bid-Bot")
 			AuctionFrameBotRight:SetTexture("Interface\\AuctionFrame\\UI-AuctionFrame-Bid-BotRight")
 
-			if (AuctionDressUpFrame:IsVisible()) then
-				AuctionDressUpFrame:Hide()
-				AuctionDressUpFrame.reshow = true
+			if (SideDressUpFrame:IsVisible()) then
+				SideDressUpFrame:Hide()
+				SideDressUpFrame.reshow = true
 			end
 			private.displayGUI("ShowAHGUI")
 		else
-			if (AuctionDressUpFrame.reshow) then
-				AuctionDressUpFrame:Show()
-				AuctionDressUpFrame.reshow = nil
+			if (SideDressUpFrame.reshow) then
+				SideDressUpFrame:Show()
+				SideDressUpFrame.reshow = nil
 			end
 			--AuctionFrameMoneyFrame:Show() --we interfere with other addosn which hide this.
 			private.displayGUI("HideAHGUI")

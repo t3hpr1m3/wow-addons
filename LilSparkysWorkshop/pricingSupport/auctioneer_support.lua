@@ -65,6 +65,7 @@ do
 
 		local engines = AucAdvanced.GetAllModules(nil, "Stat")
 
+
 		for pos, engineLib in ipairs(engines) do
 			local name = engineLib.GetName()
 
@@ -77,7 +78,8 @@ do
 
 		function lib.Processor(callbackType)
 			if (callbackType == "scanstats") then
-				LSW:FlushPriceData()
+--				LSW:FlushPriceData()
+				LSW:UpdateData()
 			end
 		end
 	end

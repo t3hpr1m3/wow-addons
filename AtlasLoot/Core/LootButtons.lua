@@ -25,10 +25,13 @@ local CURRENCY_PRICE = {
 	["VALOR"] = 396,		-- Valor Points
 	["CHEFAWARD"] = 402,	-- Chef's Award
 	["WORLDTREE"] = 416,	-- Mark of the World Tree
+	["CATAJW"] = 361,		-- Illustrious Jewelcrafter's Token
+	["DARKMOON"] = 515,		-- Darkmoon Prize Ticket
 	
 	-- Custom currencys
 	["MIDSUMMER"] = { itemID = 23247 },
 	["SPIRITSHARD"] = { itemID = 28558 },
+	["HALLOWSEND"] = { itemID = 33226 },
 	["BREWFEST"] = { itemID = 37829 },
 	["NOBLEGARDEN"] = { itemID = 44791 },
 	["CHAMPWRIT"] = { itemID = 46114 },
@@ -585,14 +588,25 @@ do
 					if priceTab then
 						--tempPrice, isPrice = GetExtraPriceLink(price)
 						local extraText2 = ""
+						local icon
 						for k,v in ipairs(priceTab) do
-							extraText2 = extraText2..v[1]
+							if k == 1 then
+								extraText2 = extraText2..v[1]
+							else
+								if type(v[2]) == "number" then
+									icon = select(3, GetCurrencyInfo(v[2]))
+									icon = "Interface\\Icons\\"..icon
+								else
+									icon = GetItemIcon(CURRENCY_PRICE[v[2]].itemID)
+								end
+								extraText2 = extraText2..", |T"..icon..":15:15|t"..v[1]
+							end	
 						end
-						if newPrice and newPrice ~= "" then
-							tempText = extraText2..", "..newPrice
-						else
+						--if newPrice and newPrice ~= "" then
+							--tempText = extraText2..", "..newPrice
+						--else
 							tempText = extraText2
-						end
+						--end
 					else
 						tempText, isQuest, isAchievement, isItem = GetExtraTextLink(price)
 						if not tempText then
@@ -739,9 +753,9 @@ do
 		if itemNameNew then
 			_, _, _, itemQuality = GetItemQualityColor(itemQuality)
 			tempText = itemQuality..string.gsub(itemNameNew, 1, 4)
-			if select(4, GetBuildInfo()) == 40200 then
+			--if select(4, GetBuildInfo()) == 40200 then
 				tempText = "|c"..tempText
-			end
+			--end
 		elseif itemName then
 			tempText = AtlasLoot:FixText(itemName)
 		else
@@ -1283,9 +1297,15 @@ function AtlasLoot:QAItemOnClick(arg1)
 					linkTmp = v[1].." x "..linkTmp
 				elseif type(v[2]) == "number" then
 					linkTmp = GetCurrencyInfo(v[2])
+					--SendChatMessage("\124cff00aa00\124Hcurrency:396\124h[Valor Points]\124h\124r")
+					linkTmp = string.format("|cff00aa00|Hcurrency:%d|h[%s]|h|r", v[2], linkTmp)
 					linkTmp = v[1].." x "..linkTmp
 				end
-				link = linkTmp
+				if k == 1 then
+					link = link..linkTmp
+				else
+					link = link..", "..linkTmp
+				end
 				linkTmp = ""
 			end
 		end

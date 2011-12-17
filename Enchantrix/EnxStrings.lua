@@ -4,8 +4,8 @@
 	http://localizer.norganna.org/
 
 	AddOn: Enchantrix
-	Revision: $Id: EnxStrings.lua 5194 2011-07-04 17:46:21Z Nechckn $
-	Version: 5.12.5198 (QuirkyKiwi)
+	Revision: $Id: EnxStrings.lua 5193 2011-07-04 17:35:08Z Nechckn $
+	Version: 5.13.5246 (BoldBandicoot)
 
 	License:
 		This program is free software; you can redistribute it and/or

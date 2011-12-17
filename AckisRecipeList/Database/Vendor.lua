@@ -2,10 +2,10 @@
 ************************************************************************
 Vendor.lua
 ************************************************************************
-File date: 2011-10-20T05:57:22Z
-File hash: d552bcd
-Project hash: d552bcd
-Project version: 2.2.10
+File date: 2011-12-06T08:16:42Z
+File hash: 5830ad7
+Project hash: 6177bc5
+Project version: 2.2.11
 ************************************************************************
 Please see http://www.wowace.com/addons/arl/ for more information.
 ************************************************************************
@@ -72,7 +72,6 @@ function addon:InitVendor()
 	AddVendor(2670,		L["Xizk Goodstitch"],			"The Cape of Stranglethorn",	43.6,	73.0,	"Neutral")  -- UPDATED
 	AddVendor(2672,		L["Cowardly Crosby"],			"The Cape of Stranglethorn",	40.9,	82.5,	"Neutral")   -- UPDATED
 	AddVendor(2679,		L["Wenna Silkbeard"],			"Wetlands",			25.7,	25.8,	"Alliance")
-	AddVendor(2683,		L["Namdo Bizzfizzle"],			"Gnomeregan",			0,	0,	"Alliance")
 	AddVendor(2685,		L["Mazk Snipeshot"],			"The Cape of Stranglethorn",	43.2, 	0.2,	"Neutral")  -- UPDATED
 	AddVendor(2687,		L["Gnaz Blunderflame"],			"Northern Stranglethorn",	67.5,	61.5,	"Neutral")  -- UPDATED
 	AddVendor(2688,		L["Ruppo Zipcoil"],			"The Hinterlands",		34.3,	37.9,	"Neutral") -- COMPLETELY UPDATED
@@ -177,7 +176,7 @@ function addon:InitVendor()
 	AddVendor(8131,		L["Blizrik Buckshot"],			"Tanaris",			50.7,	28.5,	"Neutral") -- COMPLETELY UPDATED
 	AddVendor(8145,		L["Sheendra Tallgrass"],		"Feralas",			74.5,	42.8,	"Horde")
 	AddVendor(8150,		L["Janet Hommers"],			"Desolace",			66.2,	6.7,	"Alliance")
-	AddVendor(8157,		L["Logannas"],				"Feralas",			32.7,	44.0,	"Alliance")
+	AddVendor(8157,		L["Logannas"],				"Feralas",			46.6,	43.0,	"Alliance")
 	AddVendor(8158,		L["Bronk"],				"Feralas",			76.1,	43.3,	"Horde")
 	AddVendor(8160,		L["Nioma"],				"The Hinterlands",		13.4,	43.3,	"Alliance")
 	AddVendor(8161,		L["Harggan"],				"The Hinterlands",		13.4,	44.0,	"Alliance")
@@ -197,7 +196,7 @@ function addon:InitVendor()
 	AddVendor(10118,	L["Nessa Shadowsong"],			"Teldrassil",			56.3,	92.4,	"Alliance")
 	AddVendor(10856,	L["Argent Quartermaster Hasana"],	"Tirisfal Glades",		83.2,	68.1,	"Neutral")
 	AddVendor(10857,	L["Argent Quartermaster Lightspark"],	"Western Plaguelands",		42.8,	83.8,	"Neutral")
-	AddVendor(11185,	L["Xizzer Fizzbolt"],			"Winterspring",			60.8,	38.6,	"Neutral")
+	AddVendor(11185,	L["Xizzer Fizzbolt"],			"Winterspring",			59.2,	50.9,	"Neutral")
 	AddVendor(11187,	L["Himmik"],				"Winterspring",			59.8,	51.6,	"Neutral")  -- UPDATED
 	AddVendor(11189,	L["Qia"],				"Winterspring",			59.6,	49.2,	"Neutral")
 	AddVendor(11278,	L["Magnus Frostwake"],			"Western Plaguelands",		68.1,	77.6,	"Neutral")
@@ -223,10 +222,10 @@ function addon:InitVendor()
 	AddVendor(13433,	L["Wulmort Jinglepocket"],		"Ironforge",			33.0,	67.6,	"Neutral")
 	AddVendor(13435,	L["Khole Jinglepocket"],		"Stormwind City",		62.2,	70.6,	"Alliance") -- COMPLETELY UPDATED
 	AddVendor(14371,	L["Shen'dralar Provisioner"],		"Dire Maul",			0,	0,	"Neutral")
-	AddVendor(14637,	L["Zorbin Fandazzle"],			"Feralas",			44.8,	43.4,	"Neutral")
+	AddVendor(14637,	L["Zorbin Fandazzle"],			"Feralas",			48.7,	44.8,	"Neutral")
 	AddVendor(14738,	L["Otho Moji'ko"],			"The Hinterlands",		79.3,	79.1,	"Horde") -- COMPLETELY UPDATED
 	AddVendor(15176,	L["Vargus"],				"Silithus",			51.2,	38.8,	"Neutral")
-	AddVendor(15179,	L["Mishta"],				"Silithus",			49.9,	36.5,	"Neutral")
+	AddVendor(15179,	L["Mishta"],				"Silithus",			53.8,	34.4,	"Neutral")
 	AddVendor(15293,	L["Aendel Windspear"],			"Silithus",			62.6,	49.8,	"Neutral")
 	AddVendor(15419,	L["Kania"],				"Silithus",			52.0,	39.6,	"Neutral")
 	AddVendor(15471,	BB["Lieutenant General Andorov"],	"Ruins of Ahn'Qiraj",		0,	0,	"Neutral")
@@ -297,6 +296,7 @@ function addon:InitVendor()
 	AddVendor(19373,	L["Mari Stonehand"],			"Shadowmoon Valley",		36.8,	55.1,	"Alliance")
 	AddVendor(19383,	L["Captured Gnome"],			"Zangarmarsh",			32.5,	48.1,	"Horde") -- COMPLETELY UPDATED
 	AddVendor(19521,	L["Arrond"],				"Shadowmoon Valley",		55.9,	58.2,	"Neutral")
+	AddVendor(19536,	L["Dealer Jadyan"],			"Netherstorm",			44.0,	36.6,	"Neutral") -- COMPLETELY UPDATED
 	AddVendor(19537,	L["Dealer Malij"],			"Netherstorm",			44.2,	34.0,	"Neutral") -- COMPLETELY UPDATED
 	AddVendor(19540,	L["Asarnan"],				"Netherstorm",			44.2,	33.7,	"Neutral") -- COMPLETELY UPDATED
 	AddVendor(19661,	L["Viggz Shinesparked"],		"Shattrath City",		64.9,	69.1,	"Neutral")
@@ -372,6 +372,7 @@ function addon:InitVendor()
 	AddVendor(33602,	L["Anuur"],				"Icecrown",			71.4,	20.8,	"Neutral")
 	AddVendor(33637,	L["Kirembri Silvermane"],		"Shattrath City",		58.1,	75.0,	"Neutral") -- COMPLETELY UPDATED
 	AddVendor(33680,	L["Nemiha"],				"Shattrath City",		36.1,	47.7,	"Neutral")
+	AddVendor(34382,	L["Chapman"],				"Undercity",			68.1,	11.2,	"Horde") -- COMPLETELY UPDATED
 	AddVendor(34601,	L["Harlown Darkweave"],			"Ashenvale",			18.2,	60.0,	"Alliance")
 	AddVendor(35826,	L["Kaye Toogie"],			"Dalaran",			34.0,	35.6,	"Neutral")
 	AddVendor(37687,	L["Alchemist Finklestein"],		"Icecrown Citadel",		0,	0,	"Neutral")
@@ -379,6 +380,7 @@ function addon:InitVendor()
 	AddVendor(40226,	L["Pratt McGrubben"],			"Feralas",			45.4,	41.2,	"Alliance")
 	AddVendor(40572,	L["Haughty Modiste"],			"Tanaris",			50.7,	28.6,	"Neutral") -- COMPLETELY UPDATED
 	AddVendor(40589,	L["Dirge Quikcleave"],			"Tanaris",			52.6,	29.1,	"Neutral") -- COMPLETELY UPDATED
+	AddVendor(41435,	L["Fradd Swiftgear"],			"Wetlands",			26.8,	26.0,	"Alliance") -- COMPLETELY UPDATED
 	AddVendor(44583,	L["Terrance Denman"],			"Stormwind City", 		63.2,	61.7,	"Alliance") -- COMPLETELY UPDATED
 	AddVendor(45546,	L["Vizna Bangwrench"],			"Orgrimmar",			36.4,	86.4,	"Horde") -- COMPLETELY UPDATED
 	AddVendor(45549,	L["Zido Helmbreaker"],			"Orgrimmar",			36.4,	83.0,	"Horde") -- COMPLETELY UPDATED
@@ -408,6 +410,8 @@ function addon:InitVendor()
 	AddVendor(53214,	L["Damek Bloombeard"],			"Hyjal",			47.0,	90.2,	"Neutral")
 	AddVendor(53881,	L["Ayla Shadowstorm"],			"Hyjal",			72.5,	36.2,	"Neutral")
 	AddVendor(54232,	L["Mrs. Gant"],				"The Cape of Stranglethorn",	42.6,	72.8,	"Neutral") -- COMPLETLY UPDATED
+	AddVendor(56925,	L["Farrah Facet"],			"Stormwind City",		63.8,	61.6,	"Alliance") -- COMPLETLY UPDATED
+	AddVendor(57922,	L["Taryssa Lazuria"],			"Orgrimmar",			72.4,	34.6,	"Horde") -- COMPLETLY UPDATED
 
 	self.InitVendor = nil
 end

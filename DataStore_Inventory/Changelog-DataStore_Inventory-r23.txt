@@ -1,0 +1,10 @@
+------------------------------------------------------------------------
+r23 | thaoky | 2011-12-10 14:52:16 +0000 (Sat, 10 Dec 2011) | 2 lines
+Changed paths:
+   M /trunk/DataStore_Inventory.toc
+   A /trunk/Locales/ptBR.lua
+   M /trunk/locale.xml
+
+TOC Update
+ptBR support
+------------------------------------------------------------------------

@@ -1,7 +1,7 @@
 --[[
 	Auctioneer - EasyBuyout Utility Module
 	Version: 1.2.5 (GhostfromTexas)
-	Revision: $Id: EasyBuyout.lua 4897 2010-10-03 22:13:28Z kandoko $
+	Revision: $Id: EasyBuyout.lua 5241 2011-11-30 19:05:41Z Nechckn $
 	URL: http://auctioneeraddon.com/
 
 	This Auctioneer module allows for the ability to purchase items from
@@ -114,6 +114,10 @@ function private.AHLoaded()
 	if AucAdvanced.Modules.Util.CompactUI and AucAdvanced.Modules.Util.CompactUI.Private.ButtonClick and get("util.compactui.activated") then
 		orig_AB_OC = AucAdvanced.Modules.Util.CompactUI.Private.ButtonClick
 		AucAdvanced.Modules.Util.CompactUI.Private.ButtonClick = private.BrowseButton_OnClick
+		for i = 1, NUM_BROWSE_TO_DISPLAY do -- should be 14 buttons
+			local button = _G["BrowseButton"..i]
+			button:SetScript("OnClick", private.BrowseButton_OnClick)
+		end
 		CompactUImode = true
 	else
 		assert(BrowseButton_OnClick, "BrowseButton_OnClick doesn't exist yet")
@@ -287,7 +291,7 @@ end
 
 function private.EasyBuyoutAuction()
     local EasyBuyoutIndex = GetSelectedAuctionItem("list");
-    local EasyBuyoutPrice = select(9, GetAuctionItemInfo("list", EasyBuyoutIndex))
+    local EasyBuyoutPrice = select(10, GetAuctionItemInfo("list", EasyBuyoutIndex))
 
 	-- Easy Gold Limit for EasyBuyout
 	if get("util.EasyBuyout.EGL.EBuy.active") then
@@ -380,7 +384,7 @@ function private.NewOnDoubleClick(self, button)
 	end
 	local link = GetAuctionItemLink("list", id)
 	if button == 'LeftButton' then
-		if (select(11, GetAuctionItemInfo("list", id))) then
+		if (select(12, GetAuctionItemInfo("list", id))) then
 			private.EBMessage("You are already the highest bidder on this item!")
 			return
 		end
@@ -399,9 +403,9 @@ end
 
 -- Function to place a bid on a specific auction using EasyBid
 function private.EasyBidAuction(getID)
-    local EasyBidPrice = select(10, GetAuctionItemInfo("list", getID)) + select(8, GetAuctionItemInfo("list", getID))
+    local EasyBidPrice = select(11, GetAuctionItemInfo("list", getID)) + select(9, GetAuctionItemInfo("list", getID))
 	if EasyBidPrice == 0 then
-		EasyBidPrice = EasyBidPrice + select(7, GetAuctionItemInfo("list", getID))
+		EasyBidPrice = EasyBidPrice + select(8, GetAuctionItemInfo("list", getID))
 	end
 
 	-- Easy Gold Limit for EasyBid
@@ -430,4 +434,4 @@ function private.EBMessage(messageString)
 	print(messageString)
 end
 
-AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.12/Auc-Util-EasyBuyout/EasyBuyout.lua $", "$Rev: 4897 $")
+AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.13/Auc-Util-EasyBuyout/EasyBuyout.lua $", "$Rev: 5241 $")

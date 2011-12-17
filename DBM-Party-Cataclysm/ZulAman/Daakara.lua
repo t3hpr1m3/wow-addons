@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Daakara", "DBM-Party-Cataclysm", 10)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 6521 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 6707 $"):sub(12, -3))
 mod:SetCreatureID(23863)
 mod:SetModelID(38118)
 mod:SetZone()
@@ -70,6 +70,9 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args:IsSpellID(97497) and args:IsPlayer() and GetTime() - spamFlameBreath2 >= 3 and self:IsInCombat() then
 		specWarnFlameBreath:Show()
 		spamFlameBreath2 = GetTime()
+	elseif args:IsSpellID(42402) then
+		warnSurge:Show(args.destName)
+		timerSurgeCD:Start()
 	end
 end
 

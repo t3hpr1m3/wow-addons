@@ -1,7 +1,7 @@
 --[[
 	Swatter - An AddOn debugging aid for World of Warcraft.
-	Version: 5.12.5198 (QuirkyKiwi)
-	Revision: $Id: Swatter.lua 305 2011-05-18 08:01:16Z brykrys $
+	Version: 5.13.5246 (BoldBandicoot)
+	Revision: $Id: Swatter.lua 316 2011-10-01 17:16:46Z brykrys $
 	URL: http://auctioneeraddon.com/dl/Swatter/
 	Copyright (C) 2006 Norganna
 
@@ -41,7 +41,7 @@ Swatter = {
 	HISTORY_SIZE = 100,
 }
 
-Swatter.Version="5.12.5198"
+Swatter.Version="5.13.5246"
 if (Swatter.Version == "<%".."version%>") then
 	Swatter.Version = "5.1.DEV"
 end
@@ -50,6 +50,7 @@ SWATTER_VERSION = Swatter.Version
 SwatterData = {
 	enabled = true,
 	autoshow = true,
+	warning = true,
 	errors = {},
 }
 
@@ -73,7 +74,7 @@ hooksecurefunc("SetAddOnDetail", addOnDetail)
 
 -- End SetAddOnDetail function hook.
 
-LibStub("LibRevision"):Set("$URL: http://svn.norganna.org/libs/trunk/!Swatter/Swatter.lua $","$Rev: 305 $","5.1.DEV.", 'auctioneer', 'libs')
+LibStub("LibRevision"):Set("$URL: http://svn.norganna.org/libs/trunk/!Swatter/Swatter.lua $","$Rev: 316 $","5.1.DEV.", 'auctioneer', 'libs')
 
 local function toggle()
 	if Swatter.Error:IsVisible() then
@@ -200,8 +201,8 @@ local function OnError(msg, frame, stack, etype, ...)
 	local count = err.count or 0
 	if (count < 1000) then err.count = count + 1 end
 	if count == 0 and SwatterData.enabled then
-		if (etype == "ADDON_ACTION_BLOCKED") then
-			if (not Swatter.blockWarn) then
+		if etype == "ADDON_ACTION_BLOCKED" then
+			if SwatterData.warning and not Swatter.blockWarn then
 				chat("|cffffaa11Warning only: Swatter found blocked actions:|r "..SwatterLink(id, context))
 				chat("|cffffaa11Note: Swatter will continue to catch blocked actions but this is the last time this session that we'll tell you about it.|r")
 				Swatter.blockWarn = true
@@ -381,7 +382,7 @@ function Swatter.OnEvent(frame, event, ...)
 			Swatter.lastShown = Swatter.loadCount
 			return
 		end
-	elseif (event == "ADDON_ACTION_BLOCKED" and SwatterData.warning) then
+	elseif event == "ADDON_ACTION_BLOCKED" then
 		if SwatterData.enabled then
 			local addon, func = ...
 			if (InCombatLockdown()) then

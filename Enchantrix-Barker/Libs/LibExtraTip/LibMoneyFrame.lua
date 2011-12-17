@@ -22,17 +22,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 @author Tem
 @author Ken Allan <ken@norganna.org>
 @libname LibMoneyFrame
-@version 1.0
+@version 1.(see below)
 --]]
 
-local MAJOR,MINOR,REVISION = "LibMoneyFrame", 1, "$Revision: 307 $"
+local LIBNAME,VERSION_MAJOR,VERSION_MINOR = "LibMoneyFrame", 1, 320
+-- Version should not be a SVN Revision, must be updated manually
 
 -- A string unique to this version to prevent frame name conflicts.
-local LIBSTRING = MAJOR.."_"..MINOR.."_"..REVISION
-local lib = LibStub:NewLibrary(MAJOR.."-"..MINOR, REVISION)
+local LIBSTRING = LIBNAME.."_"..VERSION_MAJOR.."_"..VERSION_MINOR
+local lib = LibStub:NewLibrary(LIBNAME.."-"..VERSION_MAJOR, VERSION_MINOR)
 if not lib then return end
 
-LibStub("LibRevision"):Set("$URL: http://svn.norganna.org/libs/trunk/LibExtraTip/LibMoneyFrame.lua $","$Rev: 307 $","5.12.DEV.", 'auctioneer', 'libs')
+LibStub("LibRevision"):Set("$URL: http://svn.norganna.org/libs/trunk/LibExtraTip/LibMoneyFrame.lua $","$Rev: 318 $","5.12.DEV.", 'auctioneer', 'libs')
 
 -- Call function to deactivate any outdated version of the library.
 -- (calls the OLD version of this function, NOT the one defined in this
@@ -150,7 +151,7 @@ function methods:SetColor(red, green, blue)
 	self.copper.label:SetTextColor(red, green, blue)
 	self.silver.label:SetTextColor(red, green, blue)
 	self.gold.label:SetTextColor(red, green, blue)
-end	
+end
 
 function methods:SetHeight()
 end
@@ -180,7 +181,7 @@ function lib:new(height, red, green, blue)
 	o:UnregisterAllEvents()
 	o:SetWidth(width)
 	o:SetHeight(height)
-	
+
 	o.width = width
 	o.height = height
 
@@ -210,7 +211,7 @@ function lib:new(height, red, green, blue)
 
 	o:SetColor(red, green, blue)
 	o:Hide()
-	
+
 	return o
 end
 

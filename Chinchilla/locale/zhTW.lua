@@ -21,7 +21,7 @@ L["Available quest"] = "未接任務"
 L["Background"] = "背景"
 L["Battleground"] = "戰場資訊"
 L["Big Blizzard"] = "暴雪(大)"
--- L["Blinking Blips"] = ""
+L["Blinking Blips"] = "標誌閃爍" -- Needs review
 L["Blip size"] = "標誌大小"
 L["Blizzard"] = "暴雪型"
 L["Border"] = "邊框顏色"
@@ -92,7 +92,7 @@ L["Lock any draggable items regarding the minimap, so they can't be dragged mist
 L["Lock buttons in place so that they won't be mistakenly dragged"] = "鎖定小地圖按鈕以防止被不小心移動"
 L["Low"] = "低"
 L["Mail"] = "郵件提醒"
--- L["Make the minimap blips flash to make them more noticable."] = ""
+L["Make the minimap blips flash to make them more noticable."] = "讓小地圖上的標誌產生引人注意的閃爍效果" -- Needs review
 L["Medium"] = "中"
 L["Middle mouse button"] = "滑鼠中鍵"
 L["Minimap"] = "小地圖"

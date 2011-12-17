@@ -1,7 +1,7 @@
 --[[
 	Auctioneer - Price Level Utility module
-	Version: 5.12.5198 (QuirkyKiwi)
-	Revision: $Id: Undercut.lua 4828 2010-07-21 22:20:18Z Prowell $
+	Version: 5.13.5246 (BoldBandicoot)
+	Revision: $Id: Undercut.lua 5232 2011-11-23 17:47:17Z Nechckn $
 	URL: http://auctioneeraddon.com/
 
 	This is an Auctioneer Matcher module that returns an undercut price
@@ -43,36 +43,22 @@ local wipe = wipe
 local GetFaction = AucAdvanced.GetFaction
 local QueryImage = AucAdvanced.API.QueryImage
 local DecodeLink = AucAdvanced.DecodeLink
+local Const = AucAdvanced.Const
 
-local CONST_BUYOUT = AucAdvanced.Const.BUYOUT
-local CONST_COUNT = AucAdvanced.Const.COUNT
-local CONST_CURBID = AucAdvanced.Const.CURBID
-local CONST_MINBID = AucAdvanced.Const.MINBID
-local CONST_SELLER = AucAdvanced.Const.SELLER
-
-local playerName = UnitName("player")
+local CONST_BUYOUT = Const.BUYOUT
+local CONST_COUNT = Const.COUNT
+local CONST_CURBID = Const.CURBID
+local CONST_MINBID = Const.MINBID
+local CONST_SELLER = Const.SELLER
+local playerName = Const.PlayerName
 
 local tooltipCache = setmetatable({}, {__mode="v"})
 local matchArrayCache = {}
-
-function lib.Processor(callbackType, ...)
-	if (callbackType == "tooltip") then
-		--Called when the tooltip is being drawn.
-		private.ProcessTooltip(...)
-	elseif (callbackType == "config") then
-		--Called when you should build your Configator tab.
-		private.SetupConfigGui(...)
-	elseif (callbackType == "configchanged") then
-		--Called when your config options (if Configator) have been changed.
-		private.clearMatchArrayCache()
-		private.clearTooltipCache()
-	elseif (callbackType == "scanstats") then
-		-- AH has been scanned
-		private.clearMatchArrayCache()
-		private.clearTooltipCache()
-	elseif callbackType == "auctionclose" then
-		private.clearMatchArrayCache()	-- this is mostly to conserve RAM, we don't really need to wipe the cache here
-	end
+function private.clearMatchArrayCache()
+	wipe(matchArrayCache)
+end
+function private.clearTooltipCache()
+	wipe(tooltipCache)
 end
 
 lib.Processors = {}
@@ -103,15 +89,7 @@ function lib.Processors.auctionclose(callbackType, ...)
 end
 
 
-
-function private.clearMatchArrayCache()	-- called from processor
-	wipe(matchArrayCache)
-end
-function private.clearTooltipCache()
-	wipe(tooltipCache)
-end
-
-local query = {itemId = 0, suffix = 0, factor = 0} -- resusable pre-created 3-element table
+local query = {itemId = 0, suffix = 0, factor = 0} -- resusable pre-created table
 function lib.GetMatchArray(hyperlink, marketprice, serverKey)
 	if not get("match.undercut.enable") then return end
 	local linkType, itemId, suffix, factor = DecodeLink(hyperlink)
@@ -188,11 +166,14 @@ function lib.GetMatchArray(hyperlink, marketprice, serverKey)
 	if lowest then
 		if matchprice<=lowestBidOnly then
 			matchArray.returnstring = _TRANS('UCUT_Interface_UndercutLowestPrice'):format(marketdiff, "\n")--Undercut: %% change: %s%s Undercut: Lowest Price
+			matchArray.Result = "Lowest" -- non-localized code for internal use
 		else
 			matchArray.returnstring = _TRANS('UCUT_Interface_UndercutLowestBid'):format(marketdiff, "\n")--Undercut: %% change: %s%s Undercut: Lower bid-only auctions
+			matchArray.Result = "LowerBid"
 		end
 	else
 		matchArray.returnstring = _TRANS('UCUT_Interface_UndercutNoMatch'):format(marketdiff, "\n")--Undercut: %% change: %s%s Undercut: Can not match lowest price')
+		matchArray.Result = "NoMatch"
 	end
 	matchArray.competing = competing
 	matchArray.diff = marketdiff
@@ -229,14 +210,16 @@ function private.ProcessTooltip(tooltip, name, link, quality, quantity, cost, ad
 
 	if matcharray.competing == 0 then
 		tooltip:AddLine(_TRANS('UCUT_Tooltip_NoCompetition'):format("|cff00ff00") )--Undercut: %s No competition
-	elseif matcharray.returnstring:find("Can not match") then
+	elseif matcharray.Result == "NoMatch" then
 		tooltip:AddLine(_TRANS('UCUT_Tooltip_CannotUndercut'):format("|cffff0000") )--Undercut: %s Cannot Undercut
-	elseif matcharray.returnstring:find("Lowest") then
+	elseif matcharray.Result == "Lowest" then
 		if matcharray.value >= market then
 			tooltip:AddLine(_TRANS('UCUT_Tooltip_CompetitionAbove'):format("|cff40ff00") )--Undercut: %s Competition Above market
 		else
 			tooltip:AddLine(_TRANS('UCUT_Tooltip_Undercutting'):format("|cfffff000") )--Undercut: %s Undercutting competition
 		end
+	elseif matcharray.Result == "LowerBid" then
+		tooltip:AddLine(_TRANS('UCUT_Tooltip_LowBidOnly'):format("|cfffff000") )--Undercut: %s Lower Bid-only auctions
 	end
 	tooltip:AddLine("  ".._TRANS('UCUT_Tooltip_MovingPrice').." "..tostring(matcharray.diff).."%:", matcharray.value)--Moving price
 end
@@ -292,4 +275,4 @@ function private.SetupConfigGui(gui)
 
 end
 
-AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.12/Auc-Match-Undercut/Undercut.lua $", "$Rev: 4828 $")
+AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.13/Auc-Match-Undercut/Undercut.lua $", "$Rev: 5232 $")

@@ -165,29 +165,34 @@ L:SetMiscLocalization({
 L= DBM:GetModLocalization(198)
 
 L:SetWarningLocalization({
-	warnSplittingBlow	= "%s %s",--Spellname in Location
-	warnEngulfingFlame	= "%s %s",--Spellname in Location
-	WarnRemainingAdds	= "Осталось элементалей: %d",
-	warnAggro			= "На вас аггро от элементалей",
-	warnNoAggro			= "На вас нет аггро от элементалей"
+	warnRageRagnarosSoon	= "%s на %s через 5 секунд",--Spellname on targetname
+	warnSplittingBlow		= "%s %s",--Spellname in Location
+	warnEngulfingFlame		= "%s %s",--Spellname in Location
+	WarnRemainingAdds		= "Осталось элементалей: %d",
+	warnEmpoweredSulf		= "%s черещ 5 секунд"--The spell has a 5 second channel, but tooltip doesn't reflect it so cannot auto localize
 })
 
 L:SetTimerLocalization({
+	timerRageRagnaros	= "%s на %s",--Spellname on targetname
 	TimerPhaseSons		= "Окончание переходной фазы"
 })
 
 L:SetOptionLocalization({
-	warnSplittingBlow	= "Предупреждение для $spell:100877",
-	warnEngulfingFlame	= "Предупреждение для $spell:99171",
-	WarnRemainingAdds	= "Показывать количество оставшихся элементалей",
-	warnSeedsLand		= "Отсчитывать время до появления $spell:98520, а не до их появления в воздухе",
-	ElementalAggroWarn	= "Показывать наличие и отсутствие аггро от элементалей",
-	TimerPhaseSons		= "Отсчет времени до окончания \"фазы Сыновей пламени\"",
-	RangeFrame			= "Показывать окно проверки дистанции",
-	InfoHealthFrame		= "Информационное окно для игроков с низким уровнем здоровья (<100к)",
-	MeteorFrame			= "Информационное окно для целей $spell:99849",
-	AggroFrame			= "Информационное окно для игроков, не имеющих аггро от элементалей",
-	BlazingHeatIcons	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(100983)
+	warnRageRagnarosSoon		= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.prewarn:format(101109, GetSpellInfo(101109)),
+	warnSplittingBlow			= "Предупреждение для $spell:100877",
+	warnEngulfingFlame			= "Предупреждение для $spell:99171",
+	WarnEngulfingFlameHeroic	= "Предупреждение о появлении $spell:99171 (в героическом режиме)",
+	WarnRemainingAdds			= "Показывать количество оставшихся элементалей",
+	warnSeedsLand				= "Отсчитывать время до появления $spell:98520, а не до их появления в воздухе",
+	warnEmpoweredSulf			= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.cast:format(100997, GetSpellInfo(100997)),
+	timerRageRagnaros			= DBM_CORE_AUTO_TIMER_OPTIONS.cast:format(101109, GetSpellInfo(101109)),
+	TimerPhaseSons				= "Отсчет времени до окончания \"фазы Сыновей пламени\"",
+	RangeFrame					= "Показывать окно проверки дистанции",
+	P4IconRangeFilter			= "Показывать в окне проверки дистанции только рейдовые метки\n(Необходимо также включить предыдущую опцию)",
+	InfoHealthFrame				= "Информационное окно для игроков с низким уровнем здоровья (<100к)",
+	MeteorFrame					= "Информационное окно для целей $spell:99849",
+	AggroFrame					= "Информационное окно для игроков, не имеющих аггро от элементалей",
+	BlazingHeatIcons			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(100983)
 })
 
 L:SetMiscLocalization({
@@ -252,4 +257,25 @@ L:SetMiscLocalization({
 	StaffEvent				= "Ветвь Нордрассила яростно реагирует на прикосновение",--Partial, not sure if pull detection will work with partials yet :\
 	StaffTrees				= "Из-под земли появляются пылающие древни, чтобы помощь защитнику!",--Might add a spec warning for this later.
 	StaffTransition			= "Пламя, пожирающее измученного заступника, меркнет."
+})
+
+-----------------------
+--  Nexus Legendary  --
+-----------------------
+L = DBM:GetModLocalization("NexusLegendary")
+
+L:SetGeneralLocalization({
+	name = "Тиринар"
+})
+
+L:SetWarningLocalization({
+})
+
+L:SetTimerLocalization({
+})
+
+L:SetOptionLocalization({
+})
+
+L:SetMiscLocalization({
 })

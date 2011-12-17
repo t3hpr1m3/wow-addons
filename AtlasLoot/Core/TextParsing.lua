@@ -150,6 +150,7 @@ AtlasLoot_TextParsing = {
 	{ "#m36#", AL["No Longer Available"]},
 	{ "#m37#", AL["Tier 11"] },
 	{ "#m38#", AL["Tier 12"] },
+	{ "#m39#", AL["Tier 13"] },
 
 	-- Misc
 	{ "#j1#", AL["Normal Mode"] },
@@ -158,6 +159,8 @@ AtlasLoot_TextParsing = {
 	{ "#j4#", AL["Heroic"] },
 	{ "#j6#", AL["Dungeon Set 1"] },
 	{ "#j7#", AL["Dungeon Set 2"] },
+	{ "#j8#", AL["Dungeon Set 1/2"] },
+	{ "#j9#", AL["Replica"] },
 	{ "#j11#", AL["Fire Resistance Gear"] },
 	{ "#j12#", AL["Arcane Resistance Gear"] },
 	{ "#j13#", AL["Nature Resistance Gear"] },
@@ -589,6 +592,27 @@ AtlasLoot_TextParsing = {
 	{ "#t12s10_1#", BabbleItemSet["Elementium Deathplate Battlegear"] },
 	{ "#t12s10_2#", BabbleItemSet["Elementium Deathplate Battlearmor"] },
 
+	-- Tier 13 Sets
+	{ "#t13s1_1#", BabbleItemSet["Deep Earth Vestments"] },
+	{ "#t13s1_2#", BabbleItemSet["Deep Earth Battlegarb"] },
+	{ "#t13s1_3#", BabbleItemSet["Deep Earth Regalia"] },
+	{ "#t13s2#", BabbleItemSet["Wyrmstalker Battlegear"] },
+	{ "#t13s3#", BabbleItemSet["Time Lord's Regalia"] },
+	{ "#t13s4_1#", BabbleItemSet["Regalia of Radiant Glory"] },
+	{ "#t13s4_2#", BabbleItemSet["Armor of Radiant Glory"] },
+	{ "#t13s4_3#", BabbleItemSet["Battleplate of Radiant Glory"] },
+	{ "#t13s5_1#", BabbleItemSet["Regalia of Dying Light"] },
+	{ "#t13s5_2#", BabbleItemSet["Vestments of Dying Light"] },
+	{ "#t13s6#", BabbleItemSet["Blackfang Battleweave"] },
+	{ "#t13s7_1#", BabbleItemSet["Spiritwalker's Vestments"] },
+	{ "#t13s7_2#", BabbleItemSet["Spiritwalker's Battlegear"] },
+	{ "#t13s7_3#", BabbleItemSet["Spiritwalker's Regalia"] },
+	{ "#t13s8#", BabbleItemSet["Vestments of the Faceless Shroud"] },
+	{ "#t13s9_1#", BabbleItemSet["Necrotic Boneplate Battlegear"] },
+	{ "#t13s9_2#", BabbleItemSet["Necrotic Boneplate Armor"] },
+	{ "#t13s10_1#", BabbleItemSet["Colossal Dragonplate Battlegear"] },
+	{ "#t13s10_2#", BabbleItemSet["Colossal Dragonplate Armor"] },
+
 	-- Arathi Basin Sets - Alliance
 	{ "#absa1#", BabbleItemSet["The Highlander's Intent"] },
 	{ "#absa2#", BabbleItemSet["The Highlander's Purpose"] },
@@ -737,7 +761,6 @@ AtlasLoot_TextParsing = {
 	{ "#trophyofthecrusade#", "|TInterface\\Icons\\INV_Misc_Trophy_Argent:0|t" },
 
 	-- Currency Icons - Events
-	{ "#darkmoon#", "|TInterface\\Icons\\INV_Misc_Ticket_Darkmoon_01:0|t" },
 	{ "#valentineday2#", "|TInterface\\Icons\\inv_jewelry_necklace_43:0|t"},
 
 	-- Currency Icons - Factions
@@ -769,7 +792,7 @@ AtlasLoot_TextParsing = {
 function AtlasLoot:FixText(text)
 	if not text or text == "" then return "" end
 	for k in ipairs(AtlasLoot_TextParsing) do
-		text = gsub(text, AtlasLoot_TextParsing[k][1], AtlasLoot_TextParsing[k][2]);
+		text = gsub(text, AtlasLoot_TextParsing[k][1], tostring(AtlasLoot_TextParsing[k][2]));
 	end
 
     englishFaction = UnitFactionGroup("player")

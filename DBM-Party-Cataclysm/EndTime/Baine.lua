@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("EchoBaine", "DBM-Party-Cataclysm", 12)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 6560 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 6810 $"):sub(12, -3))
 mod:SetCreatureID(54431)
 mod:SetModelID(38791)
 mod:SetZone()
@@ -31,8 +31,8 @@ local spamPulverize = 0
 local totemCount = 0
 
 function mod:OnCombatStart(delay)
-	timerTotem:Start(30-delay)
-	timerPulverize:Start(10-delay)
+	timerTotem:Start(10-delay)
+	timerPulverize:Start(30-delay)
 	spamBlast = 0
 	spamPulverize = 0
 	totemCount = 0

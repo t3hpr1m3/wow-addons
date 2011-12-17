@@ -1,4 +1,4 @@
-﻿-- $Id: constants.es.lua 3537 2011-09-08 14:14:53Z hegarol $
+﻿-- $Id: constants.es.lua 3607 2011-10-18 10:35:15Z hegarol $
 --[[
 constants.es.lua --- Traduction ES por maqjav
 This file defines an AceLocale table for all the various text strings needed
@@ -456,15 +456,9 @@ if AL then
 	AL["10/25 Man"] = "10/25 Personas";
 	AL["Epic Set"] = "Conjunto épico";
 	AL["Rare Set"] = "Conjunto superior";
-	AL["Season 1"] = "Temporada 1";
-	AL["Season 2"] = "Temporada 2";
-	AL["Season 3"] = "Temporada 3";
-	AL["Season 4"] = "Temporada 4";
-	AL["Season 5"] = "Temporada 5";
-	AL["Season 6"] = "Temporada 6";
-	AL["Season 7"] = "Temporada 7";
-	AL["Season 8"] = "Temporada 8";
 	AL["Season 9"] = "Temporada 9";
+	AL["Season 10"] = "Temporada 10";
+	AL["Season 11"] = "Temporada 11";
 	AL["Fire"] = "Fuego";
 	AL["Water"] = "Agua";
 	AL["Wind"] = "Aire";
@@ -592,7 +586,6 @@ if AL then
 	AL["Alliance Tabards"] = "Tabardos de la Alianza";
 	AL["Card Game Tabards"] = "Tabardos de cartas del juego";
 	AL["Horde Tabards"] = "Tabardos de la Horda";
-	AL["Neutral Faction Tabards"] = "Tabardos de facciones neutrales";
 	AL["PvP Tabards"] = "Tabardos JcJ";
 	AL["Unobtainable Tabards"] = "Tabardos inconseguibles";
 
@@ -890,11 +883,6 @@ if AL then
 	AL["Templars"] = "Templarios";
 	AL["Dukes"] = "Duques";
 	AL["High Council"] = "Consejero mayor";
-	AL["Barleybrew Brewery"] = "Cervecería Cebadiz"; --Comprobar
-	AL["Thunderbrew Brewery"] = "Cervecería Cebatruenos"; --Comprobar
-	AL["Gordok Brewery"] = "Cervecería Gordok"; --Comprobar
-	AL["Drohn's Distillery"] = "Destilería de Drohn";
-	AL["T'chali's Voodoo Brewery"] = "Cervecería Voodoo de T'chali";
 	AL["Scarshield Quartermaster"] = "Intendente del Escudo del Estigma";
 	AL["Father Flame"] = "Padre llama";
 	--AL["Thomas Yance"] = true,
@@ -978,7 +966,6 @@ if AL then
 	AL["Ripe Disgusting Jar"] = "Tarro desagradable maduro";
 	AL["Cracked Egg"] = "Huevo roto";
 	AL["Small Spice Bag"] = "Bolsa de especias pequeña";
-	AL["Handful of Candy"] = "Puñado de caramelos";
 	AL["Lovely Dress Box"] = "Caja de vestido precioso";
 	AL["Dinner Suit Box"] = "Caja de traje de noche";
 	AL["Bag of Heart Candies"] = "Bolsa de caramelos de corazón";

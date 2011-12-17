@@ -90,7 +90,7 @@ Prat:AddModuleToLoad(function()
   )
   L:AddLocale("ruRU",
   {
-	["(%w+)%s?(.*)"] = true, -- Needs review
+	["(%w+)%s?(.*)"] = true,
 	ChannelColorMemory = "Сохранение цветов каналов",
 	["Remembers the colors of each channel name."] = "Запоминает цвета названия каждого канала.",
 }

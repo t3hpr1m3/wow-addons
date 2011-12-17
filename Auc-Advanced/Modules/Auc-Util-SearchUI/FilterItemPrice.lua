@@ -1,7 +1,7 @@
 --[[
 	Auctioneer - Search UI - Filter IgnoreItemPrice
-	Version: 5.12.5198 (QuirkyKiwi)
-	Revision: $Id: FilterItemPrice.lua 5184 2011-06-24 00:16:48Z Nechckn $
+	Version: 5.13.5246 (BoldBandicoot)
+	Revision: $Id: FilterItemPrice.lua 5232 2011-11-23 17:47:17Z Nechckn $
 	URL: http://auctioneeraddon.com/
 
 	This is a plugin module for the SearchUI that assists in searching by refined paramaters
@@ -31,16 +31,46 @@
 -- Create a new instance of our lib with our parent
 local lib, parent, private = AucSearchUI.NewFilter("ItemPrice")
 if not lib then return end
-local print,decode,_,_,replicate,empty,_,_,_,debugPrint,fill = AucAdvanced.GetModuleLocals()
-local get,set,default,Const = AucSearchUI.GetSearchLocals()
+local aucPrint,decode,_,_,replicate,empty,_,_,_,debugPrint,fill,_TRANS = AucAdvanced.GetModuleLocals()
+local get,set,default,Const,resources = AucSearchUI.GetSearchLocals()
 lib.tabname = "ItemPrice"
 
 -- Set our defaults
 default("ignoreitemprice.enable", true)
 
+-- local constants
+local SHEET_RETRY_THROTTLE = 1
+
 local ignorelist = {}
 private.tempignorelist = {}
 private.sheetdata = {}
+
+function private.UpdateSheet(retryOnly)
+	local missing
+	if retryOnly then
+		if not private.sheetThrottle or GetTime() < private.sheetThrottle then
+			return
+		end
+	end
+	private.sheetdata = {} -- not worth using 'wipe' here as all the subtables get discarded anyway
+	for item, cost in pairs(ignorelist) do
+		local link = AucAdvanced.API.GetLinkFromSig(item)
+		if not link then
+			link = item
+			missing = true
+		end
+		tinsert(private.sheetdata, {link, cost})
+	end
+	if private.ignorelistGUI and private.ignorelistGUI.sheet then
+		private.ignorelistGUI.sheet:SetData(private.sheetdata)
+	end
+	if missing then
+		-- private.sheetThrottle serves double duty as a flag that we need to redo the sheet, and a throttle/timer to prevent us retrying it too soon
+		private.sheetThrottle = GetTime() + SHEET_RETRY_THROTTLE
+	else
+		private.sheetThrottle = nil
+	end
+end
 
 function private.OnEnterSheet(button, row, index)
 	if private.ignorelistGUI.sheet.rows[row][index]:IsShown()then --Hide tooltip for hidden cells
@@ -48,6 +78,8 @@ function private.OnEnterSheet(button, row, index)
 		if link and link:match("|Hitem:%d") then
 			GameTooltip:SetOwner(button, "ANCHOR_RIGHT")
 			GameTooltip:SetHyperlink(link)
+		else
+			private.UpdateSheet(true) -- if no link, try updating the table to fix it
 		end
 	end
 end
@@ -62,41 +94,16 @@ end
 --Processor function
 --this handles any notifications that SearchUI core needs to send us
 function lib.Processor(msg, ...)
-	if msg == "config" then --saved search has changed, so reload the ignorelist
-		ignorelist = get("ignoreitemprice.ignorelist")
-		if not ignorelist then
-			ignorelist = {}
-		end
-		empty(private.sheetdata)
-		for item, cost in pairs(ignorelist) do
-			local link = AucAdvanced.API.GetLinkFromSig(item)
-			if not link then
-				link = item
+	if msg == "config" then
+		local subtype = ...
+		if subtype ~= "changed" then
+			--entire saved search has changed, so reload the ignorelist
+			ignorelist = get("ignoreitemprice.ignorelist")
+			if not ignorelist then
+				ignorelist = {}
 			end
-			table.insert(private.sheetdata, {link, cost})
+			private.UpdateSheet()
 		end
-		if private.ignorelistGUI and private.ignorelistGUI.sheet then
-			private.ignorelistGUI.sheet:SetData(private.sheetdata)
-		end
-	end
-end
-
-lib.Processors = {}
-function lib.Processors.config(msg, ...)
-	ignorelist = get("ignoreitemprice.ignorelist")
-	if not ignorelist then
-		ignorelist = {}
-	end
-	empty(private.sheetdata)
-	for item, cost in pairs(ignorelist) do
-		local link = AucAdvanced.API.GetLinkFromSig(item)
-		if not link then
-			link = item
-		end
-		table.insert(private.sheetdata, {link, cost})
-	end
-	if private.ignorelistGUI and private.ignorelistGUI.sheet then
-		private.ignorelistGUI.sheet:SetData(private.sheetdata)
 	end
 end
 
@@ -110,18 +117,8 @@ function lib.AddIgnore(sig, price, temp)
 		private.tempignorelist[sig] = price
 	else
 		ignorelist[sig] = price
-		set("ignoreitemprice.ignorelist", ignorelist)
-		AucSearchUI.CleanTable(private.sheetdata)
-		for item, cost in pairs(ignorelist) do
-			local link = AucAdvanced.API.GetLinkFromSig(item)
-			if not link then
-				link = item
-			end
-			table.insert(private.sheetdata, {link, cost})
-		end
-		if private.ignorelistGUI and private.ignorelistGUI.sheet then
-			private.ignorelistGUI.sheet:SetData(private.sheetdata)
-		end
+		set("ignoreitemprice.ignorelist", ignorelist) -- not required to save the table, but may trigger notification
+		private.UpdateSheet()
 	end
 end
 
@@ -143,6 +140,12 @@ end
 
 -- This function is automatically called when we need to create our search parameters
 function lib:MakeGuiConfig(gui)
+	if private.MakeGuiConfig then
+		private.MakeGuiConfig(gui)
+	end
+end
+function private.MakeGuiConfig(gui)
+	private.MakeGuiConfig = nil
 	local ScrollSheet = LibStub("ScrollSheet")
 
 	-- Get our tab and populate it with our controls
@@ -161,9 +164,10 @@ function lib:MakeGuiConfig(gui)
 	gui:AddControl(id, "Subhead",     0, "Filter for:")
 	for name, searcher in pairs(AucSearchUI.Searchers) do
 		if searcher and searcher.Search then
-			gui:AddControl(id, "Checkbox", 0, 1, "ignoreitemprice.filter."..name, name)
+			local setting = "ignoreitemprice.filter."..name
+			default(setting, true)
+			gui:AddControl(id, "Checkbox", 0, 1, setting, name)
 			gui:AddTip(id, "Filter ItemPrice (Ignorelist) when searching with "..name)
-			default("ignoreitemprice.filter."..name, true)
 		end
 	end
 
@@ -176,7 +180,7 @@ function lib:MakeGuiConfig(gui)
 	end
 
 	private.ignorelistGUI = CreateFrame("Frame", nil, gui.tabs[id][3])
-	private.ignorelistGUI:SetPoint("BOTTOMRIGHT", gui.tabs[id][3], "TOPRIGHT", -50, -200)
+	private.ignorelistGUI:SetPoint("BOTTOMRIGHT", gui.tabs[id][3], "TOPRIGHT", -50, -295)
 	private.ignorelistGUI:SetPoint("TOPLEFT", gui.tabs[id][3], "TOPRIGHT", -350, -20)
 	private.ignorelistGUI:SetBackdrop({
 		bgFile = "Interface/Tooltips/ChatBubble-Background",
@@ -185,6 +189,7 @@ function lib:MakeGuiConfig(gui)
 		insets = { left = 32, right = 32, top = 32, bottom = 32 }
 	})
 	private.ignorelistGUI:SetBackdropColor(0, 0, 0, 1)
+	private.ignorelistGUI:SetScript("OnShow", function() private.UpdateSheet(true) end)
 
 	private.ignorelistGUI.sheet = ScrollSheet:Create(private.ignorelistGUI, {
 		{ "Item", "TOOLTIP", 170},
@@ -199,8 +204,6 @@ function lib:MakeGuiConfig(gui)
 	private.removebutton:SetWidth(150)
 	private.removebutton:SetScript("OnClick", private.remove)
 	private.removebutton:Disable()
-
-	local selected
 end
 
 --lib.Filter(item, searcher)
@@ -260,4 +263,4 @@ function lib.PostFilter(item, searcher, buyorbid)
 	end
 end
 
-AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.12/Auc-Util-SearchUI/FilterItemPrice.lua $", "$Rev: 5184 $")
+AucAdvanced.RegisterRevision("$URL: http://svn.norganna.org/auctioneer/branches/5.13/Auc-Util-SearchUI/FilterItemPrice.lua $", "$Rev: 5232 $")

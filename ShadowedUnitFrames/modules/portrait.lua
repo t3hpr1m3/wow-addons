@@ -14,11 +14,6 @@ function Portrait:OnEnable(frame)
 	frame:RegisterUnitEvent("UNIT_PORTRAIT_UPDATE", self, "UpdateFunc")
 	frame:RegisterUnitEvent("UNIT_MODEL_CHANGED", self, "Update")
 	
-	if( frame.unitRealType == "party" ) then
-	--	frame:RegisterNormalEvent("PARTY_MEMBER_ENABLE", self, "Update")
-	-- frame:RegisterNormalEvent("PARTY_MEMBER_DISABLE", self, "Update")
-	end
-	
 	frame:RegisterUpdateFunc(self, "UpdateFunc")
 end
 
@@ -80,10 +75,10 @@ function Portrait:Update(frame, event)
 	elseif( type == "2D" ) then
 		frame.portrait:SetTexCoord(0.10, 0.90, 0.10, 0.90)
 		SetPortraitTexture(frame.portrait, frame.unitOwner)
-	-- Using 3D portrait, but the players not in range so swap to 2D
+	-- Using 3D portrait, but the players not in range so swap to question mark
 	elseif( not UnitIsVisible(frame.unitOwner) or not UnitIsConnected(frame.unitOwner) ) then
 		frame.portrait:SetModelScale(4.25)
-		frame.portrait:SetPosition(0, 0, -1.5)
+		frame.portrait:SetPosition(0, 0, -0.4)
 		frame.portrait:SetModel("Interface\\Buttons\\talktomequestionmark.mdx")
 	-- Use animated 3D portrait
 	else

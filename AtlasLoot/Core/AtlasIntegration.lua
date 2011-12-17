@@ -16,7 +16,7 @@ local BLUE = "|cff0070dd";
 local ORANGE = "|cffFF8400";
 
 StaticPopupDialogs["ATLASLOOT_INCOMPATIBLE_ATLAS"] = {
-	text = "Please note that AtlasLoot v6 is only compatible with Atlas 1.18.0. AtlasLoot detected that you have an older Atlas version installed and thus Atlas integration was disabled.",
+	text = "Please note that AtlasLoot v6.05.00 is only compatible with Atlas 1.21.0. AtlasLoot detected that you have an older Atlas version installed and thus Atlas integration was disabled.",
 	button1 = AL["OK"],
 	OnAccept = function()
 		
@@ -153,63 +153,8 @@ function AtlasLoot:AtlasRefreshHook()
 		base[k] = v;
 	end
 	
-	--Display the newly selected texture
-	AtlasMap:ClearAllPoints();
-	AtlasMap:SetWidth(512);
-	AtlasMap:SetHeight(512);
-	AtlasMap:SetPoint("TOPLEFT", "AtlasFrame", "TOPLEFT", 18, -84);
-	for k,v in pairs(Atlas_CoreMapsKey) do
-		if(zoneID == v) then
-			AtlasMap:SetTexture("Interface\\AddOns\\Atlas\\Images\\Maps\\"..zoneID);
-			break;
-		else
-			for ka,va in pairs(ATLAS_PLUGINS) do
-				for kb,vb in pairs(ATLAS_PLUGINS[ka]) do
-					if (zoneID == vb) then
-						AtlasMap:SetTexture("Interface\\AddOns\\"..ka.."\\Images\\"..zoneID);
-						break;
-					end
-				end
-			end
-		end
-	end
+	Atlas_MapRefresh();
 	
-	--Setup info panel above boss listing
-	local tName = base.ZoneName[1];
-	if ( AtlasOptions.AtlasAcronyms and base.Acronym ~= nil) then
-		local _RED = "|cffcc3333";
-		tName = tName.._RED.." ["..base.Acronym.."]";
-	end
-	AtlasText_ZoneName_Text:SetText(tName);
-	
-	local tLoc = "";
-	local tLR = "";
-	local tML = "";
-	local tPL = "";
-	if ( base.Location ) then
-		tLoc = ATLAS_STRING_LOCATION..": "..base.Location[1];
-	end
-	if ( base.LevelRange ) then
-		tLR = ATLAS_STRING_LEVELRANGE..": "..base.LevelRange;
-	end
-	if ( base.MinLevel ) then
-		tML = ATLAS_STRING_MINLEVEL..": "..base.MinLevel;
-	end
-	if ( base.PlayerLimit ) then
-		tPL = ATLAS_STRING_PLAYERLIMIT..": "..base.PlayerLimit;
-	end
-	AtlasText_Location_Text:SetText(tLoc);
-	AtlasText_LevelRange_Text:SetText(tLR);
-	AtlasText_MinLevel_Text:SetText(tML);
-	AtlasText_PlayerLimit_Text:SetText(tPL);
-	
-	-- Check if Journal Encounter Instance is available
-	if ( base.JournalInstanceID ) then
-		Atlas_JournalEncounter_InstanceButton:Show();
-	else
-		Atlas_JournalEncounter_InstanceButton:Hide();
-	end
-
 	Atlastextbase = base;
 	
 	-- Check Tables
@@ -383,15 +328,7 @@ function AtlasLoot:AtlasScrollBar_Update()
 				break
 			end
 		end
---[[ Comment out as now Atlas has its own EJ integration
-		if AtlasLoot_LootTableRegister[contentTable] and AtlasLoot_LootTableRegister[contentTable][zoneID] and AtlasLoot_LootTableRegister[contentTable][zoneID]["Info"] and AtlasLoot_LootTableRegister[contentTable][zoneID]["Info"].EncounterJournalID then
-			AtlasFrame.EncounterJournal.info = { AtlasLoot_LootTableRegister[contentTable][zoneID]["Info"].EncounterJournalID, nil }
-			AtlasLoot:EncounterJournal_ButtonsRefresh()	
-		else
-			AtlasFrame.EncounterJournal.info = nil
-			AtlasLoot:EncounterJournal_ButtonsRefresh()	
-		end
-]]
+
 		--Make note of how far in the scroll frame we are
 		for line=1,ATLAS_NUM_LINES do
 			lineplusoffset = line + FauxScrollFrame_GetOffset(AtlasScrollBar);
@@ -466,10 +403,14 @@ function AtlasLoot:Boss_OnClick()
 	--If the loot table was already shown and boss clicked again, hide the loot table and fix boss list icons
 	if self.Selected:IsVisible() then
 		self.Selected:Hide()
+		AtlasMap_Text:Show()
 		self.Loot:Show()
 		AtlasLootItemsFrame:Hide()
 		AtlasLootItemsFrame.activeBoss = nil
 	else	
+		if ( AtlasMap_Text:IsShown() ) then
+			AtlasMap_Text:Hide()
+		end
 		--If an loot table is associated with the button, show it.  Note multiple tables need to be checked due to the database structure
 		--if AtlasLoot_LootTableRegister[contentTable][zoneID] and AtlasLoot_LootTableRegister[contentTable][zoneID]["Bosses"] then
 		local LootTable, InfoTable = AtlasLoot:GetBossTableZoneID(zoneID)
@@ -509,4 +450,5 @@ function AtlasLoot:Boss_OnClick()
 	if (AtlasQuestInsideFrame) then
 		HideUIPanel(AtlasQuestInsideFrame);
 	end
+	
 end

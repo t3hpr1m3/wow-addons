@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Siamat", "DBM-Party-Cataclysm", 5)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 6499 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 6726 $"):sub(12, -3))
 mod:SetCreatureID(44819)
 mod:SetModelID(35231)
 mod:SetZone()
@@ -72,7 +72,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 end
 
 function mod:SPELL_SUMMON(args)
-	if args:IsSpellID(84547, 84553, 84554) or args:IsSpellID(90013, 90014) then
+	if args:IsSpellID(84547, 84553, 84554, 90013, 90014) then
 		warnStaticShock:Show()
 		servantSpawn = servantSpawn + 1
 		if servantSpawn == 3 then--Third add spawned

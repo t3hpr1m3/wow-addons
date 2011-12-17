@@ -188,20 +188,20 @@ Prat:AddModuleToLoad(function()
     L:AddLocale("ruRU",
     {
 	["Chat history options."] = "Настройки истории чата.",
-	["Color GMOTD"] = "Цвет  GMOTD", -- Needs review
+	["Color GMOTD"] = "Цвет  GMOTD",
 	-- ["Colors the GMOTD label"] = "",
 	History = "История",
 	["Maximum number of lines of command history to save."] = "Максимальное число строк сохранённых в истории команд.",
 	["Save Command History"] = "Сохранять историю команд",
 	["Saves command history between sessions (for use with alt+up arrow or just the up arrow)"] = "Сохранять историю команд между сеансами (для использования используйте alt+ стрелка вверх или просто стрелку вверх)",
 	-- Scrollback = "",
-	["Scrollback Options"] = "Вернуть опции", -- Needs review
+	["Scrollback Options"] = "Вернуть опции",
 	["Set Chat Lines"] = "Задать число строк чата",
 	["Set Command History"] = "История команд",
 	["Set the number of lines of chat history for each window."] = "Установите число строк истории чата для всех окон чата.",
-	["Store the chat lines between sessions"] = "Сохранять строки чата между сессиями", -- Needs review
+	["Store the chat lines between sessions"] = "Сохранять строки чата между сессиями",
 	-- delaygmotd_desc = "",
-	delaygmotd_name = "задержка GMOTD", -- Needs review
+	delaygmotd_name = "задержка GMOTD",
 	-- divider = "",
 	-- scrollbacklen_desc = "",
 	-- scrollbacklen_name = "",
@@ -217,7 +217,7 @@ Prat:AddModuleToLoad(function()
 	["Maximum number of lines of command history to save."] = "存储命令记录最大行数",
 	["Save Command History"] = "命令记录存储",
 	["Saves command history between sessions (for use with alt+up arrow or just the up arrow)"] = "存储会话之间命令的历史记录(使用alt+上箭头键或仅上箭头键)",
-	-- Scrollback = "",
+	Scrollback = "回卷", -- Needs review
 	-- ["Scrollback Options"] = "",
 	["Set Chat Lines"] = "聊天行设置",
 	["Set Command History"] = "命令历史记录",
@@ -225,9 +225,9 @@ Prat:AddModuleToLoad(function()
 	-- ["Store the chat lines between sessions"] = "",
 	-- delaygmotd_desc = "",
 	delaygmotd_name = "延迟 GMOTD", -- Needs review
-	-- divider = "",
+	divider = "========== 回卷结束 ==========", -- Needs review
 	-- scrollbacklen_desc = "",
-	-- scrollbacklen_name = "",
+	scrollbacklen_name = "回卷长度", -- Needs review
 }
 
     )
